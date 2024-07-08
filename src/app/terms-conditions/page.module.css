@@ -1,0 +1,269 @@
+.next {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-weight: 500;
+  display: inline-block;
+  width: 4.375rem;
+  height: 1.688rem;
+}
+.frameChild {
+  position: absolute;
+  top: 1.75rem;
+  left: 0.438rem;
+  border-top: 1px solid var(--color-black);
+  box-sizing: border-box;
+  width: 3.563rem;
+  height: 0.063rem;
+}
+.nextParent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4.375rem;
+  height: 1.813rem;
+}
+.vectorIcon,
+.vectorIcon1 {
+  position: absolute;
+  height: 57.14%;
+  width: 8.82%;
+  top: 17.86%;
+  right: 11.76%;
+  bottom: 25%;
+  left: 79.41%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: contain;
+}
+.vectorIcon1 {
+  right: 0;
+  left: 91.18%;
+}
+.frameParent {
+  position: absolute;
+  top: 55.375rem;
+  left: 38.875rem;
+  width: 6.375rem;
+  height: 1.75rem;
+  display: none;
+  cursor: pointer;
+  font-size: var(--font-size-5xl);
+  font-family: var(--font-nobile);
+}
+.ifYouAlready,
+.signUp {
+  position: absolute;
+  left: 14rem;
+  text-transform: capitalize;
+  display: none;
+}
+.signUp {
+  top: 17.875rem;
+  font-size: var(--font-size-11xl);
+  font-weight: 500;
+  min-width: 7.188rem;
+  white-space: nowrap;
+}
+.ifYouAlready {
+  top: 22.063rem;
+  width: 20.75rem;
+}
+.youCan {
+  white-space: pre-wrap;
+}
+.loginHere {
+  font-weight: 600;
+}
+.youCanLoginContainer {
+  position: absolute;
+  top: 23.938rem;
+  left: 14rem;
+  text-transform: capitalize;
+  display: none;
+  width: 19.25rem;
+}
+.email {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 2.25rem;
+}
+.enterYourEmail {
+  position: absolute;
+  top: 48.44%;
+  left: 6.29%;
+  font-size: var(--font-size-base);
+  text-transform: capitalize;
+  color: var(--color-darkslategray-200);
+}
+.instanceChild {
+  position: absolute;
+  height: 3.13%;
+  width: 100%;
+  top: 96.88%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-darkslategray-200);
+}
+.message1Icon {
+  position: absolute;
+  height: 26.56%;
+  width: 3.96%;
+  top: 54.69%;
+  right: 96.04%;
+  bottom: 18.75%;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: contain;
+}
+.emailParent {
+  position: absolute;
+  top: 28.688rem;
+  left: 14rem;
+  width: 26.813rem;
+  height: 4rem;
+  display: none;
+  font-size: var(--font-size-smi);
+  color: var(--color-darkgray);
+}
+.termsConditionAndPrivacyPoChild {
+  position: absolute;
+  top: 45.75rem;
+  left: 14.063rem;
+  background-color: var(--color-darkgray);
+  width: 26.813rem;
+  height: 0.125rem;
+  display: none;
+}
+.confrimYourPassword {
+  position: absolute;
+  top: 43.75rem;
+  left: 15.75rem;
+  text-transform: capitalize;
+  display: none;
+}
+.invisible1Icon,
+.padlock1Icon {
+  position: absolute;
+  top: 43.938rem;
+  left: 14rem;
+  width: 1.063rem;
+  height: 1.063rem;
+  overflow: hidden;
+}
+.invisible1Icon {
+  top: 44.313rem;
+  left: 40rem;
+  width: 0.875rem;
+  height: 0.875rem;
+  display: none;
+}
+.password,
+.termsConditionAndPrivacyPoItem {
+  position: absolute;
+  left: 14.063rem;
+  display: none;
+}
+.password {
+  top: 35.813rem;
+  font-size: var(--font-size-smi);
+  font-weight: 500;
+  color: var(--color-darkgray);
+  min-width: 4rem;
+}
+.termsConditionAndPrivacyPoItem {
+  top: 39.688rem;
+  background-color: var(--color-darkgray);
+  width: 26.813rem;
+  height: 0.125rem;
+}
+.enterYourPassword {
+  position: absolute;
+  top: 37.688rem;
+  left: 15.75rem;
+  text-transform: capitalize;
+  display: none;
+}
+.invisible1Icon1,
+.padlock1Icon1 {
+  position: absolute;
+  top: 38rem;
+  left: 14rem;
+  width: 1.063rem;
+  height: 1.063rem;
+  overflow: hidden;
+}
+.invisible1Icon1 {
+  top: 38.25rem;
+  left: 40rem;
+  width: 0.875rem;
+  height: 0.875rem;
+}
+.termsConditionAnd {
+  top: 46.688rem;
+  left: 15.688rem;
+  font-size: var(--font-size-smi);
+  text-decoration: underline;
+  text-transform: capitalize;
+  font-weight: 500;
+  color: var(--color-darkgray);
+}
+.color,
+.iconColor2,
+.termsConditionAnd {
+  position: absolute;
+  display: none;
+}
+.color {
+  top: 46.688rem;
+  left: 14.063rem;
+  border-radius: var(--br-10xs);
+  background-color: var(--color-chocolate-100);
+  width: 1.031rem;
+  height: 1rem;
+}
+.iconColor2 {
+  top: 47.063rem;
+  left: 14.375rem;
+  width: 0.413rem;
+  height: 0.306rem;
+}
+.termsConditionAndPrivacyPo {
+  width: 100%;
+  height: 97.25rem;
+  position: relative;
+  background-color: var(--color-whitesmoke-100);
+  overflow: hidden;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  font-size: var(--font-size-base);
+  color: var(--color-darkslategray-200);
+  font-family: var(--font-poppins);
+}
+@media screen and (max-width: 1325px) {
+  .termsConditionAndPrivacyPo {
+    height: auto;
+    min-height: 1556;
+  }
+}
+@media screen and (max-width: 800px) {
+  .signUp {
+    font-size: var(--font-size-5xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .next {
+    font-size: var(--font-size-lgi);
+  }
+  .signUp {
+    font-size: var(--font-size-lg);
+  }
+}

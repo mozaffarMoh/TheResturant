@@ -1,0 +1,268 @@
+.pasteHereIcon {
+  position: absolute;
+  height: 100%;
+  width: calc(100% - 228px);
+  top: 0;
+  right: 14.25rem;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.lastUpdatedOn,
+.termsOfUse {
+  position: relative;
+}
+.lastUpdatedOn {
+  align-self: stretch;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-gray-200);
+}
+.headerContent,
+.termsOfUseParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.termsOfUseParent {
+  flex: 1;
+  flex-direction: column;
+  padding: 0 var(--padding-12xs) 0 var(--padding-11xl);
+  gap: var(--gap-7xs);
+}
+.headerContent {
+  width: 23.438rem;
+  flex-direction: row;
+  padding: 0 var(--padding-54xl);
+}
+.fixedHeader,
+.fixedHeaderChild,
+.headerContent {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.fixedHeaderChild {
+  width: 23.5rem;
+  height: 0.063rem;
+  position: relative;
+  border-top: 1px solid var(--color-gainsboro-100);
+}
+.fixedHeader {
+  align-self: stretch;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-7xl-5) var(--padding-xl) var(--padding-6xl-5);
+  gap: var(--gap-13xl);
+}
+.clause11 {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  padding-left: var(--padding-8xl);
+}
+.clause1,
+.loremIpsumDolor {
+  position: relative;
+  display: inline-block;
+}
+.clause1 {
+  min-width: 6.625rem;
+}
+.loremIpsumDolor {
+  width: 32.875rem;
+  font-size: var(--font-size-base);
+  line-height: 150%;
+  max-width: 100%;
+}
+.jenBiography {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-4xs);
+  flex-shrink: 0;
+  max-width: 100%;
+}
+.clause2 {
+  position: relative;
+  display: inline-block;
+  min-width: 6.063rem;
+}
+.blankLine,
+.loremIpsumDolor1,
+.loremIpsumDolor2 {
+  margin: 0;
+}
+.loremIpsumDolorContainer {
+  width: 32.5rem;
+  position: relative;
+  font-size: var(--font-size-base);
+  line-height: 150%;
+  display: inline-block;
+  max-width: 100%;
+}
+.jenBiography1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-4xs);
+  flex-shrink: 0;
+  max-width: 100%;
+}
+.clause3 {
+  position: relative;
+  display: inline-block;
+  min-width: 6.063rem;
+}
+.blankLine1,
+.loremIpsumDolor3,
+.loremIpsumDolor4 {
+  margin: 0;
+}
+.loremIpsumDolorContainer1 {
+  width: 32.063rem;
+  position: relative;
+  font-size: var(--font-size-base);
+  line-height: 150%;
+  display: inline-block;
+  max-width: 100%;
+}
+.body,
+.bodyContent,
+.jenBiography2 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.jenBiography2 {
+  align-self: stretch;
+  flex-direction: column;
+  gap: var(--gap-4xs);
+  flex-shrink: 0;
+  max-width: 100%;
+}
+.body,
+.bodyContent {
+  box-sizing: border-box;
+}
+.body {
+  height: 32.188rem;
+  width: 39.313rem;
+  flex-direction: column;
+  padding: 0 0 var(--padding-88xl);
+  gap: var(--gap-11xl);
+  max-width: 110%;
+  flex-shrink: 0;
+}
+.bodyContent {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 0 0 var(--padding-12xl);
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--font-size-xl);
+}
+.scrollbarTrack {
+  position: absolute;
+  top: calc(50% - 291.4px);
+  left: calc(50% - 4.15px);
+  border-radius: var(--br-31xl);
+  background-color: var(--color-chocolate-200);
+  width: 0.531rem;
+  height: 36.456rem;
+}
+.scrollbarThumb {
+  position: absolute;
+  top: calc(50% - 291.8px);
+  left: calc(50% - 4.35px);
+  background-color: var(--color-chocolate-100);
+  width: 0.5rem;
+  height: 5.438rem;
+  z-index: 1;
+}
+.scrollbarTrackParent {
+  height: 36.475rem;
+  width: 0.544rem;
+  position: relative;
+  flex-shrink: 0;
+}
+.iphone13Mini22Child,
+.scrollbar {
+  position: absolute;
+  margin: 0 !important;
+  z-index: 1;
+}
+.scrollbar {
+  right: 1.75rem;
+  bottom: 1.688rem;
+  border-radius: var(--br-6xl);
+  background-color: var(--color-whitesmoke-200);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.iphone13Mini22Child {
+  width: 2.313rem;
+  height: 2.313rem;
+  top: 1.25rem;
+  right: 1.063rem;
+}
+.iphone13Mini22,
+.iphone13MiniScreen {
+  background-color: var(--white);
+  overflow: hidden;
+  max-width: 100%;
+}
+.iphone13Mini22 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 var(--padding-100xl);
+  box-sizing: border-box;
+  gap: var(--gap-11xl);
+  height: 100%;
+  z-index: 1;
+}
+.iphone13MiniScreen {
+  align-self: stretch;
+  height: 50.75rem;
+  position: relative;
+  border-radius: var(--br-6xl);
+  flex-shrink: 0;
+  z-index: 7;
+  text-align: center;
+  font-size: var(--font-size-12xl-3);
+  color: var(--color-darkslategray-100);
+  font-family: var(--font-lato);
+}
+@media screen and (max-width: 800px) {
+  .termsOfUse {
+    font-size: var(--font-size-6xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .termsOfUse {
+    font-size: var(--font-size-lgi);
+  }
+  .clause1,
+  .clause2,
+  .clause3 {
+    font-size: var(--font-size-base);
+  }
+}

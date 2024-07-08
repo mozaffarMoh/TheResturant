@@ -1,0 +1,41 @@
+.logoIcon {
+  width: 16.25rem;
+  height: 6.75rem;
+  position: absolute;
+  margin: 0 !important;
+  top: 7.125rem;
+  left: 14rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.logoBg,
+.logoParent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+}
+.logoBg {
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-gray-600);
+  border: 1px solid var(--color-gray-500);
+  z-index: 6;
+}
+.logoParent {
+  width: 60.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: var(--padding-155xl) var(--padding-165xl) var(--padding-59xl)
+    var(--padding-166xl);
+  max-width: 100%;
+  text-align: center;
+  font-size: var(--font-size-12xl-3);
+  color: var(--color-darkslategray-100);
+  font-family: var(--font-lato);
+}
