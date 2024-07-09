@@ -15,7 +15,9 @@ const AuthFooter = () => {
       component="footer"
       className={styles.footer}
     >
-      <p className="text-large-title line-h-0 mt-2">Subscribe Our Newsletter</p>
+      <p className="text-large-title text-white-new line-h-0 mt-2">
+        Subscribe Our Newsletter
+      </p>
       <p className="text-med-fw400 fc-light-white">
         Your Download Should Start Automatically, If Not Click Here. Should I
         Give Up, Huh?

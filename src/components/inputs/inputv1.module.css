@@ -1,0 +1,15 @@
+.generalInput {
+  border-left: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: 2px solid black;
+  border-radius: 0px;
+  width: 25rem;
+  @media (max-width: 576px) {
+    width: 18rem;
+  }
+}
+.generalInput:focus:active {
+  outline: none !important;
+  border: none !important;
+}

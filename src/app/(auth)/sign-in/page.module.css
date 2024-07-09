@@ -1,15 +1,43 @@
-.signIn {
+.TwoSideContainer {
+  height: 110vh;
+  @media (max-width: 576px) {
+    height: auto;
+  }
+}
+.signInContainer {
   width: 100%;
 
-  position: relative;
   background-color: var(--color-whitesmoke-100);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-start;
-  /* padding: 0 0 var(--padding-473xl); */
-  box-sizing: border-box;
   line-height: normal;
   letter-spacing: normal;
+}
+.main-box {
+  display: 'flex';
+  flex-direction: 'column';
+  justify-content: 'center';
+  align-items: 'center';
+}
+
+.logoIcon {
+  height: 6.75rem;
+  width: 16.25rem;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.loginBgImage {
+  position: relative;
+  width: 20rem;
+  height: 6rem;
+  margin-bottom: 2rem;
+  @media (max-width: 576px) {
+    width: 16rem;
+    height: 6rem;
+  }
 }

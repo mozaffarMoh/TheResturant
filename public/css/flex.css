@@ -32,6 +32,13 @@
   gap: 0.2rem;
   flex-direction: column;
 }
+.sm-flex-row-row-center-between{
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  flex-direction: row;
+ 
+}
 .gap05{
   gap : 0.5rem
 }
