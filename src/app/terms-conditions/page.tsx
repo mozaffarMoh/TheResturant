@@ -1,7 +1,6 @@
 'use client';
 import type { NextPage } from 'next';
 import { useCallback } from 'react';
-import GroupComponent from '@/components/group-component';
 import { useRouter } from 'next/navigation';
 
 import GroupComponent1 from '@/components/group-component1';
@@ -17,7 +16,6 @@ const TermsConditionAndPrivacyPo: NextPage = () => {
 
   return (
     <div className={styles.termsConditionAndPrivacyPo}>
-      <GroupComponent />
       <div
         className={styles.frameParent}
         onClick={onGroupContainerClick}
