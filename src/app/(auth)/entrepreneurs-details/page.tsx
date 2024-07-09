@@ -3,7 +3,6 @@ import type { NextPage } from 'next';
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
-import GroupComponent2 from '@/components/group-component2';
 import styles from './page.module.css';
 
 const EntrepreneursDetails: NextPage = () => {
@@ -236,7 +235,6 @@ const EntrepreneursDetails: NextPage = () => {
           <div className={styles.lookForwardTo}>look forward to success</div>
         </div>
       </main>
-      <GroupComponent2 propMarginRight="-4.625rem" />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 .signIn {
   width: 100%;
-  height: 97.25rem;
+
   position: relative;
   background-color: var(--color-whitesmoke-100);
   overflow: hidden;
@@ -8,13 +8,8 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-start;
-  padding: 0 0 var(--padding-473xl);
+  /* padding: 0 0 var(--padding-473xl); */
   box-sizing: border-box;
   line-height: normal;
   letter-spacing: normal;
-}
-@media screen and (max-width: 1325px) {
-  .signIn {
-    height: auto;
-  }
 }

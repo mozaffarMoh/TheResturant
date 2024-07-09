@@ -1,0 +1,17 @@
+.w-full{
+     width: 100%;
+}
+
+.w-25{
+     width:25%;
+}
+.w-50{
+     width:50%;
+}
+.w-75{
+     width:75%;
+}
+
+.mt-2{
+     margin-top: 2rem;
+}

@@ -3,7 +3,6 @@ import type { NextPage } from 'next';
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
-import GroupComponent2 from '@/components/group-component2';
 import styles from './page.module.css';
 
 const Details: NextPage = () => {
@@ -139,7 +138,6 @@ const Details: NextPage = () => {
           <h3 className={styles.loremIpsumIs}>{`Lorem Ipsum is simply `}</h3>
         </div>
       </section>
-      <GroupComponent2 />
     </div>
   );
 };

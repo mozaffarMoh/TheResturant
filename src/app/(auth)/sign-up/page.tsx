@@ -1,7 +1,6 @@
 'use client';
 import type { NextPage } from 'next';
 import { useCallback } from 'react';
-import GroupComponent from '@/components/group-component';
 import { useRouter } from 'next/navigation';
 import GroupComponent1 from '@/components/group-component1';
 import styles from './page.module.css';
@@ -15,7 +14,6 @@ const SignUp: NextPage = () => {
 
   return (
     <div className={styles.signUp}>
-      <GroupComponent />
       <div
         className={styles.nextButtonParent}
         onClick={onGroupContainerClick}
@@ -47,7 +45,7 @@ const SignUp: NextPage = () => {
         alt=""
         src="/logo1.svg"
       />
-      <GroupComponent1 />
+
       <h2 className={styles.signUp1}>Sign up</h2>
       <div className={styles.ifYouAlready}>
         If you already have an account register

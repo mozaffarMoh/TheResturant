@@ -1,0 +1,115 @@
+/*
+--font-size-reg: 0.875rem; 14px
+--font-size-medium: 0.9375rem; 15px
+--font-size-large: 1.875rem  ;30px
+--font-size-xlarge: 3.75rem; 60px
+--font-size-xlarge-title: 3rem ; 48px
+--clamp-font-size-menu: clamp(0.56rem, -1.0303rem + 2.5702vw, 0.9375rem); 
+
+1.75rem  ;  28px
+2.75rem ; 44px
+3.875rem; 62px
+*/
+.text-reg {
+  /* color: black; */
+  font-size: var(--font-size-reg);
+  font-weight: 400;
+  line-height: 1.75rem;
+}
+
+.text-reg-fw500 {
+  /* color: black; */
+  font-size: var(--font-size-reg);
+  font-weight: 500;
+  line-height: 1.75rem;
+}
+.text-med-fw400 {
+  /* color: black; */
+  font-size: var(--font-size-medium);
+  font-weight: 400;
+  line-height: 1.75rem;
+}
+.text-med {
+  /* color: black; */
+  font-size: var(--font-size-medium);
+  font-weight: 500;
+  line-height: 1.75rem;
+}
+.text-med-fw600 {
+  /* color: black; */
+  font-size: var(--font-size-medium);
+  font-weight: 600;
+  line-height: 1.75rem;
+}
+.text-med-fw700 {
+  /* color: black; */
+  font-size: var(--font-size-medium);
+  font-weight: 700;
+  line-height: 1.75rem;
+}
+
+.text-xlarge-orange {
+  /* color: var(--secondary-color-light); */
+  font-size: var(--font-size-xlarge);
+  font-weight: 600;
+  line-height: 2.75rem;
+}
+
+.text-large-title {
+  /* color: var(--primary-color); */
+  font-size: var(--font-size-large);
+  font-weight: 700;
+  line-height: 3rem;
+}
+.text-xlarge-title {
+  /* color: var(--primary-color); */
+  font-size: var(--font-size-double-high-medium);
+  font-weight: 700;
+  line-height: 3rem;
+}
+.text-med-xlarge-title {
+  /* color: var(--primary-color); */
+  font-size: var(--font-size-med-xlarge);
+  font-weight: 700;
+  line-height: 3rem;
+}
+.sub-text-large {
+  /* color: var(--primary-color); */
+  font-size: var(--font-size-high-medium);
+  font-weight: 400;
+  line-height: 2.75rem;
+}
+
+.text-white-new {
+  color: var(--white-text) !important;
+}
+.fc-light-white{
+  color : rgba(255,255,255,0.8) !important
+}
+
+
+
+.text-underline {
+  text-decoration: underline;
+}
+.line-h-0 {
+  line-height: 0px !important;
+}
+.line-h-96 {
+  line-height: 4rem !important;
+}
+
+/* font size 20px */
+.fs-20 {
+  font-size: 1.25rem !important;
+}
+
+.fw500 {
+  font-weight: 500 !important;
+}
+.fw600 {
+  font-weight: 60 !important;
+}
+.fw700 {
+  font-weight: 700 !important;
+}

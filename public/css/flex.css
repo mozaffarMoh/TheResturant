@@ -1,0 +1,46 @@
+/* This read as flex as row center center when go small < 576px go to column  */
+.sm-flex-row-col-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.2rem;
+}
+
+@media (max-width: 576px) {
+  .sm-flex-row-col-center-center {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+.sm-flex-row-row-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.2rem;
+}
+.sm-flex-col-col {
+  display: flex;
+  gap: 0.2rem;
+  flex-direction: column;
+}
+.sm-flex-col-col-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+  flex-direction: column;
+}
+.gap05{
+  gap : 0.5rem
+}
+.gap1{
+  gap : 1rem;
+}
+.gap2{
+  gap : 2rem;
+}
+.gap1{
+  gap : 3rem;
+}
