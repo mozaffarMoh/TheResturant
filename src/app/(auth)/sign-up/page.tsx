@@ -1,120 +1,129 @@
-'use client';
 import type { NextPage } from 'next';
-import { useCallback } from 'react';
-import { useRouter } from 'next/navigation';
-import GroupComponent1 from '@/components/group-component1';
-import styles from './page.module.css';
 
-const SignUp: NextPage = () => {
-  const router = useRouter();
+import { Box, Button, Checkbox, Grid, Paper } from '@mui/material';
+import Link from 'next/link';
+import { Radio } from '@mui/joy';
+import { ClosedEyeSVG, LockSVG, MessageSVG } from '../../../../assets/icons';
+import InputV1 from '@/components/inputs/InputV1';
+import { loginBgImage } from '@/constant/images';
+import { buttonPrimaryColor } from '@/constant/color';
+import styles from '../sign-in/page.module.css';
 
-  const onGroupContainerClick = useCallback(() => {
-    router.push('/details');
-  }, [router]);
-
+const SingUp: NextPage = () => {
   return (
-    <div className={styles.signUp}>
-      <div
-        className={styles.nextButtonParent}
-        onClick={onGroupContainerClick}
-      >
-        <div className={styles.nextButton}>
-          <h3 className={styles.next}> Next</h3>
-          <div className={styles.nextButtonChild} />
-        </div>
-        <div className={styles.progressContainer}>
-          <div className={styles.progressDots}>
-            <img
-              className={styles.progressDotIcon}
-              loading="lazy"
-              alt=""
-              src="/vector.svg"
-            />
-            <img
-              className={styles.progressDotIcon1}
-              loading="lazy"
-              alt=""
-              src="/vector.svg"
-            />
-          </div>
-        </div>
-      </div>
-      <img
-        className={styles.logoIcon}
-        loading="lazy"
-        alt=""
-        src="/logo1.svg"
-      />
+    <div className={styles.signInContainer}>
+      <div className="w-full ">
+        <Grid
+          container
+          component="main"
+          className={styles.TwoSideContainer}
+        >
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={6}
+            component={Paper}
+            elevation={6}
+            square
+            className="sm-flex-row-row-center-center"
+          >
+            <Box
+              className="main-box"
+              sx={{ mt: 4 }}
+            >
+              <div className="mb-1">
+                <img
+                  src={loginBgImage}
+                  alt="image"
+                />
+              </div>{' '}
+              <div className="mb-2 ">
+                <p className=" text-large-title m-0">Sign Up</p>
+                <p className="text-med">
+                  If you don’t have an account register
+                </p>
+                <p className="text-med ">
+                  You can{' '}
+                  <Link
+                    href={'/sign-in'}
+                    className="fw700 text-underline-none fc-black"
+                  >
+                    Login Here !
+                  </Link>
+                </p>
+              </div>
+              <div>
+                <div className="mb-3">
+                  <label className="fc-light-black">Email</label>
+                  <InputV1 startIcon={<MessageSVG />} />
+                </div>
+                <div className="mb-1">
+                  <label className="fc-light-black">Password</label>
+                  <div className="mb-2">
+                    <InputV1
+                      label={'Enter Your Password'}
+                      startIcon={<LockSVG />}
+                      endIcon={<ClosedEyeSVG />}
+                      isPassword
+                    />
+                  </div>
 
-      <h2 className={styles.signUp1}>Sign up</h2>
-      <div className={styles.ifYouAlready}>
-        If you already have an account register
-      </div>
-      <div className={styles.youCanLoginContainer}>
-        <span className={styles.youCan}>{`You can   `}</span>
-        <span className={styles.loginHere}>Login here !</span>
-      </div>
-      <div className={styles.emailParent}>
-        <div className={styles.email}>Email</div>
-        <div className={styles.emailFieldContainer}>
-          <div className={styles.messageContainer}>
-            <img
-              className={styles.message1Icon}
-              alt=""
-              src="/message-1.svg"
-            />
-          </div>
-          <input
-            className={styles.enterYourEmail}
-            placeholder="Enter your email address"
-            type="text"
+                  <InputV1
+                    label={'Confirm Your Password'}
+                    startIcon={<LockSVG />}
+                    endIcon={<ClosedEyeSVG />}
+                    isPassword
+                  />
+                </div>
+                <div className="sm-flex-row-row-center-start mb-1">
+                  <div>
+                    {' '}
+                    <Checkbox
+                      defaultChecked
+                      sx={{
+                        display: 'inline-block',
+                        color: buttonPrimaryColor,
+                        '&.Mui-checked': {
+                          color: 'orange',
+                        },
+                      }}
+                    />
+                  </div>
+
+                  <p>Terms Condition and Privacy Policy</p>
+                </div>
+                <div>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      borderRadius: '50px',
+                      backgroundColor: buttonPrimaryColor,
+                      marginBottom: '4rem',
+                    }}
+                  >
+                    Next &gt; &gt;
+                  </Button>
+                </div>
+              </div>
+            </Box>
+          </Grid>
+          <Grid
+            item
+            xs={false}
+            sm={4}
+            md={6}
+            sx={{
+              backgroundImage: 'url("/register-bg.png")',
+              backgroundColor: 'gray',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
           />
-        </div>
-        <div className={styles.instanceChild} />
-      </div>
-      <div className={styles.passwordInput} />
-      <div className={styles.confrimYourPassword}>Confrim your Password</div>
-      <img
-        className={styles.padlock1Icon}
-        loading="lazy"
-        alt=""
-        src="/padlock-11.svg"
-      />
-      <img
-        className={styles.invisible1Icon}
-        loading="lazy"
-        alt=""
-        src="/invisible-1.svg"
-      />
-      <div className={styles.password}>Password</div>
-      <div className={styles.passwordInput1} />
-      <div className={styles.enterYourPassword}>Enter your Password</div>
-      <img
-        className={styles.padlock1Icon1}
-        loading="lazy"
-        alt=""
-        src="/padlock-11.svg"
-      />
-      <img
-        className={styles.invisible1Icon1}
-        loading="lazy"
-        alt=""
-        src="/invisible-1.svg"
-      />
-      <div className={styles.termsConditionAnd}>
-        terms condition and privacy policy
-      </div>
-      <div className={styles.icon}>
-        <div className={styles.color} />
-        <img
-          className={styles.iconColor2}
-          loading="lazy"
-          alt=""
-          src="/-icon-color2.svg"
-        />
+        </Grid>
       </div>
     </div>
   );
 };
 
-export default SignUp;
+export default SingUp;

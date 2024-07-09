@@ -7,18 +7,20 @@ interface inputV1Props {
   startIcon?: ReactElement | null;
   endIcon?: ReactElement | null;
   isPassword?: boolean;
+  label?: string;
 }
 
 const InputV1 = ({
   startIcon = null,
   endIcon = null,
   isPassword = false,
+  label = 'Enter Your Email',
 }: inputV1Props) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <Input
       type={isPassword ? (showPassword ? 'text' : 'password') : 'text'}
-      placeholder="Enter Your Email Address"
+      placeholder={label}
       startDecorator={startIcon}
       endDecorator={
         <div onClick={() => setShowPassword((prv) => !prv)}>{endIcon}</div>

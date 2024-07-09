@@ -8,7 +8,6 @@ import InputV1 from '@/components/inputs/InputV1';
 import { loginBgImage } from '@/constant/images';
 import { buttonPrimaryColor } from '@/constant/color';
 import styles from './page.module.css';
-import Image from 'next/image';
 
 const SignIn: NextPage = () => {
   return (
@@ -33,7 +32,7 @@ const SignIn: NextPage = () => {
               className="main-box"
               sx={{ mt: 4 }}
             >
-              <div>
+              <div className="mb-1">
                 <img
                   src={loginBgImage}
                   alt="image"
