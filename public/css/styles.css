@@ -1,3 +1,9 @@
-.border-test{
-     border: 2px solid red;
+.border-test {
+  border: 2px solid red;
+}
+
+.scrollable-container {
+  width: 120%;
+  overflow-y: scroll;
+  min-height: 20rem;
 }
