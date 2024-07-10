@@ -1,17 +1,42 @@
+'use client';
 import type { NextPage } from 'next';
 
-import { Box, Button, Checkbox, Grid, Paper } from '@mui/material';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Paper,
+} from '@mui/material';
 import Link from 'next/link';
-import { Radio } from '@mui/joy';
 import { ClosedEyeSVG, LockSVG, MessageSVG } from '../../../../assets/icons';
 import InputV1 from '@/components/inputs/InputV1';
 import { loginBgImage } from '@/constant/images';
-import { buttonPrimaryColor } from '@/constant/color';
+import { buttonPrimaryColor, textLightColor } from '@/constant/color';
 import styles from '../sign-in/page.module.css';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import { useState } from 'react';
+import TermsConditionsModal from '@/components/modals/terms-condition-modal';
 
 const SingUp: NextPage = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleTermsModal = () => {
+    setShowModal((prv) => !prv);
+  };
+  const handleTermsCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className={styles.signInContainer}>
+      {/* Terms Modal when check the terms and condition it appears  */}
+      <TermsConditionsModal
+        open={showModal}
+        handleClose={handleTermsCloseModal}
+      />
+
       <div className="w-full ">
         <Grid
           container
@@ -76,33 +101,48 @@ const SingUp: NextPage = () => {
                     isPassword
                   />
                 </div>
-                <div className="sm-flex-row-row-center-start mb-1">
-                  <div>
-                    {' '}
-                    <Checkbox
-                      defaultChecked
-                      sx={{
-                        display: 'inline-block',
-                        color: buttonPrimaryColor,
-                        '&.Mui-checked': {
-                          color: 'orange',
-                        },
-                      }}
-                    />
-                  </div>
-
-                  <p>Terms Condition and Privacy Policy</p>
-                </div>
                 <div>
-                  <Button
-                    variant="contained"
+                  <FormControlLabel
                     sx={{
-                      borderRadius: '50px',
-                      backgroundColor: buttonPrimaryColor,
-                      marginBottom: '4rem',
+                      '& .MuiFormControlLabel-label': {
+                        fontSize: '0.8rem',
+                        paddingBottom: '0.2rem',
+                        color: textLightColor,
+                      },
                     }}
+                    control={
+                      <Checkbox
+                        onChange={handleTermsModal}
+                        size="small"
+                        sx={{
+                          display: 'inline-block',
+                          color: buttonPrimaryColor,
+                          '&.Mui-checked': {
+                            color: 'orange',
+                          },
+                        }}
+                      />
+                    }
+                    label="Terms condition and privacy policy"
+                  />
+                </div>
+                <div className="auth-submit-btn sm-flex-row-row-center-end w-full ">
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      border: 'none',
+                      marginBottom: '4rem',
+                      textDecoration: 'underline',
+                      textTransform: 'none',
+                      fontSize: '1.2rem',
+                      '&:hover': {
+                        border: 'none',
+                        backgroundColor: 'transparent',
+                      },
+                    }}
+                    endIcon={<KeyboardDoubleArrowRightIcon />}
                   >
-                    Next &gt; &gt;
+                    Next
                   </Button>
                 </div>
               </div>

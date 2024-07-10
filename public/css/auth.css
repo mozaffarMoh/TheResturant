@@ -1,0 +1,6 @@
+.auth-submit-btn {
+  margin-left: 5rem;
+  @media (max-width: 576px) {
+    margin-left: 2rem;
+  }
+}
