@@ -127,23 +127,25 @@ const SingUp: NextPage = () => {
                   />
                 </div>
                 <div className="auth-submit-btn sm-flex-row-row-center-end w-full ">
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      border: 'none',
-                      marginBottom: '4rem',
-                      textDecoration: 'underline',
-                      textTransform: 'none',
-                      fontSize: '1.2rem',
-                      '&:hover': {
+                  <Link href={'/who-are-you'}>
+                    <Button
+                      variant="outlined"
+                      sx={{
                         border: 'none',
-                        backgroundColor: 'transparent',
-                      },
-                    }}
-                    endIcon={<KeyboardDoubleArrowRightIcon />}
-                  >
-                    Next
-                  </Button>
+                        marginBottom: '4rem',
+                        textDecoration: 'underline',
+                        textTransform: 'none',
+                        fontSize: '1.2rem',
+                        '&:hover': {
+                          border: 'none',
+                          backgroundColor: 'transparent',
+                        },
+                      }}
+                      endIcon={<KeyboardDoubleArrowRightIcon />}
+                    >
+                      Next
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </Box>

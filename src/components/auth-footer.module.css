@@ -62,7 +62,7 @@
   margin-top: 2rem;
 
   border-radius: var(--br-3xs);
-  background-color: var(--color-chocolate-100);
+  background-color: var(--secondary-text-color);
   padding: 0rem 3.5rem 0rem 3.5rem;
   gap: var(--gap-10xs);
   z-index: 5;

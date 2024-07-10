@@ -37,7 +37,7 @@
   font-weight: 400;
   line-height: 0.7rem;
   text-transform: capitalize;
-  @media (max-width:576px) {
+  @media (max-width: 576px) {
     line-height: 1rem;
   }
 }
@@ -62,7 +62,7 @@
 }
 
 .text-large-title {
-  color: #3F485E;
+  color: #3f485e;
   font-family: Poppins;
   font-size: var(--font-size-large);
   font-style: normal;
@@ -92,23 +92,25 @@
 .text-white-new {
   color: var(--white-text) !important;
 }
-.fc-light-white{
-  color : rgba(255,255,255,0.8) !important
-}
-.fc-light-black{
-  color : rgba(0,0,0,0.8) !important
-}
-.fc-black{
-  color : black !important;
-}
 
-
+.fc-secondary {
+  color: var(--secondary-text-color);
+}
+.fc-light-white {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+.fc-light-black {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+.fc-black {
+  color: black !important;
+}
 
 .text-underline {
   text-decoration: underline;
 }
 .text-underline-none {
-  text-decoration: none ;
+  text-decoration: none;
 }
 .line-h-0 {
   line-height: 0px !important;

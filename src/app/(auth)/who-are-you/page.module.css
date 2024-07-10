@@ -1,0 +1,15 @@
+.singleButtonGroup {
+  border: 2px solid var(--secondary-text-color);
+  margin: 0.7rem;
+  text-transform: none;
+  border-bottom: 2px solid var(--secondary-text-color) !important;
+  border-top: 2px solid var(--secondary-text-color) !important;
+  width: 20rem;
+  padding: 1.2rem;
+  border-radius: 8rem !important;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}

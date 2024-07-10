@@ -58,6 +58,8 @@ body {
   --font-size-xs: 0.75rem;
 
   /* Colors */
+  --secondary-text-color: #eb6b2a;
+
   --color-whitesmoke-100: #f6f2ee;
   --color-whitesmoke-200: #f2f2f2;
   --white: #fff;
