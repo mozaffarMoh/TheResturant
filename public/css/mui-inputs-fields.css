@@ -12,3 +12,12 @@
 .text-field-style:first-child {
   margin-top: 2rem;
 }
+.input-form-control {
+  width: 97%;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+  @media (max-width: 576px) {
+    width: 65%;
+  }
+}

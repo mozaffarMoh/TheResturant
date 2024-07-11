@@ -10,82 +10,9 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import FormField from '@/components/mui-inputs/FormField';
+import { fieldsInputs } from './student-inputs-data';
 
 const WhoAreYouPage: NextPage = () => {
-  const fieldsInputs = [
-    {
-      id: 0,
-      type: 0,
-      name: 'fullName',
-      label: 'Full Name',
-      required: true,
-    },
-    {
-      id: 1,
-      type: 0,
-      name: 'phoneNumber',
-      label: 'Phone Number',
-      required: true,
-    },
-    {
-      id: 2,
-      type: 0,
-      name: 'email',
-      label: 'Email',
-      required: true,
-    },
-    {
-      id: 3,
-      type: 1,
-      name: 'nationality',
-      label: 'Nationality',
-      required: true,
-      defaultValue: '',
-      fieldData: [
-        { label: 'Jordanian', value: 'jordanian' },
-        { label: 'Syrian', value: 'syrian' },
-      ],
-    },
-    {
-      id: 4,
-      type: 0,
-      name: 'nationalNumber ',
-      label: 'National/Personal Number ',
-      required: true,
-    },
-    {
-      id: 5,
-      type: 1,
-      name: 'gender',
-      label: 'Gender',
-      required: true,
-      defaultValue: '',
-      fieldData: [
-        { label: 'Male', value: 'male' },
-        { label: 'Female', value: 'female' },
-      ],
-    },
-    {
-      id: 6,
-      type: 0,
-      name: 'age ',
-      label: 'Age',
-      required: true,
-    },
-    {
-      id: 7,
-      type: 1,
-      name: 'educationalQualification',
-      label: 'Educational Qualification',
-      required: true,
-      defaultValue: '',
-      fieldData: [
-        { label: 'High School', value: 'high-school' },
-        { label: 'University Student', value: 'university-student' },
-        { label: 'Bachelor', value: 'bachelor' },
-      ],
-    },
-  ];
   // const fieldsStudentForm = fieldsInputs.map((item) => item.name);
 
   const {

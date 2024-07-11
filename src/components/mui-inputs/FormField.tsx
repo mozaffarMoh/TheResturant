@@ -1,8 +1,8 @@
 import { createElement } from 'react';
 
-import { TextField, SelectTextField } from './fields';
+import { TextField, SelectTextField, SelectMultiField } from './fields';
 
-const fieldComponents = [TextField, SelectTextField];
+const fieldComponents = [TextField, SelectTextField, SelectMultiField];
 interface FormFieldProps {
   name: string;
   label: string;
@@ -10,7 +10,7 @@ interface FormFieldProps {
   type: number;
   control: any;
   setValue?: () => void;
-  getValues?: () => void;
+  getValues?: any;
   required: boolean;
   defaultValue?: string;
 }

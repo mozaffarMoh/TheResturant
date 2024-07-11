@@ -35,7 +35,7 @@ function SelectTextField({
           // helperText={apiErrors ? apiErrors : null}
           // error={apiErrors && apiErrors ? true : false}
           variant="outlined"
-          className="text-field-style"
+          className="text-field-style "
           sx={{
             '& .MuiInputBase-root': {
               borderRadius: '50px',
