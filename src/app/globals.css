@@ -11,6 +11,8 @@
 @import './../../public/css/text.css';
 @import './../../public/css/images.css';
 @import './../../public/css/auth.css';
+@import './../../public/css/mui-inputs-fields.css';
+
 body {
   margin: 0;
   line-height: normal;
