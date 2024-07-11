@@ -1,8 +1,20 @@
 import { createElement } from 'react';
 
-import { TextField, SelectTextField, SelectMultiField } from './fields';
+import {
+  TextField,
+  SelectTextField,
+  SelectMultiField,
+  NumberTextField,
+  MultiFilesField,
+} from './fields';
 
-const fieldComponents = [TextField, SelectTextField, SelectMultiField];
+const fieldComponents = [
+  TextField,
+  SelectTextField,
+  SelectMultiField,
+  NumberTextField,
+  MultiFilesField,
+];
 interface FormFieldProps {
   name: string;
   label: string;

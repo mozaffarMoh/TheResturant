@@ -7,8 +7,26 @@ import { loginBgImage } from '@/constant/images';
 import styles from '../../sign-in/page.module.css';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import { useForm } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
+import FormField from '@/components/mui-inputs/FormField';
+import { fieldsInputs } from './mentor-inputs-data';
 
 const WhoAreYouPage: NextPage = () => {
+  // const fieldsStudentForm = fieldsInputs.map((item) => item.name);
+
+  const {
+    register: registerStudent,
+    handleSubmit: handleStudentSubmit,
+    formState: { errors: addStudentErrors },
+    clearErrors: clearStudentErrors,
+    setError: setStudentError,
+    reset,
+    control,
+    watch,
+    setValue,
+  } = useForm();
+
   return (
     <div className={styles.signInContainer}>
       <div className="w-full ">
@@ -39,7 +57,20 @@ const WhoAreYouPage: NextPage = () => {
                   <span className="fc-secondary">Mentor</span> Details!
                 </p>
               </div>
-              <div className="sm-flex-col-col-center-center"></div>
+              <div className="sm-flex-col-col-center scrollable-container  ">
+                {fieldsInputs.map((item) => (
+                  <FormField
+                    key={item.id}
+                    name={item.name}
+                    label={item.label}
+                    control={control}
+                    type={item.type}
+                    required={false}
+                    fieldData={item.fieldData}
+                    defaultValue={item.defaultValue}
+                  />
+                ))}
+              </div>
               <div className=" sm-flex-row-row-center-between  w-full mt-2 ">
                 <Link href={'/who-are-you'}>
                   <Button
@@ -97,6 +128,7 @@ const WhoAreYouPage: NextPage = () => {
           />
         </Grid>
       </div>
+      {/* <DevTool control={control} /> */}
     </div>
   );
 };
