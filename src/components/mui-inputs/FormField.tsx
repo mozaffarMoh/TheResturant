@@ -7,6 +7,7 @@ import {
   NumberTextField,
   MultiFilesField,
 } from './fields';
+import SingleCheckboxField from './fields/SingleCheckField';
 
 const fieldComponents = [
   TextField,
@@ -14,6 +15,7 @@ const fieldComponents = [
   SelectMultiField,
   NumberTextField,
   MultiFilesField,
+  SingleCheckboxField,
 ];
 interface FormFieldProps {
   name: string;
