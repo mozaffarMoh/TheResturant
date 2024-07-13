@@ -1,0 +1,179 @@
+.headerMainContainer{
+
+}
+
+.headerContainer {
+  padding: 20px 0;
+  background-color: #3f485e;
+}
+
+.headerDiv {
+}
+
+.headerDivContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logoImg {
+  width: 140px;
+}
+
+.sideMenu{
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .logoImg {
+    width: 120px;
+  }
+
+  
+  .gridMenu{
+    display: none;
+  }
+
+  .gridLang {
+    display: none;
+  }
+
+  .gridAuthButton {
+    display: none;
+  }
+
+  .sideMenu{
+    display: block;
+    text-align: end;
+  }
+}
+
+.gridMenu {
+}
+
+.MenuDiv {
+}
+
+.menuListStyle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.menuListItem {
+  color: white;
+  padding: 0;
+}
+
+.menuListItem:hover {
+  border-top: 1px solid #eb6b2a;
+  color: #eb6b2a;
+}
+
+.active {
+  border-top: 1px solid #eb6b2a;
+  color: #eb6b2a;
+}
+
+/* ---------------- */
+
+.langButton {
+  text-align: center;
+}
+
+.langMenuButton {
+  color: white;
+  padding: 0;
+}
+
+.langIcon {
+  margin-right: 3px;
+}
+
+.authDivButton {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 15px;
+}
+
+.authButton {
+  background-color: transparent;
+  color: white;
+  border-radius: 20px;
+  border: 1px solid white;
+  width: 90px;
+}
+
+.authButton:hover {
+  background-color: white;
+  color: #173e62;
+}
+
+
+
+
+/* --- drawer --- */
+
+.hamburgerMenu{
+  font-size: 25px;
+  color: white;
+}
+
+.hamburgerButtonMenu{
+  padding: 0;
+}
+
+.drawerDivLogo{
+  padding: 25px 25px 0 25px;
+
+}
+
+.drawerLogo{
+  width: 100%;
+  height: auto;
+}
+
+/* -------- menuListDrawer --- */
+
+.menuListDrawer{
+
+}
+
+.drawerActive {
+  border-left: 3px solid #eb6b2a;
+  color: #eb6b2a;
+}
+
+.menuItemDrawer{
+  margin-bottom: 20px;
+}
+
+.authDrawerDivButton{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.authDrawerButton{
+  background-color: #eb6b2a;
+  color: white;
+  margin: 0 25px;
+
+  &:not(:last-child){
+    margin-bottom: 20px;
+  }
+}
+
+/* Top Section */
+
+.headerTopContainer{
+
+}
+
+.headerTopDivContainer{
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  justify-content: end;
+}
