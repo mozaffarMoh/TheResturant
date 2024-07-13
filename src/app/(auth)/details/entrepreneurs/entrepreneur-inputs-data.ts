@@ -61,6 +61,18 @@ export const fieldsInputs = [
     ],
   },
   {
+    id: 24,
+    type: 1,
+    name: 'nationality',
+    label: 'Nationality',
+    required: true,
+    defaultValue: '',
+    fieldData: [
+      { label: 'Jordanian', value: 'jordanian' },
+      { label: 'Syrian', value: 'syrian' },
+    ],
+  },
+  {
     id: 7,
     type: 1,
     name: 'governorate',
@@ -125,12 +137,12 @@ export const fieldsInputs = [
     required: false,
   },
 
-  {
-    id: 13,
-    type: 4,
-    name: 'professional_certifications',
-    label: 'Professional Certifications',
-  },
+  // {
+  //   id: 13,
+  //   type: 4,
+  //   name: 'professional_certifications',
+  //   label: 'Professional Certifications',
+  // },
   {
     id: 14,
     type: 5,

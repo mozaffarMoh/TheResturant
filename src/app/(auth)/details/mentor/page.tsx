@@ -177,7 +177,7 @@ const MentorDetailsPage: NextPage = () => {
                 <CustomMultiFiles
                   name={'professional_certifications'}
                   control={control}
-                  label={'Professional Certifications'}
+                  label={'Professional Certifications(required)'}
                   setFiles={setFiles}
                 />
               </div>
