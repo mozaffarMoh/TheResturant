@@ -3,12 +3,14 @@
 import type { NextPage } from 'next';
 import { Container } from '@mui/material';
 import styles from './page.module.css';
-import Header from './components/header/page';
+import { Header, HeroSection } from './components';
 
 const GuestHome: NextPage = () => {
   return (
     <>
       <Header />
+
+      <HeroSection />
       
       <Container>
         <div>
