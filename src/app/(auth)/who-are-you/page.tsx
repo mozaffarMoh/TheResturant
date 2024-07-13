@@ -13,7 +13,6 @@ import whoAreStyles from './page.module.css';
 
 const WhoAreYouPage: NextPage = () => {
   const [type, setType] = useState('student');
-  console.log(type);
   return (
     <div className={styles.signInContainer}>
       <div className="w-full ">
@@ -113,7 +112,7 @@ const WhoAreYouPage: NextPage = () => {
                     Back
                   </Button>
                 </Link>
-                <Link href={`/details/${type}`}>
+                <Link href={`/details/${type ? type : 'student'}`}>
                   <Button
                     variant="outlined"
                     sx={{

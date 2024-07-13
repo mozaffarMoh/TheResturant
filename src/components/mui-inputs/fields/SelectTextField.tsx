@@ -8,6 +8,7 @@ interface SelectTextFieldProps {
   required: boolean;
   fieldData: { label: string; value: string }[];
   defaultValue: string;
+  apiErrors?: any;
   [key: string]: any;
 }
 function SelectTextField({
@@ -17,6 +18,7 @@ function SelectTextField({
   required,
   fieldData,
   defaultValue,
+  apiErrors,
 }: SelectTextFieldProps) {
   // console.log(fieldData);
 
@@ -32,8 +34,8 @@ function SelectTextField({
           label={label}
           select
           required={required}
-          // helperText={apiErrors ? apiErrors : null}
-          // error={apiErrors && apiErrors ? true : false}
+          helperText={apiErrors ? apiErrors : null}
+          error={apiErrors && apiErrors ? true : false}
           variant="outlined"
           className="text-field-style "
           sx={{
