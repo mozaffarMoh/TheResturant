@@ -22,6 +22,18 @@ export const fieldsInputs = [
     required: true,
   },
   {
+    id: 20,
+    type: 1,
+    name: 'nationality',
+    label: 'Nationality',
+    required: true,
+    defaultValue: '',
+    fieldData: [
+      { label: 'Jordanian', value: 'jordanian' },
+      { label: 'Syrian', value: 'syrian' },
+    ],
+  },
+  {
     id: 3,
     type: 0,
     name: 'national_number',
@@ -97,28 +109,28 @@ export const fieldsInputs = [
     required: false,
   },
   {
-    id: 20,
+    id: 10,
     type: 0,
     name: 'social_media_links',
     label: ' Social Media Links',
     required: false,
   },
   {
-    id: 10,
+    id: 11,
     type: 0,
     name: 'current_company',
     label: 'Current Company Name & Job Title',
     required: false,
   },
   {
-    id: 11,
+    id: 12,
     type: 3,
     name: 'years_experience',
     label: 'Years of Experience',
     required: false,
   },
   {
-    id: 12,
+    id: 13,
     type: 0,
     name: 'areas_of_expertise',
     label: 'Areas of Expertise(Marketing, Finance, Product Development..)',
@@ -167,10 +179,11 @@ export const fieldsInputs = [
     label: 'Previous Mentoring Experience',
     required: false,
   },
-  {
-    id: 13,
-    type: 4,
-    name: 'professional_certifications',
-    label: 'Professional Certifications',
-  },
+
+  // {
+  //   id: 19,
+  //   type: 4,
+  //   name: 'professional_certifications',
+  //   label: 'Professional Certifications',
+  // },
 ];
