@@ -100,6 +100,7 @@ const EntrepreneurDetailsPage: NextPage = () => {
         if (result.status === 200) {
           setSuccessModal(true);
           localStorage.removeItem('password');
+          localStorage.removeItem('email');
           setLoadingSubmit(false);
         }
       })
@@ -109,19 +110,15 @@ const EntrepreneurDetailsPage: NextPage = () => {
       });
   };
 
-  const handleSuccessClose = () => {
-    setSuccessModal(false);
-  };
-
+  useEffect(() => {
+    setValue('email', localStorage.getItem('email'));
+  }, []);
   // console.log(files);
 
   return (
     <div className={styles.signInContainer}>
       {/* Success Modal when user Success register */}
-      <SuccessRegisterModal
-        open={showSuccessModal}
-        handleClose={handleSuccessClose}
-      />
+      <SuccessRegisterModal open={showSuccessModal} />
       <div className="w-full ">
         <Grid
           container

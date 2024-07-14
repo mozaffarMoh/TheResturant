@@ -62,6 +62,7 @@ const WhoAreYouPage: NextPage = () => {
                         type === 'student' ? 'orange' : 'transparent',
                       color: type === 'student' ? 'white' : 'black',
                     }}
+                    disabled={type === 'student'}
                   >
                     Student
                   </JoyButton>
@@ -74,6 +75,7 @@ const WhoAreYouPage: NextPage = () => {
                         type === 'mentor' ? 'orange' : 'transparent',
                       color: type === 'mentor' ? 'white' : 'black',
                     }}
+                    disabled={type === 'mentor'}
                   >
                     Mentor
                   </JoyButton>
@@ -86,6 +88,7 @@ const WhoAreYouPage: NextPage = () => {
                         type === 'entrepreneurs' ? 'orange' : 'transparent',
                       color: type === 'entrepreneurs' ? 'white' : 'black',
                     }}
+                    disabled={type === 'entrepreneurs'}
                   >
                     Entrepreneurs
                   </JoyButton>
