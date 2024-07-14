@@ -6,6 +6,8 @@ import { Header, HeroSection } from '@/components/home-page';
 import AboutUsSection from '@/components/home-page/about-us/aboutUsSection';
 import ServicesSection from '@/components/home-page/services-section/servicesSection';
 import AuthFooter from '@/components/AuthFooter';
+import CardsSection from '@/components/home-page/cards-section/cardsSection';
+import UnderCardsSection from '@/components/home-page/under-cards-section/underCardsSection';
 
 const HomePage: NextPage = () => {
   return (
@@ -13,6 +15,8 @@ const HomePage: NextPage = () => {
       <Header />
 
       <HeroSection />
+      <CardsSection />
+      <UnderCardsSection />
       <AboutUsSection />
       <ServicesSection />
       <AuthFooter />

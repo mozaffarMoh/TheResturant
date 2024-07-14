@@ -5,6 +5,52 @@
   max-width: 90%;
 }
 
+.max-w-80 {
+  max-width: 80%;
+}
+
+.max-w-75 {
+  max-width: 75%;
+}
+
+.max-w-70 {
+  max-width: 70%;
+}
+
+.max-w-60 {
+  max-width: 60%;
+}
+
+.max-w-md-65 {
+  max-width: 65%;
+
+  @media (max-width: 767px) {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+
+.max-w-50 {
+  max-width: 50%;
+}
+
+.max-w-40 {
+  max-width: 40%;
+}
+
+.max-w-30 {
+  max-width: 30%;
+}
+
+.max-w-20 {
+  max-width: 20%;
+}
+
+.max-w-10 {
+  max-width: 10%;
+}
+
 .w-25 {
   width: 25%;
 }
