@@ -171,7 +171,7 @@ const Header = () => {
               >
                 <div className={styles.authDivButton}>
                   <Button
-                    onClick={() => router.push('/register')}
+                    onClick={() => router.push('/sign-up')}
                     className={styles.authButton}
                   >
                     Register
