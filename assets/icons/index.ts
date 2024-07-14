@@ -5,6 +5,10 @@ import TwitterSVG from './twitter';
 import LockSVG from './lock';
 import MessageSVG from './message';
 import ClosedEyeSVG from './closed-eye';
+import RocketSVG from './rocket';
+import TelescopeSVG from './telescope';
+import LampSVG from './lamp';
+import TargetArrowSVG from './target-arrow';
 export {
   FaceBookSVG,
   InstagramSVG,
@@ -13,4 +17,8 @@ export {
   LockSVG,
   MessageSVG,
   ClosedEyeSVG,
+  RocketSVG,
+  TelescopeSVG,
+  LampSVG,
+  TargetArrowSVG,
 };

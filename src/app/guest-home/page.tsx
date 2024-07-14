@@ -3,7 +3,9 @@
 import type { NextPage } from 'next';
 import { Container } from '@mui/material';
 import styles from './page.module.css';
-import { Header, HeroSection } from './components';
+import { Header, HeroSection } from '@/components/home-page';
+import AboutUsSection from '@/components/home-page/about-us/aboutUsSection';
+import ServicesSection from '@/components/home-page/services-section/servicesSection';
 
 const GuestHome: NextPage = () => {
   return (
@@ -11,12 +13,8 @@ const GuestHome: NextPage = () => {
       <Header />
 
       <HeroSection />
-      
-      <Container>
-        <div>
-          <h1>Home Page</h1>
-        </div>
-      </Container>
+      <AboutUsSection />
+      <ServicesSection />
     </>
   );
 };

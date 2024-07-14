@@ -1,6 +1,9 @@
 .w-full {
   width: 100%;
 }
+.max-w-90 {
+  max-width: 90%;
+}
 
 .w-25 {
   width: 25%;
@@ -22,6 +25,12 @@
 }
 .mt-2 {
   margin-top: 2rem;
+}
+.mt-3 {
+  margin-top: 3rem;
+}
+.mt-4 {
+  margin-top: 4rem;
 }
 .mb-1 {
   margin-bottom: 1rem;
@@ -51,4 +60,11 @@
 }
 .p-1 {
   padding: 1rem;
+}
+.p-0 {
+  padding: 0rem;
+}
+
+.opacity-75 {
+  opacity: 75% !important;
 }

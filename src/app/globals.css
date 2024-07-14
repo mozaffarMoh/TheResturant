@@ -30,10 +30,11 @@ body {
   /* sizes vars */
   --font-size-reg: 0.875rem;
   --font-size-medium: clamp(0.75rem, 0.6862rem + 0.3191vw, 0.9375rem);
+  --font-size-low-medium: clamp(1rem, 0.8586rem + 0.7072vw, 1.4rem);
   --font-size-high-medium: clamp(0.9375rem, 0.774rem + 0.8177vw, 1.4rem);
   --font-size-double-high-medium: clamp(2rem, 1.7171rem + 1.4144vw, 2.8rem);
   --font-size-large: clamp(1.4rem, 1.232rem + 0.8398vw, 1.875rem);
-
+  --font-xlarge-subtitle: clamp(1.6rem, 1.3878rem + 1.0608vw, 2.2rem);
   --font-size-xlarge: clamp(2.75rem, 2.3964rem + 1.768vw, 3.75rem);
   --font-size-med-xlarge: clamp(1.4rem, 1.1878rem + 1.0608vw, 2rem);
   --font-size-xlarge-title: clamp(2rem, 1.6464rem + 1.768vw, 3rem);
@@ -59,11 +60,18 @@ body {
   --font-size-mid: 1.063rem;
   --font-size-xs: 0.75rem;
 
+  /* Break Points */
+  --breakpoint-md: 576px;
+
   /* Colors */
+  --primary-color: #3f485e;
+  --secondary-color: #eb6b2a;
+
   --secondary-text-color: #eb6b2a;
 
   --color-whitesmoke-100: #f6f2ee;
   --color-whitesmoke-200: #f2f2f2;
+  --white-text: #fff;
   --white: #fff;
   --color-chocolate-100: #eb6b2a;
   --color-chocolate-200: rgba(235, 107, 42, 0.1);
