@@ -230,7 +230,7 @@ const Header = () => {
                       </div>
                       <div className={styles.authDrawerDivButton}>
                         <Button
-                          onClick={() => router.push('/register')}
+                          onClick={() => router.push('/sign-up')}
                           className={styles.authDrawerButton}
                         >
                           Register
