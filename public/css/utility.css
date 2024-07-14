@@ -65,6 +65,10 @@
   padding: 0rem;
 }
 
+.bg-primary-color {
+  background-color: var(--primary-color);
+}
+
 .opacity-75 {
   opacity: 75% !important;
 }

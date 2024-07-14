@@ -131,6 +131,7 @@
 .text-underline-none {
   text-decoration: none;
 }
+
 .line-h-0 {
   line-height: 0px !important;
 }
@@ -150,7 +151,7 @@
   font-weight: 500 !important;
 }
 .fw600 {
-  font-weight: 60 !important;
+  font-weight: 600 !important;
 }
 .fw700 {
   font-weight: 700 !important;
