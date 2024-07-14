@@ -134,7 +134,10 @@
 .line-h-0 {
   line-height: 0px !important;
 }
-.line-h-96 {
+.line-h-2 {
+  line-height: 2rem !important;
+}
+.line-h-4 {
   line-height: 4rem !important;
 }
 
