@@ -121,6 +121,9 @@
 .fc-light-black {
   color: rgba(0, 0, 0, 0.8) !important;
 }
+.fc-light-black-new {
+  color: rgba(119, 131, 143, 1) !important;
+}
 .fc-black {
   color: black !important;
 }

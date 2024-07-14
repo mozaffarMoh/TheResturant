@@ -11,3 +11,5 @@ export const successCheckMark = '/green-check.png';
 export const partnerImage1 = '/partner/partner1.png';
 export const partnerImage2 = '/partner/partner2.png';
 export const partnerImage3 = '/partner/partner3.png';
+
+export const socialIconsImages = '/contact-us/social.png';
