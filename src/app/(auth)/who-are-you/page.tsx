@@ -13,7 +13,6 @@ import whoAreStyles from './page.module.css';
 
 const WhoAreYouPage: NextPage = () => {
   const [type, setType] = useState('student');
-  console.log(type);
   return (
     <div className={styles.signInContainer}>
       <div className="w-full ">
@@ -63,6 +62,7 @@ const WhoAreYouPage: NextPage = () => {
                         type === 'student' ? 'orange' : 'transparent',
                       color: type === 'student' ? 'white' : 'black',
                     }}
+                    disabled={type === 'student'}
                   >
                     Student
                   </JoyButton>
@@ -75,6 +75,7 @@ const WhoAreYouPage: NextPage = () => {
                         type === 'mentor' ? 'orange' : 'transparent',
                       color: type === 'mentor' ? 'white' : 'black',
                     }}
+                    disabled={type === 'mentor'}
                   >
                     Mentor
                   </JoyButton>
@@ -87,6 +88,7 @@ const WhoAreYouPage: NextPage = () => {
                         type === 'entrepreneurs' ? 'orange' : 'transparent',
                       color: type === 'entrepreneurs' ? 'white' : 'black',
                     }}
+                    disabled={type === 'entrepreneurs'}
                   >
                     Entrepreneurs
                   </JoyButton>
@@ -113,7 +115,7 @@ const WhoAreYouPage: NextPage = () => {
                     Back
                   </Button>
                 </Link>
-                <Link href={`/details/${type}`}>
+                <Link href={`/details/${type ? type : 'student'}`}>
                   <Button
                     variant="outlined"
                     sx={{

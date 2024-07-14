@@ -20,6 +20,13 @@
   flex-direction: row;
   gap: 0.2rem;
 }
+.sm-flex-row-row-center-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.2rem;
+}
 .sm-flex-row-row-center-end {
   display: flex;
   flex-direction: row;

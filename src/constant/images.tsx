@@ -3,5 +3,9 @@ export const registerBgImage = '/register-background.svg';
 export const whoAreYouBgImage = '/who-are-are-bg.png';
 export const detailsBgImage = '/details.png';
 
+
 export const aboutUsSectionImage = '/about-us-section.png';
 export const servicesSectionImage = '/services-bg.png';
+
+export const successCheckMark = '/green-check.png';
+

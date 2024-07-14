@@ -16,11 +16,17 @@ import { loginBgImage } from '@/constant/images';
 import { buttonPrimaryColor, textLightColor } from '@/constant/color';
 import styles from '../sign-in/page.module.css';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TermsConditionsModal from '@/components/modals/terms-condition-modal';
+import { useRouter } from 'next/navigation';
 
 const SingUp: NextPage = () => {
+  const { push } = useRouter();
   const [showModal, setShowModal] = useState(false);
+  const [email, setEmail] = useState('');
+
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
 
   const handleTermsModal = () => {
     setShowModal((prv) => !prv);
@@ -28,6 +34,27 @@ const SingUp: NextPage = () => {
   const handleTermsCloseModal = () => {
     setShowModal(false);
   };
+
+  const handleEmailChange = (event: any) => {
+    setEmail(() => event?.target?.value);
+  };
+
+  const handlePasswordChange = (event: any) => {
+    setPassword(() => event?.target?.value);
+  };
+
+  const handlePasswordConfirmChange = (event: any) => {
+    setPasswordConfirm(() => event?.target?.value);
+  };
+  useEffect(() => {
+    // just for temporary event
+    localStorage.setItem('password', password);
+  }, [password]);
+
+  useEffect(() => {
+    // just for temporary event
+    localStorage.setItem('email', email);
+  }, [email]);
 
   return (
     <div className={styles.signInContainer}>
@@ -81,7 +108,11 @@ const SingUp: NextPage = () => {
               <div>
                 <div className="mb-3">
                   <label className="fc-light-black">Email</label>
-                  <InputV1 startIcon={<MessageSVG />} />
+                  <InputV1
+                    startIcon={<MessageSVG />}
+                    onChange={handleEmailChange}
+                    value={email}
+                  />
                 </div>
                 <div className="mb-1">
                   <label className="fc-light-black">Password</label>
@@ -91,6 +122,8 @@ const SingUp: NextPage = () => {
                       startIcon={<LockSVG />}
                       endIcon={<ClosedEyeSVG />}
                       isPassword
+                      onChange={handlePasswordChange}
+                      value={password}
                     />
                   </div>
 
@@ -99,53 +132,52 @@ const SingUp: NextPage = () => {
                     startIcon={<LockSVG />}
                     endIcon={<ClosedEyeSVG />}
                     isPassword
+                    onChange={handlePasswordConfirmChange}
+                    value={passwordConfirm}
                   />
                 </div>
-                <div>
-                  <FormControlLabel
+                <div className="sm-flex-row-row-center-start">
+                  <Checkbox
+                    size="small"
                     sx={{
-                      '& .MuiFormControlLabel-label': {
-                        fontSize: '0.8rem',
-                        paddingBottom: '0.2rem',
-                        color: textLightColor,
+                      display: 'inline-block',
+                      color: buttonPrimaryColor,
+                      '&.Mui-checked': {
+                        color: 'orange',
                       },
                     }}
-                    control={
-                      <Checkbox
-                        onChange={handleTermsModal}
-                        size="small"
-                        sx={{
-                          display: 'inline-block',
-                          color: buttonPrimaryColor,
-                          '&.Mui-checked': {
-                            color: 'orange',
-                          },
-                        }}
-                      />
-                    }
-                    label="Terms condition and privacy policy"
                   />
+                  <p
+                    onClick={handleTermsModal}
+                    className="cursor-pointer"
+                  >
+                    Terms condition and privacy policy
+                  </p>
                 </div>
                 <div className="auth-submit-btn sm-flex-row-row-center-end w-full ">
-                  <Link href={'/who-are-you'}>
-                    <Button
-                      variant="outlined"
-                      sx={{
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      border: 'none',
+                      marginBottom: '4rem',
+                      textDecoration: 'underline',
+                      textTransform: 'none',
+                      fontSize: '1.2rem',
+                      '&:hover': {
                         border: 'none',
-                        marginBottom: '4rem',
-                        textDecoration: 'underline',
-                        textTransform: 'none',
-                        fontSize: '1.2rem',
-                        '&:hover': {
-                          border: 'none',
-                          backgroundColor: 'transparent',
-                        },
-                      }}
-                      endIcon={<KeyboardDoubleArrowRightIcon />}
-                    >
-                      Next
-                    </Button>
-                  </Link>
+                        backgroundColor: 'transparent',
+                      },
+                    }}
+                    endIcon={<KeyboardDoubleArrowRightIcon />}
+                    disabled={
+                      passwordConfirm !== password ||
+                      passwordConfirm === '' ||
+                      password.length < 8
+                    }
+                    onClick={() => push('/who-are-you')}
+                  >
+                    Next
+                  </Button>
                 </div>
               </div>
             </Box>

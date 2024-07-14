@@ -37,7 +37,7 @@ function SelectMultiField({
       render={({ field }) => (
         <FormControl
           variant="outlined"
-          className="input-form-control"
+          className="input-form-control-multi-check"
         >
           <InputLabel required={required}>{label}</InputLabel>
           <Select
@@ -48,13 +48,14 @@ function SelectMultiField({
             sx={{ borderRadius: '50px' }}
             renderValue={(selected) =>
               selected
+                .slice(0, 4)
                 .map((value: string) => {
                   const item = fieldData.find(
                     (option) => option.value === value,
                   );
                   return item ? item.label : value;
                 })
-                .join(', ')
+                .join('...')
             }
           >
             {fieldData.map((option) => (

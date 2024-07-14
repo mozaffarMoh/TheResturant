@@ -8,6 +8,8 @@ interface inputV1Props {
   endIcon?: ReactElement | null;
   isPassword?: boolean;
   label?: string;
+  onChange?: any;
+  value?: any;
 }
 
 const InputV1 = ({
@@ -15,6 +17,8 @@ const InputV1 = ({
   endIcon = null,
   isPassword = false,
   label = 'Enter Your Email',
+  onChange,
+  value,
 }: inputV1Props) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
@@ -36,6 +40,8 @@ const InputV1 = ({
           borderColor: '#86b7fe',
         },
       }}
+      onChange={onChange}
+      value={value}
     />
   );
 };

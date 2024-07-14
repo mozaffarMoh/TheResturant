@@ -5,7 +5,7 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
 
   // Check if the request is for the home page or any other non-authenticated page
-  if (url.pathname === '/' || url.pathname === '/home') {
+  if (url.pathname === '/') {
     // Redirect to the login page
     url.pathname = '/sign-in';
     return NextResponse.redirect(url);

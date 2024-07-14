@@ -6,9 +6,16 @@ interface TextFieldProps {
   label: string;
   control: any;
   required: boolean;
+  apiErrors?: any;
   [key: string]: any;
 }
-function TextField({ name, control, label, required }: TextFieldProps) {
+function TextField({
+  name,
+  control,
+  label,
+  required,
+  apiErrors,
+}: TextFieldProps) {
   return (
     <Controller
       name={name}
@@ -20,8 +27,8 @@ function TextField({ name, control, label, required }: TextFieldProps) {
           id={name}
           label={label}
           required={required}
-          // helperText={apiErrors ? apiErrors : null}
-          // error={apiErrors && apiErrors ? true : false}
+          helperText={apiErrors ? apiErrors : null}
+          error={apiErrors && apiErrors ? true : false}
           variant="outlined"
           className="text-field-style"
           sx={{
