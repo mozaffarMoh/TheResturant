@@ -16,9 +16,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { studentSchema } from './schema';
 import { useEffect, useRef, useState } from 'react';
 import SuccessRegisterModal from '@/components/modals/success-register-modal';
+import CustomAlert from '@/components/alerts/CustomAlert';
 
 const StudentDetailsPage: NextPage = () => {
   const [showSuccessModal, setSuccessModal] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const {
@@ -66,6 +68,7 @@ const StudentDetailsPage: NextPage = () => {
       .then((res) => {
         if (!res.ok) {
           return res.json().then((result) => {
+            setOpenAlert(true);
             // Setting the errors from the server in react-hook-form
             Object.keys(result.msg).forEach((field) => {
               setStudentError(field, {
@@ -93,10 +96,6 @@ const StudentDetailsPage: NextPage = () => {
       });
   };
 
-  const handleSuccessClose = () => {
-    setSuccessModal(false);
-  };
-
   useEffect(() => {
     setValue('email', localStorage.getItem('email'));
   }, []);
@@ -107,6 +106,15 @@ const StudentDetailsPage: NextPage = () => {
     <div className={styles.signInContainer}>
       {/* Success Modal when user Success register */}
       <SuccessRegisterModal open={showSuccessModal} />
+      {/* This alert when some fields are error from the server */}
+      <CustomAlert
+        openAlert={openAlert}
+        setOpenAlert={setOpenAlert}
+        message={
+          'There are some issues or missing data with your inputs, please review them'
+        }
+      />
+
       <div className="w-full ">
         <Grid
           container
