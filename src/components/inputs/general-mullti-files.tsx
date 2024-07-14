@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useController } from 'react-hook-form';
 import {
   FormControl,
@@ -17,14 +16,16 @@ interface FileInputProps {
   control: any;
   label: string;
   required?: boolean;
+  setFiles: (files: File[]) => void;
   [key: string]: any;
 }
 
-const MultiFilesField = ({
+const CustomMultiFiles = ({
   name,
   control,
   label,
   required = false,
+  setFiles,
 }: FileInputProps) => {
   const {
     field,
@@ -48,8 +49,8 @@ const MultiFilesField = ({
       validFiles.length = 5; // Limit to 5 files
     }
 
-    const updatedFiles = [...files, ...validFiles].slice(0, 5);
-    // setFiles(updatedFiles);
+    const updatedFiles = [...validFiles].slice(0, 5);
+    setFiles(updatedFiles);
 
     field.onChange(updatedFiles);
   };
@@ -58,7 +59,7 @@ const MultiFilesField = ({
     const updatedFiles = field.value.filter(
       (file: File) => file !== fileToDelete,
     );
-    // setFiles(updatedFiles);
+    setFiles(updatedFiles);
     field.onChange(updatedFiles);
   };
 
@@ -114,4 +115,4 @@ const MultiFilesField = ({
   );
 };
 
-export default MultiFilesField;
+export default CustomMultiFiles;

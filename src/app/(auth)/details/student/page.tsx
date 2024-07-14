@@ -1,6 +1,7 @@
 'use client';
 import type { NextPage } from 'next';
 
+import LoadingButton from '@mui/lab/LoadingButton';
 import { Box, Button, Grid, Paper } from '@mui/material';
 import Link from 'next/link';
 import { loginBgImage } from '@/constant/images';
@@ -11,24 +12,99 @@ import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import FormField from '@/components/mui-inputs/FormField';
 import { fieldsInputs } from './student-inputs-data';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { studentSchema } from './schema';
+import { useEffect, useRef, useState } from 'react';
+import SuccessRegisterModal from '@/components/modals/success-register-modal';
 
-const WhoAreYouPage: NextPage = () => {
-  // const fieldsStudentForm = fieldsInputs.map((item) => item.name);
+const StudentDetailsPage: NextPage = () => {
+  const [showSuccessModal, setSuccessModal] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const {
     register: registerStudent,
     handleSubmit: handleStudentSubmit,
-    formState: { errors: addStudentErrors },
+    formState: { errors: addStudentErrors, isValid },
     clearErrors: clearStudentErrors,
     setError: setStudentError,
     reset,
     control,
     watch,
     setValue,
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(studentSchema),
+    mode: 'all',
+  });
+
+  const onSubmit = async (data: any) => {
+    setLoadingSubmit(true);
+    const formdata = new FormData();
+
+    formdata.append('email', data?.email);
+    formdata.append('password', localStorage.getItem('password') as string);
+    formdata.append('user_type', 'student');
+    formdata.append('full_name', data?.full_name);
+    formdata.append('phone_number', data.phone_number);
+    formdata.append('nationality', data?.nationality);
+    formdata.append('national_number', data?.national_number);
+    formdata.append('gender', data?.gender);
+    formdata.append('age', data?.age);
+    formdata.append(
+      'educational_qualification',
+      data?.educational_qualification,
+    );
+    formdata.append('governorate', data?.governorate);
+    formdata.append('address', data?.address);
+    formdata.append('personal_interests', data?.personal_interests);
+
+    const requestOptions = {
+      method: 'POST',
+      body: formdata,
+    };
+
+    fetch('https://techubapi.merwas.org/api/register', requestOptions)
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((result) => {
+            // Setting the errors from the server in react-hook-form
+            Object.keys(result.msg).forEach((field) => {
+              setStudentError(field, {
+                type: 'server',
+                message: result.msg[field][0], // Assuming the message is an array and we take the first one
+              });
+            });
+          });
+        } else {
+          return res.json();
+        }
+      })
+      .then((result) => {
+        // in success state
+        if (result.status === 200) {
+          setSuccessModal(true);
+          localStorage.removeItem('password');
+          setLoadingSubmit(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoadingSubmit(false);
+      });
+  };
+
+  const handleSuccessClose = () => {
+    setSuccessModal(false);
+  };
+
+  // console.log(addStudentErrors);
 
   return (
     <div className={styles.signInContainer}>
+      {/* Success Modal when user Success register */}
+      <SuccessRegisterModal
+        open={showSuccessModal}
+        handleClose={handleSuccessClose}
+      />
       <div className="w-full ">
         <Grid
           container
@@ -68,6 +144,7 @@ const WhoAreYouPage: NextPage = () => {
                     required={false}
                     fieldData={item.fieldData}
                     defaultValue={item.defaultValue}
+                    apiErrors={addStudentErrors[item.name]?.message}
                   />
                 ))}
               </div>
@@ -91,26 +168,35 @@ const WhoAreYouPage: NextPage = () => {
                     Back
                   </Button>
                 </Link>
-                <Link href={'/who-are-you'}>
-                  <Button
-                    variant="outlined"
-                    sx={{
+
+                <LoadingButton
+                  type="submit"
+                  variant="outlined"
+                  onClick={handleStudentSubmit(onSubmit)}
+                  loading={loadingSubmit}
+                  loadingPosition="center"
+                  sx={{
+                    border: 'none',
+                    marginBottom: '4rem',
+                    marginLeft: '10rem',
+                    textDecoration: 'underline',
+                    textTransform: 'none',
+                    fontSize: '1.2rem',
+                    '&:hover': {
                       border: 'none',
-                      marginBottom: '4rem',
-                      marginLeft: '10rem',
-                      textDecoration: 'underline',
-                      textTransform: 'none',
-                      fontSize: '1.2rem',
-                      '&:hover': {
-                        border: 'none',
-                        backgroundColor: 'transparent',
-                      },
-                    }}
-                    endIcon={<KeyboardDoubleArrowRightIcon />}
-                  >
-                    Submit
-                  </Button>
-                </Link>
+                      backgroundColor: 'transparent',
+                    },
+                    '&.MuiButtonBase-root:disabled': {
+                      border: 'inherit',
+                      cursor: 'not-allowed',
+                      pointerEvents: 'auto',
+                    },
+                  }}
+                  endIcon={<KeyboardDoubleArrowRightIcon />}
+                  disabled={!isValid}
+                >
+                  Submit
+                </LoadingButton>
               </div>
             </Box>
           </Grid>
@@ -133,4 +219,4 @@ const WhoAreYouPage: NextPage = () => {
   );
 };
 
-export default WhoAreYouPage;
+export default StudentDetailsPage;

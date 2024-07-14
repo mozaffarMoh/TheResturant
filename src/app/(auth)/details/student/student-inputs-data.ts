@@ -3,14 +3,14 @@ export const fieldsInputs = [
   {
     id: 0,
     type: 0,
-    name: 'fullName',
+    name: 'full_name',
     label: 'Full Name',
     required: true,
   },
   {
     id: 1,
     type: 0,
-    name: 'phoneNumber',
+    name: 'phone_number',
     label: 'Phone Number',
     required: true,
   },
@@ -36,7 +36,7 @@ export const fieldsInputs = [
   {
     id: 4,
     type: 0,
-    name: 'nationalNumber',
+    name: 'national_number',
     label: 'National/Personal Number ',
     required: true,
   },
@@ -62,7 +62,7 @@ export const fieldsInputs = [
   {
     id: 7,
     type: 1,
-    name: 'educationalQualification',
+    name: 'educational_qualification',
     label: 'Educational Qualification',
     required: true,
     defaultValue: '',
@@ -104,7 +104,7 @@ export const fieldsInputs = [
   {
     id: 10,
     type: 2,
-    name: 'personalInterests',
+    name: 'personal_interests',
     label: 'Personal Interests',
     required: true,
     defaultValue: '',
