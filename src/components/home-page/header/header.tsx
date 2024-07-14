@@ -10,7 +10,7 @@ import {
   Drawer,
   Box,
 } from '@mui/material';
-import styles from './page.module.css';
+import styles from './header.module.css';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import LanguageIcon from '@mui/icons-material/Language';

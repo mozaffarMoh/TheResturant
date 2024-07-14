@@ -1,13 +1,6 @@
-.headerMainContainer{
-
-}
-
 .headerContainer {
   padding: 20px 0;
   background-color: #3f485e;
-}
-
-.headerDiv {
 }
 
 .headerDivContainer {
@@ -19,7 +12,7 @@
   width: 140px;
 }
 
-.sideMenu{
+.sideMenu {
   display: none;
 }
 
@@ -28,8 +21,7 @@
     width: 120px;
   }
 
-  
-  .gridMenu{
+  .gridMenu {
     display: none;
   }
 
@@ -41,16 +33,10 @@
     display: none;
   }
 
-  .sideMenu{
+  .sideMenu {
     display: block;
     text-align: end;
   }
-}
-
-.gridMenu {
-}
-
-.MenuDiv {
 }
 
 .menuListStyle {
@@ -93,7 +79,7 @@
 .authDivButton {
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 15px;
 }
 
@@ -110,70 +96,57 @@
   color: #173e62;
 }
 
-
-
-
 /* --- drawer --- */
 
-.hamburgerMenu{
+.hamburgerMenu {
   font-size: 25px;
   color: white;
 }
 
-.hamburgerButtonMenu{
+.hamburgerButtonMenu {
   padding: 0;
 }
 
-.drawerDivLogo{
+.drawerDivLogo {
   padding: 25px 25px 0 25px;
-
 }
 
-.drawerLogo{
+.drawerLogo {
   width: 100%;
   height: auto;
 }
 
 /* -------- menuListDrawer --- */
 
-.menuListDrawer{
-
-}
-
 .drawerActive {
   border-left: 3px solid #eb6b2a;
   color: #eb6b2a;
 }
 
-.menuItemDrawer{
+.menuItemDrawer {
   margin-bottom: 20px;
 }
 
-.authDrawerDivButton{
+.authDrawerDivButton {
   display: flex;
   flex-direction: column;
-
 }
 
-.authDrawerButton{
+.authDrawerButton {
   background-color: #eb6b2a;
   color: white;
   margin: 0 25px;
 
-  &:not(:last-child){
+  &:not(:last-child) {
     margin-bottom: 20px;
   }
 }
 
 /* Top Section */
 
-.headerTopContainer{
-
-}
-
-.headerTopDivContainer{
+.headerTopDivContainer {
   display: flex;
   align-items: center;
   gap: 25px;
-  justify-content: end;
+  justify-content: flex-end;
 }

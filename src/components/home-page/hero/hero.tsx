@@ -1,7 +1,7 @@
 'use client';
 
 import type { NextPage } from 'next';
-import styles from './page.module.css';
+import styles from './hero.module.css';
 import { Container } from '@mui/material';
 
 const HeroSection: NextPage = () => {
