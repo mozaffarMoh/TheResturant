@@ -1,3 +1,4 @@
+export const primaryColor = '#3F485E';
 export const secondaryColor = '#EB6B2A';
 
 export const buttonPrimaryColor = '#3F485E';
