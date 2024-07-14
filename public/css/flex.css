@@ -47,10 +47,10 @@
 }
 .sm-flex-col-col-center-center {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.2rem;
-  flex-direction: column;
 }
 .sm-flex-row-row-center-between {
   display: flex;

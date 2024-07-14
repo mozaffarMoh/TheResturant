@@ -11,20 +11,20 @@
 3.875rem; 62px
 */
 .text-reg {
-  /* color: black; */
+  color: var(--primary-color);
   font-size: var(--font-size-reg);
   font-weight: 400;
   line-height: 1.75rem;
 }
 
 .text-reg-fw500 {
-  /* color: black; */
+  color: var(--primary-color);
   font-size: var(--font-size-reg);
   font-weight: 500;
   line-height: 1.75rem;
 }
 .text-med-fw400 {
-  /* color: black; */
+  color: var(--primary-color);
   font-size: var(--font-size-medium);
   font-weight: 400;
   line-height: 1.75rem;
@@ -42,27 +42,33 @@
   }
 }
 .text-med-fw600 {
-  /* color: black; */
+  color: var(--primary-color);
   font-size: var(--font-size-medium);
   font-weight: 600;
   line-height: 1.75rem;
 }
 .text-med-fw700 {
-  /* color: black; */
+  color: var(--primary-color);
   font-size: var(--font-size-medium);
   font-weight: 700;
   line-height: 1.75rem;
 }
+.text-med-low {
+  color: var(--primary-color);
+  font-size: var(--font-size-low-medium);
+  font-weight: 600;
+  line-height: 1rem;
+}
 
 .text-xlarge-orange {
-  /* color: var(--secondary-color-light); */
+  color: var(--secondary-color);
   font-size: var(--font-size-xlarge);
   font-weight: 600;
   line-height: 2.75rem;
 }
 
 .text-large-title {
-  color: #3f485e;
+  color: var(--primary-color);
   font-family: Poppins;
   font-size: var(--font-size-large);
   font-style: normal;
@@ -70,23 +76,36 @@
   line-height: normal;
   text-transform: capitalize;
 }
-.text-xlarge-title {
-  /* color: var(--primary-color); */
+.text-xlarge-title-secondary {
+  color: var(--secondary-color);
   font-size: var(--font-size-double-high-medium);
   font-weight: 700;
-  line-height: 3rem;
+  line-height: 1.2rem;
+}
+.text-xlarge-title {
+  color: var(--primary-color);
+  font-size: var(--font-size-double-high-medium);
+  font-weight: 700;
+  line-height: 2rem;
 }
 .text-med-xlarge-title {
-  /* color: var(--primary-color); */
+  color: var(--primary-color);
   font-size: var(--font-size-med-xlarge);
   font-weight: 700;
   line-height: 3rem;
 }
 .sub-text-large {
-  /* color: var(--primary-color); */
+  color: var(--primary-color);
   font-size: var(--font-size-high-medium);
   font-weight: 400;
-  line-height: 2.75rem;
+  line-height: 1.8rem;
+}
+
+.sub-xlarge-title {
+  color: var(--primary-color);
+  font-size: var(--font-xlarge-subtitle);
+  font-weight: 700;
+  line-height: 2rem;
 }
 
 .text-white-new {
@@ -115,7 +134,10 @@
 .line-h-0 {
   line-height: 0px !important;
 }
-.line-h-96 {
+.line-h-2 {
+  line-height: 2rem !important;
+}
+.line-h-4 {
   line-height: 4rem !important;
 }
 
@@ -132,4 +154,8 @@
 }
 .fw700 {
   font-weight: 700 !important;
+}
+
+.text-align-center {
+  text-align: center;
 }
