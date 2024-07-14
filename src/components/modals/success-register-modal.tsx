@@ -23,16 +23,12 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 interface SuccessRegisterModalProps {
   open: boolean;
-  handleClose: () => void;
 }
-const SuccessRegisterModal = ({
-  open = false,
-  handleClose,
-}: SuccessRegisterModalProps) => {
-  const { push } = useRouter();
+const SuccessRegisterModal = ({ open = false }: SuccessRegisterModalProps) => {
+  const { push, replace } = useRouter();
   return (
     <BootstrapDialog
-      onClose={handleClose}
+      onClose={() => replace('/home')}
       aria-labelledby="customized-dialog-title"
       open={open}
     >
@@ -50,7 +46,7 @@ const SuccessRegisterModal = ({
       </DialogTitle>
       <IconButton
         aria-label="close"
-        onClick={handleClose}
+        onClick={() => replace('/home')}
         sx={{
           position: 'absolute',
           right: 8,
@@ -69,7 +65,7 @@ const SuccessRegisterModal = ({
       <DialogActions>
         <Button
           autoFocus
-          onClick={() => push('/home')}
+          onClick={() => replace('/home')}
         >
           Home
         </Button>
