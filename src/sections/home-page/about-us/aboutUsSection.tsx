@@ -51,7 +51,7 @@ const AboutUsSection = () => {
             Easily without any coding
           </p>
         </div>
-        <div className="mt-4 w-full">
+        <div className="mt-4 w-full ">
           <Grid
             container
             spacing={2}
@@ -71,7 +71,7 @@ const AboutUsSection = () => {
 
               <Grid
                 container
-                className="mt-2"
+                className="mt-2 "
                 spacing={2}
                 rowSpacing={2}
               >

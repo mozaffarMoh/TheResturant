@@ -13,7 +13,6 @@ import UnderCardsSection from '@/components/home-page/under-cards-section/underC
 import PartnerSection from '@/sections/home-page/partner/PartnerSection';
 import ContactUsSection from '@/sections/home-page/contact-us/contactUsSection';
 
-
 const HomePage: NextPage = () => {
   return (
     <>
@@ -21,7 +20,7 @@ const HomePage: NextPage = () => {
 
       <HeroSection />
       <CardsSection />
-      
+
       <AboutUsSection />
       <ServicesSection />
       <PartnerSection />

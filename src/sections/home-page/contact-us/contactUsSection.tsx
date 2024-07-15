@@ -3,13 +3,16 @@ import styles from './contact-us.module.css';
 import {
   AlarmClockSVG,
   EditSVG,
+  FaceBookMedSVG,
+  InstagramMedSVG,
+  LinkedInMedSVG,
   LocationSVG,
   PhoneSVG,
   ShareSVG,
+  SkypeMedSVG,
+  TwitterMedSVG,
 } from '../../../../assets/icons';
 import ContactUsSectionCard from '@/components/cards/contact-us-section/contactUsSectionCard';
-import Image from 'next/image';
-import { socialIconsImages } from '@/constant/images';
 import ContactUsForm from './contact-us-form/contactUsForm';
 
 const ContactUsSection = () => {
@@ -40,7 +43,7 @@ const ContactUsSection = () => {
     },
   ];
   return (
-    <Container className="mt-4 max-w-90 ">
+    <Container className="mt-4 max-w-90 mb-2 ">
       <div className="sm-flex-col-col-center-center">
         <div className="text-align-center">
           <p className="text-xlarge-title">Contact Us</p>
@@ -65,7 +68,7 @@ const ContactUsSection = () => {
 
               <Grid
                 container
-                className="mt-2"
+                className="mt-2 "
                 spacing={2}
                 rowSpacing={2}
               >
@@ -83,15 +86,16 @@ const ContactUsSection = () => {
                     />
                   </Grid>
                 ))}
-               {
-                /** <Grid
+
+                <Grid
                   container
                   wrap="nowrap"
                   spacing={2}
+                  sx={{ marginLeft: '0.7rem', marginTop: '1rem' }}
                 >
                   <Grid
                     item
-                    sx={{ marginTop: '1rem' }}
+                    sx={{ marginTop: '1.5rem' }}
                   >
                     <ShareSVG />
                   </Grid>
@@ -100,15 +104,26 @@ const ContactUsSection = () => {
                     xs
                   >
                     <p className="text-med-low  ">Follow US</p>
-                    <Image
-                      width={300}
-                      height={80}
-                      alt="social icons"
-                      src={socialIconsImages}
-                    />
+
+                    <div className="sm-flex-row-row-center-start gap05 mt-1 w-50">
+                      <div className={styles.socialIconContainer}>
+                        <FaceBookMedSVG />
+                      </div>
+                      <div className={styles.socialIconContainer}>
+                        <TwitterMedSVG />
+                      </div>
+                      <div className={styles.socialIconContainer}>
+                        <InstagramMedSVG />
+                      </div>
+                      <div className={styles.socialIconContainer}>
+                        <LinkedInMedSVG />
+                      </div>
+                      <div className={styles.socialIconContainer}>
+                        <SkypeMedSVG />
+                      </div>
+                    </div>
                   </Grid>
-                </Grid> */
-               }
+                </Grid>
               </Grid>
             </Grid>
             <Grid

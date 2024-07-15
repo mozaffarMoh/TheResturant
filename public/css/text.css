@@ -57,7 +57,7 @@
   color: var(--primary-color);
   font-size: var(--font-size-low-medium);
   font-weight: 600;
-  line-height: 1rem;
+  line-height: 1.5rem;
 }
 
 .text-xlarge-orange {
@@ -80,7 +80,7 @@
   color: var(--secondary-color);
   font-size: var(--font-size-double-high-medium);
   font-weight: 700;
-  line-height: 1.2rem;
+  line-height: 2rem;
 }
 .text-xlarge-title {
   color: var(--primary-color);
@@ -112,6 +112,9 @@
   color: var(--white-text) !important;
 }
 
+.fc-primary {
+  color: var(--primary-color);
+}
 .fc-secondary {
   color: var(--secondary-text-color);
 }
@@ -162,4 +165,11 @@
 
 .text-align-center {
   text-align: center;
+}
+.text-wrap {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  @media (max-width: 576px) {
+    hyphens: auto;
+  }
 }

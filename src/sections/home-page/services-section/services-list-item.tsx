@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import styles from './services-section.module.css';
-import { primaryColor } from '@/constant/color';
+import { generalBgColor, primaryColor } from '@/constant/color';
 import Image from 'next/image';
 import { servicesSectionImage } from '@/constant/images';
 
@@ -14,12 +14,12 @@ interface IProps {
 const ServicesListItem = ({ title, content, direction, bgColor }: IProps) => {
   return (
     <div
-      className="mt-2 w-full  "
+      className="mt-2 w-full sm-padding-start-1 "
       style={{
         width: '95vw',
         paddingTop: '1.8rem',
         paddingBottom: '1.5rem',
-        backgroundColor: bgColor,
+        backgroundColor: direction ? bgColor : generalBgColor,
         borderBottomLeftRadius: '100px',
       }}
     >
@@ -52,7 +52,7 @@ const ServicesListItem = ({ title, content, direction, bgColor }: IProps) => {
           className={styles.leftContainer}
         >
           <p
-            className={`text-xlarge-title-secondary p-0 m-0 ${direction ? '' : 'fc-light-black'}`}
+            className={`text-xlarge-title-secondary p-0 m-0 ${direction ? '' : 'fc-primary'}`}
           >
             {title}
           </p>

@@ -1,19 +1,7 @@
 import { Container, Grid } from '@mui/material';
 import styles from './partner.module.css';
-import Image from 'next/image';
-import {
-  aboutUsSectionImage,
-  partnerImage1,
-  partnerImage2,
-  partnerImage3,
-} from '@/constant/images';
-import {
-  LampSVG,
-  RocketSVG,
-  TargetArrowSVG,
-  TelescopeSVG,
-} from '../../../../assets/icons';
-import AboutUsSectionCard from '@/components/cards/about-us-section/aboutUsSectionCard';
+import { partnerImage1, partnerImage2, partnerImage3 } from '@/constant/images';
+
 import PartnerSectionCard from '@/components/cards/partner-section/partnerSectionCard';
 
 const PartnerSection = () => {

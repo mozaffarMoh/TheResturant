@@ -7,6 +7,7 @@ interface TextFieldProps {
   control: any;
   required: boolean;
   apiErrors?: any;
+  className?: string;
   [key: string]: any;
 }
 function TextField({
@@ -15,6 +16,7 @@ function TextField({
   label,
   required,
   apiErrors,
+  className = 'text-field-style',
 }: TextFieldProps) {
   return (
     <Controller
@@ -30,7 +32,7 @@ function TextField({
           helperText={apiErrors ? apiErrors : null}
           error={apiErrors && apiErrors ? true : false}
           variant="outlined"
-          className="text-field-style"
+          className={className}
           sx={{
             '& .MuiInputBase-root': {
               borderRadius: '50px',

@@ -13,10 +13,12 @@
 @import './../../public/css/auth.css';
 @import './../../public/css/mui-inputs-fields.css';
 @import './../../public/css/cards.css';
+@import './../../public/css/media-query.css';
 
 body {
   margin: 0;
   line-height: normal;
+  background-color: var(--general-bg-color);
 }
 :root {
   /* fonts */
@@ -67,7 +69,7 @@ body {
   /* Colors */
   --primary-color: #3f485e;
   --secondary-color: #eb6b2a;
-
+  --general-bg-color: #f6f6f6;
   --secondary-text-color: #eb6b2a;
 
   --color-whitesmoke-100: #f6f2ee;

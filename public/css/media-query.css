@@ -1,0 +1,11 @@
+@media (max-width: 576px) {
+  .sm-padding-start-1 {
+    padding-inline-start: 1rem;
+  }
+  .sm-padding-inline-1 {
+    padding-inline: 1rem;
+  }
+  .sm-content-w-90 {
+    max-width: 90%;
+  }
+}

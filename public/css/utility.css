@@ -1,6 +1,9 @@
 .w-full {
   width: 100%;
 }
+.max-w-95 {
+  max-width: 95%;
+}
 .max-w-90 {
   max-width: 90%;
 }
@@ -29,7 +32,6 @@
     width: 100%;
   }
 }
-
 
 .max-w-50 {
   max-width: 50%;
@@ -68,6 +70,9 @@
 }
 .m-1 {
   margin: 1rem !important;
+}
+.mt-1 {
+  margin-top: 1rem;
 }
 .mt-2 {
   margin-top: 2rem;
@@ -109,6 +114,9 @@
 }
 .p-0 {
   padding: 0rem;
+}
+.pt-1 {
+  padding-top: 1rem;
 }
 
 .bg-primary-color {

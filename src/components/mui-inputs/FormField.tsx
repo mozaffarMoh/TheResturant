@@ -28,6 +28,7 @@ interface FormFieldProps {
   required: boolean;
   defaultValue?: string;
   apiErrors?: any;
+  className?: string;
 }
 
 export default function FormField({
@@ -41,6 +42,7 @@ export default function FormField({
   required,
   defaultValue = '',
   apiErrors,
+  className = 'text-field-style',
 }: FormFieldProps) {
   return createElement(fieldComponents[type], {
     name,
@@ -52,6 +54,7 @@ export default function FormField({
     required,
     defaultValue,
     apiErrors,
+    className,
   });
 }
 // initialItems={initialPlaces}

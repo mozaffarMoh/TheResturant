@@ -2,6 +2,7 @@ import FormField from '@/components/mui-inputs/FormField';
 import { buttonPrimaryColor } from '@/constant/color';
 import { Button, Grid, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import styles from '../contact-us.module.css';
 
 const ContactUsForm = () => {
   const typeInputField = {
@@ -43,19 +44,26 @@ const ContactUsForm = () => {
   } = useForm();
 
   return (
-    <div className="w-full">
-      <FormField
-        key={typeInputField.id}
-        name={typeInputField.name}
-        label={typeInputField.label}
-        control={control}
-        type={typeInputField.type}
-        required={false}
-        fieldData={typeInputField.fieldData}
-        defaultValue={typeInputField.defaultValue}
-        apiErrors={errors[typeInputField.name]?.message}
-      />
+    <div className="w-full ">
       <Grid container>
+        <Grid
+          item
+          xs={12}
+        >
+          <FormField
+            key={typeInputField.id}
+            name={typeInputField.name}
+            label={typeInputField.label}
+            control={control}
+            type={typeInputField.type}
+            required={false}
+            fieldData={typeInputField.fieldData}
+            defaultValue={typeInputField.defaultValue}
+            apiErrors={errors[typeInputField.name]?.message}
+            className={styles.inputsFieldStyle}
+          />
+        </Grid>
+
         <Grid
           item
           xs={12}
@@ -69,12 +77,13 @@ const ContactUsForm = () => {
             type={nameInputField.type}
             required={false}
             apiErrors={errors[nameInputField.name]?.message}
+            className={styles.inputsFieldStyle}
           />
         </Grid>
         <Grid
           item
           xs={12}
-          md={6}
+          md={5.5}
         >
           <FormField
             key={emailInputField.id}
@@ -84,6 +93,7 @@ const ContactUsForm = () => {
             type={emailInputField.type}
             required={false}
             apiErrors={errors[emailInputField.name]?.message}
+            className={styles.inputsFieldStyle}
           />
         </Grid>
         <Grid
@@ -96,7 +106,7 @@ const ContactUsForm = () => {
             label="Message"
             multiline
             rows={6}
-            className="text-field-style"
+            className={styles.inputsFieldStyle}
             sx={{
               '& .MuiInputBase-root': {
                 borderRadius: '12px',
@@ -116,7 +126,7 @@ const ContactUsForm = () => {
               borderRadius: '50px',
               backgroundColor: buttonPrimaryColor,
               marginBottom: '4rem',
-              marginTop: '2rem',
+              marginTop: '3rem',
               height: '3rem',
             }}
           >

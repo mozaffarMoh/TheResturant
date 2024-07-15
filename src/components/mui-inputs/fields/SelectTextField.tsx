@@ -9,6 +9,7 @@ interface SelectTextFieldProps {
   fieldData: { label: string; value: string }[];
   defaultValue: string;
   apiErrors?: any;
+  className?: string;
   [key: string]: any;
 }
 function SelectTextField({
@@ -19,6 +20,7 @@ function SelectTextField({
   fieldData,
   defaultValue,
   apiErrors,
+  className = 'text-field-style',
 }: SelectTextFieldProps) {
   // console.log(fieldData);
 
@@ -37,7 +39,7 @@ function SelectTextField({
           helperText={apiErrors ? apiErrors : null}
           error={apiErrors && apiErrors ? true : false}
           variant="outlined"
-          className="text-field-style "
+          className={className}
           sx={{
             '& .MuiInputBase-root': {
               borderRadius: '50px',

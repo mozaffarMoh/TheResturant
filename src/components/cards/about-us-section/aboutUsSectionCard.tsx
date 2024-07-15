@@ -10,16 +10,20 @@ const AboutUsSectionCard = ({ title, content, icon }: IProps) => {
   return (
     <Grid
       container
-      wrap="nowrap"
       spacing={2}
     >
-      <Grid item>{icon}</Grid>
       <Grid
         item
-        xs
+        className="mt-1"
+      >
+        {icon}
+      </Grid>
+      <Grid
+        item
+        xs={9}
       >
         <p className="text-med-low ">{title}</p>
-        <Typography sx={{ textAlign: 'left' }}>{content}</Typography>
+        <p className="text-wrap sub-text-larges opacity-75  ">{content}</p>
       </Grid>
     </Grid>
   );
