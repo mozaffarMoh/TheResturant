@@ -83,7 +83,8 @@ const ContactUsSection = () => {
                     />
                   </Grid>
                 ))}
-                <Grid
+               {
+                /** <Grid
                   container
                   wrap="nowrap"
                   spacing={2}
@@ -106,7 +107,8 @@ const ContactUsSection = () => {
                       src={socialIconsImages}
                     />
                   </Grid>
-                </Grid>
+                </Grid> */
+               }
               </Grid>
             </Grid>
             <Grid
