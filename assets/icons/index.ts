@@ -9,7 +9,18 @@ import RocketSVG from './rocket';
 import TelescopeSVG from './telescope';
 import LampSVG from './lamp';
 import TargetArrowSVG from './target-arrow';
+import AlarmClockSVG from './alarm-clock';
+import EditSVG from './edit';
+import LocationSVG from './location';
+import PhoneSVG from './phone';
+import ShareSVG from './share';
+
 export {
+  ShareSVG,
+  PhoneSVG,
+  LocationSVG,
+  EditSVG,
+  AlarmClockSVG,
   FaceBookSVG,
   InstagramSVG,
   LinkedInSVG,

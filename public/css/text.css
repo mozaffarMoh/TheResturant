@@ -121,6 +121,9 @@
 .fc-light-black {
   color: rgba(0, 0, 0, 0.8) !important;
 }
+.fc-light-black-new {
+  color: rgba(119, 131, 143, 1) !important;
+}
 .fc-black {
   color: black !important;
 }
@@ -131,6 +134,7 @@
 .text-underline-none {
   text-decoration: none;
 }
+
 .line-h-0 {
   line-height: 0px !important;
 }
@@ -150,7 +154,7 @@
   font-weight: 500 !important;
 }
 .fw600 {
-  font-weight: 60 !important;
+  font-weight: 600 !important;
 }
 .fw700 {
   font-weight: 700 !important;
