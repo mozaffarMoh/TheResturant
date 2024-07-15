@@ -9,3 +9,9 @@
     max-width: 90%;
   }
 }
+
+@media (max-width: 900px) {
+  .md-padding-start-1 {
+    padding-inline-start: 1rem;
+  }
+}

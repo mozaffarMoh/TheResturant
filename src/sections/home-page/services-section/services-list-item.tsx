@@ -14,7 +14,7 @@ interface IProps {
 const ServicesListItem = ({ title, content, direction, bgColor }: IProps) => {
   return (
     <div
-      className="mt-2 w-full sm-padding-start-1 "
+      className="mt-2 w-full md-padding-start-1 "
       style={{
         width: '95vw',
         paddingTop: '1.8rem',
@@ -40,9 +40,11 @@ const ServicesListItem = ({ title, content, direction, bgColor }: IProps) => {
           className={styles.rightContainer}
         >
           <Image
-            fill
+            width={400}
+            height={400}
             src={servicesSectionImage}
             alt="about us Section"
+            className={styles.serviceImageStyle}
           />
         </Grid>
         <Grid

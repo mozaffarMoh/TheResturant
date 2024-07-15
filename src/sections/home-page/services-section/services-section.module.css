@@ -18,3 +18,17 @@
     height: 24rem;
   }
 }
+.serviceImageStyle {
+  @media (max-width: 1120px) {
+    width: 320px;
+    height: 320px;
+  }
+  @media (max-width: 900px) {
+    width: 400px;
+    height: 400px;
+  }
+  @media (max-width: 576px) {
+    width: 280px;
+    height: 280px;
+  }
+}

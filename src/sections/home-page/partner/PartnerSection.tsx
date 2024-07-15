@@ -38,7 +38,7 @@ const PartnerSection = () => {
             Easily without any coding
           </p>
         </div>
-        <div className="mt-4 sm-flex-row-col-center-center mb-4 gap3">
+        <div className="mt-4 lg-flex-row-col-center-center mb-4 gap3">
           {partnerCards.map((item) => (
             <PartnerSectionCard
               key={item.id}
