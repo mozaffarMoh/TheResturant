@@ -21,7 +21,7 @@ const HomePage: NextPage = () => {
 
       <HeroSection />
       <CardsSection />
-      <UnderCardsSection />
+      
       <AboutUsSection />
       <ServicesSection />
       <PartnerSection />
