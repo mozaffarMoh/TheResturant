@@ -23,6 +23,12 @@
   font-weight: 500;
   line-height: 1.75rem;
 }
+.text-reg-high {
+  color: var(--primary-color);
+  font-size: var(--font-size-reg-high);
+  font-weight: 600;
+  line-height: clamp(1.2rem, 0.5455rem + 3.2727vw, 3rem);
+}
 .text-med-fw400 {
   color: var(--primary-color);
   font-size: var(--font-size-medium);
@@ -141,8 +147,20 @@
 .line-h-0 {
   line-height: 0px !important;
 }
+.line-h-1 {
+  line-height: 1rem;
+}
+.line-h-1-2 {
+  line-height: 1.5rem;
+}
 .line-h-2 {
   line-height: 2rem !important;
+}
+.line-h-2-5 {
+  line-height: 2.5rem !important;
+}
+.line-h-3 {
+  line-height: 3rem !important;
 }
 .line-h-4 {
   line-height: 4rem !important;
@@ -172,4 +190,11 @@
   @media (max-width: 576px) {
     hyphens: auto;
   }
+}
+
+.letter-spacing-1 {
+  letter-spacing: 0.1rem;
+}
+.capital-letters {
+  text-transform: capitalize;
 }

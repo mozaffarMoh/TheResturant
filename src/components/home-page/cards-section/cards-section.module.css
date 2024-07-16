@@ -1,6 +1,5 @@
 .mainTextStyle {
   font-size: 24px;
-  font-family: 'Nobile';
   font-weight: 500;
   line-height: 76px;
   margin: 0;
@@ -21,11 +20,8 @@
   }
 }
 
-.cardStyle {
-}
-
 .cardsImgStyle {
-  height: 400px;
+  height: 420px;
   z-index: 1;
   position: relative;
   object-fit: cover;
@@ -35,22 +31,22 @@
   }
 }
 
-.backStyle{
-    background-color: #3F485E;
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+.backStyle {
+  background: linear-gradient(#d9d9d900 0%, #3f485e 100%);
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
-    z-index: 2;
+  z-index: 2;
 }
 
 .cardContentStyle {
   z-index: 3;
   position: absolute;
-  bottom: 20%;
+  bottom: 5%;
   left: 10px;
 }
 
@@ -66,29 +62,14 @@
   }
 }
 
-.cardDescription {
-  color: white;
-  font-size: 18px;
-  line-height: 30px;
-  font-weight: 400;
-  font-family: 'DM Sans';
-  width: 80%;
-
-  @media (max-width: 1199px) {
-    font-size: 16px;
-  }
-}
-
 .cardLink {
   color: white;
-  font-size: 18px;
+  font-size: 0.973rem;
   line-height: 18px;
-  font-weight: 700;
-  font-family: 'DM Sans';
-
+  font-weight: 600;
+  opacity: 90%;
   display: flex;
   align-items: center;
-  gap: 5px;
   text-decoration: none;
 
   @media (max-width: 1199px) {

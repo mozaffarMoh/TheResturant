@@ -32,6 +32,7 @@ body {
 
   /* sizes vars */
   --font-size-reg: 0.875rem;
+  --font-size-reg-high: clamp(1rem, 0.8909rem + 0.5455vw, 1.3rem);
   --font-size-medium: clamp(0.75rem, 0.6862rem + 0.3191vw, 0.9375rem);
   --font-size-low-medium: clamp(1rem, 0.8586rem + 0.7072vw, 1.4rem);
   --font-size-high-medium: clamp(0.9375rem, 0.774rem + 0.8177vw, 1.4rem);

@@ -10,6 +10,7 @@ import {
 import styles from './cards-section.module.css';
 import Link from 'next/link';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import { heroCard1, heroCard2, heroCard3, heroCard4 } from '@/constant/images';
 
 const CardsSection = () => {
   const data = [
@@ -17,24 +18,31 @@ const CardsSection = () => {
       title: 'Coworking Spaces',
       description:
         ' Inspiring Work Environments Designed for Technological Innovation',
+      image: heroCard1,
       link: '#',
     },
     {
       title: 'Coworking Spaces',
       description:
         ' Inspiring Work Environments Designed for Technological Innovation',
+      image: heroCard2,
+
       link: '#',
     },
     {
       title: 'Coworking Spaces',
       description:
         ' Inspiring Work Environments Designed for Technological Innovation',
+      image: heroCard3,
+
       link: '#',
     },
     {
       title: 'Coworking Spaces',
       description:
         ' Inspiring Work Environments Designed for Technological Innovation',
+      image: heroCard4,
+
       link: '#',
     },
   ];
@@ -43,8 +51,8 @@ const CardsSection = () => {
     <Container className="mt-4 max-w-md-65">
       <div className="sm-flex-col-col-center-center ">
         <div className="text-align-center">
-          <p className={styles.mainTextStyle}>
-            At The ThePlatform, we are dedicated to helping you excel in the
+          <p className="text-reg-high  capital-letters ">
+            At The ThePlatform, We are dedicated to helping you excel in the
             world of technology. Our services are specifically designed to meet
             your needs
           </p>
@@ -52,7 +60,8 @@ const CardsSection = () => {
         <div className="mt-4 w-full">
           <Grid
             container
-            spacing={2}
+            spacing={4}
+            rowGap={4}
           >
             {data &&
               data.map((item, idx) => (
@@ -60,23 +69,23 @@ const CardsSection = () => {
                   item
                   xs={12}
                   md={6}
-                  className={styles.cardStyle}
                   key={idx}
                 >
-                  <Card>
+                  <Card sx={{ borderRadius: '18px' }}>
                     <CardActionArea>
                       <CardMedia
                         component="img"
-                        image="/container@2x.png"
+                        image={item.image}
                         alt="green iguana"
                         className={styles.cardsImgStyle}
                       />
                       <div className={styles.backStyle} />
                       <CardContent className={styles.cardContentStyle}>
                         <h2 className={styles.cardTitle}>{item.title}</h2>
-                        <p className={styles.cardDescription}>
+                        <p className="sub-text-larges opacity-85 fw-500 line-h-1-2 letter-spacing-2 text-white-new max-w-75 ">
                           {item.description}
                         </p>
+                        <br />
                         <Link
                           href={item.link}
                           className={styles.cardLink}
