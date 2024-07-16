@@ -2,7 +2,7 @@
 
 import type { NextPage } from 'next';
 import styles from './page.module.css';
-import { Header, HeroSection } from '@/sections/home';
+import { HeroSection } from '@/sections/guest-home';
 import AboutUsSection from '@/sections/guest-home/about-us/aboutUsSection';
 import ServicesSection from '@/sections/guest-home/services-section/servicesSection';
 import AuthFooter from '@/components/AuthFooter';
@@ -12,15 +12,23 @@ import UnderCardsSection from '@/components/home-page/under-cards-section/underC
 
 import PartnerSection from '@/sections/guest-home/partner/PartnerSection';
 import ContactUsSection from '@/sections/guest-home/contact-us/contactUsSection';
+import GuestHeader from '@/sections/guest-home/guest-header/guest-header';
 
-const HomePage: NextPage = () => {
+const PublicHomePage: NextPage = () => {
   return (
     <>
-      <Header />
+      <GuestHeader />
+
       <HeroSection />
+      <CardsSection />
+
+      <AboutUsSection />
+      <ServicesSection />
+      <PartnerSection />
+      <ContactUsSection />
       <AuthFooter />
     </>
   );
 };
 
-export default HomePage;
+export default PublicHomePage;

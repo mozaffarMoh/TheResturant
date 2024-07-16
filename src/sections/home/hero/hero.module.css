@@ -1,0 +1,83 @@
+.home {
+  background-image: url('/home-hero.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  /* min-height: 760px; */
+  position: relative;
+}
+
+.heroTitle {
+  padding: 12rem 0;
+}
+
+.Title {
+  margin: 0;
+  color: #fff;
+  max-width: 50%;
+  font-weight: 700;
+  font-size: var(--font-size-double-high-medium);
+  line-height: 4.75rem;
+}
+.SubTitle {
+  max-width: 40%;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6rem;
+  margin-left: 0.3rem;
+}
+
+@media screen and (max-width: 1199px) {
+  .welcomeToTheTheplatformYou {
+    font-size: 2rem;
+    width: 40rem;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .heroTitle {
+    padding: 10rem 0;
+  }
+
+  .Title {
+    max-width: 60%;
+  }
+  .SubTitle {
+    max-width: 60%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .heroTitle {
+    padding: 8rem 0;
+  }
+
+  .Title {
+    max-width: 80%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .heroTitle {
+    padding: 6rem 0;
+  }
+
+  .Title {
+    max-width: 80%;
+    line-height: 2.2rem;
+  }
+  .SubTitle {
+    max-width: 80%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .heroTitle {
+    padding: 5rem 0;
+  }
+
+  .Title {
+    /* line-height: 1.2rem; */
+    max-width: 90%;
+    line-height: 2.2rem;
+  }
+}

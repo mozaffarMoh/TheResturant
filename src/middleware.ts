@@ -7,7 +7,7 @@ export function middleware(req: NextRequest) {
   // Check if the request is for the home page or any other non-authenticated page
   if (url.pathname === '/') {
     // Redirect to the login page
-    url.pathname = '/home';
+    url.pathname = '/guest-home';
     return NextResponse.redirect(url);
   }
 

@@ -118,6 +118,9 @@
 .pt-1 {
   padding-top: 1rem;
 }
+.p-inline-2 {
+  padding-inline: 2rem;
+}
 
 .bg-primary-color {
   background-color: var(--primary-color);

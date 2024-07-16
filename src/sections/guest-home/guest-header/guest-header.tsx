@@ -10,14 +10,15 @@ import {
   Drawer,
   Box,
 } from '@mui/material';
-import styles from './header.module.css';
+import styles from './guest-header.module.css';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useRouter } from 'next/navigation';
 import MenuIcon from '@mui/icons-material/Menu';
+import Link from 'next/link';
 
-const Header = () => {
+const GuestHeader = () => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -47,26 +48,30 @@ const Header = () => {
       link: '/guest-home',
     },
     {
+      title: 'Pro-HOME',
+      link: '/home',
+    },
+    {
       title: 'About Us',
-      link: '/about-us',
+      link: '#',
     },
     {
       title: 'Services',
-      link: '/services',
+      link: '#',
     },
     {
       title: 'Partners',
-      link: '/partners',
+      link: '#',
     },
     {
       title: 'Contact Us',
-      link: '/contact-us',
+      link: '#',
     },
   ];
 
   return (
-    <div className={styles.headerMainContainer}>
-      <div className={styles.headerTopContainer}>
+    <div>
+      <div>
         <Container>
           <Grid
             container
@@ -126,11 +131,15 @@ const Header = () => {
                     {menu &&
                       menu.map((item, idx) => (
                         <MenuItem
-                          href="#"
                           key={idx}
                           className={`${styles.menuListItem} ${isActive(item.link) && styles.active}`}
                         >
-                          <ListItemText>{item.title}</ListItemText>
+                          <Link
+                            href={item.link}
+                            style={{ all: 'inherit' }}
+                          >
+                            <ListItemText>{item.title}</ListItemText>
+                          </Link>
                         </MenuItem>
                       ))}
                   </MenuList>
@@ -254,4 +263,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default GuestHeader;
