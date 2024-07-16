@@ -18,6 +18,8 @@ const HomePage: NextPage = () => {
     <>
       <Header />
       <HeroSection />
+      {/* <AboutUsSection /> */}
+
       <AuthFooter />
     </>
   );

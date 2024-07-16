@@ -48,10 +48,6 @@ const GuestHeader = () => {
       link: '/guest-home',
     },
     {
-      title: 'Pro-HOME',
-      link: '/home',
-    },
-    {
       title: 'About Us',
       link: '#',
     },
