@@ -32,3 +32,31 @@
     height: 280px;
   }
 }
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* 12 columns */
+}
+.gridItem {
+  grid-column: span 4; /* Each item spans 6 columns */
+}
+
+.gridContainerRightCards {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* 12 columns */
+}
+.gridItemRightCards {
+  grid-column: span 6; /* Each item spans 6 columns */
+}
+
+@media (max-width: 1300px) {
+  .gridItem {
+    grid-column: span 12; /* Each item spans 12 columns */
+  }
+}
+
+@media (max-width: 765px) {
+  .gridItemRightCards {
+    grid-column: span 12; /* Each item spans 12 columns */
+  }
+}

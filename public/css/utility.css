@@ -124,6 +124,9 @@
 .m-inline-end-2 {
   margin-inline-end: 2rem;
 }
+.min-h-10 {
+  min-height: 10rem;
+}
 .p-1 {
   padding: 1rem;
 }

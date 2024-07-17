@@ -1,3 +1,4 @@
+'use client';
 import { Button, Container, Grid } from '@mui/material';
 import styles from './work-shops.module.css';
 import { primaryColor } from '@/constant/color';
@@ -9,7 +10,7 @@ import { workShopImage1, workShopImage2 } from '@/constant/images';
 const WorkShopsSection = () => {
   return (
     <Container className="mt-4 max-w-90 mb-4 ">
-      <div className="sm-flex-col-col-center-center ">
+      <div className="sm-flex-col-col-center-center  ">
         <div
           className="mt-2 w-full md-padding-start-1 "
           style={{
@@ -21,18 +22,14 @@ const WorkShopsSection = () => {
           }}
         >
           <div
-            className="sm-flex-colo-col md-margin-0 "
+            className="sm-flex-colo-col  md-margin-0 "
             style={{ marginLeft: '8%', marginRight: '1%' }}
           >
             <div className="text-xlarge-title text-white-new">Workshops</div>
-            <div className="mt-2">
+            <div className="mt-2 lg-flex-row-col-1300">
               {/* cards horizontal cards  section */}
-              <Grid container>
-                <Grid
-                  item
-                  xs={12}
-                  md={4}
-                >
+              <div className={styles.gridContainer}>
+                <div className={styles.gridItem}>
                   <div className="sm-flex-col-col-center-center gap1">
                     <WorkShopCardV1
                       title={'Elegant Light Box Paper New Design Conference'}
@@ -52,15 +49,10 @@ const WorkShopsSection = () => {
                       month={'April'}
                     />
                   </div>
-                </Grid>
+                </div>
                 {/* cards Vertical cards  section */}
 
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={4}
-                >
+                <div className={styles.gridItem}>
                   <div className="sm-flex-row-col-center-center">
                     <WorkShopCardV2
                       title={
@@ -69,13 +61,8 @@ const WorkShopsSection = () => {
                       image={workShopImage1}
                     />
                   </div>
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={4}
-                >
+                </div>
+                <div className={styles.gridItem}>
                   <div className="sm-flex-row-col-center-center">
                     <WorkShopCardV2
                       title={
@@ -84,8 +71,8 @@ const WorkShopsSection = () => {
                       image={workShopImage2}
                     />
                   </div>
-                </Grid>
-              </Grid>
+                </div>
+              </div>
             </div>
             <div className="mt-2 sm-flex-row-row-center-end  m-inline-end-2">
               <Button
