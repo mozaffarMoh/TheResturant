@@ -8,7 +8,6 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 
 const EventCard = ({
@@ -20,7 +19,6 @@ const EventCard = ({
   description: string;
   image: string;
 }) => {
-  const theme = useTheme();
   return (
     <Paper className="event-card-paper">
       <Card sx={{ display: 'flex', border: 'none', boxShadow: 'none' }}>
@@ -46,20 +44,8 @@ const EventCard = ({
           >
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flex: '1 0 auto' }}>
-                <Typography
-                  component="div"
-                  variant="h4"
-                  sx={{ fontWeight: '600' }}
-                >
-                  {title}
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="div"
-                >
-                  {description}
-                </Typography>
+                <p className="text-large-title fw600">{title}</p>
+                <p className="text-med-fw400 ">{description}</p>
               </CardContent>
               <Box
                 sx={{ display: 'flex', alignItems: 'flex-start', pl: 2, pb: 1 }}

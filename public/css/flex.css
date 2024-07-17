@@ -83,6 +83,9 @@
 .align-self-start {
   align-self: flex-start;
 }
+.align-self-end {
+  align-self: flex-end;
+}
 
 @media (max-width: 1120px) {
   .lg-flex-row-col-center-center {

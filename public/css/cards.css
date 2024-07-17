@@ -11,3 +11,28 @@
   padding: 2.2rem;
   box-shadow: none;
 }
+
+.workshop-card-div-v1 {
+  border-radius: 18px;
+  /* padding: 0.2rem; */
+  box-shadow: none;
+}
+@media (max-width: 567px) {
+  .workshop-v1-repo {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.workshop-card-div-v2 {
+  border-radius: 18px;
+  /* padding: 0.2rem; */
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+}

@@ -6,6 +6,9 @@ export const detailsBgImage = '/details.png';
 export const homeHeroImage = '/home-hero.png';
 export const eventBgImage = '/event-bg.png';
 
+export const workShopImage1 = './workshop/workshop-card1.png';
+export const workShopImage2 = './workshop/workshop-card2.png';
+
 export const aboutUsSectionImage = '/about-us-section.png';
 export const servicesSectionImage = '/services-bg.png';
 

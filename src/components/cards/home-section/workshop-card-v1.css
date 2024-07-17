@@ -1,0 +1,11 @@
+@media (max-width: 900px) {
+  .md-workshop-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .md-workshop-media-paper {
+    width: 8rem;
+    padding: 0.8rem;
+  }
+}

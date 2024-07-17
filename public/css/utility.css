@@ -118,6 +118,12 @@
   margin-left: 2.8rem;
   margin-right: 2.8rem;
 }
+.m-inline-end-1 {
+  margin-inline-end: 1rem;
+}
+.m-inline-end-2 {
+  margin-inline-end: 2rem;
+}
 .p-1 {
   padding: 1rem;
 }
@@ -126,6 +132,9 @@
 }
 .pt-1 {
   padding-top: 1rem;
+}
+.pb-1 {
+  padding-bottom: 1rem;
 }
 .p-inline-2 {
   padding-inline: 2rem;

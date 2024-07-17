@@ -114,6 +114,23 @@
   line-height: 2rem;
 }
 
+/* text for card  */
+/* used in Work shop card v1  */
+.text-reg-card-v1 {
+  color: var(--primary-color);
+  font-size: var(--font-size-reg);
+  font-weight: 400;
+  line-height: 1.2rem;
+  margin-bottom: 0.1rem !important;
+}
+.text-workshop-place-time {
+  color: var(--primary-color);
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 0.8rem;
+  margin: 0rem !important;
+}
+
 .text-white-new {
   color: var(--white-text) !important;
 }
