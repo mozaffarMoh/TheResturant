@@ -19,7 +19,8 @@ import TwitterMedSVG from './contact-us-icons/twitter';
 import InstagramMedSVG from './contact-us-icons/instagrm';
 import SkypeMedSVG from './contact-us-icons/skype';
 import LinkedInMedSVG from './contact-us-icons/linkedin';
-
+import ClockSVG from './clock';
+import PlaceSVG from './place';
 export {
   ShareSVG,
   PhoneSVG,
@@ -42,4 +43,6 @@ export {
   InstagramMedSVG,
   SkypeMedSVG,
   LinkedInMedSVG,
+  ClockSVG,
+  PlaceSVG,
 };

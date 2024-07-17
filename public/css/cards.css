@@ -3,3 +3,11 @@
     width: 200px;
   }
 }
+
+/* Event Card ( home protected page)  */
+
+.event-card-paper {
+  border-radius: 18px;
+  padding: 2.2rem;
+  box-shadow: none;
+}
