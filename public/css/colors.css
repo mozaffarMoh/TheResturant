@@ -1,0 +1,44 @@
+/*
+ --headings-color: #222222;
+  --body-text-color: #6b7177;
+  --primary-color: #163c67;
+  --primary-color-light: #163c6726;
+  --secondary-color: #ff9518;
+  --secondary-color-light: #f6995c;
+  --light-background-color: #777;
+  --white-text: white;
+  --white-text-light: rgba(107, 113, 119, 1);
+  --icon-black: #1f4b3f;
+  --card-background-color-light: #ffede8;
+*/
+.color-light {
+  color: var(--card-background-color-light) !important;
+}
+.color-success {
+  color: var(--success-color) !important;
+}
+.color-danger {
+  color: var(--danger-color) !important;
+}
+.bg-light {
+  background-color: var(--card-background-color-light) !important;
+}
+
+.bg-dark {
+  background-color: var(--card-background-color-dark) !important;
+}
+
+.bc-primary-color {
+  background-color: var(--primary-color) !important;
+  color: var(--white-text) !important;
+}
+.bc-secondary-color {
+  background-color: var(--secondary-color) !important;
+  color: var(--white-text) !important;
+}
+.bc-secondary-color-light {
+  background-color: var(--card-background-color-light) !important;
+}
+.bc-white {
+  background-color: var(--white-text) !important;
+}

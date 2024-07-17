@@ -9,6 +9,13 @@ export const eventBgImage = '/event-bg.png';
 export const workShopImage1 = './workshop/workshop-card1.png';
 export const workShopImage2 = './workshop/workshop-card2.png';
 
+export const mentorImage1 = './mentors/mentors1.png';
+export const mentorImage2 = './mentors/mentors2.png';
+export const mentorImage3 = './mentors/mentors3.png';
+export const mentorImage4 = './mentors/mentors4.png';
+export const mentorImage5 = './mentors/mentors5.png';
+export const mentorImage6 = './mentors/mentors6.png';
+
 export const aboutUsSectionImage = '/about-us-section.png';
 export const servicesSectionImage = '/services-bg.png';
 

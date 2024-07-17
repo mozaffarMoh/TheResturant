@@ -14,6 +14,7 @@
 @import './../../public/css/mui-inputs-fields.css';
 @import './../../public/css/cards.css';
 @import './../../public/css/media-query.css';
+@import './../../public/css/colors.css';
 
 body {
   margin: 0;
@@ -72,6 +73,8 @@ body {
   --secondary-color: #eb6b2a;
   --general-bg-color: #f6f6f6;
   --secondary-text-color: #eb6b2a;
+  --card-background-color-light: #ffede8;
+  --white-text: white;
 
   --color-whitesmoke-100: #f6f2ee;
   --color-whitesmoke-200: #f2f2f2;

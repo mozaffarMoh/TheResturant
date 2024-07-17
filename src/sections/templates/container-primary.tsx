@@ -1,9 +1,6 @@
-import { Box, Container, Grid } from '@mui/material';
+import { Container } from '@mui/material';
 import styles from './container-primary.module.css';
-import Image from 'next/image';
-import { servicesSectionImage } from '@/constant/images';
-import { generalBgColor, primaryColor } from '@/constant/color';
-import ServicesListItem from '@/sections/guest-home/services-section/services-list-item';
+import { primaryColor } from '@/constant/color';
 
 const ContainerPrimary = () => {
   return (

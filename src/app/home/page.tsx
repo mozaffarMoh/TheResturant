@@ -8,6 +8,7 @@ import AuthFooter from '@/components/AuthFooter';
 
 import EventsSection from '@/sections/home/events/eventsSection';
 import WorkShopsSection from '@/sections/home/workshops/workShopsSection';
+import MentorsSection from '@/sections/home/mentors/mentorsSection';
 
 const HomePage: NextPage = () => {
   return (
@@ -16,6 +17,7 @@ const HomePage: NextPage = () => {
       <HeroSection />
       <EventsSection />
       <WorkShopsSection />
+      <MentorsSection />
       <AuthFooter />
     </>
   );

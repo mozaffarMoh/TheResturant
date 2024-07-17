@@ -67,6 +67,21 @@
   gap: 0.2rem;
 }
 
+.md-flex-row-col-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.2rem;
+}
+
+@media (max-width: 765px) {
+  .md-flex-row-col-center-center {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
 .gap05 {
   gap: 0.5rem;
 }
@@ -79,7 +94,9 @@
 .gap3 {
   gap: 3rem;
 }
-
+.gap4 {
+  gap: 4rem;
+}
 .align-self-start {
   align-self: flex-start;
 }
