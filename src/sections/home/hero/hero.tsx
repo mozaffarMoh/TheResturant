@@ -8,7 +8,7 @@ const HeroSection: NextPage = () => {
   return (
     <div className={styles.home}>
       <div className={styles.heroTitle}>
-        <Container>
+        <Container maxWidth="lg">
           <p className={styles.Title}>Learn From Anywhere</p>
           <p className={styles.SubTitle}>
             Technology is brining a massive wave of evolution on learning things

@@ -22,13 +22,13 @@ export default function WorkShopCardV1({
     <Card
       orientation="horizontal"
       variant="outlined"
-      sx={{ width: 320, paddingInline: '2rem', borderRadius: '1.1rem' }}
+      sx={{ width: 'auto', paddingInline: '2rem', borderRadius: '1.1rem' }}
       className="workshop-v1-repo"
     >
       <CardOverflow className="md-workshop-media">
         <Paper
           sx={{
-            width: '5.5rem',
+            width: '5rem',
             height: 'auto',
             backgroundColor: primaryColor,
             borderRadius: '1.1rem',

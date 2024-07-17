@@ -39,25 +39,25 @@ const MentorsSection = () => {
       {
         breakpoint: 900,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 2,
+          slidesToShow: 4,
+          slidesToScroll: 4,
           initialSlide: 2,
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: 3,
+          slidesToScroll: 3,
           initialSlide: 2,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          dots: false,
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          // dots: false,
         },
       },
     ],
@@ -82,10 +82,12 @@ const MentorsSection = () => {
     { id: 11, name: 'Avatar 7', image: mentorImage4, position: 'Developer' },
   ];
   return (
-    <Container className="mt-4 max-w-80 bg-white ">
+    <Container
+      className="mt-4 bg-white  "
+      maxWidth="lg"
+    >
       <div className="sm-flex-col-col-center-center">
-        <p className="text-xlarge-title align-self-start ">Mentors</p>
-
+        <p className="text-xlarge-title ">Mentors</p>
         <div className=" w-full mb-4 ">
           <Slider {...settings}>
             {items.map((item, i) => (

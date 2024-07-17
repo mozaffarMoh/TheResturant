@@ -82,10 +82,10 @@
   }
 }
 
-.lg-flex-row-col-1300 {
+.lg-flex-row-col-1200 {
   display: flex;
   flex-direction: row;
-  @media (max-width: 1300px) {
+  @media (max-width: 1200px) {
     flex-direction: column;
   }
 }

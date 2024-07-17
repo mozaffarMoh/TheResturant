@@ -9,93 +9,93 @@ import { workShopImage1, workShopImage2 } from '@/constant/images';
 
 const WorkShopsSection = () => {
   return (
-    <Container className="mt-4 max-w-90 mb-4 ">
-      <div className="sm-flex-col-col-center-center  ">
-        <div
-          className="mt-2 w-full md-padding-start-1 "
-          style={{
-            width: '95vw',
-            paddingTop: '1.8rem',
-            paddingBottom: '1.5rem',
-            backgroundColor: primaryColor,
-            borderBottomLeftRadius: '100px',
-          }}
-        >
-          <div
-            className="sm-flex-colo-col  md-margin-0 "
-            style={{ marginLeft: '8%', marginRight: '1%' }}
-          >
-            <div className="text-xlarge-title text-white-new">Workshops</div>
-            <div className="mt-2 lg-flex-row-col-1300">
-              {/* cards horizontal cards  section */}
-              <div className={styles.gridContainer}>
-                <div className={styles.gridItem}>
-                  <div className="sm-flex-col-col-center-center gap1">
-                    <WorkShopCardV1
-                      title={'Elegant Light Box Paper New Design Conference'}
-                      day={'06'}
-                      month={'April'}
-                    />
+    <section
+      style={{
+        width: '100%',
+        paddingTop: '1rem',
+        paddingBottom: '1rem',
+        backgroundColor: primaryColor,
+      }}
+    >
+      <Container maxWidth="lg">
+        <div className="sm-flex-col-col-center-center  ">
+          <div className="mt-2 w-full md-padding-start-1 ">
+            <div
+              className="sm-flex-colo-col  md-margin-0 "
+              style={{ marginLeft: '10px', marginRight: '10px' }}
+            >
+              <div className="text-xlarge-title text-white-new">Workshops</div>
+              <div className="mt-2 lg-flex-row-col-1300">
+                {/* cards horizontal cards  section */}
+                <div className={styles.gridContainer}>
+                  <div className={styles.gridItem}>
+                    <div className="sm-flex-col-col-center-center gap1">
+                      <WorkShopCardV1
+                        title={'Elegant Light Box Paper New Design Conference'}
+                        day={'06'}
+                        month={'April'}
+                      />
 
-                    <WorkShopCardV1
-                      title={'Elegant Light Box Paper New Design Conference'}
-                      day={'06'}
-                      month={'April'}
-                    />
+                      <WorkShopCardV1
+                        title={'Elegant Light Box Paper New Design Conference'}
+                        day={'06'}
+                        month={'April'}
+                      />
 
-                    <WorkShopCardV1
-                      title={'Elegant Light Box Paper New Design Conference'}
-                      day={'06'}
-                      month={'April'}
-                    />
+                      <WorkShopCardV1
+                        title={'Elegant Light Box Paper New Design Conference'}
+                        day={'06'}
+                        month={'April'}
+                      />
+                    </div>
                   </div>
-                </div>
-                {/* cards Vertical cards  section */}
+                  {/* cards Vertical cards  section */}
 
-                <div className={styles.gridItem}>
-                  <div className="sm-flex-row-col-center-center">
-                    <WorkShopCardV2
-                      title={
-                        'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
-                      }
-                      image={workShopImage1}
-                    />
+                  <div className={styles.gridItem}>
+                    <div className="sm-flex-row-col-center-center">
+                      <WorkShopCardV2
+                        title={
+                          'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
+                        }
+                        image={workShopImage1}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className={styles.gridItem}>
-                  <div className="sm-flex-row-col-center-center">
-                    <WorkShopCardV2
-                      title={
-                        'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
-                      }
-                      image={workShopImage2}
-                    />
+                  <div className={styles.gridItem}>
+                    <div className="sm-flex-row-col-center-center">
+                      <WorkShopCardV2
+                        title={
+                          'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
+                        }
+                        image={workShopImage2}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-2 sm-flex-row-row-center-end  m-inline-end-2">
-              <Button
-                variant="outlined"
-                sx={{
-                  border: 'none',
-                  paddingInline: '2rem',
-                  color: 'white',
-                  textDecoration: 'none',
-                  '&:hover': {
+              <div className="mt-2 sm-flex-row-row-center-end  m-inline-end-2">
+                <Button
+                  variant="outlined"
+                  sx={{
                     border: 'none',
-                    textDecoration: 'underline',
-                  },
-                }}
-                endIcon={<ArrowRight />}
-              >
-                View
-              </Button>
+                    paddingInline: '2rem',
+                    color: 'white',
+                    textDecoration: 'none',
+                    '&:hover': {
+                      border: 'none',
+                      textDecoration: 'underline',
+                    },
+                  }}
+                  endIcon={<ArrowRight />}
+                >
+                  View
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </section>
   );
 };
 

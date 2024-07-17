@@ -1,5 +1,7 @@
 .md-workshop-media-image {
   /* border: 2px solid red; */
+  width: 90%;
+  padding: 0.8rem;
 }
 
 @media (max-width: 900px) {
@@ -7,9 +9,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  .md-workshop-media-image {
-    width: 90%;
-    padding: 0.8rem;
   }
 }

@@ -94,7 +94,7 @@ const Header = () => {
   return (
     <div>
       {/* Top banner Partners */}
-      <Container>
+      <Container maxWidth="lg">
         <Grid
           container
           className={styles.headerTopDivContainer}
@@ -121,7 +121,10 @@ const Header = () => {
       </Container>
       {/* End of Top Banner Partners */}
       <div className={`${styles.headerContainer}`}>
-        <section className="p-inline-2 ">
+        <Container
+          className="pt-1 "
+          maxWidth="lg"
+        >
           <div className={styles.headerDiv}>
             <Grid
               container
@@ -285,7 +288,7 @@ const Header = () => {
               </Grid>
             </Grid>
           </div>
-        </section>
+        </Container>
       </div>
     </div>
   );

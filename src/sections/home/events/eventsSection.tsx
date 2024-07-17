@@ -28,9 +28,12 @@ const EventsSection = () => {
     },
   ];
   return (
-    <Container className="mt-4 max-w-80  ">
+    <Container
+      className="mt-4 "
+      maxWidth="lg"
+    >
       <div className="sm-flex-col-col-center-center">
-        <p className="text-xlarge-title align-self-start ml-4">Events</p>
+        <p className="text-xlarge-title align-self-start">Events</p>
 
         <div className=" w-full mb-4">
           <CarouselElement>
