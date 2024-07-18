@@ -1,5 +1,17 @@
+'use client';
 import styles from './footer.module.css';
-import { Box, Typography, Paper, Container, Divider } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Paper,
+  Container,
+  Divider,
+  Button,
+  MenuItem,
+  Menu,
+} from '@mui/material';
+import LanguageIcon from '@mui/icons-material/Language';
+
 import { Input } from '@mui/joy';
 import JoyButton from '@mui/joy/Button';
 import { gray100, gray200 } from '@/constant/color';
@@ -11,8 +23,12 @@ import {
 } from '../../../assets/icons';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
+import { useState } from 'react';
+import { KeyboardArrowDown } from '@mui/icons-material';
 
 const Footer = () => {
+  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: 'transparent',
     ...theme.typography.body2,
@@ -21,6 +37,14 @@ const Footer = () => {
     color: 'white',
     boxShadow: 'none',
   }));
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+    setOpen(false);
+  };
   return (
     <Box
       component="footer"
@@ -213,15 +237,29 @@ const Footer = () => {
                 columnSpacing={1}
                 sx={{ order: { xs: 1, sm: 2 } }}
               >
-                <Grid>
-                  <Item>Home</Item>
-                </Grid>
-                <Grid>
-                  <Item>Site Map</Item>
-                </Grid>
-                <Grid>
-                  <Item>Privacy Policy </Item>
-                </Grid>
+                <Button
+                  id="basic-button"
+                  onClick={handleClick}
+                  className={styles.langMenuButton}
+                  startIcon={<LanguageIcon className={styles.langIcon} />}
+                  endIcon={<KeyboardArrowDown />}
+                  sx={{
+                    textTransform: 'none !Important',
+                    color: 'white',
+                    opacity: '0.7',
+                  }}
+                >
+                  English
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClose}>Arabic</MenuItem>
+                  <MenuItem onClick={handleClose}>English</MenuItem>
+                </Menu>
               </Grid>
             </Grid>
           </Box>

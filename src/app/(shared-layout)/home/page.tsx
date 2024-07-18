@@ -12,12 +12,10 @@ import Footer from '@/components/footer/Footer';
 const HomePage: NextPage = () => {
   return (
     <>
-      <Header />
       <HeroSection />
-      <EventsSection />
+      <EventsSection title={'Events'} />
       <WorkShopsSection />
       <MentorsSection />
-      <Footer />
     </>
   );
 };

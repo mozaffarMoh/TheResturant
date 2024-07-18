@@ -3,7 +3,11 @@ import CarouselElement from '@/components/carousel/CarouselElement';
 import { eventBgImage } from '@/constant/images';
 import { Container } from '@mui/material';
 
-const EventsSection = () => {
+interface IProps {
+  title: string;
+}
+
+const EventsSection = ({ title }: IProps) => {
   const items = [
     {
       id: 0,
@@ -33,7 +37,7 @@ const EventsSection = () => {
       maxWidth="lg"
     >
       <div className="sm-flex-col-col-center-center">
-        <p className="general-title primary-color align-self-start">Events</p>
+        <p className="general-title primary-color align-self-start">{title}</p>
 
         <div className=" w-full mb-4">
           <CarouselElement>

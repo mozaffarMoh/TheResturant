@@ -63,7 +63,7 @@
   color: var(--primary-color);
   font-size: var(--font-size-medium);
   font-weight: 700;
-  line-height: 1.75rem;
+  /* line-height: 1.75rem; */
 }
 .text-med-low {
   color: var(--primary-color);

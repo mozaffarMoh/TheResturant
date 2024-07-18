@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
+import Link from 'next/link';
 
 const EventCard = ({
   title,
@@ -88,7 +89,12 @@ const EventCard = ({
                   variant="outlined"
                   sx={{ borderRadius: '50px', paddingInline: '2rem' }}
                 >
-                  View
+                  <Link
+                    href="events-workshops"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    View
+                  </Link>
                 </Button>
               </Box>
             </Box>

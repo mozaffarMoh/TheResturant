@@ -15,6 +15,7 @@
 @import './../../public/css/cards.css';
 @import './../../public/css/media-query.css';
 @import './../../public/css/colors.css';
+@import './../../public/css/buttons.css';
 
 body {
   margin: 0;
