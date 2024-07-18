@@ -4,8 +4,14 @@ interface IProps {
   openAlert: boolean;
   setOpenAlert: (open: boolean) => void;
   message: string;
+  type?: 'error' | 'warning' | 'info' | 'success';
 }
-const CustomAlert = ({ openAlert, setOpenAlert, message }: IProps) => {
+const CustomAlert = ({
+  openAlert,
+  setOpenAlert,
+  message,
+  type = 'error',
+}: IProps) => {
   return (
     <Snackbar
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -15,7 +21,7 @@ const CustomAlert = ({ openAlert, setOpenAlert, message }: IProps) => {
     >
       <Alert
         onClose={() => setOpenAlert(false)}
-        severity="error"
+        severity={type}
         variant="filled"
         sx={{
           width: '100%',
