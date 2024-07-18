@@ -19,6 +19,7 @@ const WorkShopDetailsSection = () => {
         setOpenAlert={setOpenAlert}
         message={'You Successfully Book a Workshop '}
         type={'success'}
+        position={{ vertical: 'bottom', horizontal: 'right' }}
       />
       <Grid
         container

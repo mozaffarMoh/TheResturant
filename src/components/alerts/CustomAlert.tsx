@@ -1,20 +1,22 @@
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Snackbar, SnackbarOrigin } from '@mui/material';
 
 interface IProps {
   openAlert: boolean;
   setOpenAlert: (open: boolean) => void;
   message: string;
   type?: 'error' | 'warning' | 'info' | 'success';
+  position?: SnackbarOrigin;
 }
 const CustomAlert = ({
   openAlert,
   setOpenAlert,
   message,
   type = 'error',
+  position = { vertical: 'top', horizontal: 'right' },
 }: IProps) => {
   return (
     <Snackbar
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      anchorOrigin={position}
       open={openAlert}
       onClose={() => setOpenAlert(false)}
       autoHideDuration={6000}

@@ -67,7 +67,7 @@ export default function WorkShopCard({
           className="general-button-primary mt-1"
           onClick={() => push('events-workshops/workshops/1')}
         >
-          View
+          Book Now
         </Button>
       </CardContent>
     </Card>
