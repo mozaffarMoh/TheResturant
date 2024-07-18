@@ -24,11 +24,11 @@ const WorkShopsSection = () => {
               className="sm-flex-colo-col  md-margin-0 "
               style={{ marginLeft: '10px', marginRight: '10px' }}
             >
-              <div className="text-xlarge-title text-white-new">Workshops</div>
+              <div className="general-title  text-white-new">Workshops</div>
               <div className="mt-2 lg-flex-row-col-1300">
                 {/* cards horizontal cards  section */}
-                <div className={styles.gridContainer}>
-                  <div className={styles.gridItem}>
+                <div className={styles.workShopCardsContainer}>
+                  <div className={styles.leftCardsContainer}>
                     <div className="sm-flex-col-col-center-center gap1">
                       <WorkShopCardV1
                         title={'Elegant Light Box Paper New Design Conference'}
@@ -50,25 +50,26 @@ const WorkShopsSection = () => {
                     </div>
                   </div>
                   {/* cards Vertical cards  section */}
-
-                  <div className={styles.gridItem}>
-                    <div className="sm-flex-row-col-center-center">
-                      <WorkShopCardV2
-                        title={
-                          'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
-                        }
-                        image={workShopImage1}
-                      />
+                  <div className={styles.rightCardsContainer}>
+                    <div>
+                      <div className="sm-flex-row-col-center-center">
+                        <WorkShopCardV2
+                          title={
+                            'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
+                          }
+                          image={workShopImage1}
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.gridItem}>
-                    <div className="sm-flex-row-col-center-center">
-                      <WorkShopCardV2
-                        title={
-                          'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
-                        }
-                        image={workShopImage2}
-                      />
+                    <div>
+                      <div className="sm-flex-row-col-center-center">
+                        <WorkShopCardV2
+                          title={
+                            'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
+                          }
+                          image={workShopImage2}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

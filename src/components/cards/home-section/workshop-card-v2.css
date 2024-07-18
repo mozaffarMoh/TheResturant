@@ -11,3 +11,30 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 567px) {
+  .workshop-v2-repo {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+  }
+  .md-workshop-media-image {
+    width: 90%;
+    padding: 0.4rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .workshop-v2-repo {
+    width: 16rem;
+  }
+  .align-center-425 {
+    align-self: center;
+    gap: 0.1rem;
+  }
+}
+
+@media (max-width: 375px) {
+}

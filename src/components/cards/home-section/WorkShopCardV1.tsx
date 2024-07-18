@@ -44,13 +44,15 @@ export default function WorkShopCardV1({
           <div>{month}</div>
         </Paper>
       </CardOverflow>
-      <CardContent>
-        <p className="text-reg-card-v1 fw600">{title}</p>
-        <div className="sm-flex-row-row">
-          <PlaceSVG />
-          <span className="text-workshop-place-time "> AMMAN, JORDAN</span>{' '}
-          <ClockSVG />{' '}
-          <span className="text-workshop-place-time ">8:00 am - 5:00 pm</span>
+      <CardContent className="sm-flex-col-reverse">
+        <p className="text-reg-card-v1 fw600 p-px-4">{title}</p>
+        <div className="sm-flex-row-col-425  align-center-425 gap1 ">
+          <span className="text-xs opacity-80">
+            <PlaceSVG /> AMMAN, JORDAN
+          </span>
+          <span className="text-xs opacity-80">
+            <ClockSVG /> 8:00 am - 5:00 pm
+          </span>
         </div>
       </CardContent>
     </Card>

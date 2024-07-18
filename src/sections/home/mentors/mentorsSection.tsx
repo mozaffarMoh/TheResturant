@@ -53,7 +53,7 @@ const MentorsSection = () => {
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 375,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -87,7 +87,7 @@ const MentorsSection = () => {
       maxWidth="lg"
     >
       <div className="sm-flex-col-col-center-center">
-        <p className="text-xlarge-title ">Mentors</p>
+        <p className="general-title primary-color ">Mentors</p>
         <div className=" w-full mb-4 ">
           <Slider {...settings}>
             {items.map((item, i) => (

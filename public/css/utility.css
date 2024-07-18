@@ -136,6 +136,12 @@
 .pt-1 {
   padding-top: 1rem;
 }
+.pt-4-px {
+  padding-top: 4px;
+}
+.p-px-4 {
+  padding: 4px;
+}
 .pb-1 {
   padding-bottom: 1rem;
 }

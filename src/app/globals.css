@@ -37,7 +37,8 @@ body {
   --font-size-medium: clamp(0.75rem, 0.6862rem + 0.3191vw, 0.9375rem);
   --font-size-low-medium: clamp(1rem, 0.8586rem + 0.7072vw, 1.4rem);
   --font-size-high-medium: clamp(0.9375rem, 0.774rem + 0.8177vw, 1.4rem);
-  --font-size-double-high-medium: clamp(2rem, 1.7171rem + 1.4144vw, 2.8rem);
+  /* --font-size-double-high-medium: clamp(2rem, 1.7171rem + 1.4144vw, 2.8rem); */
+  --font-size-double-high-medium: clamp(1.8rem, 1.3455rem + 2.2727vw, 2.8rem);
   --font-size-large: clamp(1.4rem, 1.232rem + 0.8398vw, 1.875rem);
   --font-xlarge-subtitle: clamp(1.6rem, 1.3878rem + 1.0608vw, 2.2rem);
   --font-size-xlarge: clamp(2.75rem, 2.3964rem + 1.768vw, 3.75rem);
@@ -45,6 +46,7 @@ body {
   --font-size-xlarge-title: clamp(2rem, 1.6464rem + 1.768vw, 3rem);
   --clamp-font-size-menu: clamp(0.56rem, -1.0303rem + 2.5702vw, 0.9375rem);
 
+  --font-size-general-title-v1: clamp(1.4rem, 0.9909rem + 2.0455vw, 2.3rem);
   /* font sizes */
   --font-size-base: 1rem;
   --font-size-xl: 1.25rem;

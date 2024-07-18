@@ -10,6 +10,12 @@
 2.75rem ; 44px
 3.875rem; 62px
 */
+.text-xs {
+  color: var(--primary-color);
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 1rem;
+}
 .text-reg {
   color: var(--primary-color);
   font-size: var(--font-size-reg);
@@ -112,6 +118,34 @@
   font-size: var(--font-xlarge-subtitle);
   font-weight: 700;
   line-height: 2rem;
+}
+
+.general-title {
+  font-weight: 700;
+  font-size: var(--font-size-double-high-medium);
+  line-height: 2rem;
+}
+.general-line-h {
+  line-height: clamp(1.8rem, 1.1636rem + 3.1818vw, 3.2rem);
+}
+/* inside section title */
+.general-title-v2 {
+  font-weight: 700;
+  font-size: var(--font-size-general-title-v1);
+  line-height: 3rem;
+  @media (max-width: 1024px) {
+    line-height: 2.6rem;
+  }
+  @media (max-width: 425px) {
+    line-height: 2.1rem;
+  }
+  @media (max-width: 375px) {
+    line-height: 1.9rem;
+  }
+  @media (max-width: 320px) {
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+  }
 }
 
 /* text for card  */

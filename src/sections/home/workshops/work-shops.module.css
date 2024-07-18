@@ -49,3 +49,30 @@
 
 @media (max-width: 765px) {
 }
+
+.workShopCardsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  @media (max-width: 1180px) {
+    flex-direction: column-reverse;
+  }
+}
+.leftCardsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.rightCardsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}

@@ -24,7 +24,7 @@ export default function WorkShopCardV2({
         borderRadius: '1.1rem',
         margin: '0.2rem',
       }}
-      className="workshop-v1-repo"
+      className="workshop-v2-repo"
     >
       <CardOverflow className="md-workshop-media">
         <img
@@ -35,13 +35,16 @@ export default function WorkShopCardV2({
         />
       </CardOverflow>
       <CardContent>
-        <div className="sm-flex-row-row">
-          <PlaceSVG />
-          <span className="text-workshop-place-time "> AMMAN, JORDAN</span>{' '}
-          <ClockSVG />{' '}
-          <span className="text-workshop-place-time ">8:00 am - 5:00 pm</span>
+        <div className="sm-flex-row-col-425  align-center-425 gap1 ">
+          <span className="text-reg-fw500 opacity-80">
+            <PlaceSVG />
+            AMMAN, JORDAN
+          </span>
+          <span className="text-reg-fw500 opacity-80">
+            <ClockSVG /> 8:00 am - 5:00 pm
+          </span>
         </div>
-        <Typography level="title-md">{title}</Typography>
+        <p className="text-med-fw700 max-subtile-80 ">{title}</p>
       </CardContent>
     </Card>
   );

@@ -11,6 +11,10 @@
   --icon-black: #1f4b3f;
   --card-background-color-light: #ffede8;
 */
+.primary-color {
+  color: #3f485e;
+}
+
 .color-light {
   color: var(--card-background-color-light) !important;
 }

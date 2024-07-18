@@ -33,7 +33,7 @@ const EventsSection = () => {
       maxWidth="lg"
     >
       <div className="sm-flex-col-col-center-center">
-        <p className="text-xlarge-title align-self-start">Events</p>
+        <p className="general-title primary-color align-self-start">Events</p>
 
         <div className=" w-full mb-4">
           <CarouselElement>

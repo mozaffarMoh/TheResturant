@@ -31,7 +31,12 @@ const EventCard = ({
           >
             <CardMedia
               component="img"
-              sx={{ width: '100%', height: '100%', borderRadius: '1.1rem' }}
+              sx={{
+                width: '100%',
+                height: '100%',
+                minHeight: '12rem',
+                borderRadius: '1.1rem',
+              }}
               image={image}
               alt="Live from space album cover"
             />
@@ -44,27 +49,31 @@ const EventCard = ({
           >
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flex: '1 0 auto' }}>
-                <p className="text-large-title fw600">{title}</p>
+                <p className="general-title-v2  primary-color  fw600">
+                  {title}
+                </p>
                 <p className="text-med-fw400 ">{description}</p>
               </CardContent>
-              <Box
-                sx={{ display: 'flex', alignItems: 'flex-start', pl: 2, pb: 1 }}
-              >
-                <PlaceSVG />
-                <span
-                  style={{ marginInline: '0.4rem' }}
-                  className="text-reg opacity-80"
-                >
-                  {' '}
-                  AMMAN, JORDAN
-                </span>{' '}
-                <ClockSVG />{' '}
-                <span
-                  style={{ marginInline: '0.4rem' }}
-                  className="text-reg opacity-80"
-                >
-                  8:00 am - 5:00 pm
-                </span>
+              <Box className="xs-flex-row-col-375 ml-1 gap1">
+                <div>
+                  <PlaceSVG />
+                  <span
+                    style={{ marginInline: '0.4rem' }}
+                    className="text-med-fw400  opacity-80"
+                  >
+                    {' '}
+                    AMMAN, JORDAN
+                  </span>{' '}
+                </div>
+                <div>
+                  <ClockSVG />{' '}
+                  <span
+                    style={{ marginInline: '0.4rem' }}
+                    className="text-med-fw400  opacity-80"
+                  >
+                    8:00 am - 5:00 pm
+                  </span>
+                </div>
               </Box>
               <Box
                 sx={{
