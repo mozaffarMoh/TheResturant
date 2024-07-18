@@ -8,6 +8,7 @@ import Typography from '@mui/joy/Typography';
 import './workshop-card.css';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { Button } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 export default function WorkShopCard({
   title,
@@ -18,6 +19,7 @@ export default function WorkShopCard({
   subTitle: string;
   image: string;
 }) {
+  const { push } = useRouter();
   return (
     <Card
       variant="outlined"
@@ -61,7 +63,12 @@ export default function WorkShopCard({
             <ClockSVG /> 2:00 pm
           </span>
         </div>
-        <Button className="general-button-primary mt-1">View</Button>
+        <Button
+          className="general-button-primary mt-1"
+          onClick={() => push('events-workshops/workshops/1')}
+        >
+          View
+        </Button>
       </CardContent>
     </Card>
   );
