@@ -56,6 +56,9 @@
 .w-25 {
   width: 25%;
 }
+.w-40 {
+  width: 40%;
+}
 .w-50 {
   width: 50%;
 }
@@ -64,6 +67,9 @@
 }
 .w-75 {
   width: 75%;
+}
+.w-90 {
+  width: 90%;
 }
 .m-0 {
   margin: 0rem !important;
@@ -151,6 +157,10 @@
 
 .bg-primary-color {
   background-color: var(--primary-color);
+}
+
+.opacity-70 {
+  opacity: 70% !important;
 }
 
 .opacity-75 {

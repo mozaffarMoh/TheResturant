@@ -8,7 +8,7 @@ import {
   InstagramSVG,
   LinkedInSVG,
   TwitterSVG,
-} from '../../assets/icons';
+} from '../../../assets/icons';
 const AuthFooter = () => {
   return (
     <Box

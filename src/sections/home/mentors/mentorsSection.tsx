@@ -50,6 +50,7 @@ const MentorsSection = () => {
           slidesToShow: 3,
           slidesToScroll: 3,
           initialSlide: 2,
+          arrows: false,
         },
       },
       {
@@ -57,6 +58,7 @@ const MentorsSection = () => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
+          arrows: false,
           // dots: false,
         },
       },

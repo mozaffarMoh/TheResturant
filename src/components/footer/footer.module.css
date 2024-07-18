@@ -1,0 +1,95 @@
+/* components/Footer.module.css */
+.footer {
+  background-color: #37474f;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+}
+
+.subscribeForm {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-bottom: 1rem;
+}
+
+.emailInput {
+  margin-right: 10px;
+}
+
+.subscribeButton {
+  border-radius: 4rem;
+  height: 4rem;
+
+  background-color: var(--color-gray-100);
+  color: #ffffff;
+}
+
+.readMoreButton {
+  background-color: #ff5722;
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+.socialIconContainer {
+  /* background-color: white; */
+  margin-top: 1rem;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  @media (max-width: 420px) {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+.socialIconContainer:hover {
+  background-color: white;
+}
+.socialIconContainer:hover svg path {
+  fill: #21325b !important;
+}
+
+.modeInfo {
+  /* width: auto; */
+  max-width: 9rem;
+  /* margin-top: 2rem; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: var(--br-3xs);
+  background-color: var(--secondary-text-color);
+  padding: 0rem 3rem 0rem 3rem;
+  gap: 0px;
+  z-index: 5;
+  @media (max-width: 576px) {
+    padding: 0rem 2.8rem 0rem 2.8rem;
+  }
+}
+
+.lgHeight {
+  height: 20rem;
+}
+
+@media (max-width: 768px) {
+  .lgHeight {
+    height: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .mainContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
