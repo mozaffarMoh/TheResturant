@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const EventCard = ({
   title,
@@ -20,6 +21,7 @@ const EventCard = ({
   description: string;
   image: string;
 }) => {
+  const { push } = useRouter();
   return (
     <Paper className="event-card-paper">
       <Card sx={{ display: 'flex', border: 'none', boxShadow: 'none' }}>
@@ -88,13 +90,9 @@ const EventCard = ({
                 <Button
                   variant="outlined"
                   sx={{ borderRadius: '50px', paddingInline: '2rem' }}
+                  onClick={() => push('/events-workshops')}
                 >
-                  <Link
-                    href="events-workshops"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    View
-                  </Link>
+                  View
                 </Button>
               </Box>
             </Box>

@@ -19,7 +19,7 @@ const NormalMenuList = ({ indexKey, href, title }: IProps) => {
     >
       <Link
         href={href}
-        style={{ all: 'inherit' }}
+        style={{ all: 'inherit', border: 'none' }}
       >
         <ListItemText>{title}</ListItemText>
       </Link>

@@ -158,7 +158,7 @@ const Header = () => {
                     />
                     <NormalMenuList
                       indexKey={1}
-                      href={'/#'}
+                      href={'/events-workshops'}
                       title={'Events & Workshops'}
                     />
                     <NormalMenuList

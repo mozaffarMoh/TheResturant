@@ -74,7 +74,7 @@ export default function DetailsWorkShopCard({
           className="general-button-primary mt-1"
           onClick={onClick}
         >
-          View
+          Book Now
         </Button>
       </CardContent>
     </Card>
