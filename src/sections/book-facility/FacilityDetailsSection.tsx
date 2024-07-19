@@ -9,7 +9,7 @@ import { ClockSVG, PlaceSVG, UsersSVG } from '../../../assets/icons';
 type CardDetailsArray = {
   label: string;
   value: string;
-  icon: JSX.Element;
+  icon: any;
 };
 
 const FacilityDetailsSection = () => {
