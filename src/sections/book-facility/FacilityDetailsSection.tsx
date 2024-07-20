@@ -4,6 +4,7 @@ import { workShopImage1 } from '@/constant/images';
 import { Container, Grid, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 import { ClockSVG, PlaceSVG, UsersSVG } from '../../../assets/icons';
+import FacilityReserveModal from '@/components/modals/facility-reserve-modal';
 
 
 type CardDetailsArray = {
@@ -15,7 +16,17 @@ type CardDetailsArray = {
 const FacilityDetailsSection = () => {
   const [openAlert, setOpenAlert] = useState(false);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    //show alert
+    setOpenAlert(true);
+  };
 
 
   const dataRows : CardDetailsArray[] = [
@@ -33,7 +44,7 @@ const FacilityDetailsSection = () => {
       <CustomAlert
         openAlert={openAlert}
         setOpenAlert={setOpenAlert}
-        message={'You Successfully Book a Workshop '}
+        message={'You Successfully Book a Facility '}
         type={'success'}
         position={{ vertical: 'bottom', horizontal: 'right' }}
       />
@@ -64,10 +75,12 @@ const FacilityDetailsSection = () => {
         >
           <DetailsCard
             dataRows={dataRows}
-            onClick={setOpenAlert}
+            onClick={handleOpenModal}
           />
         </Grid>
       </Grid>
+
+      <FacilityReserveModal open={isModalOpen} onClose={handleCloseModal} />
     </Container>
   );
 };
