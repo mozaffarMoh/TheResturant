@@ -37,6 +37,7 @@ const BookFacilityPage: NextPage = () => {
 
   return (
     <>
+      {/* BreadCrumb Section */}
       <Container maxWidth="lg">
         <GridFlex
           container
@@ -65,7 +66,7 @@ const BookFacilityPage: NextPage = () => {
           </Breadcrumbs>
         </GridFlex>
       </Container>
-
+      {/* Category Buttons Filter By */}
       <Container maxWidth="lg">
         <Grid
           container
@@ -74,13 +75,12 @@ const BookFacilityPage: NextPage = () => {
           className="mt-2"
           gap={{
             xs: 1,
-            sm: 3
+            sm: 3,
           }}
         >
           <Box
             display="flex"
             alignItems="center"
-            
           >
             <InputLabel
               id="dropdown-category"
