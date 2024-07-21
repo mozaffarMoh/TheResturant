@@ -16,10 +16,12 @@ const EventCard = ({
   title,
   description,
   image,
+  handleModal,
 }: {
   title: string;
   description: string;
   image: string;
+  handleModal: any;
 }) => {
   const { push } = useRouter();
   return (
@@ -90,7 +92,7 @@ const EventCard = ({
                 <Button
                   variant="outlined"
                   sx={{ borderRadius: '50px', paddingInline: '2rem' }}
-                  onClick={() => push('/events-workshops')}
+                  onClick={handleModal}
                 >
                   View
                 </Button>
