@@ -21,6 +21,7 @@ import SkypeMedSVG from './contact-us-icons/skype';
 import LinkedInMedSVG from './contact-us-icons/linkedin';
 import ClockSVG from './clock';
 import PlaceSVG from './place';
+import UsersSVG from './users';
 export {
   ShareSVG,
   PhoneSVG,
@@ -45,4 +46,5 @@ export {
   LinkedInMedSVG,
   ClockSVG,
   PlaceSVG,
+  UsersSVG,
 };
