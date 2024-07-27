@@ -4,11 +4,34 @@ import { NextRequest, NextResponse } from 'next/server';
 export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
 
+  // Add your authentication logic here
+
+  const isAuthenticated = Boolean(req.cookies.get('techhubtoken'));
   // Check if the request is for the home page or any other non-authenticated page
-  if (url.pathname === '/') {
-    // Redirect to the login page
-    url.pathname = '/guest-home';
-    return NextResponse.redirect(url);
+
+  if (!isAuthenticated) {
+
+
+    //prevent too many redirects
+    if (url.pathname === '/sign-in' || url.pathname === '/sign-up' || url.pathname === '/guest-home') {
+      return NextResponse.next();
+    }else if(url.pathname === '/' || url.pathname === '/home' || url.pathname === '/book-facility' || url.pathname === '/book-facility/details'){
+      url.pathname = '/guest-home';
+      return NextResponse.redirect(url);
+    }
+
+   
+  } else {
+    if (
+      url.pathname === '/sign-in' ||
+      url.pathname === '/sign-up' ||
+      url.pathname === '/guest-home' ||
+      url.pathname === '/'
+    ) {
+      // Redirect to the login page
+      url.pathname = '/home';
+      return NextResponse.redirect(url);
+    }
   }
 
   // You can add additional logic to handle other routes and authentication
@@ -22,5 +45,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/home'], // Adjust this array to match the routes you want to protect
+  matcher: ['/((?!api/).*)'], // Adjust this array to match the routes you want to protect
 };

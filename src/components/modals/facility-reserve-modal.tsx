@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   Box,
   Button,
@@ -21,6 +21,14 @@ import './facility-reserve-modal.css';
 interface ReservationModalProps {
   open: boolean;
   onClose: () => void;
+  onBook: (
+    date: any,
+    fromTime: string,
+    toTime: string,
+    attendees: string,
+  ) => void;
+  facility: any;
+  resetForm: boolean;
 }
 
 // Helper function to get the date one month from now
@@ -31,6 +39,9 @@ const getMaxDate = (): Dayjs => {
 const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   open,
   onClose,
+  onBook,
+  facility,
+  resetForm
 }) => {
   const [date, setDate] = useState<Dayjs | null>(null);
   const [fromTime, setFromTime] = useState('');
@@ -39,13 +50,22 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   const maxDate = getMaxDate();
 
   const handleReserve = () => {
-    console.log({ date, fromTime, toTime, attendees });
-    onClose();
+    onBook(dayjs(date).format('YYYY-MM-DD'), fromTime, toTime, attendees);
   };
 
   const handleDateChange = (newDate: Dayjs | null) => {
     setDate(newDate);
   };
+
+  // Reset form when the resetForm prop changes
+  useEffect(() => {
+    if (resetForm) {
+      setDate(null);
+      setFromTime('');
+      setToTime('');
+      setAttendees('');
+    }
+  }, [resetForm]);
 
   return (
     <Dialog
@@ -53,7 +73,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       onClose={onClose}
       fullWidth
       maxWidth="sm"
-      className='facility-reserve-modal'
+      className="facility-reserve-modal"
     >
       <DialogTitle style={{ textAlign: 'center' }}>Book Facility</DialogTitle>
       <DialogContent sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -69,12 +89,10 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
             display={'flex'}
             flexDirection={'column'}
             width="100%"
-           
           >
-            <Typography variant='body1'>Select Date</Typography>
+            <Typography variant="body1">Select Date</Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <StaticDateTimePicker
-              
                 displayStaticWrapperAs="desktop"
                 disablePast
                 value={date}
@@ -118,16 +136,23 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
             onChange={(e) => setAttendees(e.target.value)}
             fullWidth
           >
-            <MenuItem value="2-5">2-5</MenuItem>
-            <MenuItem value="5-10">5-10</MenuItem>
-            <MenuItem value="10-15">10-15</MenuItem>
+            {(facility.max_people - facility.min_people + 1) > 0 && [...Array(facility.max_people - facility.min_people + 1)].map(
+              (_, index) => (
+                <MenuItem
+                  key={index}
+                  value={facility.min_people + index}
+                >
+                  {facility.min_people + index}
+                </MenuItem>
+              ),
+            )}
           </TextField>
           <Button
             variant="contained"
             color={'primary'}
             onClick={handleReserve}
             sx={{ width: '100%' }}
-            className='reserve'
+            className="reserve"
           >
             Reserve
           </Button>
