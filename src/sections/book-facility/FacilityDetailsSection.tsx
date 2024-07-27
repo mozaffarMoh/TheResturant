@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { ClockSVG, PlaceSVG, UsersSVG } from '../../../assets/icons';
 import FacilityReserveModal from '@/components/modals/facility-reserve-modal';
 import { Typography } from '@mui/joy';
-
+import dayjs, { Dayjs } from 'dayjs';
 type CardDetailsArray = {
   label: string;
   value: string;
@@ -25,14 +25,33 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     //show alert
+  };
+
+  const handleBookModal = (
+    date: any,
+    fromTime: string,
+    toTime: string,
+    attendees: string,
+  ) => {
+    console.log({ date, fromTime, toTime, attendees });
+    setIsModalOpen(false);
+    //show alert
     setOpenAlert(true);
   };
 
   const dataRows: CardDetailsArray[] = [
     { label: 'Minimum People', value: facility.min_people, icon: <UsersSVG /> },
     { label: 'Maximum People', value: facility.max_people, icon: <UsersSVG /> },
-    { label: 'Minimum Hours', value: facility.min_hours + ' Hour', icon: <ClockSVG /> },
-    { label: 'Maximum Hours', value: facility.max_hours + ' Hours', icon: <ClockSVG /> },
+    {
+      label: 'Minimum Hours',
+      value: facility.min_hours + ' Hour',
+      icon: <ClockSVG />,
+    },
+    {
+      label: 'Maximum Hours',
+      value: facility.max_hours + ' Hours',
+      icon: <ClockSVG />,
+    },
   ];
 
   return (
@@ -57,16 +76,13 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
           xs={12}
           md={12}
           lg={9}
-          wrap='wrap'
+          wrap="wrap"
           sx={{
             padding: 2,
-            textAlign:'justify'
+            textAlign: 'justify',
           }}
-          
         >
-          <Typography>
-            {facility.description}
-          </Typography>
+          <Typography>{facility.description}</Typography>
         </Grid>
         <Grid
           item
@@ -87,6 +103,7 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
       <FacilityReserveModal
         open={isModalOpen}
         onClose={handleCloseModal}
+        onBook={handleBookModal}
       />
     </Container>
   );

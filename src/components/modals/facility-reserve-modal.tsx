@@ -21,6 +21,7 @@ import './facility-reserve-modal.css';
 interface ReservationModalProps {
   open: boolean;
   onClose: () => void;
+  onBook: ( date:any, fromTime:string, toTime:string, attendees:string ) => void;
 }
 
 // Helper function to get the date one month from now
@@ -31,6 +32,7 @@ const getMaxDate = (): Dayjs => {
 const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   open,
   onClose,
+  onBook
 }) => {
   const [date, setDate] = useState<Dayjs | null>(null);
   const [fromTime, setFromTime] = useState('');
@@ -39,8 +41,8 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   const maxDate = getMaxDate();
 
   const handleReserve = () => {
-    console.log({ date, fromTime, toTime, attendees });
-    onClose();
+   
+    onBook(dayjs(date).format('YYYY-MM-DD'), fromTime, toTime, attendees);
   };
 
   const handleDateChange = (newDate: Dayjs | null) => {
