@@ -4,7 +4,24 @@ import { workShopImage1 } from '@/constant/images';
 
 import BookFacilityCard from '@/components/cards/book-facility/BookFacilityCard';
 
-const FacilityListingSection = () => {
+interface FacilityListArray {
+  id : number;
+  title: string;
+  category: string;
+  image: string;
+  min_people:String;
+  max_people:String;
+  location: string;
+  min_hours:String;
+  max_hours:String;
+}
+
+
+const FacilityListingSection = ({
+  facilityListData = []
+}:{
+  facilityListData: FacilityListArray[];
+}) => {
   const facilities = [
     {
       title: 'Offices No. 134',
@@ -67,7 +84,7 @@ const FacilityListingSection = () => {
         justifyContent="center"
         alignItems="center"
       >
-        {facilities.map((facility, index) => (
+        {facilityListData.map((facility, index) => (
           <Grid
             key={index}
             xs={12}
@@ -76,7 +93,15 @@ const FacilityListingSection = () => {
             lg={4}
             item
           >
-            <BookFacilityCard {...facility} />
+            <BookFacilityCard 
+              id={facility.id}
+              title={facility.title}
+              category={facility.category}
+              image={facility.image}
+              time={facility.min_hours + ' - ' + facility.max_hours + " hours"}
+              capacity={facility.min_people + ' - ' + facility.max_people}
+              location="Marka"
+            />
           </Grid>
         ))}
       </Grid>

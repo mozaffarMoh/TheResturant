@@ -5,7 +5,7 @@ import { Container, Grid, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 import { ClockSVG, PlaceSVG, UsersSVG } from '../../../assets/icons';
 import FacilityReserveModal from '@/components/modals/facility-reserve-modal';
-
+import { Typography } from '@mui/joy';
 
 type CardDetailsArray = {
   label: string;
@@ -13,7 +13,7 @@ type CardDetailsArray = {
   icon: any;
 };
 
-const FacilityDetailsSection = () => {
+const FacilityDetailsSection = ({ facility }: { facility: any }) => {
   const [openAlert, setOpenAlert] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,12 +28,11 @@ const FacilityDetailsSection = () => {
     setOpenAlert(true);
   };
 
-
-  const dataRows : CardDetailsArray[] = [
-    { label: 'Minimum People', value: '10', icon: <UsersSVG /> },
-    { label: 'Maximum People', value: '20', icon: <UsersSVG /> },
-    { label: 'Minimum Hours', value: '1 Hour', icon: <ClockSVG /> },
-    { label: 'Maximum Hours', value: '3 Hours', icon: <ClockSVG /> },
+  const dataRows: CardDetailsArray[] = [
+    { label: 'Minimum People', value: facility.min_people, icon: <UsersSVG /> },
+    { label: 'Maximum People', value: facility.max_people, icon: <UsersSVG /> },
+    { label: 'Minimum Hours', value: facility.min_hours + ' Hour', icon: <ClockSVG /> },
+    { label: 'Maximum Hours', value: facility.max_hours + ' Hours', icon: <ClockSVG /> },
   ];
 
   return (
@@ -58,11 +57,16 @@ const FacilityDetailsSection = () => {
           xs={12}
           md={12}
           lg={9}
+          wrap='wrap'
+          sx={{
+            padding: 2,
+            textAlign:'justify'
+          }}
+          
         >
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-          et assumenda quisquam aspernatur omnis accusamus quos sit veritatis
-          quidem? Fugit magnam perspiciatis repellat vel! Fuga ad perspiciatis
-          placeat exercitationem beatae!
+          <Typography>
+            {facility.description}
+          </Typography>
         </Grid>
         <Grid
           item
@@ -80,7 +84,10 @@ const FacilityDetailsSection = () => {
         </Grid>
       </Grid>
 
-      <FacilityReserveModal open={isModalOpen} onClose={handleCloseModal} />
+      <FacilityReserveModal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </Container>
   );
 };

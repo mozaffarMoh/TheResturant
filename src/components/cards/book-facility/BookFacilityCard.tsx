@@ -6,12 +6,13 @@ import CardOverflow from '@mui/joy/CardOverflow';
 import Divider from '@mui/joy/Divider';
 import Typography from '@mui/joy/Typography';
 import './book-facility-card.css';
-import { ClockSVG, PlaceSVG,UsersSVG } from '../../../../assets/icons';
+import { ClockSVG, PlaceSVG, UsersSVG } from '../../../../assets/icons';
 import { Button, Grid } from '@mui/material';
 import { useRouter } from 'next/navigation';
-
+import { Router } from 'next/router';
 
 export default function BookFacilityCard({
+  id,
   title,
   category,
   image,
@@ -19,6 +20,7 @@ export default function BookFacilityCard({
   capacity,
   location,
 }: {
+  id: number;
   title: string;
   category: string;
   image: string;
@@ -50,14 +52,20 @@ export default function BookFacilityCard({
         borderRadius: '1.5rem',
         cursor: 'pointer',
       }}
-      onClick={() => push('/book-facility/details/1')}
+      onClick={() => push(`/book-facility/details/${id}`)}
     >
       <CardOverflow>
         <img
-          src={image}
+          src={'https://tempcms.theplatformjo.com' + image}
           loading="lazy"
           alt="facility image card"
           className="pt-1"
+          style={{
+            width: '100%',
+            height: '300px',
+            objectFit: 'cover',
+
+          }}
         />
       </CardOverflow>
       <CardContent>
@@ -98,9 +106,7 @@ export default function BookFacilityCard({
                 letterSpacing={1}
               >
                 {icon.icon}
-                <Typography className="text-xs">
-                  {icon.text}
-                </Typography>
+                <Typography className="text-xs">{icon.text}</Typography>
               </Grid>
             ))}
           </Grid>

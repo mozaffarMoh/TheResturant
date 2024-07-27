@@ -92,7 +92,7 @@ const MentorDetailsPage: NextPage = () => {
       body: formdata,
     };
 
-    fetch('https://techubapi.merwas.org/api/register', requestOptions)
+    fetch('https://tempcms.theplatformjo.com/api/register', requestOptions)
       .then((res) => {
         if (!res.ok) {
           return res.json().then((result) => {
