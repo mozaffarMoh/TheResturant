@@ -62,6 +62,10 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const [open2, setOpen2] = useState(false);
+  const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
+  const [menuOpen2, setMenuOpen2] = useState(false);
+
   const [openIndustry, setOpenIndustry] = useState(false);
   const [anchorElIndustry, setAnchorElIndustry] = useState<null | HTMLElement>(
     null,
@@ -80,6 +84,16 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
     setOpen(false);
+  };
+
+  const handleClick2 = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl2(event.currentTarget);
+    setOpen2(true);
+  };
+
+  const handleClose2 = () => {
+    setAnchorEl2(null);
+    setOpen2(false);
   };
 
   const handleCloseIndustry = () => {
@@ -158,7 +172,8 @@ const Header = () => {
                     />
                     <NormalMenuList
                       indexKey={1}
-                      href={'/events-workshops'}
+                      //href={'/events-workshops'}
+                      href={'#'}
                       title={'Events & Workshops'}
                     />
                     <NormalMenuList
@@ -215,11 +230,33 @@ const Header = () => {
                       <MenuItem onClick={handleClose}>English</MenuItem>
                     </Menu>
                   </div>
-                  <Avatar
-                    sx={{ marginInline: '0.4rem' }}
-                    alt="avatar image"
-                    src={dummyAvatarImage}
-                  />
+              
+                  <div className={styles.langButton}>
+                    <Button
+                      id="basic-button2"
+                      onClick={handleClick2}
+                      className={styles.langMenuButton}
+                      sx={{ textTransform: 'none !Important' }}
+                    >
+                      My Account
+                    </Button>
+                    <Menu
+                      id="basic-menu2"
+                      anchorEl={anchorEl2}
+                      open={open2}
+                      onClose={handleClose2}
+                    >
+                      <MenuItem onClick={()=>{
+                        localStorage.removeItem('techhubtoken');
+                        localStorage.removeItem('techhubuser');
+                        localStorage.removeItem('techhubbooking');
+                        //remove user from cookie
+                        document.cookie = "techhubtoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                        window.location.href = '/guest-home';
+                      }}>Logout</MenuItem>
+                   
+                    </Menu>
+                  </div>
                 </div>
               </Grid>
 
