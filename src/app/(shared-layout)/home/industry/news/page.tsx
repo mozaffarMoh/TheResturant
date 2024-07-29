@@ -1,6 +1,16 @@
 'use client';
 import './page.css';
-import { Box, Grid, Pagination, Typography } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Pagination,
+  Typography,
+  Breadcrumbs,
+  Container,
+  Stack,
+} from '@mui/material';
+import Link from '@mui/material/Link';
+import GridFlex from '@mui/material/Unstable_Grid2';
 import NewsImage1 from '../../../../../../public/industry/news/news1.png';
 import NewsImage2 from '../../../../../../public/industry/news/news2.png';
 import NewsImage3 from '../../../../../../public/industry/news/news3.png';
@@ -44,136 +54,132 @@ const News = () => {
       container
       direction={'column'}
       alignItems={'center'}
-      spacing={10}
-      padding={10}
       className="news"
     >
-      <Grid
-        item
-        textAlign={'center'}
-      >
-        <Typography
-          variant="h4"
-          color={primaryColor}
-          fontFamily={'Nobile'}
-          fontWeight={'500'}
-        >
-          News
-        </Typography>{' '}
-        <Typography
-          variant="caption"
-          color={primaryColor}
-          fontFamily={'Jost'}
-          fontWeight={'400'}
-        >
-          Home / The Industry / <span style={{ color: 'red' }}>News</span>
-        </Typography>
-      </Grid>
-      <Grid
-        container
-        item
-        direction={'row'}
-        width={'80%'}
-        className="news-details"
-      >
-        <Grid
+      <Container maxWidth="lg">
+        <GridFlex
           container
-          item
-          lg={9}
-          sm={8}
-          spacing={3}
-          flexDirection={'column'}
-          className='news-items'
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          className="mt-4"
+          flexDirection="column"
         >
-          {newsArray.map((item: any) => {
-            return (
-              <Grid
-                container
-                item
-                className="news-array-items"
-                spacing={3}
-                paddingRight={5}
-                onClick={() => setIsDetailsVisible(true)}
-                sx={{
-                  '&:hover': {
-                    cursor: 'pointer',
-                  },
-                }}
-              >
-                <Grid
-                  item
-                  xs={6}
-                  display={'flex'}
-                  justifyContent={'flex-end'}
+          <p className="general-title primary-color">News</p>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link
+              underline="hover"
+              color="inherit"
+              href="/home"
+            >
+              Home
+            </Link>
+            <Link
+              underline="hover"
+              color="inherit"
+            >
+              The Industry
+            </Link>{' '}
+            <Link
+              underline="hover"
+              color="inherit"
+              href="/home/industry/news"
+            >
+              <Typography color={'red'}>News</Typography>
+            </Link>
+          </Breadcrumbs>
+        </GridFlex>
+      </Container>
+      <Container>
+        <Stack
+          direction={'row'}
+          className="news-details"
+        >
+          <Grid
+            spacing={3}
+            flexDirection={'column'}
+            className="news-items"
+          >
+            {newsArray.map((item: any) => {
+              return (
+                <Stack
+                  className="news-item"
+                  justifyContent={'flex-start'}
+                  direction={'row'}
+                  spacing={3}
+                  onClick={() => setIsDetailsVisible(true)}
+                  sx={{
+                    '&:hover': {
+                      cursor: 'pointer',
+                    },
+                  }}
                 >
                   <Image
                     src={item.image}
                     alt="NewsImage"
                     className="news-image"
                   />
-                </Grid>{' '}
-                <Grid
-                  item
-                  xs={6}
-                  direction={'column'}
-                  justifyContent={'center'}
-                  display={'flex'}
-                >
-                  <Typography
-                    variant="h6"
-                    color={primaryColor}
-                    fontFamily={'Jost'}
-                    fontWeight={'500'}
+
+                  <Stack
+                    justifyContent={"center"}
+                    className="news-details-text"
                   >
-                    {item.title}
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    color={primaryColor}
-                    fontFamily={'Jost'}
-                    fontWeight={'400'}
-                  >
-                    {item.content}
-                  </Typography>
-                </Grid>
-              </Grid>
-            );
-          })}
-        </Grid>
-        <Grid
-          item
-          lg={3}
-          sm={4}
-          className="tags"
-        >
-          <Box
-            border={`1px solid #E7E7EC`}
-            borderRadius={'25px'}
-            padding={2}
+                    <Typography
+                      variant="h6"
+                      color={primaryColor}
+                      fontFamily={'Jost'}
+                      fontWeight={'500'}
+                    >
+                      {item.title}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      color={primaryColor}
+                      fontFamily={'Jost'}
+                      fontWeight={'400'}
+                    >
+                      {item.content}
+                    </Typography>
+                  </Stack>
+                </Stack>
+              );
+            })}
+          </Grid>
+          <Grid
+            item
+            lg={3}
+            sm={4}
+            className="news-tags"
           >
-            <Typography
-              variant="h6"
-              color={primaryColor}
-              fontWeight={600}
+            <Box
+              border={`1px solid #E7E7EC`}
+              borderRadius={'25px'}
+              padding={2}
             >
-              Tags
-            </Typography>
-            <Box padding={1}>
-              {tagsItems.map((item: string) => {
-                return (
-                  <Typography
-                    variant="body1"
-                    color={gray300}
-                    lineHeight={2}
-                  >
-                    {item}
-                  </Typography>
-                );
-              })}
+              <Typography
+                variant="h6"
+                color={primaryColor}
+                fontWeight={600}
+              >
+                Tags
+              </Typography>
+              <Box padding={1}>
+                {tagsItems.map((item: string) => {
+                  return (
+                    <Typography
+                      variant="body1"
+                      color={gray300}
+                      lineHeight={2}
+                    >
+                      {item}
+                    </Typography>
+                  );
+                })}
+              </Box>
             </Box>
-          </Box>
-        </Grid>
-      </Grid>
+          </Grid>
+        </Stack>
+      </Container>
       <Pagination
         count={3}
         color={'secondary'}
