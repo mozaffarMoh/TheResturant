@@ -9,3 +9,4 @@ export const textLightColor = '#999';
 
 export const gray100 = '#858585';
 export const gray200 = '#7c7c7c';
+export const gray300 = '#77838F';

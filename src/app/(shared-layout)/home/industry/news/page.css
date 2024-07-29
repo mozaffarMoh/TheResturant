@@ -1,0 +1,47 @@
+.news-details {
+    .news-image {
+        border-radius: 10px;
+        width: 270px;
+        height: 300px;
+
+    }
+}
+
+
+@media (max-width : 800px) {
+
+    .news {
+        padding: 0px;
+        margin: 0px;
+        width: 100%;
+
+        .news-details {
+            width: 100%;
+        }
+
+        .news-image {
+            width: 200px;
+            height: 200px;
+        }
+
+    }
+
+}
+
+@media (max-width : 600px) {
+    .news-details {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        .news-items {
+            order: 1;
+        }
+
+        .tags {
+            width: 250px;
+            margin-bottom: 20px;
+            order: 0;
+        }
+    }
+}
