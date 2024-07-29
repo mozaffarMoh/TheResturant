@@ -1,0 +1,34 @@
+.socialIconContainer {
+    /* background-color: white; */
+    margin-top: 1rem;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+
+
+
+    @media (max-width: 420px) {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+.socialIconContainer svg path {
+    fill: #949DA6;
+}
+
+.socialIconContainer:hover {
+    background-color: white;
+}
+
+.socialIconContainer:hover svg path {
+    fill: #21325b !important;
+}

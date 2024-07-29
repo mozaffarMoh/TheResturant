@@ -21,9 +21,10 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 const MentorsPage: NextPage = () => {
   const [profession, setProfession] = useState<Number>(0);
-
+  const router = useRouter();
   const professionHandleChange = (
     event: React.ChangeEvent<{ value: Number }>,
   ) => {
@@ -125,7 +126,8 @@ const MentorsPage: NextPage = () => {
               return (
                 <Card
                   key={i}
-                  sx={{ padding: '10px', margin: '10px' }}
+                  sx={{ padding: '10px', margin: '10px', cursor: 'pointer' }}
+                  onClick={() => router.push('/home/mentors/id')}
                 >
                   <Image
                     src={mentorImage}
