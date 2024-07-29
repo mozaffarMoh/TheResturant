@@ -3,10 +3,8 @@ import type { NextPage } from 'next';
 import styles from './page.module.css';
 import GridFlex from '@mui/material/Unstable_Grid2';
 import {
-  Box,
   Button,
   Container,
-  Grid,
   Paper,
   Stack,
   styled,
@@ -22,14 +20,7 @@ import {
 } from '../../../../../../assets/icons';
 import { primaryColor } from '@/constant/color';
 const MentorDetails: NextPage = () => {
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: 'transparent',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'left',
-    color: 'white',
-    boxShadow: 'none',
-  }));
+
   return (
     <Stack
       direction={'column'}

@@ -65,7 +65,13 @@ const News = () => {
           className="mt-4"
           flexDirection="column"
         >
-          <p className="general-title primary-color">News</p>
+          <Typography
+            fontFamily={'Nobile'}
+            className="general-title primary-color"
+            marginBottom={2}
+          >
+            News
+          </Typography>
           <Breadcrumbs aria-label="breadcrumb">
             <Link
               underline="hover"
@@ -121,7 +127,7 @@ const News = () => {
                   />
 
                   <Stack
-                    justifyContent={"center"}
+                    justifyContent={'center'}
                     className="news-details-text"
                   >
                     <Typography
