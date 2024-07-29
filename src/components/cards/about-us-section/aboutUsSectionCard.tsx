@@ -15,7 +15,7 @@ const AboutUsSectionCard = ({ title, content, icon }: IProps) => {
       <Grid
         item
         className="mt-1"
-      >
+      > 
         {icon}
       </Grid>
       <Grid
