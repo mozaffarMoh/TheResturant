@@ -8,6 +8,11 @@ import {
   Breadcrumbs,
   Container,
   Stack,
+  useMediaQuery,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from '@mui/material';
 import Link from '@mui/material/Link';
 import GridFlex from '@mui/material/Unstable_Grid2';
@@ -15,12 +20,17 @@ import NewsImage1 from '../../../../../../public/industry/news/news1.png';
 import NewsImage2 from '../../../../../../public/industry/news/news2.png';
 import NewsImage3 from '../../../../../../public/industry/news/news3.png';
 import Image from 'next/image';
-import { gray300, primaryColor } from '@/constant/color';
+import { gray300, primaryColor, textSecondaryColor } from '@/constant/color';
 import IndustryNewsModal from '@/components/modals/industry-news-modal';
 import { useState } from 'react';
 
 const News = () => {
+  const isScreen900 = useMediaQuery('(max-width:900px)');
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+  const [tags, setTags] = useState<Number>(0);
+  const tagsHandleChange = (event: React.ChangeEvent<{ value: Number }>) => {
+    setTags(event.target.value as Number);
+  };
   const newsArray = [
     {
       image: NewsImage1,
@@ -65,13 +75,7 @@ const News = () => {
           className="mt-4"
           flexDirection="column"
         >
-          <Typography
-            fontFamily={'Nobile'}
-            className="general-title primary-color"
-            marginBottom={2}
-          >
-            News
-          </Typography>
+          <p className="general-title primary-color">News</p>
           <Breadcrumbs aria-label="breadcrumb">
             <Link
               underline="hover"
@@ -91,7 +95,7 @@ const News = () => {
               color="inherit"
               href="/home/industry/news"
             >
-              <Typography color={'red'}>News</Typography>
+              <Typography color={textSecondaryColor}>News</Typography>
             </Link>
           </Breadcrumbs>
         </GridFlex>
@@ -100,6 +104,7 @@ const News = () => {
         <Stack
           direction={'row'}
           className="news-details"
+          marginTop={10}
         >
           <Grid
             spacing={3}
@@ -146,44 +151,92 @@ const News = () => {
                     >
                       {item.content}
                     </Typography>
+                    <Typography
+                      variant="caption"
+                      color={textSecondaryColor}
+                    >
+                      Art
+                    </Typography>
                   </Stack>
                 </Stack>
               );
             })}
           </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={4}
-            className="news-tags"
-          >
-            <Box
-              border={`1px solid #E7E7EC`}
-              borderRadius={'25px'}
-              padding={2}
+          {!isScreen900 ? (
+            <Grid
+              item
+              lg={3}
+              sm={4}
+              className="news-tags"
             >
-              <Typography
-                variant="h6"
-                color={primaryColor}
-                fontWeight={600}
+              <Box
+                border={`1px solid #E7E7EC`}
+                borderRadius={'25px'}
+                padding={2}
               >
-                Tags
-              </Typography>
-              <Box padding={1}>
-                {tagsItems.map((item: string) => {
-                  return (
-                    <Typography
-                      variant="body1"
-                      color={gray300}
-                      lineHeight={2}
-                    >
-                      {item}
-                    </Typography>
-                  );
-                })}
+                <Typography
+                  variant="h6"
+                  color={primaryColor}
+                  fontWeight={600}
+                >
+                  Tags
+                </Typography>
+                <Box padding={1}>
+                  {tagsItems.map((item: string) => {
+                    return (
+                      <Typography
+                        variant="body1"
+                        color={gray300}
+                        lineHeight={2}
+                      >
+                        {item}
+                      </Typography>
+                    );
+                  })}
+                </Box>
               </Box>
-            </Box>
-          </Grid>
+            </Grid>
+          ) : (
+            <Stack
+              flexDirection={'row'}
+              alignItems={'center'}
+              padding={3}
+            >
+              <InputLabel
+                id="dropdown-tags"
+                sx={{
+                  whiteSpace: 'nowrap',
+                  overflow: 'visible',
+                  textOverflow: 'clip',
+                  fontWeight: 600,
+                  width: 'auto',
+                }}
+              >
+                Tags:
+              </InputLabel>
+              <FormControl
+                variant="outlined"
+                style={{ marginLeft: 5, minWidth: 150 }}
+              >
+                <Select
+                  labelId="dropdown-tags"
+                  value={tags}
+                  onChange={tagsHandleChange as any}
+                  sx={{
+                    borderRadius: '1.5rem',
+                    height: '40px',
+                    '& .MuiSelect-select': {
+                      padding: '8px 14px',
+                    },
+                  }}
+                >
+                  {tagsItems.map((item: string, i) => {
+                    return <MenuItem value={i}>{item}</MenuItem>;
+                  })}
+                </Select>
+              </FormControl>{' '}
+            </Stack>
+          )}
         </Stack>
       </Container>
       <Pagination

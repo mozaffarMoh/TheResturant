@@ -1,15 +1,11 @@
 'use client';
 import './page.css';
-import {
-  Grid,
-  Typography,
-  Breadcrumbs,
-  Container,
-} from '@mui/material';
+import { Grid, Typography, Breadcrumbs, Container } from '@mui/material';
 import Link from '@mui/material/Link';
 import GridFlex from '@mui/material/Unstable_Grid2';
 import AnnounceSection from '@/sections/announcments/AnnounceSection';
 import JobOfferingSection from '@/sections/announcments/JobOfferingSection';
+import { textSecondaryColor } from '@/constant/color';
 
 const News = () => {
   return (
@@ -28,14 +24,7 @@ const News = () => {
           className="mt-4"
           flexDirection="column"
         >
-          <Typography
-            fontFamily={'Nobile'}
-            marginBottom={2}
-            fontSize={1}
-            className="general-title primary-color"
-          >
-            ANNOUNCMENTS
-          </Typography>
+          <p className="general-title primary-color">ANNOUNCMENTS</p>
           <Breadcrumbs aria-label="breadcrumb">
             <Link
               underline="hover"
@@ -55,7 +44,7 @@ const News = () => {
               color="inherit"
               href="/home/industry/news"
             >
-              <Typography color={'red'}>Announcments</Typography>
+              <Typography color={textSecondaryColor}>Announcments</Typography>
             </Link>
           </Breadcrumbs>
         </GridFlex>

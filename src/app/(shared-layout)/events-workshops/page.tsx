@@ -7,6 +7,7 @@ import GridFlex from '@mui/material/Unstable_Grid2';
 import { Breadcrumbs, Container, Typography } from '@mui/material';
 import Link from '@mui/material/Link';
 import WorkShopsListingSection from '@/sections/events-workshops/workShopsListingSection';
+import { textSecondaryColor } from '@/constant/color';
 
 const EventsWorkShopsPage: NextPage = () => {
   return (
@@ -34,7 +35,9 @@ const EventsWorkShopsPage: NextPage = () => {
               color="inherit"
               href="/events-workshops"
             >
-              Events & Workshops
+              <Typography color={textSecondaryColor}>
+                Events & Workshops
+              </Typography>
             </Link>
           </Breadcrumbs>
         </GridFlex>

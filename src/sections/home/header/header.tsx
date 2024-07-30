@@ -49,8 +49,8 @@ const menu = [
   { id: 5, type: 0, title: 'CONTACT US', link: '#', name: 'ContactUs' },
 ];
 const industryLinks = [
-  { id: 0, path: 'ind1', value: 'Sub link 1' },
-  { id: 1, path: 'ind2', value: 'Sub link 1' },
+  { id: 0, path: '/home/industry/news', value: 'News' },
+  { id: 1, path: '/home/industry/announcments', value: 'Announcments' },
 ];
 const Header = () => {
   const pathname = usePathname();
@@ -173,7 +173,7 @@ const Header = () => {
                     <NormalMenuList
                       indexKey={1}
                       //href={'/events-workshops'}
-                      href={'#'}
+                      href={'/events-workshops'}
                       title={'Events & Workshops'}
                     />
                     <NormalMenuList
@@ -183,7 +183,7 @@ const Header = () => {
                     />
                     <NormalMenuList
                       indexKey={3}
-                      href={'/#'}
+                      href={'/home/mentors'}
                       title={'Mentor'}
                     />
 
@@ -230,7 +230,7 @@ const Header = () => {
                       <MenuItem onClick={handleClose}>English</MenuItem>
                     </Menu>
                   </div>
-              
+
                   <div className={styles.langButton}>
                     <Button
                       id="basic-button2"
@@ -246,15 +246,19 @@ const Header = () => {
                       open={open2}
                       onClose={handleClose2}
                     >
-                      <MenuItem onClick={()=>{
-                        localStorage.removeItem('techhubtoken');
-                        localStorage.removeItem('techhubuser');
-                        localStorage.removeItem('techhubbooking');
-                        //remove user from cookie
-                        document.cookie = "techhubtoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                        window.location.href = '/guest-home';
-                      }}>Logout</MenuItem>
-                   
+                      <MenuItem
+                        onClick={() => {
+                          localStorage.removeItem('techhubtoken');
+                          localStorage.removeItem('techhubuser');
+                          localStorage.removeItem('techhubbooking');
+                          //remove user from cookie
+                          document.cookie =
+                            'techhubtoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                          window.location.href = '/guest-home';
+                        }}
+                      >
+                        Logout
+                      </MenuItem>
                     </Menu>
                   </div>
                 </div>

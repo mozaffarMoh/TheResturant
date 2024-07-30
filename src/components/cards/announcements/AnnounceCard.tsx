@@ -24,12 +24,16 @@ const AnnounceCard = ({
 }) => {
   const { push } = useRouter();
   return (
-    <Paper className="event-card-paper">
+    <Paper
+      className="event-card-paper"
+      style={{ padding: '0px' }}
+    >
       <Card
         sx={{
           display: 'flex',
           border: 'none',
           boxShadow: 'none',
+          backgroundColor: 'whitesmoke',
         }}
       >
         <Grid container>
@@ -39,13 +43,13 @@ const AnnounceCard = ({
             xs={12}
             md={6}
             display={'flex'}
-            alignItems={'center'}
+            alignItems={'flex-end'}
           >
             <CardMedia
               component="img"
               sx={{
                 width: '90%',
-                height: '60%',
+                height: '80%',
                 minHeight: '12rem',
                 borderRadius: '1.1rem',
               }}
@@ -69,6 +73,7 @@ const AnnounceCard = ({
                       borderRadius: '50px',
                       fontSize: '11px',
                       height: '23px',
+                      background: '#EB6B2A',
                     }}
                     color="error"
                   >

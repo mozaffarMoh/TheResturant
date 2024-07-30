@@ -35,7 +35,7 @@ const AnnounceModal = ({ open = false, handleClose }: TermsModalProps) => {
         </div>
       </Stack>
       <Stack
-        padding={5}
+        padding={2}
         alignItems={'center'}
       >
         <Image
@@ -43,7 +43,6 @@ const AnnounceModal = ({ open = false, handleClose }: TermsModalProps) => {
           src={announceImage}
           alt="newsImage"
         />
-        <br />
         <br />
         <DialogTitle>
           <Typography

@@ -63,6 +63,7 @@ const JobOfferingSection = () => {
             <Image
               src={sortIcon}
               alt={'sortIcon'}
+              style={{ marginTop: '5px' }}
             />
           </InputLabel>
           <FormControl

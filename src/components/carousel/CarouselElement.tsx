@@ -17,6 +17,11 @@ export default function CarouselElement({
           borderRadius: 0,
         },
       }}
+      activeIndicatorIconButtonProps={{
+        style: {
+          color: '#EB6B2A', // Color of active indicator
+        },
+      }}
       navButtonsWrapperProps={{
         // Move the buttons to the bottom. Unsetting top here to override default style.
         style: {

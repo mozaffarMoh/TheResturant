@@ -18,6 +18,7 @@ import {
 import Link from '@mui/material/Link';
 import FacilityListingSection from '@/sections/book-facility/FacilityListingSection';
 import React, { useEffect, useState } from 'react';
+import { textSecondaryColor } from '@/constant/color';
 
 const BookFacilityPage: NextPage = () => {
   const [category, setCategory] = useState<Number>(0);
@@ -98,7 +99,7 @@ const BookFacilityPage: NextPage = () => {
               color="inherit"
               href="/events-workshops"
             >
-              Book Facility
+              <Typography color={textSecondaryColor}> Book Facility</Typography>
             </Link>
           </Breadcrumbs>
         </GridFlex>

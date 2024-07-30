@@ -2,6 +2,7 @@
 
 import type { NextPage } from 'next';
 import jobOfferImage from '../../../../../../../public/industry/announcments/job-offer-background.png';
+import headBar from '../../../../../../../public/industry/announcments/head.png';
 import Image from 'next/image';
 import {
   Box,
@@ -21,11 +22,22 @@ const JobOfferDetails: NextPage = () => {
   const isScreen600 = useMediaQuery('(max-width:600px)');
   return (
     <>
-      <Stack>
+      <Stack position={'relative'}>
         <Image
           src={jobOfferImage}
           alt={'jobOfferImage'}
           style={{ width: '100%', height: isScreen600 ? '250px' : '400px' }}
+        />
+        <Image
+          src={headBar}
+          alt={'headBar'}
+          style={{
+            position: 'absolute',
+            bottom: '0px',
+            left: '25%',
+            width: '50%',
+            height: '10px',
+          }}
         />
       </Stack>
       <Container
@@ -35,6 +47,7 @@ const JobOfferDetails: NextPage = () => {
         <Grid
           container
           sx={{ flexDirection: isScreen1024 ? 'column' : '' }}
+          alignItems={'flex-start'}
         >
           <Grid
             item

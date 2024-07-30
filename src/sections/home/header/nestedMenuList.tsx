@@ -1,8 +1,8 @@
-import { Button, ListItemText, Menu, MenuItem } from '@mui/material';
+import { Button, Menu, MenuItem } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import styles from './header.module.css';
-import Link from 'next/link';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import Link from 'next/link';
 
 interface IProps {
   title: string;
@@ -23,6 +23,7 @@ const NestedMenuList = ({
 }: IProps) => {
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
+
   return (
     <>
       <Button
@@ -44,12 +45,18 @@ const NestedMenuList = ({
       >
         {' '}
         {links?.map((item) => (
-          <MenuItem
-            key={item.id}
-            onClick={handleClose}
+          <Link
+            href={item.path}
+            style={{ textDecoration: 'none', color: 'inherit' }}
           >
-            {item.value}
-          </MenuItem>
+            <MenuItem
+              key={item.id}
+              onClick={handleClose}
+              href={item.path}
+            >
+              {item.value}
+            </MenuItem>
+          </Link>
         ))}
       </Menu>
     </>
