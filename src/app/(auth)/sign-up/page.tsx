@@ -19,8 +19,10 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import { useEffect, useState } from 'react';
 import TermsConditionsModal from '@/components/modals/terms-condition-modal';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const SingUp: NextPage = () => {
+  const t = useTranslations();
   const { push } = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState('');
@@ -91,34 +93,39 @@ const SingUp: NextPage = () => {
                 />
               </div>{' '}
               <div className="mb-2 ">
-                <p className=" text-large-title m-0">Sign Up</p>
-                <p className="text-med">
-                  If you don’t have an account register
+                <p className=" text-large-title m-0">
+                  {t('auth.signup-title')}
                 </p>
+                <p className="text-med">{t('auth.signup-subtitle')}</p>
                 <p className="text-med ">
-                  You can{' '}
                   <Link
                     href={'/sign-in'}
                     className="fw700 text-underline-none fc-black"
                   >
-                    Login Here !
+                    {t('auth.login-here')}
                   </Link>
                 </p>
               </div>
               <div>
                 <div className="mb-3">
-                  <label className="fc-light-black">Email</label>
+                  <label className="fc-light-black">
+                    {' '}
+                    {t('auth.email-title')}
+                  </label>
                   <InputV1
+                    label={t('auth.email-placeholder')}
                     startIcon={<MessageSVG />}
                     onChange={handleEmailChange}
                     value={email}
                   />
                 </div>
                 <div className="mb-1">
-                  <label className="fc-light-black">Password</label>
+                  <label className="fc-light-black">
+                    {t('auth.password-title')}
+                  </label>
                   <div className="mb-2">
                     <InputV1
-                      label={'Enter Your Password'}
+                      label={t('auth.password-placeholder')}
                       startIcon={<LockSVG />}
                       endIcon={<ClosedEyeSVG />}
                       isPassword
@@ -128,7 +135,7 @@ const SingUp: NextPage = () => {
                   </div>
 
                   <InputV1
-                    label={'Confirm Your Password'}
+                  label={t('auth.password-confirm-placeholder')}
                     startIcon={<LockSVG />}
                     endIcon={<ClosedEyeSVG />}
                     isPassword
@@ -151,7 +158,7 @@ const SingUp: NextPage = () => {
                     onClick={handleTermsModal}
                     className="cursor-pointer"
                   >
-                    Terms condition and privacy policy
+                    {t('auth.terms')}
                   </p>
                 </div>
                 <div className="auth-submit-btn sm-flex-row-row-center-end w-full ">
@@ -176,7 +183,7 @@ const SingUp: NextPage = () => {
                     }
                     onClick={() => push('/who-are-you')}
                   >
-                    Next
+                      {t('auth.next')}
                   </Button>
                 </div>
               </div>

@@ -16,8 +16,10 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import InstructorImage from '../../../../../../../public/industry/announcments/instructor.png';
+import { useTranslations } from 'next-intl';
 
 const JobOfferDetails: NextPage = () => {
+  const t = useTranslations();
   const isScreen1024 = useMediaQuery('(max-width:1024px)');
   const isScreen600 = useMediaQuery('(max-width:600px)');
   return (
@@ -137,21 +139,20 @@ const JobOfferDetails: NextPage = () => {
                   className=" primary-color"
                   fontFamily={'Montserrat'}
                 >
-                  How to Apply
+                  
+                  {t('dialog.how-to-apply')}
                 </Typography>
                 <Typography
                   variant="body1"
                   fontFamily={'Jost'}
                 >
-                  Equipped with advanced technological tools such as a display
-                  screen and media player to facilitate the presentation of
-                  slideshows and digital content.
+                  {t('dialog.equippedWithTools')}
                 </Typography>
                 <Button
                   className="general-button-primary mt-1"
                   sx={{ width: '200px' }}
                 >
-                  Apply Now
+                  {t('buttons.apply-now')}
                 </Button>
               </CardContent>
             </Card>

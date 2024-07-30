@@ -14,44 +14,49 @@ import {
 } from '../../../../assets/icons';
 import ContactUsSectionCard from '@/components/cards/contact-us-section/contactUsSectionCard';
 import ContactUsForm from './contact-us-form/contactUsForm';
+import { useTranslations } from 'next-intl';
 
 const ContactUsSection = () => {
+  const t = useTranslations();
   const cards = [
     {
       id: 0,
-      title: 'Find Us',
+      title: t('contact-us.find-us'),
       content: '2301 AMMAN . JORDAN,WI 53711',
       icon: <LocationSVG />,
     },
     {
       id: 1,
-      title: 'Phone',
+      title: t('contact-us.phone'),
       content: '+ (06) 905-2321 + (06) 905-2322',
       icon: <PhoneSVG />,
     },
     {
       id: 2,
-      title: 'Working Hours',
+      title: t('contact-us.working-hours'),
       content: 'Mon-Fri: 8 AM - 5 PM Sat-Sun: 8 AM - 2 PM',
       icon: <AlarmClockSVG />,
     },
     {
       id: 3,
-      title: 'Write to Us',
+      title: t('contact-us.write-to-us'),
       content: 'info@Tech Hub.com courses@Tech Hub.com',
       icon: <EditSVG />,
     },
   ];
+
   return (
     <Container className="mt-4 max-w-90 mb-2 ">
       <div className="sm-flex-col-col-center-center">
         <div className="text-align-center">
-          <p className="text-xlarge-title">Contact Us</p>
+          <p className="text-xlarge-title">{t('contact-us.title')}</p>
           <p className="sub-text-larges opacity-75">
-            With Lots of Unique Blocks, You Can Easily Build a Page <br />{' '}
-            Easily without any coding
+            {t('contact-us.contact-desc')}
           </p>
-          <p className="text-large-title fw700">Get In Touch Today!</p>
+          <p className="text-large-title fw700">
+            {' '}
+            {t('contact-us.get-in-touch')}
+          </p>
         </div>
         <div className="mt-4 w-full">
           <Grid
@@ -64,7 +69,9 @@ const ContactUsSection = () => {
               md={6}
               className={styles.leftContainer}
             >
-              <p className="text-large-title fw700">Contact Details</p>
+              <p className="text-large-title fw700">
+                {t('contact-us.details')}
+              </p>
 
               <Grid
                 container
@@ -103,7 +110,9 @@ const ContactUsSection = () => {
                     item
                     xs
                   >
-                    <p className="text-med-low  ">Follow US</p>
+                    <p className="text-med-low  ">
+                      {t('contact-us.follow-us')}
+                    </p>
 
                     <div className="sm-flex-row-row-center-start gap05 mt-1 w-50">
                       <div className={styles.socialIconContainer}>
@@ -132,7 +141,9 @@ const ContactUsSection = () => {
               md={6}
               className={styles.rightContainer}
             >
-              <p className="text-large-title fw700">Have A Question!</p>
+              <p className="text-large-title fw700">
+                {t('contact-us.have-a-question')}
+              </p>
               <ContactUsForm />
             </Grid>
           </Grid>

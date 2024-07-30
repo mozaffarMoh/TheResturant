@@ -9,8 +9,10 @@ import {
   TelescopeSVG,
 } from '../../../../assets/icons';
 import AboutUsSectionCard from '@/components/cards/about-us-section/aboutUsSectionCard';
+import { useTranslations } from 'next-intl';
 
 const AboutUsSection = () => {
+  const t = useTranslations();
   const cards = [
     {
       id: 0,
@@ -45,7 +47,7 @@ const AboutUsSection = () => {
     <Container className="mt-4 max-w-90 ">
       <div className="sm-flex-col-col-center-center">
         <div className="text-align-center">
-          <p className="text-xlarge-title">About Us</p>
+          <p className="text-xlarge-title">{t('guest-home.about-us')}</p>
           <p className="sub-text-larges opacity-75">
             With Lots of Unique Blocks, You Can Easily Build a Page <br />{' '}
             Easily without any coding

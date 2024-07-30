@@ -9,6 +9,7 @@ import './workshop-card.css';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function WorkShopCard({
   title,
@@ -20,6 +21,7 @@ export default function WorkShopCard({
   image: string;
 }) {
   const { push } = useRouter();
+  const t = useTranslations();
   return (
     <Card
       variant="outlined"
@@ -45,7 +47,10 @@ export default function WorkShopCard({
           <br />
           <span className="text-xs  p-0">{subTitle}</span>
         </p>
-        <div className="  align-center-425  ">
+        <div
+          className="  align-center-425  "
+          dir="ltr"
+        >
           <span className="text-xs opacity-80 m-1">
             <PlaceSVG />
             AMMAN, JORDAN
@@ -54,7 +59,10 @@ export default function WorkShopCard({
             <ClockSVG /> 3:00 pm
           </span>
         </div>
-        <div className="  align-center-425  ">
+        <div
+          className="  align-center-425  "
+          dir="ltr"
+        >
           <span className="text-xs opacity-80 m-1">
             <PlaceSVG />
             AMMAN, JORDAN
@@ -67,7 +75,7 @@ export default function WorkShopCard({
           className="general-button-primary mt-1"
           onClick={() => push('events-workshops/workshops/1')}
         >
-          View
+          {t('buttons.view')}
         </Button>
       </CardContent>
     </Card>

@@ -11,8 +11,10 @@ import { buttonPrimaryColor } from '@/constant/color';
 import styles from './page.module.css';
 import { useState } from 'react';
 import CustomAlert from '@/components/alerts/CustomAlert';
+import { useTranslations } from 'next-intl';
 
 const SignIn: NextPage = () => {
+  const t = useTranslations();
   const [openAlert, setOpenAlert] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,7 +48,7 @@ const SignIn: NextPage = () => {
         setLoadingSubmit(false);
         setOpenAlert(false);
 
-       // console.log(result);
+        // console.log(result);
         // in success state
         if (result?.status && result.status === 200) {
           localStorage.setItem('techhubtoken', result.data.token);
@@ -58,14 +60,14 @@ const SignIn: NextPage = () => {
           window.location.href = '/home';
         } else {
           // in error state
-          setErrorMessage("Email or Password is incorrect, please try again!");
+          setErrorMessage('Email or Password is incorrect, please try again!');
           setOpenAlert(true);
         }
       })
       .catch((error) => {
         //console.log(error);
         setLoadingSubmit(false);
-        setErrorMessage("Email or Password is incorrect, please try again!");
+        setErrorMessage('Email or Password is incorrect, please try again!');
         setOpenAlert(true);
       });
   };
@@ -104,24 +106,27 @@ const SignIn: NextPage = () => {
                 />
               </div>{' '}
               <div className="mb-2 ">
-                <p className=" text-large-title m-0">Sign In</p>
-                <p className="text-med">
-                  If you don’t have an account register
+                <p className=" text-large-title m-0">
+                  {t('auth.signin-title')}
                 </p>
+                <p className="text-med">{t('auth.signin-subtitle')}</p>
                 <p className="text-med mb-4">
-                  You can{' '}
                   <Link
                     href={'/sign-up'}
                     className="fw700 text-underline-none fc-black"
                   >
-                    Register Here !
+                    {t('auth.register-here')}
                   </Link>
                 </p>
               </div>
               <div>
                 <div className="mb-3">
-                  <label className="fc-light-black">Email</label>
+                  <label className="fc-light-black">
+                    {' '}
+                    {t('auth.email-title')}
+                  </label>
                   <InputV1
+                    label={t('auth.email-placeholder')}
                     startIcon={<MessageSVG />}
                     onChange={(e: any) => {
                       console.log(e.target.value);
@@ -131,7 +136,10 @@ const SignIn: NextPage = () => {
                   />
                 </div>
                 <div className="mb-1">
-                  <label className="fc-light-black">Password</label>
+                  <label className="fc-light-black">
+                    {' '}
+                    {t('auth.password-title')}
+                  </label>
                   <InputV1
                     startIcon={<LockSVG />}
                     endIcon={<ClosedEyeSVG />}
@@ -140,16 +148,17 @@ const SignIn: NextPage = () => {
                       setPassword(e.target.value);
                     }}
                     value={password}
+                    label={t('auth.password-placeholder')}
                   />
                 </div>
                 <div className="sm-flex-row-row-center-between mb-3">
                   <Radio
                     color="primary"
                     value="true"
-                    label="Remember Me"
+                    label={t('auth.remember-me')}
                     checked
                   />
-                  <div>Forget Password?</div>
+                  <div>{t('auth.forget-password')}</div>
                 </div>
                 <div>
                   <Button
@@ -162,7 +171,7 @@ const SignIn: NextPage = () => {
                     }}
                     onClick={onSubmit}
                   >
-                    Login
+                    {t('auth.signin-button')}
                   </Button>
                 </div>
               </div>

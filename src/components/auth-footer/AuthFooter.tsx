@@ -9,20 +9,21 @@ import {
   LinkedInSVG,
   TwitterSVG,
 } from '../../../assets/icons';
+import { useTranslations } from 'next-intl';
 const AuthFooter = () => {
+  const t = useTranslations();
   return (
     <Box
       component="footer"
       className={styles.footer}
     >
       <p className="text-large-title text-white-new  mt-2">
-        Subscribe Our Newsletter
+        {t('footer.title')}
       </p>
       <p className="text-med-fw400 fc-light-white">
-        Your Download Should Start Automatically, If Not Click Here. Should I
-        Give Up, Huh?
+      {t('footer.subtitle')}
       </p>
-      <div className={styles.subscribeForm}>
+      <div className={styles.subscribeForm} dir='ltr'>
         <Input
           sx={{
             '--Input-decoratorChildHeight': '3.5rem',
@@ -48,7 +49,7 @@ const AuthFooter = () => {
                 },
               }}
             >
-              Subscribe
+              {t('footer.subscribe')}
             </JoyButton>
           }
         />

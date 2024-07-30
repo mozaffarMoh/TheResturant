@@ -19,13 +19,15 @@ import { primaryColor } from '@/constant/color';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
+import { useTranslations } from 'next-intl';
 
 const JobOfferingSection = () => {
+  const t = useTranslations();
+  const isRTL = Cookies.get('lang') && Cookies.get('lang') == 'ar';
   const [sortItems, setSortItems] = useState<Number>(0);
   const router = useRouter();
-  const professionHandleChange = (
-    event: React.ChangeEvent<{ value: Number }>,
-  ) => {
+  const sortHandleChange = (event: React.ChangeEvent<{ value: Number }>) => {
     setSortItems(event.target.value as Number);
   };
   return (
@@ -44,7 +46,7 @@ const JobOfferingSection = () => {
           fontSize={25}
           fontWeight={600}
         >
-          Job Offering
+          {t('header.jobOffer')}
         </Typography>
 
         <Stack
@@ -52,7 +54,7 @@ const JobOfferingSection = () => {
           alignItems={'center'}
         >
           <InputLabel
-            id="dropdown-profession"
+            id="dropdown-sort"
             sx={{
               whiteSpace: 'nowrap',
               overflow: 'visible',
@@ -71,9 +73,9 @@ const JobOfferingSection = () => {
             style={{ marginLeft: 5, minWidth: 150 }}
           >
             <Select
-              labelId="dropdown-profession"
+              labelId="dropdown-sort"
               value={sortItems}
-              onChange={professionHandleChange as any}
+              onChange={sortHandleChange as any}
               sx={{
                 borderRadius: '1.5rem',
                 height: '40px',
@@ -86,7 +88,7 @@ const JobOfferingSection = () => {
                 value={0}
                 selected
               >
-                All
+                {t('select.all')}
               </MenuItem>
               <MenuItem value={1}>Meeting Room</MenuItem>
               <MenuItem value={2}>Lecture Room</MenuItem>
@@ -115,7 +117,7 @@ const JobOfferingSection = () => {
                   cursor: 'pointer',
                   position: 'relative',
                 }}
-                onClick={() => router.push('/home/industry/announcments/id')}
+                onClick={() => router.push('/home/industry/announcements/id')}
               >
                 <Image
                   src={jobOfferImage}
@@ -129,7 +131,8 @@ const JobOfferingSection = () => {
                   style={{
                     position: 'absolute',
                     borderRadius: '50%',
-                    right: '20px',
+                    right: `${!isRTL ? '20px' : ''}`,
+                    left: `${isRTL ? '20px' : ''}`,
                     bottom: '100px',
                   }}
                 />
@@ -177,7 +180,7 @@ const JobOfferingSection = () => {
             color={primaryColor}
             marginLeft={1}
           >
-            LOAD MORE
+          {t('buttons.load-more')}
           </Typography>
         </Button>
       </Stack>

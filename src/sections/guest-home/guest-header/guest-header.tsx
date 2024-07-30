@@ -17,13 +17,14 @@ import LanguageIcon from '@mui/icons-material/Language';
 import { useRouter } from 'next/navigation';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 const GuestHeader = () => {
   const pathname = usePathname();
   const router = useRouter();
 
   const isActive = (path: string) => pathname === path;
-
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,6 +32,11 @@ const GuestHeader = () => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen(true);
+  };
+
+  const changeLanguage = (lang: string) => {
+    setAnchorEl(null);
+    setOpen(false);
   };
 
   const handleClose = () => {
@@ -44,23 +50,23 @@ const GuestHeader = () => {
 
   const menu = [
     {
-      title: 'HOME',
+      title: t('guest-home.home'),
       link: '/guest-home',
     },
     {
-      title: 'About Us',
+      title: t('guest-home.about-us'),
       link: '#',
     },
     {
-      title: 'Services',
+      title: t('guest-home.services'),
       link: '#',
     },
     {
-      title: 'Partners',
+      title: t('guest-home.partners'),
       link: '#',
     },
     {
-      title: 'Contact Us',
+      title: t('guest-home.contact-us'),
       link: '#',
     },
   ];
@@ -154,7 +160,7 @@ const GuestHeader = () => {
                     onClick={handleClick}
                     className={styles.langMenuButton}
                   >
-                    <LanguageIcon className={styles.langIcon} /> English
+                    <LanguageIcon className={styles.langIcon} /> {t('lang.en')}
                   </Button>
                   <Menu
                     id="basic-menu"
@@ -162,8 +168,12 @@ const GuestHeader = () => {
                     open={open}
                     onClose={handleClose}
                   >
-                    <MenuItem onClick={handleClose}>Arabic</MenuItem>
-                    <MenuItem onClick={handleClose}>English</MenuItem>
+                    <MenuItem onClick={() => changeLanguage('ar')}>
+                      {t('lang.ar')}
+                    </MenuItem>
+                    <MenuItem onClick={() => changeLanguage('en')}>
+                      {t('lang.en')}
+                    </MenuItem>
                   </Menu>
                 </div>
               </Grid>
@@ -179,13 +189,13 @@ const GuestHeader = () => {
                     onClick={() => router.push('/sign-up')}
                     className={styles.authButton}
                   >
-                    Register
+                    {t('auth.signup-title')}
                   </Button>
                   <Button
                     onClick={() => router.push('/sign-in')}
                     className={styles.authButton}
                   >
-                    Log In
+                    {t('auth.signin-title')}
                   </Button>
                 </div>
               </Grid>
@@ -238,13 +248,13 @@ const GuestHeader = () => {
                           onClick={() => router.push('/sign-up')}
                           className={styles.authDrawerButton}
                         >
-                          Register
+                           {t('auth.signup-button')}
                         </Button>
                         <Button
                           onClick={() => router.push('/sign-in')}
                           className={styles.authDrawerButton}
                         >
-                          Log In
+                          {t('auth.signin-button')}
                         </Button>
                       </div>
                     </Box>

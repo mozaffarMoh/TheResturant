@@ -5,6 +5,7 @@ import Divider from '@mui/joy/Divider';
 import './detail-workshop-card.css';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { Button } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 export default function DetailsWorkShopCard({
   location,
@@ -17,6 +18,7 @@ export default function DetailsWorkShopCard({
   duration: string;
   onClick: any;
 }) {
+  const t = useTranslations();
   return (
     <Card
       variant="outlined"
@@ -28,11 +30,11 @@ export default function DetailsWorkShopCard({
       }}
     >
       <CardContent>
-        <p className="text-med-fw700  p-0 ">Details</p>
+        <p className="text-med-fw700  p-0 ">{t('dialog.details')}</p>
 
         <div className="sm-flex-row-row-center-between">
           <span>
-            <PlaceSVG /> Location
+            <PlaceSVG /> {t('dialog.location')}
           </span>
           <p>{location}</p>
         </div>
@@ -45,7 +47,7 @@ export default function DetailsWorkShopCard({
         />
         <div className="sm-flex-row-row-center-between">
           <span>
-            <ClockSVG /> Person
+            <ClockSVG /> {t('dialog.person')}
           </span>
           <p>{person}</p>
         </div>
@@ -58,7 +60,7 @@ export default function DetailsWorkShopCard({
         />
         <div className="sm-flex-row-row-center-between">
           <span>
-            <ClockSVG /> Duration
+            <ClockSVG /> {t('dialog.duration')}
           </span>
           <p>{duration}</p>
         </div>
@@ -74,7 +76,7 @@ export default function DetailsWorkShopCard({
           className="general-button-primary mt-1"
           onClick={onClick}
         >
-          Book Now
+          {t('buttons.book-now')}
         </Button>
       </CardContent>
     </Card>

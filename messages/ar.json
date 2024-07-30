@@ -1,0 +1,121 @@
+{
+    "lang": {
+        "en": "الإنجليزية",
+        "ar": "العربية"
+    },
+    "auth": {
+        "signup-title": "إنشاء حساب",
+        "signin-title": "تسجيل الدخول",
+        "signup-button": "إنشاء حساب",
+        "signin-button": "تسجيل الدخول",
+        "signup-subtitle": "إذا كان لديك حساب بالفعل يمكنك",
+        "signin-subtitle": "إذا لم يكن لديك حساب يمكنك",
+        "login-here": "تسجيل الدخول من هنا!",
+        "register-here": "إنشاء حساب من هنا!",
+        "email-title": "البريد الإلكتروني",
+        "email-placeholder": "أدخل بريدك الإلكتروني",
+        "password-title": "كلمة المرور",
+        "password-placeholder": "أدخل كلمة المرور الخاصة بك",
+        "password-confirm-placeholder": "تأكيد كلمة المرور الخاصة بك",
+        "forget-password": "نسيت كلمة المرور؟",
+        "remember-me": "تذكرني",
+        "terms": "الشروط والأحكام وسياسة الخصوصية",
+        "next": "التالي"
+    },
+    "validation": {
+        "email": "البريد الإلكتروني مطلوب *",
+        "password": "كلمة المرور مطلوبة *",
+        "confirm-password": "تأكيد كلمة المرور مطلوب *",
+        "password-not-match": "كلمات المرور غير متطابقة *",
+        "title": "العنوان مطلوب *"
+    },
+    "guest-home": {
+        "home": "الرئيسية",
+        "about-us": "من نحن",
+        "services": "الخدمات",
+        "partners": "الشركاء",
+        "contact-us": "تواصل معنا"
+    },
+    "contact-us": {
+        "title": "تواصل معنا",
+        "contact-desc": "مع العديد من الكتل الفريدة، يمكنك بسهولة بناء صفحة دون أي كود",
+        "get-in-touch": "تواصل معنا اليوم!",
+        "details": "تفاصيل الاتصال",
+        "find-us": "اعثر علينا",
+        "phone": "الهاتف",
+        "working-hours": "ساعات العمل",
+        "write-to-us": "اكتب لنا",
+        "follow-us": "تابعنا",
+        "have-a-question": "هل لديك سؤال!",
+        "type": "النوع",
+        "complain": "شكوى",
+        "reach-out": "اتصل بنا",
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "message": "الرسالة",
+        "send": "إرسال"
+    },
+    "header": {
+        "home": "الرئيسية",
+        "events-workshops": "الأحداث وورشات العمل",
+        "events": "الأحداث",
+        "events-top": "أهم الأحداث",
+        "events-details": "تفاصيل الأحداث",
+        "workshops": "ورشات العمل",
+        "book-facility": "حجز المنشأة",
+        "mentors": "المرشدين",
+        "industry": "الصناعة",
+        "contact-us": "تواصل معنا",
+        "news": "الأخبار",
+        "announcements": "الإعلانات",
+        "announcement": "الإعلانات",
+        "jobOffer": "العرض الوظيفي ",
+        "my-account": "حسابي",
+        "logout": "تسجيل الخروج"
+    },
+    "footer": {
+        "title": "اشترك في نشرتنا الإخبارية",
+        "subtitle": "يجب أن يبدأ تنزيلك تلقائيًا، إذا لم يبدأ، انقر هنا. هل يجب أن أستسلم ؟",
+        "subscribe": "اشترك",
+        "our-company": "شركتنا",
+        "about-us": "من نحن",
+        "contact-us": "تواصل معنا",
+        "community": "المجتمع",
+        "student-perks": "مزايا الطلاب",
+        "blog": "المدونة",
+        "affiliate-program": " برنامج الشركاء",
+        "careers": "الوظائف",
+        "support": "الدعم",
+        "documentations": "التوثيقات",
+        "forums": "المنتديات",
+        "languages-packs": "حزم اللغات",
+        "release-status": "حالة الإصدار",
+        "copyRights": "© 2024  جميع الحقوق محفوظة .المنصة."
+    },
+    "dialog": {
+        "how-to-apply": "كيف تقدم",
+        "equippedWithTools": "مزود بأدوات تكنولوجية متقدمة مثل شاشة عرض ومشغل وسائط لتسهيل عرض الشرائح والمحتوى الرقمي.",
+        "details": "التفاصيل",
+        "person": "الشخص",
+        "location": "الموقع",
+        "duration": "المدة"
+    },
+    "buttons": {
+        "view": "عرض",
+        "apply-now": "قدم الآن",
+        "book-now": "احجز الآن",
+        "buy": "شراء",
+        "request": "طلب",
+        "load-more": "تحميل المزيد"
+    },
+    "select": {
+        "category": "الفئة",
+        "location": "الموقع",
+        "profession": "المهنة",
+        "tags": "الوسوم",
+        "all": "الجميع"
+    },
+    "messages": {
+        "loading": " يتم التحميل الرجاء الانتظار"
+    }
+}

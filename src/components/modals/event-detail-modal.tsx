@@ -12,6 +12,7 @@ import { eventBgImage } from '@/constant/images';
 import { Button, DialogActions, Grid } from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import { PlaceSVG } from '../../../assets/icons';
+import { useTranslations } from 'next-intl';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiPaper-root': {
@@ -32,6 +33,7 @@ interface TermsModalProps {
   handleClose: () => void;
 }
 const EventDetailsModal = ({ open = false, handleClose }: TermsModalProps) => {
+  const t = useTranslations();
   return (
     <BootstrapDialog
       onClose={handleClose}
@@ -43,7 +45,7 @@ const EventDetailsModal = ({ open = false, handleClose }: TermsModalProps) => {
         className="sm-flex-col-col-center-center"
         id="customized-dialog-title"
       >
-        <p className="m-0">Event Details</p>
+        <p className="m-0">{t('header.events-details')}</p>
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -201,7 +203,7 @@ const EventDetailsModal = ({ open = false, handleClose }: TermsModalProps) => {
           onClick={handleClose}
           className="general-button-secondary w-90 "
         >
-          Book Now
+          {t('buttons.book-now')}
         </Button>
       </DialogActions>
     </BootstrapDialog>

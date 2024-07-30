@@ -6,8 +6,10 @@ import { ArrowRight } from '@mui/icons-material';
 import WorkShopCardV1 from '@/components/cards/home-section/WorkShopCardV1';
 import WorkShopCardV2 from '@/components/cards/home-section/WorkShopCardV2';
 import { workShopImage1, workShopImage2 } from '@/constant/images';
+import { useTranslations } from 'next-intl';
 
 const WorkShopsSection = () => {
+  const t = useTranslations();
   return (
     <section
       style={{
@@ -24,7 +26,9 @@ const WorkShopsSection = () => {
               className="sm-flex-colo-col  md-margin-0 "
               style={{ marginLeft: '10px', marginRight: '10px' }}
             >
-              <div className="general-title  text-white-new">Workshops</div>
+              <div className="general-title  text-white-new">
+                {t('header.workshops')}
+              </div>
               <div className="mt-2 lg-flex-row-col-1300">
                 {/* cards horizontal cards  section */}
                 <div className={styles.workShopCardsContainer}>
@@ -89,7 +93,7 @@ const WorkShopsSection = () => {
                   }}
                   endIcon={<ArrowRight />}
                 >
-                  View
+                  {t('buttons.view')}
                 </Button>
               </div>
             </div>

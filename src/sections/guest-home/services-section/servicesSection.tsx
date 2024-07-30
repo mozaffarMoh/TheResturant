@@ -4,8 +4,10 @@ import Image from 'next/image';
 import { servicesSectionImage } from '@/constant/images';
 import { primaryColor } from '@/constant/color';
 import ServicesListItem from './services-list-item';
+import { useTranslations } from 'next-intl';
 
 const ServicesSection = () => {
+  const t = useTranslations();
   const serviceListItems = [
     {
       id: 0,
@@ -44,7 +46,7 @@ const ServicesSection = () => {
     <Container className="mt-4 max-w-90 ">
       <div className="sm-flex-col-col-center-center ">
         <div className="text-align-center">
-          <p className="text-xlarge-title">Services</p>
+          <p className="text-xlarge-title">{t('guest-home.services')}</p>
           <p className="sub-text-larges opacity-75">
             With Lots of Unique Blocks, You Can Easily Build a Page <br />{' '}
             Easily without any coding

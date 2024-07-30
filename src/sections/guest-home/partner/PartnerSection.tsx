@@ -3,8 +3,10 @@ import styles from './partner.module.css';
 import { partnerImage1, partnerImage2, partnerImage3 } from '@/constant/images';
 
 import PartnerSectionCard from '@/components/cards/partner-section/partnerSectionCard';
+import { useTranslations } from 'next-intl';
 
 const PartnerSection = () => {
+  const t = useTranslations();
   const partnerCards = [
     {
       id: 0,
@@ -32,7 +34,9 @@ const PartnerSection = () => {
     >
       <div className="sm-flex-col-col-center-center">
         <div className="text-align-center mt-2">
-          <p className="text-xlarge-title-secondary">Partners</p>
+          <p className="text-xlarge-title-secondary">
+            {t('guest-home.partners')}
+          </p>
           <p className="sub-text-larges text-white-new opacity-75">
             With Lots of Unique Blocks, You Can Easily Build a Page <br />{' '}
             Easily without any coding

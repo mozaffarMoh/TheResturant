@@ -19,8 +19,10 @@ import Link from '@mui/material/Link';
 import FacilityListingSection from '@/sections/book-facility/FacilityListingSection';
 import React, { useEffect, useState } from 'react';
 import { textSecondaryColor } from '@/constant/color';
+import { useTranslations } from 'next-intl';
 
 const BookFacilityPage: NextPage = () => {
+  const t = useTranslations();
   const [category, setCategory] = useState<Number>(0);
   const [location, setLocation] = useState<Number>(0);
   const [facilityList, setFacilityList] = useState<any[]>([]);
@@ -85,21 +87,27 @@ const BookFacilityPage: NextPage = () => {
           className="mt-4"
           flexDirection="column"
         >
-          <p className="general-title primary-color">Book Facility</p>
+          <p className="general-title primary-color">
+            {' '}
+            {t('header.book-facility')}
+          </p>
           <Breadcrumbs aria-label="breadcrumb">
             <Link
               underline="hover"
               color="inherit"
               href="/home"
             >
-              Home
+              {t('header.home')}
             </Link>
             <Link
               underline="hover"
               color="inherit"
-              href="/events-workshops"
+              href="/home/book-facility"
             >
-              <Typography color={textSecondaryColor}> Book Facility</Typography>
+              <Typography color={textSecondaryColor}>
+                {' '}
+                {t('header.book-facility')}
+              </Typography>
             </Link>
           </Breadcrumbs>
         </GridFlex>
@@ -129,7 +137,7 @@ const BookFacilityPage: NextPage = () => {
                 width: 'auto',
               }}
             >
-              Category
+              {t('select.category')} :
             </InputLabel>
             <FormControl
               variant="outlined"
@@ -151,7 +159,7 @@ const BookFacilityPage: NextPage = () => {
                   value={0}
                   selected
                 >
-                  All
+                  {t('select.all')} :
                 </MenuItem>
                 <MenuItem value={1}>Meeting Room</MenuItem>
                 <MenuItem value={2}>Lecture Room</MenuItem>
@@ -174,7 +182,7 @@ const BookFacilityPage: NextPage = () => {
                 width: 'auto',
               }}
             >
-              Location
+              {t('select.location')} : :
             </InputLabel>
             <FormControl
               variant="outlined"
@@ -196,7 +204,7 @@ const BookFacilityPage: NextPage = () => {
                   value={0}
                   selected
                 >
-                  All
+                  {t('select.all')}
                 </MenuItem>
                 <MenuItem value={0}>Marka</MenuItem>
               </Select>
@@ -221,7 +229,7 @@ const BookFacilityPage: NextPage = () => {
               variant="h4"
               className={styles.loading}
             >
-              Loading... Please wait
+              {t('messages.loading')} :
             </Typography>
           </Grid>
         </Container>

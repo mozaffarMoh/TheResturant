@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const AnnounceCard = ({
   title,
@@ -22,6 +23,7 @@ const AnnounceCard = ({
   image: string;
   handleModal: any;
 }) => {
+  const t = useTranslations();
   const { push } = useRouter();
   return (
     <Paper
@@ -117,7 +119,7 @@ const AnnounceCard = ({
                   sx={{ borderRadius: '50px', paddingInline: '2rem' }}
                   onClick={handleModal}
                 >
-                  View
+                  {t('buttons.view')}
                 </Button>
               </Box>
             </Box>

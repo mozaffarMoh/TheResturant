@@ -3,32 +3,34 @@ import { buttonPrimaryColor } from '@/constant/color';
 import { Button, Grid, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import styles from '../contact-us.module.css';
+import { useTranslations } from 'next-intl';
 
 const ContactUsForm = () => {
+  const t = useTranslations();
   const typeInputField = {
     id: 0,
     type: 1,
     name: 'type',
-    label: 'Type',
+    label: t('contact-us.type'),
     required: true,
     defaultValue: '',
     fieldData: [
-      { label: 'Complain', value: 'complain' },
-      { label: 'Reach Out', value: 'reach_out' },
+      { label: t('contact-us.complain'), value: 'complain' },
+      { label: t('contact-us.reach-out'), value: 'reach_out' },
     ],
   };
   const emailInputField = {
     id: 1,
     type: 0,
     name: 'email',
-    label: 'Email',
+    label: t('contact-us.email'),
     required: true,
   };
   const nameInputField = {
     id: 3,
     type: 0,
     name: 'name',
-    label: 'Name',
+    label: t('contact-us.name'),
     required: true,
   };
   const {
@@ -103,7 +105,7 @@ const ContactUsForm = () => {
         >
           <TextField
             id="outlined-multiline-static"
-            label="Message"
+            label={t('contact-us.message')}
             multiline
             rows={6}
             className={styles.inputsFieldStyle}
@@ -130,7 +132,7 @@ const ContactUsForm = () => {
               height: '3rem',
             }}
           >
-            Send
+            {t('contact-us.send')}
           </Button>
         </Grid>
       </Grid>

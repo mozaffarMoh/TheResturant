@@ -16,8 +16,10 @@ import Head from 'next/head';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useTranslations } from 'next-intl';
 
 const MentorsSection = () => {
+  const t = useTranslations();
   const settings = {
     dots: true,
     infinite: false,
@@ -89,7 +91,7 @@ const MentorsSection = () => {
       maxWidth="lg"
     >
       <div className="sm-flex-col-col-center-center">
-        <p className="general-title primary-color ">Mentors</p>
+        <p className="general-title primary-color ">{t('header.mentors')}</p>
         <div className=" w-full mb-4 ">
           <Slider {...settings}>
             {items.map((item, i) => (

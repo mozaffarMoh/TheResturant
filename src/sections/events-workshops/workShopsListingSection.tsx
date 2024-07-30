@@ -2,14 +2,16 @@ import { Container } from '@mui/material';
 import GridFlex from '@mui/material/Unstable_Grid2';
 import { workShopImage1 } from '@/constant/images';
 import WorkShopCard from '@/components/cards/events-workshops/WorkShopCard';
+import { useTranslations } from 'next-intl';
 
 const WorkShopsListingSection = () => {
+  const t = useTranslations();
   return (
     <Container
       maxWidth="lg"
       className="mt-3"
     >
-      <p className="general-title primary-color">Workshops</p>
+      <p className="general-title primary-color"> {t('header.workshops')}</p>
       <GridFlex
         container
         rowGap={2}

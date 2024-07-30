@@ -22,7 +22,12 @@ export default function WorkShopCardV1({
     <Card
       orientation="horizontal"
       variant="outlined"
-      sx={{ width: 'auto', paddingInline: '2rem', borderRadius: '1.1rem' }}
+      sx={{
+        width: 'auto',
+        paddingInline: '2rem',
+        borderRadius: '1.1rem',
+        gap: 3,
+      }}
       className="workshop-v1-repo"
     >
       <CardOverflow className="md-workshop-media">

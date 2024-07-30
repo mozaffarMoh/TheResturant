@@ -23,8 +23,10 @@ import Image from 'next/image';
 import { gray300, primaryColor, textSecondaryColor } from '@/constant/color';
 import IndustryNewsModal from '@/components/modals/industry-news-modal';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 const News = () => {
+  const t = useTranslations();
   const isScreen900 = useMediaQuery('(max-width:900px)');
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [tags, setTags] = useState<Number>(0);
@@ -75,27 +77,29 @@ const News = () => {
           className="mt-4"
           flexDirection="column"
         >
-          <p className="general-title primary-color">News</p>
+          <p className="general-title primary-color">{t('header.news')}</p>
           <Breadcrumbs aria-label="breadcrumb">
             <Link
               underline="hover"
               color="inherit"
               href="/home"
             >
-              Home
+              {t('header.home')}
             </Link>
             <Link
               underline="hover"
               color="inherit"
             >
-              The Industry
+              {t('header.industry')}
             </Link>{' '}
             <Link
               underline="hover"
               color="inherit"
               href="/home/industry/news"
             >
-              <Typography color={textSecondaryColor}>News</Typography>
+              <Typography color={textSecondaryColor}>
+                {t('header.news')}
+              </Typography>
             </Link>
           </Breadcrumbs>
         </GridFlex>
@@ -117,7 +121,6 @@ const News = () => {
                   className="news-item"
                   justifyContent={'flex-start'}
                   direction={'row'}
-                  spacing={3}
                   onClick={() => setIsDetailsVisible(true)}
                   sx={{
                     '&:hover': {
@@ -134,6 +137,7 @@ const News = () => {
                   <Stack
                     justifyContent={'center'}
                     className="news-details-text"
+                    margin={2}
                   >
                     <Typography
                       variant="h6"
@@ -179,7 +183,7 @@ const News = () => {
                   color={primaryColor}
                   fontWeight={600}
                 >
-                  Tags
+                  {t('select.tags')}
                 </Typography>
                 <Box padding={1}>
                   {tagsItems.map((item: string) => {
@@ -212,7 +216,7 @@ const News = () => {
                   width: 'auto',
                 }}
               >
-                Tags:
+                {t('select.tags')} :
               </InputLabel>
               <FormControl
                 variant="outlined"
@@ -243,6 +247,7 @@ const News = () => {
         count={3}
         color={'secondary'}
         sx={{ margin: '50px 0px 50px 0px' }}
+        dir="ltr"
       />
       <IndustryNewsModal
         open={isDetailsVisible}

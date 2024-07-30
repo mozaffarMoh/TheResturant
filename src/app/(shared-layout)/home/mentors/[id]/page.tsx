@@ -19,8 +19,9 @@ import {
   TwitterSVG,
 } from '../../../../../../assets/icons';
 import { primaryColor } from '@/constant/color';
+import { useTranslations } from 'next-intl';
 const MentorDetails: NextPage = () => {
-
+  const t = useTranslations();
   return (
     <Stack
       direction={'column'}
@@ -120,7 +121,7 @@ const MentorDetails: NextPage = () => {
               background: '#3F485E',
             }}
           >
-            Request
+            {t('buttons.request')}
           </Button>
         </Stack>
       </Container>

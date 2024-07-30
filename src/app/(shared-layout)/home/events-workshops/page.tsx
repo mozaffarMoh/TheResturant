@@ -8,8 +8,10 @@ import { Breadcrumbs, Container, Typography } from '@mui/material';
 import Link from '@mui/material/Link';
 import WorkShopsListingSection from '@/sections/events-workshops/workShopsListingSection';
 import { textSecondaryColor } from '@/constant/color';
+import { useTranslations } from 'next-intl';
 
 const EventsWorkShopsPage: NextPage = () => {
+  const t = useTranslations();
   return (
     <>
       <Container maxWidth="lg">
@@ -21,29 +23,31 @@ const EventsWorkShopsPage: NextPage = () => {
           className="mt-4"
           flexDirection="column"
         >
-          <p className="general-title primary-color">Events & Workshops</p>
+          <p className="general-title primary-color">
+            {t('header.events-workshops')}
+          </p>
           <Breadcrumbs aria-label="breadcrumb">
             <Link
               underline="hover"
               color="inherit"
               href="/home"
             >
-              Home
+              {t('header.home')}
             </Link>
             <Link
               underline="hover"
               color="inherit"
-              href="/events-workshops"
+              href="/home/events-workshops"
             >
               <Typography color={textSecondaryColor}>
-                Events & Workshops
+                {t('header.events-workshops')}
               </Typography>
             </Link>
           </Breadcrumbs>
         </GridFlex>
       </Container>
 
-      <EventsSection title={'Top Events'} />
+      <EventsSection title={t('header.events-top')} />
       <WorkShopsListingSection />
     </>
   );

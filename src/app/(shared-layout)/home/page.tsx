@@ -7,12 +7,14 @@ import EventsSection from '@/sections/home/events/eventsSection';
 import WorkShopsSection from '@/sections/home/workshops/workShopsSection';
 import MentorsSection from '@/sections/home/mentors/mentorsSection';
 import Footer from '@/components/footer/Footer';
+import { useTranslations } from 'next-intl';
 
 const HomePage: NextPage = () => {
+  const t = useTranslations();
   return (
     <>
       <HeroSection />
-      <EventsSection title={'Events'} />
+      <EventsSection title={t('header.events')} />
       <WorkShopsSection />
       <MentorsSection />
     </>

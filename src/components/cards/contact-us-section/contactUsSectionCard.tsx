@@ -1,5 +1,6 @@
 'use client';
 import { Grid, Typography } from '@mui/material';
+import Cookies from 'js-cookie';
 
 interface IProps {
   title: string;
@@ -7,6 +8,7 @@ interface IProps {
   icon: any;
 }
 const ContactUsSectionCard = ({ title, content, icon }: IProps) => {
+  const isRTL = Cookies.get('lang') && Cookies.get('lang') == 'ar';
   return (
     <Grid
       container
@@ -25,7 +27,7 @@ const ContactUsSectionCard = ({ title, content, icon }: IProps) => {
       >
         <p className="text-med-low  ">{title}</p>
         <Typography
-          sx={{ textAlign: 'left' }}
+          sx={{ textAlign: isRTL ? 'right' : 'left' }}
           className="fc-light-black-new"
         >
           {content}

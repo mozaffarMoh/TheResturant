@@ -25,8 +25,10 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import { KeyboardArrowDown } from '@mui/icons-material';
+import { useTranslations } from 'next-intl';
 
 const Footer = () => {
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const Item = styled(Paper)(({ theme }) => ({
@@ -52,13 +54,13 @@ const Footer = () => {
     >
       <Container maxWidth="lg">
         <p className="text-large-title text-white-new  mt-2">
-          Subscribe Our Newsletter
+          {t('footer.title')}
         </p>
-        <p className="text-med-fw400 fc-light-white">
-          Your Download Should Start Automatically, If Not Click Here. Should I
-          Give Up, Huh?
-        </p>
-        <div className={styles.subscribeForm}>
+        <p className="text-med-fw400 fc-light-white">{t('footer.subtitle')}</p>
+        <div
+          className={styles.subscribeForm}
+          dir="ltr"
+        >
           <Input
             sx={{
               '--Input-decoratorChildHeight': '3.5rem',
@@ -84,7 +86,7 @@ const Footer = () => {
                   },
                 }}
               >
-                Subscribe
+                {t('footer.subscribe')}
               </JoyButton>
             }
           />
@@ -166,15 +168,17 @@ const Footer = () => {
                   <Item>
                     <Box aria-labelledby="category-b">
                       <p style={{ fontSize: '1.2rem', fontWeight: '600' }}>
-                        Our Company
+                        {t('footer.our-company')}
                       </p>
-                      <p className="opacity-90">About Us</p>
-                      <p className="opacity-90">Contact Us</p>
-                      <p className="opacity-90">Community</p>
-                      <p className="opacity-90">Student Perks</p>
-                      <p className="opacity-90">Blog</p>
-                      <p className="opacity-90">Affiliate Program</p>
-                      <p className="opacity-90">Careers</p>
+                      <p className="opacity-90">{t('footer.about-us')}</p>
+                      <p className="opacity-90">{t('footer.contact-us')}</p>
+                      <p className="opacity-90">{t('footer.community')}</p>
+                      <p className="opacity-90">{t('footer.student-perks')}</p>
+                      <p className="opacity-90">{t('footer.blog')}</p>
+                      <p className="opacity-90">
+                        {t('footer.affiliate-program')}
+                      </p>
+                      <p className="opacity-90">{t('footer.careers')}</p>
                     </Box>
                   </Item>
                 </Grid>
@@ -189,12 +193,14 @@ const Footer = () => {
                   <Item>
                     <Box aria-labelledby="category-c">
                       <p style={{ fontSize: '1.2rem', fontWeight: '600' }}>
-                        Support
+                        {t('footer.support')}
                       </p>
-                      <p className="opacity-90">Documentations</p>
-                      <p className="opacity-90">Forums</p>
-                      <p className="opacity-90">Languages Packs</p>
-                      <p className="opacity-90">Release Status</p>
+                      <p className="opacity-90">{t('footer.documentations')}</p>
+                      <p className="opacity-90">{t('footer.forums')}</p>
+                      <p className="opacity-90">
+                        {t('footer.languages-packs')}
+                      </p>
+                      <p className="opacity-90">{t('footer.release-status')}</p>
                     </Box>
                   </Item>
                 </Grid>
@@ -228,9 +234,7 @@ const Footer = () => {
               sx={{ fontSize: '12px' }}
             >
               <Grid sx={{ order: { xs: 2, sm: 1 } }}>
-                <Item className="opacity-70">
-                  Copyright © 2024ThePlatform. All Right Reserved.
-                </Item>
+                <Item className="opacity-70">{t('footer.copyRights')}</Item>
               </Grid>
               <Grid
                 container
@@ -249,7 +253,7 @@ const Footer = () => {
                     opacity: '0.7',
                   }}
                 >
-                  English
+                  {t('lang.en')}
                 </Button>
                 <Menu
                   id="basic-menu"
@@ -257,8 +261,8 @@ const Footer = () => {
                   open={open}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Arabic</MenuItem>
-                  <MenuItem onClick={handleClose}>English</MenuItem>
+                  <MenuItem onClick={handleClose}>{t('lang.en')}</MenuItem>
+                  <MenuItem onClick={handleClose}>{t('lang.ar')}</MenuItem>
                 </Menu>
               </Grid>
             </Grid>

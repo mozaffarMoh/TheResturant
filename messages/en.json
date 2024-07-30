@@ -1,0 +1,120 @@
+{
+    "lang": {
+        "en": "English",
+        "ar": "Arabic"
+    },
+    "auth": {
+        "signup-title": "Sign Up",
+        "signin-title": "Sign In",
+        "signup-button": "CREATE ACCOUNT",
+        "signin-button": "LOGIN",
+        "signup-subtitle": "If you already have an account You can",
+        "signin-subtitle": "If you don’t have an account You can",
+        "login-here": "Login Here !",
+        "register-here": "Register Here !",
+        "email-title": "Email",
+        "email-placeholder": "Enter Your Email",
+        "password-title": "Password",
+        "password-placeholder": "Enter Your Password",
+        "password-confirm-placeholder": "Confirm Your Password",
+        "forget-password": "Forget Password ?",
+        "remember-me": "Remember Me",
+        "terms": "Terms condition and privacy policy",
+        "next": "Next"
+    },
+    "validation": {
+        "email": "Email is required * ",
+        "password": "Password is required * ",
+        "confirm-password": "Confirm Password is required * ",
+        "password-not-match": "Password do not match * ",
+        "title": "Title is required * "
+    },
+    "guest-home": {
+        "home": "Home",
+        "about-us": "About Us",
+        "services": "Services",
+        "partners": "Partners",
+        "contact-us": "Contact Us"
+    },
+    "contact-us": {
+        "title": "Contact Us",
+        "contact-desc": "With Lots of Unique Blocks, You Can Easily Build a Page Easily without any coding",
+        "get-in-touch": "Get In Touch Today!",
+        "details": "Contact Details",
+        "find-us": "Find Us",
+        "phone": "Phone",
+        "working-hours": "Working Hours",
+        "write-to-us": "Write to Us",
+        "follow-us": "Follow US",
+        "have-a-question": "Have A Question!",
+        "type": "Type",
+        "complain": "Complain",
+        "reach-out": "Reach Out",
+        "name": "Name",
+        "email": "Email",
+        "message": "Message",
+        "send": "Send"
+    },
+    "header": {
+        "home": "HOME",
+        "events-workshops": "Events & Workshops",
+        "events": "Events",
+        "events-top": "Top Events ",
+        "events-details": "Events Details",
+        "workshops": "Workshops",
+        "book-facility": "Book Facility",
+        "mentors": "Mentors",
+        "industry": "Industry",
+        "contact-us": "Contact Us",
+        "news": "News",
+        "announcements": "Announcements",
+        "announcement": "Announcement",
+        "jobOffer": "Job Offering",
+        "my-account": "My Account",
+        "logout": "Logout"
+    },
+    "footer": {
+        "title": "Subscribe Our Newsletter",
+        "subtitle": "Your Download Should Start Automatically, If Not Click Here. Should I Give Up, Huh?",
+        "our-company": "Our Company",
+        "about-us": "About Us",
+        "contact-us": "Contact Us",
+        "community": "Community",
+        "student-perks": "Student Perks",
+        "blog": "Blog",
+        "affiliate-program": "Affiliate Program",
+        "careers": "Careers",
+        "support": "Support",
+        "documentations": "Documentations",
+        "forums": "Forums",
+        "languages-packs": "Languages Packs",
+        "release-status": "Release Status",
+        "copyRights": "Copyright © 2024ThePlatform. All Right Reserved."
+    },
+    "buttons": {
+        "view": "VIEW",
+        "apply-now": "Apply Now",
+        "book-Now": "Book Now",
+        "buy": "Buy",
+        "request": "Request",
+        "load-more": "LOAD MORE"
+    },
+    "dialog": {
+        "how-to-apply": "How to Apply",
+        "equippedWithTools": "Equipped with advanced technological tools such as a display screen and media player to facilitate the presentation of slideshows and digital content.",
+        "details": "Details",
+         "person": "Person",
+        "location": "Location",
+        "duration": "Duration"
+    },
+    "select": {
+        "category": "Category",
+        "location": "Location",
+        "profession": "Profession",
+        "tags": "Tags",
+        "all": "All"
+    },
+    "messages": {
+        "loading": "Loading.. Please wait"
+    }
+}

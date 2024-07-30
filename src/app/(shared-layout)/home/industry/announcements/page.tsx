@@ -6,14 +6,15 @@ import GridFlex from '@mui/material/Unstable_Grid2';
 import AnnounceSection from '@/sections/announcments/AnnounceSection';
 import JobOfferingSection from '@/sections/announcments/JobOfferingSection';
 import { textSecondaryColor } from '@/constant/color';
+import { useTranslations } from 'next-intl';
 
-const News = () => {
+const Announcments = () => {
+  const t = useTranslations();
   return (
     <Grid
       container
       direction={'column'}
       alignItems={'center'}
-      className="news"
     >
       <Container maxWidth="lg">
         <GridFlex
@@ -24,27 +25,32 @@ const News = () => {
           className="mt-4"
           flexDirection="column"
         >
-          <p className="general-title primary-color">ANNOUNCMENTS</p>
+          <p className="general-title primary-color">
+            {' '}
+            {t('header.announcements')}
+          </p>
           <Breadcrumbs aria-label="breadcrumb">
             <Link
               underline="hover"
               color="inherit"
               href="/home"
             >
-              Home
+              {t('header.home')}
             </Link>
             <Link
               underline="hover"
               color="inherit"
             >
-              The Industry
+              {t('header.industry')}
             </Link>{' '}
             <Link
               underline="hover"
               color="inherit"
-              href="/home/industry/news"
+              href="/home/industry/announcements"
             >
-              <Typography color={textSecondaryColor}>Announcments</Typography>
+              <Typography color={textSecondaryColor}>
+                {t('header.announcements')}
+              </Typography>
             </Link>
           </Breadcrumbs>
         </GridFlex>
@@ -55,4 +61,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default Announcments;

@@ -18,12 +18,16 @@ import {
   Select,
   Stack,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { textSecondaryColor } from '@/constant/color';
+import { useTranslations } from 'next-intl';
 const MentorsPage: NextPage = () => {
+  const t = useTranslations();
+  const isScreen600 = useMediaQuery('(max-width:600px)');
   const [profession, setProfession] = useState<Number>(0);
   const router = useRouter();
   const professionHandleChange = (
@@ -31,6 +35,7 @@ const MentorsPage: NextPage = () => {
   ) => {
     setProfession(event.target.value as Number);
   };
+
   return (
     <Stack
       direction={'column'}
@@ -45,21 +50,23 @@ const MentorsPage: NextPage = () => {
           className="mt-4"
           flexDirection="column"
         >
-          <p className="general-title primary-color">MENTORS</p>
+          <p className="general-title primary-color">{t('header.mentors')}</p>
           <Breadcrumbs aria-label="breadcrumb">
             <Link
               underline="hover"
               color="inherit"
               href="/home"
             >
-              Home
+              {t('header.home')}
             </Link>
             <Link
               underline="hover"
               color="inherit"
               href="/home/mentors"
             >
-              <Typography color={textSecondaryColor}>Mentors</Typography>
+              <Typography color={textSecondaryColor}>
+                {t('header.mentors')}
+              </Typography>
             </Link>
           </Breadcrumbs>
         </GridFlex>
@@ -67,8 +74,9 @@ const MentorsPage: NextPage = () => {
 
       <Container maxWidth="xl">
         <Stack
-          alignItems={'flex-end'}
-          width={'88%'}
+          alignItems={isScreen600 ? 'center' : 'flex-end'}
+          width={'94%'}
+          marginTop={5}
         >
           <Stack
             flexDirection={'row'}
@@ -83,7 +91,7 @@ const MentorsPage: NextPage = () => {
                 width: 'auto',
               }}
             >
-              Profession:
+              {t('select.profession')}:
             </InputLabel>
             <FormControl
               variant="outlined"
@@ -105,7 +113,7 @@ const MentorsPage: NextPage = () => {
                   value={0}
                   selected
                 >
-                  All
+                  {t('select.all')}
                 </MenuItem>
                 <MenuItem value={1}>Meeting Room</MenuItem>
                 <MenuItem value={2}>Lecture Room</MenuItem>
@@ -165,6 +173,7 @@ const MentorsPage: NextPage = () => {
         count={3}
         color={'secondary'}
         sx={{ margin: '50px 0px 50px 0px' }}
+        dir="ltr"
       />
     </Stack>
   );

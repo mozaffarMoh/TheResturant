@@ -11,6 +11,7 @@ import {
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const EventCard = ({
   title,
@@ -24,10 +25,14 @@ const EventCard = ({
   handleModal: any;
 }) => {
   const { push } = useRouter();
+  const t = useTranslations();
   return (
     <Paper className="event-card-paper">
       <Card sx={{ display: 'flex', border: 'none', boxShadow: 'none' }}>
-        <Grid container>
+        <Grid
+          container
+          spacing={2}
+        >
           {/* Image section */}
           <Grid
             item
@@ -94,7 +99,7 @@ const EventCard = ({
                   sx={{ borderRadius: '50px', paddingInline: '2rem' }}
                   onClick={handleModal}
                 >
-                  View
+                  {t('buttons.view')}
                 </Button>
               </Box>
             </Box>

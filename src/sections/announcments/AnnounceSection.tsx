@@ -4,6 +4,7 @@ import AnnounceModal from '@/components/modals/announceModal';
 import { primaryColor } from '@/constant/color';
 import { announceImage } from '@/constant/images';
 import { Box, Container, Typography } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 const items = [
@@ -31,6 +32,7 @@ const items = [
 ];
 
 const AnnounceSection = () => {
+  const t = useTranslations();
   const [showModal, setShowModal] = useState(false);
 
   const handleModal = () => {
@@ -60,8 +62,8 @@ const AnnounceSection = () => {
           fontWeight={600}
           className=" primary-color align-self-start"
         >
-          Announcement
-        </Typography>
+         {t('header.announcement')}
+        </Typography>  
 
         <Box className=" w-full mb-4">
           <CarouselElement>

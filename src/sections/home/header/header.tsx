@@ -21,6 +21,7 @@ import Link from 'next/link';
 import { dummyAvatarImage } from '@/constant/images';
 import NormalMenuList from './normalMenuList';
 import NestedMenuList from './nestedMenuList';
+import { useTranslations } from 'next-intl';
 
 // type 0 means normal link , type 1 means menu link (dropdown link)
 const menu = [
@@ -48,11 +49,9 @@ const menu = [
   },
   { id: 5, type: 0, title: 'CONTACT US', link: '#', name: 'ContactUs' },
 ];
-const industryLinks = [
-  { id: 0, path: '/home/industry/news', value: 'News' },
-  { id: 1, path: '/home/industry/announcments', value: 'Announcments' },
-];
+
 const Header = () => {
+  const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -71,6 +70,14 @@ const Header = () => {
     null,
   );
 
+  const industryLinks = [
+    { id: 0, path: '/home/industry/news', value: t('header.news') },
+    {
+      id: 1,
+      path: '/home/industry/announcements',
+      value: t('header.announcements'),
+    },
+  ];
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen(true);
@@ -168,27 +175,27 @@ const Header = () => {
                     <NormalMenuList
                       indexKey={0}
                       href={'/home'}
-                      title={'Home'}
+                      title={t('header.home')}
                     />
                     <NormalMenuList
                       indexKey={1}
                       //href={'/events-workshops'}
-                      href={'/events-workshops'}
-                      title={'Events & Workshops'}
+                      href={'/home/events-workshops'}
+                      title={t('header.events-workshops')}
                     />
                     <NormalMenuList
                       indexKey={2}
-                      href={'/book-facility'}
-                      title={'Book Facility'}
+                      href={'/home/book-facility'}
+                      title={t('header.book-facility')}
                     />
                     <NormalMenuList
                       indexKey={3}
                       href={'/home/mentors'}
-                      title={'Mentor'}
+                      title={t('header.mentors')}
                     />
 
                     <NestedMenuList
-                      title={'Industry'}
+                      title={t('header.industry')}
                       anchorEl={anchorElIndustry}
                       open={openIndustry}
                       handleClick={handleClickIndustry}
@@ -199,7 +206,7 @@ const Header = () => {
                     <NormalMenuList
                       indexKey={5}
                       href={'/#'}
-                      title={'Contact Us'}
+                      title={t('header.contact-us')}
                     />
                   </MenuList>
                 </div>
@@ -218,7 +225,8 @@ const Header = () => {
                       className={styles.langMenuButton}
                       sx={{ textTransform: 'none !Important' }}
                     >
-                      <LanguageIcon className={styles.langIcon} /> English
+                      <LanguageIcon className={styles.langIcon} />{' '}
+                      {t('lang.en')}
                     </Button>
                     <Menu
                       id="basic-menu"
@@ -226,8 +234,8 @@ const Header = () => {
                       open={open}
                       onClose={handleClose}
                     >
-                      <MenuItem onClick={handleClose}>Arabic</MenuItem>
-                      <MenuItem onClick={handleClose}>English</MenuItem>
+                      <MenuItem onClick={handleClose}>{t('lang.ar')}</MenuItem>
+                      <MenuItem onClick={handleClose}>{t('lang.en')}</MenuItem>
                     </Menu>
                   </div>
 
@@ -238,7 +246,7 @@ const Header = () => {
                       className={styles.langMenuButton}
                       sx={{ textTransform: 'none !Important' }}
                     >
-                      My Account
+                      {t('header.my-account')}
                     </Button>
                     <Menu
                       id="basic-menu2"
@@ -257,7 +265,7 @@ const Header = () => {
                           window.location.href = '/guest-home';
                         }}
                       >
-                        Logout
+                        {t('header.logout')}
                       </MenuItem>
                     </Menu>
                   </div>
@@ -314,13 +322,13 @@ const Header = () => {
                           onClick={() => router.push('/sign-up')}
                           className={styles.authDrawerButton}
                         >
-                          Register
+                          {t('auth.register')}
                         </Button>
                         <Button
                           onClick={() => router.push('/sign-in')}
                           className={styles.authDrawerButton}
                         >
-                          Log In
+                          {t('auth.login')}
                         </Button>
                       </div>
                     </Box>
