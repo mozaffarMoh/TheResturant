@@ -19,6 +19,8 @@
     "@mui/styles": "^5.16.4",
     "@mui/x-date-pickers": "^7.11.0",
     "@types/react-slick": "^0.23.13",
+    "axios": "^1.7.2",
+    "cookie": "^0.6.0",
     "dayjs": "^1.11.12",
     "i18n": "^0.15.1",
     "i18next": "^23.12.2",
@@ -38,6 +40,7 @@
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",
+    "@types/cookie": "^0",
     "@types/i18n": "^0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",

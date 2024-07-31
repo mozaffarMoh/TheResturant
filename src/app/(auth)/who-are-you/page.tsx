@@ -1,6 +1,5 @@
 'use client';
 import type { NextPage } from 'next';
-
 import { Box, Button, Grid, Paper } from '@mui/material';
 import Link from 'next/link';
 import { loginBgImage, whoAreYouBgImage } from '@/constant/images';
@@ -10,8 +9,10 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import { useEffect, useState } from 'react';
 import { ToggleButtonGroup, Button as JoyButton } from '@mui/joy';
 import whoAreStyles from './page.module.css';
+import { useTranslations } from 'next-intl';
 
 const WhoAreYouPage: NextPage = () => {
+  const t = useTranslations();
   const [type, setType] = useState('student');
   return (
     <div className={styles.signInContainer}>
@@ -40,7 +41,11 @@ const WhoAreYouPage: NextPage = () => {
               </div>{' '}
               <div className=" sm-flex-row-row-center-center">
                 <p className=" text-large-title m-1">
-                  Who Are <span className="fc-secondary">You</span>
+                  {t('who-are-you.title1')}{' '}
+                  <span className="fc-secondary">
+                    {' '}
+                    {t('who-are-you.title2')}
+                  </span>
                 </p>
               </div>
               <div className="sm-flex-col-col-center-center">
@@ -64,7 +69,7 @@ const WhoAreYouPage: NextPage = () => {
                     }}
                     disabled={type === 'student'}
                   >
-                    Student
+                     {t("who-are-you.student")}
                   </JoyButton>
                   <JoyButton
                     value="mentor"
@@ -77,7 +82,7 @@ const WhoAreYouPage: NextPage = () => {
                     }}
                     disabled={type === 'mentor'}
                   >
-                    Mentor
+                      {t("who-are-you.mentor")}
                   </JoyButton>
                   <JoyButton
                     value="entrepreneurs"
@@ -90,10 +95,10 @@ const WhoAreYouPage: NextPage = () => {
                     }}
                     disabled={type === 'entrepreneurs'}
                   >
-                    Entrepreneurs
+                      {t("who-are-you.entrepreneurs")}
                   </JoyButton>
                 </ToggleButtonGroup>
-                <p className="fc-secondary">Please select only one</p>
+                <p className="fc-secondary"> {t("who-are-you.select")}</p>
               </div>
               <div className=" sm-flex-row-row-center-between  w-full mt-2 ">
                 <Link href={'/sign-up'}>
@@ -112,7 +117,7 @@ const WhoAreYouPage: NextPage = () => {
                     }}
                     startIcon={<KeyboardDoubleArrowLeftIcon />}
                   >
-                    Back
+                     {t("who-are-you.back")}
                   </Button>
                 </Link>
                 <Link href={`/details/${type ? type : 'student'}`}>
@@ -132,7 +137,7 @@ const WhoAreYouPage: NextPage = () => {
                     }}
                     endIcon={<KeyboardDoubleArrowRightIcon />}
                   >
-                    Next
+                     {t("who-are-you.next")}
                   </Button>
                 </Link>
               </div>
