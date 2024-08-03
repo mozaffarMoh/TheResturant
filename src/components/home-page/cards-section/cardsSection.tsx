@@ -11,8 +11,10 @@ import styles from './cards-section.module.css';
 import Link from 'next/link';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { heroCard1, heroCard2, heroCard3, heroCard4 } from '@/constant/images';
+import Cookies from 'js-cookie';
 
 const CardsSection = () => {
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const data = [
     {
       title: 'Coworking Spaces',
@@ -87,7 +89,7 @@ const CardsSection = () => {
                         </p>
                         <br />
                         <Link
-                          href={item.link}
+                          href={`/${langCookie}/${item.link}`}
                           className={styles.cardLink}
                         >
                           Learn more <ArrowRightAltIcon />

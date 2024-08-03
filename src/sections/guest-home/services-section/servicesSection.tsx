@@ -43,7 +43,10 @@ const ServicesSection = () => {
     },
   ];
   return (
-    <Container className="mt-4 max-w-90 ">
+    <Container
+      className="mt-4 max-w-90 "
+      id="services"
+    >
       <div className="sm-flex-col-col-center-center ">
         <div className="text-align-center">
           <p className="text-xlarge-title">{t('guest-home.services')}</p>

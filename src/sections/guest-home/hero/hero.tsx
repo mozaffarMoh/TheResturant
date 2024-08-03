@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 const HeroSection: NextPage = () => {
   const t = useTranslations();
   return (
-    <div className={styles.home}>
+    <div className={styles.home} id="home">
       <div className={styles.heroTitle}>
         <Container>
           <p className={styles.welcomeToTheTheplatformYou}>

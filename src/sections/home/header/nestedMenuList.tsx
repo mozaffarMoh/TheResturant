@@ -3,6 +3,7 @@ import { usePathname } from 'next/navigation';
 import styles from './header.module.css';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Link from 'next/link';
+import Cookies from 'js-cookie';
 
 interface IProps {
   title: string;
@@ -21,6 +22,7 @@ const NestedMenuList = ({
   handleClose,
   links,
 }: IProps) => {
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
 
@@ -44,15 +46,16 @@ const NestedMenuList = ({
         onClose={handleClose}
       >
         {' '}
-        {links?.map((item) => (
+        {links?.map((item, i: number) => (
           <Link
-            href={item.path}
+            key={i}
+            href={`/${langCookie}/${item.path}`}
             style={{ textDecoration: 'none', color: 'inherit' }}
           >
             <MenuItem
               key={item.id}
               onClick={handleClose}
-              href={item.path}
+              href={`/${langCookie}/${item.path}`}
             >
               {item.value}
             </MenuItem>

@@ -18,11 +18,13 @@ import { useRouter } from 'next/navigation';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import Cookies from 'js-cookie';
 
 const GuestHeader = () => {
   const pathname = usePathname();
   const router = useRouter();
-
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  let isArabic = pathname.startsWith('/ar');
   const isActive = (path: string) => pathname === path;
   const t = useTranslations();
   const [open, setOpen] = useState(false);
@@ -34,9 +36,14 @@ const GuestHeader = () => {
     setOpen(true);
   };
 
-  const changeLanguage = (lang: string) => {
-    setAnchorEl(null);
-    setOpen(false);
+  const changeLanguage = (locale: string) => {
+    // If the current locale is the same as the target locale, do nothing
+    if (pathname.startsWith(`/${locale}`)) {
+      handleClose();
+    }
+    const newPathname = `/${locale}${pathname.replace(/^\/(en|ar)/, '')}`;
+    router.push(newPathname);
+    handleClose();
   };
 
   const handleClose = () => {
@@ -51,29 +58,32 @@ const GuestHeader = () => {
   const menu = [
     {
       title: t('guest-home.home'),
-      link: '/guest-home',
+      link: '#home',
     },
     {
       title: t('guest-home.about-us'),
-      link: '#',
+      link: '#about',
     },
     {
       title: t('guest-home.services'),
-      link: '#',
+      link: '#services',
     },
     {
       title: t('guest-home.partners'),
-      link: '#',
+      link: '#partners',
     },
     {
       title: t('guest-home.contact-us'),
-      link: '#',
+      link: '#contact',
     },
   ];
 
   return (
-    <div>
-      <div>
+    <div className={styles.headerGuestContainer}>
+      <Box
+        width={'100%'}
+        bgcolor={'white'}
+      >
         <Container>
           <Grid
             container
@@ -99,7 +109,7 @@ const GuestHeader = () => {
             </div>
           </Grid>
         </Container>
-      </div>
+      </Box>
       <div className={styles.headerContainer}>
         <Container>
           <div className={styles.headerDiv}>
@@ -137,7 +147,7 @@ const GuestHeader = () => {
                           className={`${styles.menuListItem} ${isActive(item.link) && styles.active}`}
                         >
                           <Link
-                            href={item.link}
+                            href={`/${langCookie}/${item.link}`}
                             style={{ all: 'inherit' }}
                           >
                             <ListItemText>{item.title}</ListItemText>
@@ -160,7 +170,8 @@ const GuestHeader = () => {
                     onClick={handleClick}
                     className={styles.langMenuButton}
                   >
-                    <LanguageIcon className={styles.langIcon} /> {t('lang.en')}
+                    <LanguageIcon className={styles.langIcon} />{' '}
+                    {isArabic ? t('lang.ar') : t('lang.en')}
                   </Button>
                   <Menu
                     id="basic-menu"
@@ -186,13 +197,13 @@ const GuestHeader = () => {
               >
                 <div className={styles.authDivButton}>
                   <Button
-                    onClick={() => router.push('/sign-up')}
+                    onClick={() => router.push(`/${langCookie}/sign-up`)}
                     className={styles.authButton}
                   >
                     {t('auth.signup-title')}
                   </Button>
                   <Button
-                    onClick={() => router.push('/sign-in')}
+                    onClick={() => router.push(`/${langCookie}/sign-in`)}
                     className={styles.authButton}
                   >
                     {t('auth.signin-title')}
@@ -245,13 +256,13 @@ const GuestHeader = () => {
                       </div>
                       <div className={styles.authDrawerDivButton}>
                         <Button
-                          onClick={() => router.push('/sign-up')}
+                          onClick={() => router.push(`/${langCookie}/sign-up`)}
                           className={styles.authDrawerButton}
                         >
-                           {t('auth.signup-button')}
+                          {t('auth.signup-button')}
                         </Button>
                         <Button
-                          onClick={() => router.push('/sign-in')}
+                          onClick={() => router.push(`/${langCookie}/sign-in`)}
                           className={styles.authDrawerButton}
                         >
                           {t('auth.signin-button')}

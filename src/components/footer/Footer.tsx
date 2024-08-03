@@ -26,9 +26,13 @@ import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import { KeyboardArrowDown } from '@mui/icons-material';
 import { useTranslations } from 'next-intl';
+import { usePathname, useRouter } from 'next/navigation';
 
 const Footer = () => {
   const t = useTranslations();
+  const router = useRouter();
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const Item = styled(Paper)(({ theme }) => ({
@@ -46,6 +50,16 @@ const Footer = () => {
   const handleClose = () => {
     setAnchorEl(null);
     setOpen(false);
+  };
+
+  const changeLanguage = (locale: string) => {
+    // If the current locale is the same as the target locale, do nothing
+    if (pathname.startsWith(`/${locale}`)) {
+      handleClose();
+    }
+    const newPathname = `/${locale}${pathname.replace(/^\/(en|ar)/, '')}`;
+    router.push(newPathname);
+    handleClose();
   };
   return (
     <Box
@@ -253,7 +267,7 @@ const Footer = () => {
                     opacity: '0.7',
                   }}
                 >
-                  {t('lang.en')}
+                  {isArabic ? t('lang.ar') : t('lang.en')}
                 </Button>
                 <Menu
                   id="basic-menu"
@@ -261,8 +275,12 @@ const Footer = () => {
                   open={open}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>{t('lang.en')}</MenuItem>
-                  <MenuItem onClick={handleClose}>{t('lang.ar')}</MenuItem>
+                  <MenuItem onClick={() => changeLanguage('en')}>
+                    {t('lang.en')}
+                  </MenuItem>
+                  <MenuItem onClick={() => changeLanguage('ar')}>
+                    {t('lang.ar')}
+                  </MenuItem>
                 </Menu>
               </Grid>
             </Grid>

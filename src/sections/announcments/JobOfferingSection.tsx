@@ -24,7 +24,8 @@ import { useTranslations } from 'next-intl';
 
 const JobOfferingSection = () => {
   const t = useTranslations();
-  const isRTL = Cookies.get('lang') && Cookies.get('lang') == 'ar';
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const isRTL = langCookie == 'ar';
   const [sortItems, setSortItems] = useState<Number>(0);
   const router = useRouter();
   const sortHandleChange = (event: React.ChangeEvent<{ value: Number }>) => {
@@ -117,7 +118,9 @@ const JobOfferingSection = () => {
                   cursor: 'pointer',
                   position: 'relative',
                 }}
-                onClick={() => router.push('/home/industry/announcements/id')}
+                onClick={() =>
+                  router.push(`/${langCookie}/home/industry/announcements/id`)
+                }
               >
                 <Image
                   src={jobOfferImage}
@@ -180,7 +183,7 @@ const JobOfferingSection = () => {
             color={primaryColor}
             marginLeft={1}
           >
-          {t('buttons.load-more')}
+            {t('buttons.load-more')}
           </Typography>
         </Button>
       </Stack>

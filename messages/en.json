@@ -45,8 +45,8 @@
         "services": "Services",
         "partners": "Partners",
         "contact-us": "Contact Us",
-        "hero1" : " Welcome to The",
-        "hero-span" : "ThePlatform",
+        "hero1": " Welcome to The",
+        "hero-span": "ThePlatform",
         "hero2": "Your Platform for Launching Towards Technological Success!"
     },
     "contact-us": {
@@ -69,7 +69,7 @@
         "send": "Send"
     },
     "header": {
-        "home": "HOME",
+        "home": "Home",
         "events-workshops": "Events & Workshops",
         "events": "Events",
         "events-top": "Top Events ",
@@ -90,6 +90,7 @@
         "title": "Subscribe Our Newsletter",
         "subtitle": "Your Download Should Start Automatically, If Not Click Here. Should I Give Up, Huh?",
         "our-company": "Our Company",
+        "subscribe": "Subscribe",
         "about-us": "About Us",
         "contact-us": "Contact Us",
         "community": "Community",
@@ -107,7 +108,7 @@
     "buttons": {
         "view": "VIEW",
         "apply-now": "Apply Now",
-        "book-Now": "Book Now",
+        "book-now": "Book Now",
         "buy": "Buy",
         "request": "Request",
         "load-more": "LOAD MORE"

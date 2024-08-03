@@ -1,49 +1,62 @@
 // middleware.ts
 import { NextRequest, NextResponse } from 'next/server';
+import createMiddleware from 'next-intl/middleware';
 
-export function middleware(req: NextRequest) {
+const nextIntlMiddleware = createMiddleware({
+  // A list of all locales that are supported
+  locales: ['en', 'ar'],
+  // Used when no locale matches
+  defaultLocale: 'en',
+});
+
+export const config = {
+  matcher: [
+    // Match all paths, but exclude specific patterns
+    '/((?!api|_next/static|favicon.ico|static|public))',
+    '/(ar|en)/:path*',  // Match paths starting with 'ar/' or 'en/'
+  ],
+};
+
+export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
+  const localeCookies = req.cookies.get("NEXT_LOCALE")?.value || 'en'
 
-  // Add your authentication logic here
+  // Bypass middleware for static files and assets
+  if (
+    url.pathname.startsWith('/_next') ||
+    url.pathname.startsWith('/public') ||
+    url.pathname.startsWith('/static') ||
+    url.pathname.startsWith('/messages') ||
+    /\.(png|jpg|jpeg|gif|svg|ico|webp|avif)$/.test(url.pathname)
+  ) {
+    return NextResponse.next();
+  }
+
 
   const isAuthenticated = Boolean(req.cookies.get('techhubtoken'));
-  // Check if the request is for the home page or any other non-authenticated page
 
   if (!isAuthenticated) {
-
-
-    //prevent too many redirects
-    if (url.pathname === '/sign-in' || url.pathname === '/sign-up' || url.pathname === '/guest-home') {
-      return NextResponse.next();
-    }else if(url.pathname === '/' || url.pathname === '/home' || url.pathname === '/book-facility' || url.pathname === '/book-facility/details'){
-      url.pathname = '/guest-home';
+    if (
+      url.pathname == `/${localeCookies}` ||
+      url.pathname.includes('/home') ||
+      url.pathname.includes('/contact-us')
+    ) {
+      url.pathname = `/${localeCookies}/guest-home`;
       return NextResponse.redirect(url);
     }
-
-   
   } else {
     if (
-      url.pathname === '/sign-in' ||
-      url.pathname === '/sign-up' ||
-      url.pathname === '/guest-home' ||
-      url.pathname === '/'
+      url.pathname == `/${localeCookies}` ||
+      url.pathname.includes('/who-are-you') ||
+      url.pathname.includes('/sign-in') ||
+      url.pathname.includes('/sign-up') ||
+      url.pathname.includes('/guest-home')
     ) {
-      // Redirect to the login page
-      url.pathname = '/home';
+      url.pathname = `/${localeCookies}/home`;
       return NextResponse.redirect(url);
     }
   }
 
-  // You can add additional logic to handle other routes and authentication
-  // For example, check if the user is authenticated
-  // if (!isAuthenticated && url.pathname !== '/login') {
-  //   url.pathname = '/login';
-  //   return NextResponse.redirect(url);
-  // }
-
-  return NextResponse.next();
+  const response = nextIntlMiddleware(req);
+  return response;
 }
-
-export const config = {
-  matcher: ['/((?!api/).*)'], // Adjust this array to match the routes you want to protect
-};

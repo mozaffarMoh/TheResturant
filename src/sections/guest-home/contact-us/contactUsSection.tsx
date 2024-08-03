@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, useMediaQuery } from '@mui/material';
 import styles from './contact-us.module.css';
 import {
   AlarmClockSVG,
@@ -17,6 +17,7 @@ import ContactUsForm from './contact-us-form/contactUsForm';
 import { useTranslations } from 'next-intl';
 
 const ContactUsSection = () => {
+  const isScreen700 = useMediaQuery('(max-width:700px)');
   const t = useTranslations();
   const cards = [
     {
@@ -46,7 +47,10 @@ const ContactUsSection = () => {
   ];
 
   return (
-    <Container className="mt-4 max-w-90 mb-2 ">
+    <Container
+      className="mt-4 max-w-90 mb-2 "
+      id="contact"
+    >
       <div className="sm-flex-col-col-center-center">
         <div className="text-align-center">
           <p className="text-xlarge-title">{t('contact-us.title')}</p>
@@ -148,6 +152,17 @@ const ContactUsSection = () => {
             </Grid>
           </Grid>
         </div>
+        <Container>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387194.07372680923!2d-74.31001987831878!3d40.69701731549496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sro!4v1722500622223!5m2!1sen!2sro"
+            width="100%"
+            height={isScreen700 ? '300' : '450'}
+            style={{ border: 0 }}
+            allowFullScreen={true}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </Container>
       </div>
     </Container>
   );

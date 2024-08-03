@@ -46,7 +46,10 @@ const ContactUsForm = () => {
   } = useForm();
 
   return (
-    <div className="w-full ">
+    <div
+      className="w-full "
+
+    >
       <Grid container>
         <Grid
           item

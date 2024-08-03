@@ -31,6 +31,7 @@ const PartnerSection = () => {
     <Container
       className="mt-4 bg-primary-color "
       maxWidth="xl"
+      id="partners"
     >
       <div className="sm-flex-col-col-center-center">
         <div className="text-align-center mt-2">

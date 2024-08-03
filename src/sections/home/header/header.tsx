@@ -9,19 +9,16 @@ import {
   Menu,
   Drawer,
   Box,
-  Avatar,
 } from '@mui/material';
 import styles from './header.module.css';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import LanguageIcon from '@mui/icons-material/Language';
-import { useRouter } from 'next/navigation';
 import MenuIcon from '@mui/icons-material/Menu';
-import Link from 'next/link';
-import { dummyAvatarImage } from '@/constant/images';
 import NormalMenuList from './normalMenuList';
 import NestedMenuList from './nestedMenuList';
 import { useTranslations } from 'next-intl';
+import Cookies from 'js-cookie';
 
 // type 0 means normal link , type 1 means menu link (dropdown link)
 const menu = [
@@ -47,13 +44,15 @@ const menu = [
     ],
     name: 'Industry',
   },
-  { id: 5, type: 0, title: 'CONTACT US', link: '#', name: 'ContactUs' },
+  { id: 5, type: 0, title: 'CONTACT US', link: '/', name: 'ContactUs' },
 ];
 
 const Header = () => {
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const t = useTranslations();
-  const pathname = usePathname();
   const router = useRouter();
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
 
   const isActive = (path: string) => pathname === path;
 
@@ -71,10 +70,14 @@ const Header = () => {
   );
 
   const industryLinks = [
-    { id: 0, path: '/home/industry/news', value: t('header.news') },
+    {
+      id: 0,
+      path: `/home/industry/news`,
+      value: t('header.news'),
+    },
     {
       id: 1,
-      path: '/home/industry/announcements',
+      path: `/home/industry/announcements`,
       value: t('header.announcements'),
     },
   ];
@@ -91,6 +94,16 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
     setOpen(false);
+  };
+
+  const changeLanguage = (locale: string) => {
+    // If the current locale is the same as the target locale, do nothing
+    if (pathname.startsWith(`/${locale}`)) {
+      handleClose();
+    }
+    const newPathname = `/${locale}${pathname.replace(/^\/(en|ar)/, '')}`;
+    router.push(newPathname);
+    handleClose();
   };
 
   const handleClick2 = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -110,6 +123,16 @@ const Header = () => {
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setMenuOpen(newOpen);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('techhubtoken');
+    localStorage.removeItem('techhubuser');
+    localStorage.removeItem('techhubbooking');
+    //remove user from cookie
+    document.cookie =
+      'techhubtoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    router.push(`/${langCookie}/guest-home`);
   };
 
   return (
@@ -174,23 +197,22 @@ const Header = () => {
                   <MenuList className={styles.menuListStyle}>
                     <NormalMenuList
                       indexKey={0}
-                      href={'/home'}
+                      href={`/home`}
                       title={t('header.home')}
                     />
                     <NormalMenuList
                       indexKey={1}
-                      //href={'/events-workshops'}
-                      href={'/home/events-workshops'}
+                      href={`/home/events-workshops`}
                       title={t('header.events-workshops')}
                     />
                     <NormalMenuList
                       indexKey={2}
-                      href={'/home/book-facility'}
+                      href={`/home/book-facility`}
                       title={t('header.book-facility')}
                     />
                     <NormalMenuList
                       indexKey={3}
-                      href={'/home/mentors'}
+                      href={`/home/mentors`}
                       title={t('header.mentors')}
                     />
 
@@ -205,7 +227,7 @@ const Header = () => {
 
                     <NormalMenuList
                       indexKey={5}
-                      href={'/#'}
+                      href={`/contact-us`}
                       title={t('header.contact-us')}
                     />
                   </MenuList>
@@ -226,7 +248,7 @@ const Header = () => {
                       sx={{ textTransform: 'none !Important' }}
                     >
                       <LanguageIcon className={styles.langIcon} />{' '}
-                      {t('lang.en')}
+                      {isArabic ? t('lang.ar') : t('lang.en')}
                     </Button>
                     <Menu
                       id="basic-menu"
@@ -234,8 +256,12 @@ const Header = () => {
                       open={open}
                       onClose={handleClose}
                     >
-                      <MenuItem onClick={handleClose}>{t('lang.ar')}</MenuItem>
-                      <MenuItem onClick={handleClose}>{t('lang.en')}</MenuItem>
+                      <MenuItem onClick={() => changeLanguage('ar')}>
+                        {t('lang.ar')}
+                      </MenuItem>
+                      <MenuItem onClick={() => changeLanguage('en')}>
+                        {t('lang.en')}
+                      </MenuItem>
                     </Menu>
                   </div>
 
@@ -254,17 +280,7 @@ const Header = () => {
                       open={open2}
                       onClose={handleClose2}
                     >
-                      <MenuItem
-                        onClick={() => {
-                          localStorage.removeItem('techhubtoken');
-                          localStorage.removeItem('techhubuser');
-                          localStorage.removeItem('techhubbooking');
-                          //remove user from cookie
-                          document.cookie =
-                            'techhubtoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                          window.location.href = '/guest-home';
-                        }}
-                      >
+                      <MenuItem onClick={handleLogout}>
                         {t('header.logout')}
                       </MenuItem>
                     </Menu>
@@ -306,9 +322,9 @@ const Header = () => {
                       <div>
                         <MenuList className={styles.menuListDrawer}>
                           {menu &&
-                            menu.map((item, idx) => (
+                            menu.map((item: any, idx: number) => (
                               <MenuItem
-                                href="#"
+                                href={`/${langCookie}/${item.link}`}
                                 key={idx}
                                 className={`${styles.menuItemDrawer} ${isActive(item.link) && styles.drawerActive}`}
                               >
@@ -319,16 +335,16 @@ const Header = () => {
                       </div>
                       <div className={styles.authDrawerDivButton}>
                         <Button
-                          onClick={() => router.push('/sign-up')}
+                          onClick={() => router.push(`/${langCookie}/sign-up`)}
                           className={styles.authDrawerButton}
                         >
-                          {t('auth.register')}
+                          {t('auth.signup-title')}
                         </Button>
                         <Button
-                          onClick={() => router.push('/sign-in')}
+                          onClick={() => router.push(`/${langCookie}/sign-in`)}
                           className={styles.authDrawerButton}
                         >
-                          {t('auth.login')}
+                          {t('auth.signin-title')}
                         </Button>
                       </div>
                     </Box>

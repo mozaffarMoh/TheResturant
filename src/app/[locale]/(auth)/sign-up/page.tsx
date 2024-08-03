@@ -1,0 +1,212 @@
+'use client';
+import type { NextPage } from 'next';
+
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Paper,
+} from '@mui/material';
+import Link from 'next/link';
+import { ClosedEyeSVG, LockSVG, MessageSVG } from '../../../../../assets/icons';
+import InputV1 from '@/components/inputs/InputV1';
+import { loginBgImage } from '@/constant/images';
+import { buttonPrimaryColor, textLightColor } from '@/constant/color';
+import styles from '../sign-in/page.module.css';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import { useEffect, useState } from 'react';
+import TermsConditionsModal from '@/components/modals/terms-condition-modal';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import Cookies from 'js-cookie';
+
+const SingUp: NextPage = () => {
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const t = useTranslations();
+  const { push } = useRouter();
+  const [showModal, setShowModal] = useState(false);
+  const [email, setEmail] = useState('');
+
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+
+  const handleTermsModal = () => {
+    setShowModal((prv) => !prv);
+  };
+  const handleTermsCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleEmailChange = (event: any) => {
+    setEmail(() => event?.target?.value);
+  };
+
+  const handlePasswordChange = (event: any) => {
+    setPassword(() => event?.target?.value);
+  };
+
+  const handlePasswordConfirmChange = (event: any) => {
+    setPasswordConfirm(() => event?.target?.value);
+  };
+  useEffect(() => {
+    // just for temporary event
+    localStorage.setItem('password', password);
+  }, [password]);
+
+  useEffect(() => {
+    // just for temporary event
+    localStorage.setItem('email', email);
+  }, [email]);
+
+  return (
+    <div className={styles.signInContainer}>
+      {/* Terms Modal when check the terms and condition it appears  */}
+      <TermsConditionsModal
+        open={showModal}
+        handleClose={handleTermsCloseModal}
+      />
+
+      <div className="w-full ">
+        <Grid
+          container
+          component="main"
+          className={styles.TwoSideContainer}
+        >
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={6}
+            component={Paper}
+            elevation={6}
+            square
+            className="sm-flex-row-row-center-center"
+          >
+            <Box
+              className="main-box"
+              sx={{ mt: 4 }}
+            >
+              <div className="mb-1">
+                <img
+                  src={loginBgImage}
+                  alt="image"
+                />
+              </div>{' '}
+              <div className="mb-2 ">
+                <p className=" text-large-title m-0">
+                  {t('auth.signup-title')}
+                </p>
+                <p className="text-med">{t('auth.signup-subtitle')}</p>
+                <p className="text-med ">
+                  <Link
+                    href={`/${langCookie}/sign-in`}
+                    className="fw700 text-underline-none fc-black"
+                  >
+                    {t('auth.login-here')}
+                  </Link>
+                </p>
+              </div>
+              <div>
+                <div className="mb-3">
+                  <label className="fc-light-black">
+                    {' '}
+                    {t('auth.email-title')}
+                  </label>
+                  <InputV1
+                    label={t('auth.email-placeholder')}
+                    startIcon={<MessageSVG />}
+                    onChange={handleEmailChange}
+                    value={email}
+                  />
+                </div>
+                <div className="mb-1">
+                  <label className="fc-light-black">
+                    {t('auth.password-title')}
+                  </label>
+                  <div className="mb-2">
+                    <InputV1
+                      label={t('auth.password-placeholder')}
+                      startIcon={<LockSVG />}
+                      endIcon={<ClosedEyeSVG />}
+                      isPassword
+                      onChange={handlePasswordChange}
+                      value={password}
+                    />
+                  </div>
+
+                  <InputV1
+                    label={t('auth.password-confirm-placeholder')}
+                    startIcon={<LockSVG />}
+                    endIcon={<ClosedEyeSVG />}
+                    isPassword
+                    onChange={handlePasswordConfirmChange}
+                    value={passwordConfirm}
+                  />
+                </div>
+                <div className="sm-flex-row-row-center-start">
+                  <Checkbox
+                    size="small"
+                    sx={{
+                      display: 'inline-block',
+                      color: buttonPrimaryColor,
+                      '&.Mui-checked': {
+                        color: 'orange',
+                      },
+                    }}
+                  />
+                  <p
+                    onClick={handleTermsModal}
+                    className="cursor-pointer"
+                  >
+                    {t('auth.terms')}
+                  </p>
+                </div>
+                <div className="auth-submit-btn sm-flex-row-row-center-end w-full ">
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      border: 'none',
+                      marginBottom: '4rem',
+                      textDecoration: 'underline',
+                      textTransform: 'none',
+                      fontSize: '1.2rem',
+                      '&:hover': {
+                        border: 'none',
+                        backgroundColor: 'transparent',
+                      },
+                    }}
+                    endIcon={<KeyboardDoubleArrowRightIcon />}
+                    disabled={
+                      passwordConfirm !== password ||
+                      passwordConfirm === '' ||
+                      password.length < 8
+                    }
+                    onClick={() => push('/who-are-you')}
+                  >
+                    {t('auth.next')}
+                  </Button>
+                </div>
+              </div>
+            </Box>
+          </Grid>
+          <Grid
+            item
+            xs={false}
+            sm={4}
+            md={6}
+            sx={{
+              backgroundImage: 'url("/register-bg.png")',
+              backgroundColor: 'gray',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
+        </Grid>
+      </div>
+    </div>
+  );
+};
+
+export default SingUp;

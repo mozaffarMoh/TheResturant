@@ -44,7 +44,7 @@ const AboutUsSection = () => {
     },
   ];
   return (
-    <Container className="mt-4 max-w-90 ">
+    <Container className="mt-4 max-w-90 " id="about">
       <div className="sm-flex-col-col-center-center">
         <div className="text-align-center">
           <p className="text-xlarge-title">{t('guest-home.about-us')}</p>

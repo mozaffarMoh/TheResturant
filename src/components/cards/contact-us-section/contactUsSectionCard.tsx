@@ -8,7 +8,8 @@ interface IProps {
   icon: any;
 }
 const ContactUsSectionCard = ({ title, content, icon }: IProps) => {
-  const isRTL = Cookies.get('lang') && Cookies.get('lang') == 'ar';
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const isRTL = langCookie == 'ar';
   return (
     <Grid
       container

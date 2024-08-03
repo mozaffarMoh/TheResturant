@@ -20,10 +20,11 @@ const AuthFooter = () => {
       <p className="text-large-title text-white-new  mt-2">
         {t('footer.title')}
       </p>
-      <p className="text-med-fw400 fc-light-white">
-      {t('footer.subtitle')}
-      </p>
-      <div className={styles.subscribeForm} dir='ltr'>
+      <p className="text-med-fw400 fc-light-white">{t('footer.subtitle')}</p>
+      <div
+        className={styles.subscribeForm}
+        dir="ltr"
+      >
         <Input
           sx={{
             '--Input-decoratorChildHeight': '3.5rem',
