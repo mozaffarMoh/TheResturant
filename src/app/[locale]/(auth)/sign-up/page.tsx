@@ -1,19 +1,11 @@
 'use client';
 import type { NextPage } from 'next';
-
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  Paper,
-} from '@mui/material';
+import { Box, Button, Checkbox, Grid, Paper, Typography } from '@mui/material';
 import Link from 'next/link';
 import { ClosedEyeSVG, LockSVG, MessageSVG } from '../../../../../assets/icons';
 import InputV1 from '@/components/inputs/InputV1';
 import { loginBgImage } from '@/constant/images';
-import { buttonPrimaryColor, textLightColor } from '@/constant/color';
+import { buttonPrimaryColor } from '@/constant/color';
 import styles from '../sign-in/page.module.css';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { useEffect, useState } from 'react';
@@ -21,51 +13,112 @@ import TermsConditionsModal from '@/components/modals/terms-condition-modal';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
+import { endPoints } from '@/base-api/endPoints';
+import useGet from '@/custom-hooks/useGet';
+import Loading from '@/components/Loading/Loading';
+import { z } from 'zod';
+import CustomAlert from '@/components/alerts/CustomAlert';
+import { signupSchema } from './schema';
 
 const SingUp: NextPage = () => {
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const t = useTranslations();
-  const { push } = useRouter();
+  const router = useRouter();
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  let emailCookies = Cookies.get('email') || '';
+  let passwordCookies = Cookies.get('password') || '';
   const [showModal, setShowModal] = useState(false);
-  const [email, setEmail] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    acceptTerms: false,
+  });
+  const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    acceptTerms: false,
+  });
 
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [data, loading, getData, success, successMessage, errorMessage] =
+    useGet(endPoints.whoAreYou);
+
+  const handleChangePassword = (e: any) => {
+    setFormData((prev: any) => {
+      return { ...prev, password: e?.target?.value };
+    });
+  };
+
+  const handleChangeConfirmPassword = (e: any) => {
+    setFormData((prev: any) => {
+      return { ...prev, confirmPassword: e?.target?.value };
+    });
+  };
+
+  const handleAcceptTerms = (e: any) => {
+    setFormData((prev: any) => {
+      return { ...prev, acceptTerms: !formData.acceptTerms };
+    });
+  };
+
+  const handleChangeEmail = (e: any) => {
+    setFormData((prev: any) => {
+      return { ...prev, email: e?.target?.value };
+    });
+  };
 
   const handleTermsModal = () => {
     setShowModal((prv) => !prv);
   };
-  const handleTermsCloseModal = () => {
-    setShowModal(false);
-  };
 
-  const handleEmailChange = (event: any) => {
-    setEmail(() => event?.target?.value);
-  };
-
-  const handlePasswordChange = (event: any) => {
-    setPassword(() => event?.target?.value);
-  };
-
-  const handlePasswordConfirmChange = (event: any) => {
-    setPasswordConfirm(() => event?.target?.value);
-  };
+  /* in first render : if email and password are exist in cookies store it in states values */
   useEffect(() => {
-    // just for temporary event
-    localStorage.setItem('password', password);
-  }, [password]);
+    if (emailCookies && passwordCookies) {
+      setFormData((prev: any) => {
+        return { ...prev, email: emailCookies, password: passwordCookies };
+      });
+    }
+  }, []);
 
+  /* if success getting date navigate to who-are-you page nad store formData in cookies */
   useEffect(() => {
-    // just for temporary event
-    localStorage.setItem('email', email);
-  }, [email]);
+    if (success) {
+      localStorage.setItem('formData', JSON.stringify(data));
+      router.push(`/${langCookie}/who-are-you`);
+    }
+  }, [success]);
+
+  const handleNextStep = (e: any) => {
+    e.preventDefault();
+
+    try {
+      signupSchema.parse(formData);
+      Cookies.set('email', formData.email);
+      Cookies.set('password', formData.password);
+      getData();
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        const fieldErrors = error.errors.reduce((acc: any, err: any) => {
+          acc[err.path[0]] = err.message;
+          return acc;
+        }, {});
+        setErrors(fieldErrors);
+      }
+    }
+  };
 
   return (
     <div className={styles.signInContainer}>
+      {loading && <Loading />}
+      <CustomAlert
+        openAlert={errorMessage}
+        setOpenAlert={() => {}}
+        message={errorMessage}
+      />
       {/* Terms Modal when check the terms and condition it appears  */}
       <TermsConditionsModal
         open={showModal}
-        handleClose={handleTermsCloseModal}
+        handleClose={() => setShowModal(false)}
       />
 
       <div className="w-full ">
@@ -117,9 +170,17 @@ const SingUp: NextPage = () => {
                   <InputV1
                     label={t('auth.email-placeholder')}
                     startIcon={<MessageSVG />}
-                    onChange={handleEmailChange}
-                    value={email}
+                    onChange={handleChangeEmail}
+                    value={formData.email}
                   />
+                  {errors.email && (
+                    <Typography
+                      variant="caption"
+                      color={'red'}
+                    >
+                      {errors.email}
+                    </Typography>
+                  )}
                 </div>
                 <div className="mb-1">
                   <label className="fc-light-black">
@@ -131,19 +192,34 @@ const SingUp: NextPage = () => {
                       startIcon={<LockSVG />}
                       endIcon={<ClosedEyeSVG />}
                       isPassword
-                      onChange={handlePasswordChange}
-                      value={password}
-                    />
+                      onChange={handleChangePassword}
+                      value={formData.password}
+                    />{' '}
+                    {errors.password && (
+                      <Typography
+                        variant="caption"
+                        color={'red'}
+                      >
+                        {errors.password}
+                      </Typography>
+                    )}
                   </div>
-
                   <InputV1
                     label={t('auth.password-confirm-placeholder')}
                     startIcon={<LockSVG />}
                     endIcon={<ClosedEyeSVG />}
                     isPassword
-                    onChange={handlePasswordConfirmChange}
-                    value={passwordConfirm}
-                  />
+                    onChange={handleChangeConfirmPassword}
+                    value={formData.confirmPassword}
+                  />{' '}
+                  {errors.confirmPassword && (
+                    <Typography
+                      variant="caption"
+                      color={'red'}
+                    >
+                      {errors.confirmPassword}
+                    </Typography>
+                  )}
                 </div>
                 <div className="sm-flex-row-row-center-start">
                   <Checkbox
@@ -155,6 +231,7 @@ const SingUp: NextPage = () => {
                         color: 'orange',
                       },
                     }}
+                    onChange={handleAcceptTerms}
                   />
                   <p
                     onClick={handleTermsModal}
@@ -163,6 +240,14 @@ const SingUp: NextPage = () => {
                     {t('auth.terms')}
                   </p>
                 </div>
+                {errors.acceptTerms && (
+                  <Typography
+                    variant="caption"
+                    color={'red'}
+                  >
+                    {errors.acceptTerms}
+                  </Typography>
+                )}
                 <div className="auth-submit-btn sm-flex-row-row-center-end w-full ">
                   <Button
                     variant="outlined"
@@ -178,12 +263,7 @@ const SingUp: NextPage = () => {
                       },
                     }}
                     endIcon={<KeyboardDoubleArrowRightIcon />}
-                    disabled={
-                      passwordConfirm !== password ||
-                      passwordConfirm === '' ||
-                      password.length < 8
-                    }
-                    onClick={() => push('/who-are-you')}
+                    onClick={handleNextStep}
                   >
                     {t('auth.next')}
                   </Button>

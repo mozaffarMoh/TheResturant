@@ -12,6 +12,8 @@ interface CheckboxFieldProps {
   control: any;
   label: string;
   required?: boolean;
+  value: any;
+  onChange?: any;
   [key: string]: any;
 }
 
@@ -19,7 +21,9 @@ const SingleCheckboxField = ({
   name,
   control,
   label,
-  required = false,
+  required,
+  value,
+  onChange,
 }: CheckboxFieldProps) => {
   const {
     field,
@@ -42,7 +46,14 @@ const SingleCheckboxField = ({
         control={
           <Checkbox
             {...field}
-            checked={field.value}
+            onChange={(e) => {
+              // Update the onChange handler
+              field.onChange();
+              if (onChange) {
+                onChange(e.target.checked); // Call the passed onChange function
+              }
+            }}
+            checked={value}
             sx={{
               display: 'inline-block',
               color: buttonPrimaryColor,

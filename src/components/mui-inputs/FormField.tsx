@@ -20,7 +20,7 @@ const fieldComponents = [
 interface FormFieldProps {
   name: string;
   label: string;
-  fieldData?: { label: string; value: string }[];
+  fieldData?: { name: string; value: string }[];
   type: number;
   control: any;
   setValue?: () => void;

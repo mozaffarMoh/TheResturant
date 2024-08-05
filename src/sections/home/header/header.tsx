@@ -126,13 +126,8 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('techhubtoken');
-    localStorage.removeItem('techhubuser');
-    localStorage.removeItem('techhubbooking');
-    //remove user from cookie
-    document.cookie =
-      'techhubtoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    router.push(`/${langCookie}/guest-home`);
+    Cookies.remove('token');
+    router.push(`/${langCookie}/sign-in`);
   };
 
   return (

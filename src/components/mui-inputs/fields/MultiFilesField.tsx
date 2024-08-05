@@ -17,6 +17,10 @@ interface FileInputProps {
   control: any;
   label: string;
   required?: boolean;
+  value: any;
+  setFormData: any;
+  formId: any;
+  onChange?: any;
   [key: string]: any;
 }
 
@@ -24,7 +28,11 @@ const MultiFilesField = ({
   name,
   control,
   label,
-  required = false,
+  value,
+  setFormData,
+  formId,
+  onChange,
+  required,
 }: FileInputProps) => {
   const {
     field,
@@ -37,29 +45,62 @@ const MultiFilesField = ({
       validate: (value) =>
         value.length <= 5 || 'You can upload up to 5 files only',
     },
+
     defaultValue: [],
   });
-
+  if (!value) {
+    value = [];
+  }
+  
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files || []);
-    const validFiles = files.filter((file) => file.type === 'application/pdf');
+    if (value.length < 5) {
+      const newFile: any = event.target.files ? event.target.files[0] : '';
 
-    if (validFiles.length > 5) {
-      validFiles.length = 5; // Limit to 5 files
+      if (newFile?.type === 'application/pdf') {
+        const updatedArray = value ? value : [];
+        if (updatedArray && Array(updatedArray)) {
+          updatedArray.push(newFile);
+        }
+
+        setFormData((prevArray: any) => {
+          const index = prevArray.findIndex(
+            (item: any) => item.form_field_id === formId,
+          );
+
+          if (index !== -1) {
+            // Update existing element
+            const updatedArray = [...prevArray];
+            updatedArray[index].value = value;
+            return updatedArray;
+          } else {
+            // Add new element
+            return [
+              ...prevArray,
+              { form_field_id: formId, value: updatedArray },
+            ];
+          }
+        });
+      }
     }
 
-    const updatedFiles = [...files, ...validFiles].slice(0, 5);
-    // setFiles(updatedFiles);
-
-    field.onChange(updatedFiles);
+    event.target.files && event.target.files.length == 0;
   };
 
-  const handleDelete = (fileToDelete: File) => {
-    const updatedFiles = field.value.filter(
-      (file: File) => file !== fileToDelete,
+  const handleDelete = (indexToDelete: number) => {
+    const filteredArray = value.filter(
+      (_: any, i: number) => i !== indexToDelete,
     );
-    // setFiles(updatedFiles);
-    field.onChange(updatedFiles);
+
+    setFormData((prevArray: any) => {
+      const index = prevArray.findIndex(
+        (item: any) => item.form_field_id === formId,
+      );
+
+      // Update existing element
+      const updatedArray = [...prevArray];
+      updatedArray[index].value = filteredArray;
+      return updatedArray;
+    });
   };
 
   return (
@@ -73,7 +114,13 @@ const MultiFilesField = ({
         type="file"
         accept="application/pdf"
         multiple
-        onChange={handleChange}
+        onChange={(e) => {
+          // Update the onChange handler
+          field.onChange();
+          if (onChange) {
+            handleChange(e);
+          }
+        }}
         style={{ display: 'none' }}
         id={`${name}-input`}
       />
@@ -94,7 +141,7 @@ const MultiFilesField = ({
       </label>
       {error && <FormHelperText>{error.message}</FormHelperText>}
       <List>
-        {field.value.map((file: File, index: number) => (
+        {value.map((file: File, index: number) => (
           <ListItem key={index}>
             <ListItemText
               primary={file.name}
@@ -103,7 +150,7 @@ const MultiFilesField = ({
             <IconButton
               edge="end"
               aria-label="delete"
-              onClick={() => handleDelete(file)}
+              onClick={() => handleDelete(index)}
             >
               <DeleteIcon />
             </IconButton>

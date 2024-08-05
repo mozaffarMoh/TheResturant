@@ -6,10 +6,13 @@ interface SelectTextFieldProps {
   label: string;
   control: any;
   required: boolean;
-  fieldData: { label: string; value: string }[];
-  defaultValue: string;
+  fieldData: { name: string; value: string; id: number }[];
   apiErrors?: any;
+  setFormData: any;
+  formId: any;
   className?: string;
+  value: any;
+  onChange?: any;
   [key: string]: any;
 }
 function SelectTextField({
@@ -18,17 +21,15 @@ function SelectTextField({
   label,
   required,
   fieldData,
-  defaultValue,
+  onChange,
+  value,
   apiErrors,
   className = 'text-field-style',
 }: SelectTextFieldProps) {
-  // console.log(fieldData);
-
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue={defaultValue}
       render={({ field }) => (
         <MuiTextField
           {...field}
@@ -38,6 +39,14 @@ function SelectTextField({
           required={required}
           helperText={apiErrors ? apiErrors : null}
           error={apiErrors && apiErrors ? true : false}
+          value={value}
+          onChange={(e) => {
+            // Update the onChange handler
+            field.onChange();
+            if (onChange) {
+              onChange(e.target.value); // Call the passed onChange function
+            }
+          }}
           variant="outlined"
           className={className}
           sx={{
@@ -52,7 +61,7 @@ function SelectTextField({
               key={option.value}
               value={option.value}
             >
-              {option.label}
+              {option.name}
             </MenuItem>
           ))}
         </MuiTextField>

@@ -8,6 +8,10 @@ interface TextFieldProps {
   required: boolean;
   apiErrors?: any;
   className?: string;
+  value: any;
+  onChange?: any;
+  setFormData: any;
+  formId: any;
   [key: string]: any;
 }
 function TextField({
@@ -17,30 +21,42 @@ function TextField({
   required,
   apiErrors,
   className = 'text-field-style',
+  onChange,
+  value,
 }: TextFieldProps) {
+
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue=""
-      render={({ field }) => (
-        <MuiTextField
-          {...field}
-          id={name}
-          label={label}
-          required={required}
-          helperText={apiErrors ? apiErrors : null}
-          error={apiErrors && apiErrors ? true : false}
-          variant="outlined"
-          className={className}
-          sx={{
-            '& .MuiInputBase-root': {
-              borderRadius: '50px',
-              paddingLeft: '0.8rem',
-            },
-          }}
-        />
-      )}
+      render={({ field }) => {
+        return (
+          <MuiTextField
+            {...field}
+            value={value}
+            onChange={(e) => {
+              // Update the onChange handler
+              field.onChange();
+              if (onChange) {
+                onChange(e.target.value); // Call the passed onChange function
+              }
+            }}
+            id={name}
+            label={label}
+            required={required}
+            helperText={apiErrors ? apiErrors : null}
+            error={apiErrors && apiErrors ? true : false}
+            variant="outlined"
+            className={className}
+            sx={{
+              '& .MuiInputBase-root': {
+                borderRadius: '50px',
+                paddingLeft: '0.8rem',
+              },
+            }}
+          />
+        );
+      }}
     />
   );
 }

@@ -32,8 +32,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-
-  const isAuthenticated = Boolean(req.cookies.get('techhubtoken'));
+  const isAuthenticated = Boolean(req.cookies.get('token'));
 
   if (!isAuthenticated) {
     if (

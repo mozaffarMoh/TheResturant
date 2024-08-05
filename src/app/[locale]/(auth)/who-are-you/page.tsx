@@ -2,7 +2,7 @@
 import type { NextPage } from 'next';
 import { Box, Button, Grid, Paper } from '@mui/material';
 import Link from 'next/link';
-import { loginBgImage, whoAreYouBgImage } from '@/constant/images';
+import { loginBgImage } from '@/constant/images';
 import styles from '../sign-in/page.module.css';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
@@ -11,12 +11,26 @@ import { ToggleButtonGroup, Button as JoyButton } from '@mui/joy';
 import whoAreStyles from './page.module.css';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 const WhoAreYouPage: NextPage = () => {
-const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const router = useRouter();
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const formData: any = localStorage.getItem('formData');
   const t = useTranslations();
-  const [type, setType] = useState('student');
-  return (
+  const [type, setType] = useState('');
+
+  useEffect(() => {
+    !formData && router.push(`/${langCookie}/sign-up`);
+  }, []);
+
+  const handleChooseType = () => {
+    router.push(`/${langCookie}/details/${type}`);
+    Cookies.set('userType', type);
+  };
+
+
+  return formData ? (
     <div className={styles.signInContainer}>
       <div className="w-full ">
         <Grid
@@ -55,54 +69,38 @@ const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
                   orientation="vertical"
                   variant="plain"
                   value={type}
-                  onChange={(event, newType) => {
+                  onChange={(_, newType) => {
                     setType(newType as string);
                   }}
                   aria-label="text alignment"
                 >
-                  <JoyButton
-                    value="student"
-                    aria-label="student"
-                    className={whoAreStyles.singleButtonGroup}
-                    style={{
-                      backgroundColor:
-                        type === 'student' ? 'orange' : 'transparent',
-                      color: type === 'student' ? 'white' : 'black',
-                    }}
-                    disabled={type === 'student'}
-                  >
-                     {t("who-are-you.student")}
-                  </JoyButton>
-                  <JoyButton
-                    value="mentor"
-                    aria-label="mentor"
-                    className={whoAreStyles.singleButtonGroup}
-                    style={{
-                      backgroundColor:
-                        type === 'mentor' ? 'orange' : 'transparent',
-                      color: type === 'mentor' ? 'white' : 'black',
-                    }}
-                    disabled={type === 'mentor'}
-                  >
-                      {t("who-are-you.mentor")}
-                  </JoyButton>
-                  <JoyButton
-                    value="entrepreneurs"
-                    aria-label="entrepreneurs"
-                    className={whoAreStyles.singleButtonGroup}
-                    style={{
-                      backgroundColor:
-                        type === 'entrepreneurs' ? 'orange' : 'transparent',
-                      color: type === 'entrepreneurs' ? 'white' : 'black',
-                    }}
-                    disabled={type === 'entrepreneurs'}
-                  >
-                      {t("who-are-you.entrepreneurs")}
-                  </JoyButton>
+                  {JSON.parse(formData).inputs[0].input_options.map(
+                    (item: any) => {
+                      return (
+                        <JoyButton
+                          key={item.id}
+                          value={item.value}
+                          aria-label={item.name}
+                          className={whoAreStyles.singleButtonGroup}
+                          style={{
+                            backgroundColor:
+                              type === item.name ? 'orange' : 'transparent',
+                            color: type === item.name ? 'white' : 'black',
+                          }}
+                          disabled={type === item.name}
+                        >
+                          {item.name}
+                        </JoyButton>
+                      );
+                    },
+                  )}
                 </ToggleButtonGroup>
-                <p className="fc-secondary"> {t("who-are-you.select")}</p>
+                <p className="fc-secondary"> {t('who-are-you.select')}</p>
               </div>
-              <div className=" sm-flex-row-row-center-between  w-full mt-2 ">
+              <div
+                className=" sm-flex-row-row-center-between  w-full mt-2 "
+                dir="ltr"
+              >
                 <Link href={`/${langCookie}/sign-up`}>
                   <Button
                     variant="outlined"
@@ -119,29 +117,30 @@ const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
                     }}
                     startIcon={<KeyboardDoubleArrowLeftIcon />}
                   >
-                     {t("who-are-you.back")}
+                    {t('who-are-you.back')}
                   </Button>
                 </Link>
-                <Link href={`/${langCookie}/details/${type ? type : 'student'}`}>
-                  <Button
-                    variant="outlined"
-                    sx={{
+
+                <Button
+                  variant="outlined"
+                  sx={{
+                    border: 'none',
+                    marginBottom: '4rem',
+                    marginLeft: '10rem',
+                    textDecoration: 'underline',
+                    textTransform: 'none',
+                    fontSize: '1.2rem',
+                    '&:hover': {
                       border: 'none',
-                      marginBottom: '4rem',
-                      marginLeft: '10rem',
-                      textDecoration: 'underline',
-                      textTransform: 'none',
-                      fontSize: '1.2rem',
-                      '&:hover': {
-                        border: 'none',
-                        backgroundColor: 'transparent',
-                      },
-                    }}
-                    endIcon={<KeyboardDoubleArrowRightIcon />}
-                  >
-                     {t("who-are-you.next")}
-                  </Button>
-                </Link>
+                      backgroundColor: 'transparent',
+                    },
+                  }}
+                  disabled={!type ? true : false}
+                  onClick={handleChooseType}
+                  endIcon={<KeyboardDoubleArrowRightIcon />}
+                >
+                  {t('who-are-you.next')}
+                </Button>
               </div>
             </Box>
           </Grid>
@@ -160,6 +159,8 @@ const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
         </Grid>
       </div>
     </div>
+  ) : (
+    <div></div>
   );
 };
 

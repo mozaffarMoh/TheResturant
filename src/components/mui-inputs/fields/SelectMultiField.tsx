@@ -15,7 +15,7 @@ interface SelectTextFieldProps {
   label: string;
   control: any;
   required: boolean;
-  fieldData: { label: string; value: string }[];
+  fieldData: { name: string; value: string }[];
   defaultValue: string;
   [key: string]: any;
 }
@@ -53,7 +53,7 @@ function SelectMultiField({
                   const item = fieldData.find(
                     (option) => option.value === value,
                   );
-                  return item ? item.label : value;
+                  return item ? item.name : value;
                 })
                 .join('...')
             }
@@ -64,7 +64,7 @@ function SelectMultiField({
                 value={option.value}
               >
                 <Checkbox checked={field.value.indexOf(option.value) > -1} />
-                <ListItemText primary={option.label} />
+                <ListItemText primary={option.name} />
               </MenuItem>
             ))}
           </Select>

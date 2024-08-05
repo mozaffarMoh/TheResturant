@@ -1,85 +1,109 @@
 'use client';
 import type { NextPage } from 'next';
 
-import { Box, Button, Grid, Paper } from '@mui/material';
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Paper,
+  Typography,
+} from '@mui/material';
 import Link from 'next/link';
-import { Radio } from '@mui/joy';
 import { ClosedEyeSVG, LockSVG, MessageSVG } from '../../../../../assets/icons';
 import InputV1 from '@/components/inputs/InputV1';
 import { loginBgImage } from '@/constant/images';
 import { buttonPrimaryColor } from '@/constant/color';
 import styles from './page.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CustomAlert from '@/components/alerts/CustomAlert';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
+import { endPoints } from '@/base-api/endPoints';
+import { signinSchema } from './schema';
+import { z } from 'zod';
+import usePost from '@/custom-hooks/usePost';
+import { LoadingButton } from '@mui/lab';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 const SignIn: NextPage = () => {
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const t = useTranslations();
-  const [openAlert, setOpenAlert] = useState(false);
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loadingSubmit, setLoadingSubmit] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('') as any;
+  const [deviceIp, setDeviceIp] = useState('');
+  const [retryGettingIp, setRetryGettingIp] = useState(false);
+  const [isRememberMe, setIsRememberMe] = useState(false);
+  const [errors, setErrors] = useState({ email: '', password: '' });
+  const body = { login: email, password, device_ip: deviceIp };
+  const [data, loading, handleLoginPost, success, , errorMessage] = usePost(
+    endPoints.login,
+    body,
+  );
 
-  const onSubmit = async (data: any) => {
-    setLoadingSubmit(true);
-    setErrorMessage('');
-    setOpenAlert(false);
-    const myHeaders = new Headers();
-    myHeaders.append('Accept', 'application/json');
+  /* get ip address */
+  useEffect(() => {
+    if (!deviceIp) {
+      axios
+        .get('https://api.ipify.org?format=json')
+        .then((res: any) => {
+          setDeviceIp(res.data.ip);
+        })
+        .catch(() => {
+          setRetryGettingIp(!retryGettingIp);
+        });
+    }
+  }, [retryGettingIp]);
 
-    const formdata = new FormData();
-
-    formdata.append('email', email as string);
-    formdata.append('password', password as string);
-
-    const requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: formdata,
-      redirect: 'follow',
-    };
-
-    fetch('https://tempcms.theplatformjo.com/api/login', requestOptions as any)
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setLoadingSubmit(false);
-        setOpenAlert(false);
-
-        // console.log(result);
-        // in success state
-        if (result?.status && result.status === 200) {
-          localStorage.setItem('techhubtoken', result.data.token);
-          localStorage.setItem('techhubuser', JSON.stringify(result.data));
-
-          //set user token in cookie
-          document.cookie = `techhubtoken=${result.data.token}; path=/`;
-
-          window.location.href = '/home';
-        } else {
-          // in error state
-          setErrorMessage('Email or Password is incorrect, please try again!');
-          setOpenAlert(true);
-        }
-      })
-      .catch((error) => {
-        //console.log(error);
-        setLoadingSubmit(false);
-        setErrorMessage('Email or Password is incorrect, please try again!');
-        setOpenAlert(true);
-      });
+  /* Handle login process */
+  const handleLogin = (e: any) => {
+    setErrors({ email: '', password: '' });
+    e.preventDefault();
+    const checkForm = { email, password };
+    try {
+      signinSchema.parse(checkForm);
+      handleLoginPost();
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        const fieldErrors = error.errors.reduce((acc: any, err: any) => {
+          acc[err.path[0]] = err.message;
+          return acc;
+        }, {});
+        setErrors(fieldErrors);
+      }
+    }
   };
 
+  /* success status */
+  useEffect(() => {
+    if (success) {
+      const expiresDuration = isRememberMe
+        ? new Date('9999-12-31T23:59:59')
+        : undefined;
+      Cookies.set('token', data.token.token, {
+        expires: expiresDuration,
+      });
+      setTimeout(() => {
+        router.push(`/${langCookie}/home`);
+      }, 2000);
+    }
+  }, [success]);
+
+  
   return (
     <div className={styles.signInContainer}>
       <CustomAlert
-        openAlert={openAlert}
-        setOpenAlert={setOpenAlert}
+        openAlert={errorMessage}
+        setOpenAlert={() => {}}
         message={errorMessage}
+      />
+      <CustomAlert
+        openAlert={success}
+        setOpenAlert={() => {}}
+        type="success"
+        message="Login process has been completed successfully"
       />
       <div className="w-full ">
         <Grid
@@ -131,11 +155,18 @@ const SignIn: NextPage = () => {
                     label={t('auth.email-placeholder')}
                     startIcon={<MessageSVG />}
                     onChange={(e: any) => {
-                      console.log(e.target.value);
                       setEmail(e.target.value);
                     }}
                     value={email}
                   />
+                  {errors.email && (
+                    <Typography
+                      variant="caption"
+                      color={'red'}
+                    >
+                      {errors.email}
+                    </Typography>
+                  )}
                 </div>
                 <div className="mb-1">
                   <label className="fc-light-black">
@@ -152,29 +183,43 @@ const SignIn: NextPage = () => {
                     value={password}
                     label={t('auth.password-placeholder')}
                   />
+                  {errors.password && (
+                    <Typography
+                      variant="caption"
+                      color={'red'}
+                    >
+                      {errors.password}
+                    </Typography>
+                  )}
                 </div>
                 <div className="sm-flex-row-row-center-between mb-3">
-                  <Radio
-                    color="primary"
-                    value="true"
+                  <FormControlLabel
                     label={t('auth.remember-me')}
-                    checked
+                    control={
+                      <Checkbox
+                        checked={isRememberMe}
+                        onChange={() => {
+                          setIsRememberMe(!isRememberMe);
+                        }}
+                      />
+                    }
                   />
                   <div>{t('auth.forget-password')}</div>
                 </div>
                 <div>
-                  <Button
+                  <LoadingButton
                     variant="contained"
+                    loading={loading}
                     sx={{
                       width: '100%',
                       borderRadius: '50px',
                       backgroundColor: buttonPrimaryColor,
                       marginBottom: '4rem',
                     }}
-                    onClick={onSubmit}
+                    onClick={handleLogin}
                   >
                     {t('auth.signin-button')}
-                  </Button>
+                  </LoadingButton>
                 </div>
               </div>
             </Box>

@@ -15,8 +15,8 @@ const ContactUsForm = () => {
     required: true,
     defaultValue: '',
     fieldData: [
-      { label: t('contact-us.complain'), value: 'complain' },
-      { label: t('contact-us.reach-out'), value: 'reach_out' },
+      { name: t('contact-us.complain'), value: 'complain' },
+      { name: t('contact-us.reach-out'), value: 'reach_out' },
     ],
   };
   const emailInputField = {
@@ -46,10 +46,7 @@ const ContactUsForm = () => {
   } = useForm();
 
   return (
-    <div
-      className="w-full "
-
-    >
+    <div className="w-full ">
       <Grid container>
         <Grid
           item
