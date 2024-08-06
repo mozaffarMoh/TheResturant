@@ -6,7 +6,6 @@ interface TextFieldProps {
   label: string;
   control: any;
   required: boolean;
-  apiErrors?: any;
   className?: string;
   value: any;
   onChange?: any;
@@ -19,19 +18,18 @@ function TextField({
   control,
   label,
   required,
-  apiErrors,
   className = 'text-field-style',
   onChange,
   value,
 }: TextFieldProps) {
-
   return (
     <Controller
       name={name}
       control={control}
-      render={({ field }) => {
+      render={({ field, fieldState }) => {
         return (
           <MuiTextField
+            fullWidth
             {...field}
             value={value}
             onChange={(e) => {
@@ -44,8 +42,8 @@ function TextField({
             id={name}
             label={label}
             required={required}
-            helperText={apiErrors ? apiErrors : null}
-            error={apiErrors && apiErrors ? true : false}
+            error={!!fieldState.error}
+            helperText={fieldState.error ? fieldState.error.message : ''}
             variant="outlined"
             className={className}
             sx={{

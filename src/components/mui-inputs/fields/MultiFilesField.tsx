@@ -108,6 +108,7 @@ const MultiFilesField = ({
       error={!!error}
       className="input-form-control"
       sx={{ marginTop: '0.5rem' }}
+      fullWidth
     >
       <FormLabel sx={{ marginBottom: '0.4rem' }}>{label}</FormLabel>
       <input

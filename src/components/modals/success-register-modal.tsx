@@ -9,6 +9,8 @@ import { DialogActions, Stack, TextField } from '@mui/material';
 import Image from 'next/image';
 import { successCheckMark } from '@/constant/images';
 import { LoadingButton } from '@mui/lab';
+import OTPInput from 'react-otp-input';
+import { CustomInput } from '../inputs/CustomInput';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -84,16 +86,29 @@ const SuccessRegisterModal = ({
         <Stack
           width={'100%'}
           gap={2}
+          alignItems={"center"}
+          
         >
-          <TextField
-            label={'Enter OTP here'}
+          <OTPInput
+        
+            renderInput={(props) => <CustomInput {...props} />}
             value={OTPValue}
-            onChange={(e: any) => setOTPValue(e?.target?.value)}
+            onChange={setOTPValue}
+            numInputs={5}
+            renderSeparator={<p style={{ width: '8px' }}></p>}
+            inputStyle={{
+              width: '45px',
+              height: '50px',
+              margin: '0 8px',
+              borderRadius: '10px',
+              border: '1px solid grey',
+            }}
           />
           <LoadingButton
             variant="contained"
             color="success"
             onClick={handleConfirm}
+            fullWidth
             loading={loadingForFinishSubmit || loadingForSubmit}
           >
             Confirm

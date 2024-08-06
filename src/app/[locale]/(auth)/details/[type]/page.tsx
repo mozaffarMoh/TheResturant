@@ -1,7 +1,16 @@
 'use client';
 import type { NextPage } from 'next';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Box, Button, Grid, Paper, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  Grid,
+  MenuItem,
+  Paper,
+  Select,
+  Stack,
+  TextField,
+} from '@mui/material';
 import Link from 'next/link';
 import { loginBgImage } from '@/constant/images';
 import styles from '../../sign-in/page.module.css';
@@ -9,15 +18,15 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import userTypeSchema from './schema';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SuccessRegisterModal from '@/components/modals/success-register-modal';
 import CustomAlert from '@/components/alerts/CustomAlert';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import FormFieldUserType from '@/components/mui-inputs/FormDataUserType';
+import FormField from '@/components/mui-inputs/FormField';
 import usePost from '@/custom-hooks/usePost';
 import { endPoints } from '@/base-api/endPoints';
+import { typeSchema } from './schema';
 
 const UserDetailsPage: NextPage = () => {
   const router = useRouter();
@@ -26,16 +35,18 @@ const UserDetailsPage: NextPage = () => {
   const passwordCookie = Cookies.get('password');
   const formData: any = localStorage.getItem('formData');
   const userType = Cookies.get('userType');
-  const [typeDetails, setTypeDetails]: any = useState({});
+  const [typeDetails, setTypeDetails]: any = useState({ inputs: [] });
   const [fullFormData, setFullFormData]: any = useState([]);
   const [fullFormID, setFullFormID]: any = useState(0);
   const [userID, setUserID]: any = useState('');
   const [OTPValue, setOTPValue]: any = useState('');
-  const headersObj = {
-    Accept: 'application/json',
-    Language: langCookie,
-    Token: 'z9abe71334aea8236dwell811077c7cb768f7e816290f1',
-  };
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(typeSchema(typeDetails.inputs)),
+  });
   const bodyWithoutOTP = {
     email: emailCookie,
     password: passwordCookie,
@@ -80,17 +91,6 @@ const UserDetailsPage: NextPage = () => {
     ,
     errorMessageForFinishSubmit,
   ] = usePost(endPoints.formSubmit, bodyForFinsihSubmit);
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    trigger,
-    setError,
-  } = useForm({
-    resolver: zodResolver(userTypeSchema),
-    mode: 'onChange',
-    defaultValues: fullFormData,
-  });
 
   /* Check if formData comes from localStorage is exist to continue if not redirect to sign-up */
   /* if continue extract typeDetail object from children array */
@@ -105,8 +105,9 @@ const UserDetailsPage: NextPage = () => {
           typeIndex = index;
         }
       });
-
-      setTypeDetails(formDataParsed.children[typeIndex]);
+      if (formDataParsed.children[typeIndex]?.slug) {
+        setTypeDetails(formDataParsed.children[typeIndex]);
+      }
       setFullFormID(formDataParsed.id);
     }
   }, []);
@@ -130,7 +131,9 @@ const UserDetailsPage: NextPage = () => {
       Cookies.remove('password');
       Cookies.remove('userType');
       localStorage.removeItem('formData');
-      Cookies.set('token', dataForSubmit.token.token, {expires : new Date('9999-12-31T23:59:59')});
+      Cookies.set('token', dataForSubmit.token.token, {
+        expires: new Date('9999-12-31T23:59:59'),
+      });
       setTimeout(() => {
         router.push(`/${langCookie}/home`);
       }, 2000);
@@ -154,9 +157,15 @@ const UserDetailsPage: NextPage = () => {
         return [...prevArray, { form_field_id: formId, value: value }];
       }
     });
+  };
 
-    // Clear the error for the field when the value changes
-    setError(formId.toString(), { type: 'manual', message: '' });
+  /*   useEffect(() => {
+    console.log(errors);
+  }, [fullFormData]); */
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    handlePostForOTP();
   };
 
   return formData ? (
@@ -202,14 +211,14 @@ const UserDetailsPage: NextPage = () => {
           <Grid
             item
             xs={12}
-            sm={8}
+            sm={10}
             md={6}
             component={Paper}
             elevation={6}
             square
             className="sm-flex-row-row-center-center"
           >
-            <Box className="main-box">
+            <Stack width={'70%'}>
               <div className="mb-1 sm-flex-row-row-center-center">
                 <img
                   src={loginBgImage}
@@ -226,43 +235,68 @@ const UserDetailsPage: NextPage = () => {
                   </p>
                 )}
               </div>
-              <div className="sm-flex-col-col-center scrollable-container  ">
-                {typeDetails?.inputs &&
-                  typeDetails?.inputs.map((item: any) => {
-                    return (
-                      <FormFieldUserType
-                        key={item.id}
-                        name={item.name}
-                        label={item.name}
-                        value={
-                          fullFormData.find(
-                            (field: any) =>
-                              field.form_field_id === item.form_field_id,
-                          )?.value || ''
-                        }
-                        type={item.input_type.name}
-                        control={control}
-                        required={Boolean(item.is_required)}
-                        fieldData={item.input_options}
-                        defaultValue={item.defaultValue}
-                        apiErrors={
-                          item.is_required
-                            ? errors[item.slug.replace('-', '_')]?.message
-                            : 'not_required'
-                        }
-                        onChange={(e: any) =>
-                          handleChangeValue(e, item.form_field_id)
-                        }
-                        setFormData={setFullFormData}
-                        formId={item.form_field_id}
-                      />
-                    );
-                  })}
-              </div>
-              <div className=" sm-flex-row-row-center-between  w-full mt-2 ">
-                <Link href={`/${langCookie}/who-are-you`}>
-                  <Button
+              <form onSubmit={onSubmit}>
+                <Stack
+                  height={400}
+                  overflow={'auto'}
+                  gap={2}
+                >
+                  {typeDetails?.inputs &&
+                    typeDetails?.inputs.map((item: any) => {
+                      return (
+                        <FormField
+                          key={item.slug}
+                          name={item.slug}
+                          label={item.name}
+                          value={
+                            fullFormData.find(
+                              (field: any) =>
+                                field.form_field_id === item.form_field_id,
+                            )?.value || ''
+                          }
+                          type={item.input_type.name}
+                          control={control}
+                          required={false}
+                          fieldData={item.input_options}
+                          onChange={(e: any) =>
+                            handleChangeValue(e, item.form_field_id)
+                          }
+                          setFormData={setFullFormData}
+                          formId={item.form_field_id}
+                        />
+                      );
+                    })}
+                </Stack>
+                <Stack
+                  direction={'row'}
+                  justifyContent={'space-between'}
+                  marginTop={4}
+                >
+                  <Link href={`/${langCookie}/who-are-you`}>
+                    <Button
+                      variant="outlined"
+                      sx={{
+                        border: 'none',
+                        marginBottom: '4rem',
+                        textDecoration: 'underline',
+                        textTransform: 'none',
+                        fontSize: '1.2rem',
+                        '&:hover': {
+                          border: 'none',
+                          backgroundColor: 'transparent',
+                        },
+                      }}
+                      startIcon={<KeyboardDoubleArrowLeftIcon />}
+                    >
+                      Back
+                    </Button>
+                  </Link>
+
+                  <LoadingButton
+                    type="submit"
                     variant="outlined"
+                    loading={loadingForOTP}
+                    loadingPosition="center"
                     sx={{
                       border: 'none',
                       marginBottom: '4rem',
@@ -273,48 +307,25 @@ const UserDetailsPage: NextPage = () => {
                         border: 'none',
                         backgroundColor: 'transparent',
                       },
+                      '&.MuiButtonBase-root:disabled': {
+                        border: 'inherit',
+                        cursor: 'not-allowed',
+                        pointerEvents: 'auto',
+                      },
                     }}
-                    startIcon={<KeyboardDoubleArrowLeftIcon />}
+                    endIcon={<KeyboardDoubleArrowRightIcon />}
+                    disabled={false}
                   >
-                    Back
-                  </Button>
-                </Link>
-
-                <LoadingButton
-                  type="submit"
-                  variant="outlined"
-                  onClick={handlePostForOTP}
-                  loading={loadingForOTP}
-                  loadingPosition="center"
-                  sx={{
-                    border: 'none',
-                    marginBottom: '4rem',
-                    marginLeft: '10rem',
-                    textDecoration: 'underline',
-                    textTransform: 'none',
-                    fontSize: '1.2rem',
-                    '&:hover': {
-                      border: 'none',
-                      backgroundColor: 'transparent',
-                    },
-                    '&.MuiButtonBase-root:disabled': {
-                      border: 'inherit',
-                      cursor: 'not-allowed',
-                      pointerEvents: 'auto',
-                    },
-                  }}
-                  endIcon={<KeyboardDoubleArrowRightIcon />}
-                  disabled={false}
-                >
-                  Submit
-                </LoadingButton>
-              </div>
-            </Box>
+                    Submit
+                  </LoadingButton>
+                </Stack>
+              </form>
+            </Stack>
           </Grid>
           <Grid
             item
             xs={false}
-            sm={4}
+            sm={2}
             md={6}
             sx={{
               backgroundImage: 'url("/details.png")',

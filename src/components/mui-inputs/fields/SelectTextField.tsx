@@ -7,7 +7,6 @@ interface SelectTextFieldProps {
   control: any;
   required: boolean;
   fieldData: { name: string; value: string; id: number }[];
-  apiErrors?: any;
   setFormData: any;
   formId: any;
   className?: string;
@@ -23,22 +22,22 @@ function SelectTextField({
   fieldData,
   onChange,
   value,
-  apiErrors,
   className = 'text-field-style',
 }: SelectTextFieldProps) {
   return (
     <Controller
       name={name}
       control={control}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <MuiTextField
           {...field}
+          fullWidth
           id={name}
           label={label}
           select
           required={required}
-          helperText={apiErrors ? apiErrors : null}
-          error={apiErrors && apiErrors ? true : false}
+          error={!!fieldState.error}
+          helperText={fieldState.error ? fieldState.error.message : ''}
           value={value}
           onChange={(e) => {
             // Update the onChange handler

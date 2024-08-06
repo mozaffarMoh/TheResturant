@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   Grid,
   Paper,
+  TextField,
   Typography,
 } from '@mui/material';
 import Link from 'next/link';
@@ -26,16 +27,19 @@ import usePost from '@/custom-hooks/usePost';
 import { LoadingButton } from '@mui/lab';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import ForgetPasswordModal from '@/components/modals/ForgetPasswordModal';
 
 const SignIn: NextPage = () => {
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const t = useTranslations();
   const router = useRouter();
+  const [otp, setOtp] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [deviceIp, setDeviceIp] = useState('');
   const [retryGettingIp, setRetryGettingIp] = useState(false);
   const [isRememberMe, setIsRememberMe] = useState(false);
+  const [showForgetPassword, setShowForgetPassword] = useState(false);
   const [errors, setErrors] = useState({ email: '', password: '' });
   const body = { login: email, password, device_ip: deviceIp };
   const [data, loading, handleLoginPost, success, , errorMessage] = usePost(
@@ -91,7 +95,6 @@ const SignIn: NextPage = () => {
     }
   }, [success]);
 
-  
   return (
     <div className={styles.signInContainer}>
       <CustomAlert
@@ -105,6 +108,12 @@ const SignIn: NextPage = () => {
         type="success"
         message="Login process has been completed successfully"
       />
+
+      <ForgetPasswordModal
+        open={showForgetPassword}
+        onClose={() => setShowForgetPassword(false)}
+      />
+
       <div className="w-full ">
         <Grid
           container
@@ -204,7 +213,15 @@ const SignIn: NextPage = () => {
                       />
                     }
                   />
-                  <div>{t('auth.forget-password')}</div>
+                  <div>
+                    <Typography
+                      variant="body2"
+                      onClick={() => setShowForgetPassword(true)}
+                      sx={{ cursor: 'pointer', ':hover': { color: '#EB6B2A' } }}
+                    >
+                      {t('auth.forget-password')}
+                    </Typography>
+                  </div>
                 </div>
                 <div>
                   <LoadingButton

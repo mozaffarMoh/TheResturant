@@ -1,0 +1,162 @@
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  Stack,
+  Typography,
+} from '@mui/material';
+import { primaryColor } from '@/constant/color';
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import Cookies from 'js-cookie';
+import { ClosedEyeSVG, LockSVG, MessageSVG } from '../../../assets/icons';
+import { useRouter } from 'next/navigation';
+import { z } from 'zod';
+import InputV1 from '@/components/inputs/InputV1';
+import { passwordSchema } from './passwordSchema';
+import { LoadingButton } from '@mui/lab';
+import CustomAlert from '@/components/alerts/CustomAlert';
+
+const UpdatePassword = () => {
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const router = useRouter();
+  const t = useTranslations();
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({ password: '', confirmPassword: '' });
+
+  const handleSubmit = (e: any) => {
+    setLoading(true);
+    e.preventDefault();
+    setError({ password: '', confirmPassword: '' });
+
+    try {
+      passwordSchema.parse({ password, confirmPassword });
+      setLoading(false);
+      setShowSuccess(true);
+      Cookies.remove('verify-email');
+      setTimeout(() => {
+        router.push(`/${langCookie}/sign-in`);
+      }, 2000);
+    } catch (error: any) {
+      setLoading(false);
+      if (error instanceof z.ZodError) {
+        const fieldErrors = error.errors.reduce((acc: any, err: any) => {
+          acc[err.path[0]] = err.message;
+          return acc;
+        }, {});
+        setError(fieldErrors);
+      }
+    }
+  };
+
+  const fieldsArray = [
+    {
+      title: t('auth.new-password-title'),
+      placeholder: t('auth.password-placeholder'),
+      value: password,
+      setValue: setPassword,
+      error: error.password,
+    },
+    {
+      title: t('auth.password-confirm-title'),
+      placeholder: t('auth.password-confirm-placeholder'),
+      value: confirmPassword,
+      setValue: setConfirmPassword,
+      error: error.confirmPassword,
+    },
+  ];
+
+  return (
+    <Stack>
+      <CustomAlert
+        openAlert={showSuccess}
+        setOpenAlert={() => {}}
+        type="success"
+        message={'Password has been updated successfuly'}
+      />
+      <Stack
+        padding={2}
+        alignItems={'flex-start'}
+        gap={5}
+      >
+        <Typography
+          variant="h6"
+          fontFamily={'Nobile'}
+          color={primaryColor}
+          textTransform={'capitalize'}
+          fontWeight={600}
+        >
+          Create New Password
+        </Typography>
+
+        <Stack gap={4}>
+          {fieldsArray.map((item: any, i: number) => {
+            return (
+              <Box>
+                <Typography
+                  color={'#999999'}
+                  fontFamily={'Poppins'}
+                  marginBottom={1}
+                >
+                  {' '}
+                  {item.title}
+                </Typography>
+                <InputV1
+                  startIcon={<LockSVG />}
+                  endIcon={<ClosedEyeSVG />}
+                  isPassword
+                  onChange={(e: any) => {
+                    {
+                      item.setValue(e.target.value);
+                    }
+                  }}
+                  value={item.value}
+                  label={item.placeholder}
+                />{' '}
+                {item.error && (
+                  <Typography
+                    variant="caption"
+                    color={'red'}
+                  >
+                    {item.error}
+                  </Typography>
+                )}
+              </Box>
+            );
+          })}
+        </Stack>
+
+        <LoadingButton
+          onClick={handleSubmit}
+          loading={loading}
+          variant="contained"
+          style={{
+            marginTop: '16px',
+            background: '#3F485E',
+            borderRadius: '20px',
+            fontFamily: 'Poppins',
+            height: '50px',
+            textTransform: 'capitalize',
+          }}
+          loadingIndicator={
+            <CircularProgress
+              color="warning"
+              size={16}
+            />
+          }
+          fullWidth
+        >
+          Reset Password
+        </LoadingButton>
+      </Stack>
+    </Stack>
+  );
+};
+
+export default UpdatePassword;

@@ -1,13 +1,13 @@
-import FormField from '@/components/mui-inputs/FormField';
 import { buttonPrimaryColor } from '@/constant/color';
 import { Button, Grid, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import styles from '../contact-us.module.css';
 import { useTranslations } from 'next-intl';
+import FormField from '@/components/mui-inputs/FormField';
 
 const ContactUsForm = () => {
   const t = useTranslations();
-  const typeInputField = {
+  const typeInputField: any = {
     id: 0,
     type: 1,
     name: 'type',
@@ -57,11 +57,10 @@ const ContactUsForm = () => {
             name={typeInputField.name}
             label={typeInputField.label}
             control={control}
-            type={typeInputField.type}
+            type={'Select'}
             required={false}
             fieldData={typeInputField.fieldData}
             defaultValue={typeInputField.defaultValue}
-            apiErrors={errors[typeInputField.name]?.message}
             className={styles.inputsFieldStyle}
           />
         </Grid>
@@ -76,9 +75,8 @@ const ContactUsForm = () => {
             name={nameInputField.name}
             label={nameInputField.label}
             control={control}
-            type={nameInputField.type}
+            type={'Text'}
             required={false}
-            apiErrors={errors[nameInputField.name]?.message}
             className={styles.inputsFieldStyle}
           />
         </Grid>
@@ -92,9 +90,8 @@ const ContactUsForm = () => {
             name={emailInputField.name}
             label={emailInputField.label}
             control={control}
-            type={emailInputField.type}
+            type={'Text'}
             required={false}
-            apiErrors={errors[emailInputField.name]?.message}
             className={styles.inputsFieldStyle}
           />
         </Grid>

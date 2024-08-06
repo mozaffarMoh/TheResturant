@@ -41,6 +41,7 @@ const SingleCheckboxField = ({
     <FormControl
       error={!!error}
       className="input-form-control"
+      fullWidth
     >
       <FormControlLabel
         control={

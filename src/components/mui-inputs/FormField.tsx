@@ -3,32 +3,31 @@ import { createElement } from 'react';
 import {
   TextField,
   SelectTextField,
-  SelectMultiField,
-  NumberTextField,
+  SingleCheckedField,
   MultiFilesField,
 } from './fields';
-import SingleCheckboxField from './fields/SingleCheckField';
-
 const fieldComponents = [
   TextField,
   SelectTextField,
-  SelectMultiField,
-  NumberTextField,
+  SingleCheckedField,
   MultiFilesField,
-  SingleCheckboxField,
 ];
+
 interface FormFieldProps {
   name: string;
   label: string;
-  fieldData?: { name: string; value: string }[];
-  type: number;
-  control: any;
+  fieldData?: { name: string; value: string; id: number }[];
+  type: string;
+  control?: any;
   setValue?: () => void;
   getValues?: any;
   required: boolean;
   defaultValue?: string;
-  apiErrors?: any;
   className?: string;
+  onChange?: any;
+  value?: any;
+  formId?: any;
+  setFormData?: any;
 }
 
 export default function FormField({
@@ -41,33 +40,37 @@ export default function FormField({
   label,
   required,
   defaultValue = '',
-  apiErrors,
+  onChange,
+  value,
+  setFormData,
+  formId,
   className = 'text-field-style',
 }: FormFieldProps) {
-  return createElement(fieldComponents[type], {
+  const getIndexOfType = () => {
+    if (type == 'Select') {
+      return 1;
+    } else if (type == 'Checkbox') {
+      return 2;
+    } else if (type == 'File') {
+      return 3;
+    } else {
+      return 0;
+    }
+  };
+
+  return createElement(fieldComponents[getIndexOfType()], {
     name,
     label,
+    value,
     fieldData,
     control,
     setValue,
     getValues,
     required,
     defaultValue,
-    apiErrors,
+    onChange,
     className,
+    setFormData,
+    formId,
   });
 }
-// initialItems={initialPlaces}
-// getItemKey={(item) => item.id}
-// getItemLabel={(item) => item.name}
-// getNestedItems={(item) => getPlacesByParentId(item.id)}
-// hasNestedItems={(item, level) => item.sub_levels_count > 0}
-// isEqual={(item, item2) => item?.id === item2?.id}
-// placeholder="Choose Place"
-// selectedItem={value !== "" ? JSON.parse(value) : ""}
-// onRootChange={setRootSelectedPlace}
-// onChange={(val) => {
-//   onChange(val !== "" ? JSON.stringify(val) : "");
-// }}
-// overlay={loadingPlaces}
-// error={error && error.message}

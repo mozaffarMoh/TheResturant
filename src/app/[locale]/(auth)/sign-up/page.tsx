@@ -1,6 +1,6 @@
 'use client';
 import type { NextPage } from 'next';
-import { Box, Button, Checkbox, Grid, Paper, Typography } from '@mui/material';
+import { Box, Button, Checkbox, Grid, Paper, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
 import { ClosedEyeSVG, LockSVG, MessageSVG } from '../../../../../assets/icons';
 import InputV1 from '@/components/inputs/InputV1';
@@ -248,7 +248,7 @@ const SingUp: NextPage = () => {
                     {errors.acceptTerms}
                   </Typography>
                 )}
-                <div className="auth-submit-btn sm-flex-row-row-center-end w-full ">
+                <Stack alignItems={"flex-end"}>
                   <Button
                     variant="outlined"
                     sx={{
@@ -267,7 +267,7 @@ const SingUp: NextPage = () => {
                   >
                     {t('auth.next')}
                   </Button>
-                </div>
+                </Stack>
               </div>
             </Box>
           </Grid>
