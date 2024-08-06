@@ -5,13 +5,26 @@ import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import { CustomInput } from '@/components/inputs/CustomInput';
 import Cookies from 'js-cookie';
+import CustomAlert from '@/components/alerts/CustomAlert';
+import { endPoints } from '@/base-api/endPoints';
+import usePost from '@/custom-hooks/usePost';
 
 const OtpForgetPassword = ({ handleNextStep }: any) => {
   const emailCookie = Cookies.get('verify-email') || '';
   const [otp, setOtp] = useState('');
   const [seconds, setSeconds] = useState(20);
-  const [loading, setLoading] = useState(false);
-
+  const [errorMessageOTP, setErrorMessageOTP] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [data, loadingCheckOtp, handleCheckOTP, success, , errorMessage] =
+    usePost(endPoints.forgotPassword, { email: emailCookie, OTP: otp });
+  const [
+    ,
+    loadingRequestOtp,
+    handleRequestOTP,
+    successRequestOtp,
+    ,
+    errorMessageRequestOtp,
+  ] = usePost(endPoints.forgotPassword, { email: emailCookie });
   useEffect(() => {
     if (seconds > 0) {
       const timer = setTimeout(() => setSeconds(seconds - 1), 1000);
@@ -20,14 +33,27 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
   }, [seconds]);
 
   const handleSubmit = () => {
-    setLoading(true);
-    // Simulate an async action
-    setTimeout(() => {
-      setLoading(false);
-      handleNextStep();
-    }, 2000);
+    setErrorMessageOTP('');
+    if (otp.length == 5) {
+      handleCheckOTP();
+    } else {
+      setErrorMessageOTP('You should enter full OTP');
+    }
   };
 
+  useEffect(() => {
+    if (success) {
+      handleNextStep();
+      Cookies.set('verify-token', data?.token);
+    }
+  }, [success]);
+
+  useEffect(() => {
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 3000);
+  }, [successRequestOtp]);
   return (
     <Box
       display="flex"
@@ -36,6 +62,20 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
       justifyContent="center"
       gap={5}
     >
+      <CustomAlert
+        openAlert={errorMessage || errorMessageOTP || errorMessageRequestOtp}
+        setOpenAlert={() => setErrorMessageOTP('')}
+        message={errorMessage || errorMessageOTP || errorMessageRequestOtp}
+      />
+      <CustomAlert
+        openAlert={successRequestOtp && showSuccess}
+        type="success"
+        setOpenAlert={() => setShowSuccess(false)}
+        message={
+          'Your OTP has been successfully sent; please check your messages. '
+        }
+      />
+
       <Stack
         width={'100%'}
         alignItems={'flex-start'}
@@ -81,6 +121,7 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
           fontWeight={600}
           color={primaryColor}
           sx={{ cursor: 'pointer', ':hover': { textDecoration: 'underline' } }}
+          onClick={handleRequestOTP}
         >
           Send code again{' '}
         </Typography>
@@ -97,7 +138,7 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
       </Stack>
       <LoadingButton
         onClick={handleSubmit}
-        loading={loading}
+        loading={loadingCheckOtp || loadingRequestOtp}
         variant="contained"
         style={{
           marginTop: '16px',
@@ -109,7 +150,7 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
         loadingIndicator={
           <CircularProgress
             color="warning"
-            size={16}
+            size={18}
           />
         }
         fullWidth

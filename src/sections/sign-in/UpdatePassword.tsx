@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { primaryColor } from '@/constant/color';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
 import { ClosedEyeSVG, LockSVG, MessageSVG } from '../../../assets/icons';
@@ -19,32 +19,30 @@ import InputV1 from '@/components/inputs/InputV1';
 import { passwordSchema } from './passwordSchema';
 import { LoadingButton } from '@mui/lab';
 import CustomAlert from '@/components/alerts/CustomAlert';
+import { endPoints } from '@/base-api/endPoints';
+import usePost from '@/custom-hooks/usePost';
 
 const UpdatePassword = () => {
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const authToken = Cookies.get('verify-token');
   const router = useRouter();
   const t = useTranslations();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState({ password: '', confirmPassword: '' });
-
+  const [, loading, handleCreateNewPassword, success, , errorMessage] = usePost(
+    endPoints.updatePassword,
+    { password, password_confirmation: confirmPassword },
+    authToken,
+  );
   const handleSubmit = (e: any) => {
-    setLoading(true);
     e.preventDefault();
     setError({ password: '', confirmPassword: '' });
 
     try {
       passwordSchema.parse({ password, confirmPassword });
-      setLoading(false);
-      setShowSuccess(true);
-      Cookies.remove('verify-email');
-      setTimeout(() => {
-        router.push(`/${langCookie}/sign-in`);
-      }, 2000);
+      handleCreateNewPassword();
     } catch (error: any) {
-      setLoading(false);
       if (error instanceof z.ZodError) {
         const fieldErrors = error.errors.reduce((acc: any, err: any) => {
           acc[err.path[0]] = err.message;
@@ -54,6 +52,16 @@ const UpdatePassword = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (success) {
+      Cookies.remove('verify-email');
+      Cookies.remove('verify-token');
+      setTimeout(() => {
+        router.push(`/${langCookie}/sign-in`);
+      }, 2000);
+    }
+  }, [success]);
 
   const fieldsArray = [
     {
@@ -75,10 +83,15 @@ const UpdatePassword = () => {
   return (
     <Stack>
       <CustomAlert
-        openAlert={showSuccess}
+        openAlert={success}
         setOpenAlert={() => {}}
         type="success"
         message={'Password has been updated successfuly'}
+      />{' '}
+      <CustomAlert
+        openAlert={errorMessage}
+        setOpenAlert={() => {}}
+        message={errorMessage}
       />
       <Stack
         padding={2}
@@ -147,7 +160,7 @@ const UpdatePassword = () => {
           loadingIndicator={
             <CircularProgress
               color="warning"
-              size={16}
+              size={18}
             />
           }
           fullWidth

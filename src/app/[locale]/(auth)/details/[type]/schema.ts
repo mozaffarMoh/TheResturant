@@ -11,6 +11,10 @@ export const typeSchema = (inputs: any) => {
     if (input.is_required) {
       validation = validation.min(1, { message: `${input.name} is required` });
     }
+    if (input.input_type.slug == "Select") {
+      console.log(input);
+      //can we add conditions here
+    }
 
     // Apply custom validations
     input.restrictions.forEach((restriction: any) => {

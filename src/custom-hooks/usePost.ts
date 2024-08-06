@@ -2,12 +2,13 @@ import { baseApi } from "@/base-api/baseApi";
 import { useState } from "react";
 import Cookies from 'js-cookie';
 
-const usePost = (endPoint: string, body: any): any => {
+const usePost = (endPoint: string, body: any, authToken?: string): any => {
     const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
     const headers = {
         Accept: 'application/json',
         Language: langCookie,
         Token: 'z9abe71334aea8236dwell811077c7cb768f7e816290f1',
+        Authorization: authToken ? `Bearer ${authToken}` : ''
     };
     const [data, setData] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(false);
