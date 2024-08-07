@@ -12,9 +12,10 @@ interface SelectTextFieldProps {
   className?: string;
   value: any;
   onChange?: any;
-  [key: string]: any;
+  key: string;
 }
 function SelectTextField({
+  key,
   name,
   control,
   label,
@@ -26,45 +27,48 @@ function SelectTextField({
 }: SelectTextFieldProps) {
   return (
     <Controller
+      key={key}
       name={name}
       control={control}
-      render={({ field, fieldState }) => (
-        <MuiTextField
-          {...field}
-          fullWidth
-          id={name}
-          label={label}
-          select
-          required={required}
-          error={!!fieldState.error}
-          helperText={fieldState.error ? fieldState.error.message : ''}
-          value={value}
-          onChange={(e) => {
-            // Update the onChange handler
-            field.onChange();
-            if (onChange) {
-              onChange(e.target.value); // Call the passed onChange function
-            }
-          }}
-          variant="outlined"
-          className={className}
-          sx={{
-            '& .MuiInputBase-root': {
-              borderRadius: '50px',
-              paddingLeft: '0.8rem',
-            },
-          }}
-        >
-          {fieldData?.map((option) => (
-            <MenuItem
-              key={option.value}
-              value={option.value}
-            >
-              {option.name}
-            </MenuItem>
-          ))}
-        </MuiTextField>
-      )}
+      render={({ field, fieldState }) => {
+        return (
+          <MuiTextField
+            {...field}
+            fullWidth
+            id={name}
+            label={label}
+            select
+            required={required}
+            error={!!fieldState.error}
+            helperText={fieldState.error ? fieldState.error.message : ''}
+            value={value}
+            onChange={(e) => {
+              // Update the onChange handler
+              field.onChange(e);
+              if (onChange) {
+                onChange(e.target.value); // Call the passed onChange function
+              }
+            }}
+            variant="outlined"
+            className={className}
+            sx={{
+              '& .MuiInputBase-root': {
+                borderRadius: '50px',
+                paddingLeft: '0.8rem',
+              },
+            }}
+          >
+            {fieldData?.map((option) => (
+              <MenuItem
+                key={option.value}
+                value={option.value}
+              >
+                {option.name}
+              </MenuItem>
+            ))}
+          </MuiTextField>
+        );
+      }}
     />
   );
 }

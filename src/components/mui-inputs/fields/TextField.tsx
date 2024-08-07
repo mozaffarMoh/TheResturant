@@ -11,7 +11,7 @@ interface TextFieldProps {
   onChange?: any;
   setFormData: any;
   formId: any;
-  [key: string]: any;
+  key: string;
 }
 function TextField({
   name,
@@ -21,9 +21,11 @@ function TextField({
   className = 'text-field-style',
   onChange,
   value,
+  key,
 }: TextFieldProps) {
   return (
     <Controller
+      key={key}
       name={name}
       control={control}
       render={({ field, fieldState }) => {
@@ -34,14 +36,12 @@ function TextField({
             value={value}
             onChange={(e) => {
               // Update the onChange handler
-              field.onChange();
+              field.onChange(e);
               if (onChange) {
                 onChange(e.target.value); // Call the passed onChange function
               }
             }}
-            id={name}
             label={label}
-            required={required}
             error={!!fieldState.error}
             helperText={fieldState.error ? fieldState.error.message : ''}
             variant="outlined"

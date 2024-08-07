@@ -42,11 +42,7 @@ const UserDetailsPage: NextPage = () => {
   const [fullFormID, setFullFormID]: any = useState(0);
   const [userID, setUserID]: any = useState('');
   const [OTPValue, setOTPValue]: any = useState('');
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm({
+  const { handleSubmit, control } = useForm({
     resolver: zodResolver(typeSchema(typeDetails.inputs)),
   });
   const bodyWithoutOTP = {
@@ -161,12 +157,7 @@ const UserDetailsPage: NextPage = () => {
     });
   };
 
-  /*   useEffect(() => {
-    console.log(errors);
-  }, [fullFormData]); */
-
-  const onSubmit = (e: any) => {
-    e.preventDefault();
+  const onSubmit = () => {
     handlePostForOTP();
   };
 
@@ -237,7 +228,7 @@ const UserDetailsPage: NextPage = () => {
                   </p>
                 )}
               </div>
-              <form onSubmit={onSubmit}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack
                   height={400}
                   overflow={'auto'}
@@ -247,14 +238,14 @@ const UserDetailsPage: NextPage = () => {
                     typeDetails?.inputs.map((item: any) => {
                       return (
                         <FormField
-                          key={item.slug}
+                          key={item.id}
                           name={item.slug}
                           label={item.name}
                           value={
                             fullFormData.find(
                               (field: any) =>
                                 field.form_field_id === item.form_field_id,
-                            )?.value || ''
+                            )?.value
                           }
                           type={item.input_type.name}
                           control={control}
@@ -273,6 +264,7 @@ const UserDetailsPage: NextPage = () => {
                   direction={'row'}
                   justifyContent={'space-between'}
                   marginTop={4}
+                  style={{ direction: 'ltr' }}
                 >
                   <Link href={`/${langCookie}/who-are-you`}>
                     <Button
@@ -290,7 +282,7 @@ const UserDetailsPage: NextPage = () => {
                       }}
                       startIcon={<KeyboardDoubleArrowLeftIcon />}
                     >
-                      Back
+                      {t('who-are-you.back')}
                     </Button>
                   </Link>
 
@@ -318,7 +310,7 @@ const UserDetailsPage: NextPage = () => {
                     endIcon={<KeyboardDoubleArrowRightIcon />}
                     disabled={false}
                   >
-                    Submit
+                    {t('buttons.submit')}
                   </LoadingButton>
                 </Stack>
               </form>

@@ -21,10 +21,11 @@ interface FileInputProps {
   setFormData: any;
   formId: any;
   onChange?: any;
-  [key: string]: any;
+  key: string;
 }
 
 const MultiFilesField = ({
+  key,
   name,
   control,
   label,
@@ -51,7 +52,7 @@ const MultiFilesField = ({
   if (!value) {
     value = [];
   }
-  
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (value.length < 5) {
       const newFile: any = event.target.files ? event.target.files[0] : '';
@@ -105,6 +106,7 @@ const MultiFilesField = ({
 
   return (
     <FormControl
+      key={key}
       error={!!error}
       className="input-form-control"
       sx={{ marginTop: '0.5rem' }}
@@ -115,9 +117,9 @@ const MultiFilesField = ({
         type="file"
         accept="application/pdf"
         multiple
-        onChange={(e) => {
+        onChange={(e: any) => {
           // Update the onChange handler
-          field.onChange();
+          field.onChange(e);
           if (onChange) {
             handleChange(e);
           }

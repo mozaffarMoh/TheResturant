@@ -8,16 +8,17 @@ import {
 import { buttonPrimaryColor } from '@/constant/color';
 
 interface CheckboxFieldProps {
+  key: string;
   name: string;
   control: any;
   label: string;
   required?: boolean;
   value: any;
   onChange?: any;
-  [key: string]: any;
 }
 
 const SingleCheckboxField = ({
+  key,
   name,
   control,
   label,
@@ -39,6 +40,7 @@ const SingleCheckboxField = ({
 
   return (
     <FormControl
+      key={key}
       error={!!error}
       className="input-form-control"
       fullWidth
@@ -49,7 +51,7 @@ const SingleCheckboxField = ({
             {...field}
             onChange={(e) => {
               // Update the onChange handler
-              field.onChange();
+              field.onChange(e);
               if (onChange) {
                 onChange(e.target.checked); // Call the passed onChange function
               }

@@ -1,28 +1,28 @@
-import { createElement } from 'react';
-
 import {
   TextField,
   SelectTextField,
   SingleCheckedField,
   MultiFilesField,
+  SelectMultiField,
 } from './fields';
+import { createElement } from 'react';
+
 const fieldComponents = [
   TextField,
   SelectTextField,
   SingleCheckedField,
   MultiFilesField,
+  SelectMultiField,
 ];
 
 interface FormFieldProps {
+  key: string;
   name: string;
   label: string;
   fieldData?: { name: string; value: string; id: number }[];
   type: string;
   control?: any;
-  setValue?: () => void;
-  getValues?: any;
   required: boolean;
-  defaultValue?: string;
   className?: string;
   onChange?: any;
   value?: any;
@@ -31,15 +31,13 @@ interface FormFieldProps {
 }
 
 export default function FormField({
+  key,
   name,
   fieldData = [],
   type,
   control,
-  setValue,
-  getValues,
   label,
   required,
-  defaultValue = '',
   onChange,
   value,
   setFormData,
@@ -47,6 +45,9 @@ export default function FormField({
   className = 'text-field-style',
 }: FormFieldProps) {
   const getIndexOfType = () => {
+    if (name == 'method-of-communication' || name == 'personal-intrests') {
+      return 4;
+    }
     if (type == 'Select') {
       return 1;
     } else if (type == 'Checkbox') {
@@ -60,17 +61,16 @@ export default function FormField({
 
   return createElement(fieldComponents[getIndexOfType()], {
     name,
+    key,
     label,
     value,
     fieldData,
     control,
-    setValue,
-    getValues,
     required,
-    defaultValue,
     onChange,
     className,
     setFormData,
     formId,
   });
+  
 }
