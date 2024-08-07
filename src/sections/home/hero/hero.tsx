@@ -3,6 +3,7 @@
 import styles from './hero.module.css';
 import { Container } from '@mui/material';
 import { homeHeroImage } from '@/constant/images';
+import { domain } from '@/base-api/endPoints';
 
 interface IProps {
   bannerImage?: string;
@@ -12,6 +13,7 @@ const HeroSection = ({
   bannerImage = homeHeroImage,
   noText = false,
 }: IProps) => {
+
   return (
     <div
       className={styles.home}

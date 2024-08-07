@@ -6,26 +6,29 @@ import {
   CardMedia,
   Grid,
   Paper,
-  Typography,
 } from '@mui/material';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { domain } from '@/base-api/endPoints';
 
 const EventCard = ({
   title,
-  description,
-  image,
+  subTitle,
+  media,
+  place,
+  metadata,
   handleModal,
 }: {
   title: string;
-  description: string;
-  image: string;
+  subTitle: string;
+  place: any;
+  media: any;
+  metadata: any;
   handleModal: any;
 }) => {
-  const { push } = useRouter();
   const t = useTranslations();
+  let imageURL =
+    media && media.length > 0 && media[0]?.url ? domain + media[0]?.url : '';
   return (
     <Paper className="event-card-paper">
       <Card sx={{ display: 'flex', border: 'none', boxShadow: 'none' }}>
@@ -47,7 +50,7 @@ const EventCard = ({
                 minHeight: '12rem',
                 borderRadius: '1.1rem',
               }}
-              image={image}
+              image={imageURL}
               alt="Live from space album cover"
             />
           </Grid>
@@ -62,7 +65,7 @@ const EventCard = ({
                 <p className="general-title-v2  primary-color  fw600">
                   {title}
                 </p>
-                <p className="text-med-fw400 ">{description}</p>
+                <p className="text-med-fw400 ">{subTitle}</p>
               </CardContent>
               <Box className="xs-flex-row-col-375 ml-1 gap1">
                 <div>
@@ -72,7 +75,7 @@ const EventCard = ({
                     className="text-med-fw400  opacity-80"
                   >
                     {' '}
-                    AMMAN, JORDAN
+                    {place && place?.name}
                   </span>{' '}
                 </div>
                 <div>
@@ -81,7 +84,10 @@ const EventCard = ({
                     style={{ marginInline: '0.4rem' }}
                     className="text-med-fw400  opacity-80"
                   >
-                    8:00 am - 5:00 pm
+                    {metadata &&
+                      metadata.map((item: any) => {
+                        return item.slug == 'time' && item.value;
+                      })}
                   </span>
                 </div>
               </Box>

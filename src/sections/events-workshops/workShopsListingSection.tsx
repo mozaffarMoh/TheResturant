@@ -1,11 +1,19 @@
-import { Container } from '@mui/material';
+import { CircularProgress, Container } from '@mui/material';
 import GridFlex from '@mui/material/Unstable_Grid2';
-import { workShopImage1 } from '@/constant/images';
 import WorkShopCard from '@/components/cards/events-workshops/WorkShopCard';
 import { useTranslations } from 'next-intl';
+import useGet from '@/custom-hooks/useGet';
+import { endPoints } from '@/base-api/endPoints';
+import { useEffect } from 'react';
 
 const WorkShopsListingSection = () => {
   const t = useTranslations();
+  const [data, loading, getData] = useGet(endPoints.getWorkshop);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <Container
       maxWidth="lg"
@@ -18,67 +26,30 @@ const WorkShopsListingSection = () => {
         display="flex"
         justifyContent="center"
         alignItems="center"
+        paddingY={5}
       >
-        <GridFlex
-          md={4}
-          lg={4}
-        >
-          <WorkShopCard
-            title={
-              'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
-            }
-            subTitle={'Discover Law - Get into the best UK law schools'}
-            image={workShopImage1}
-          />
-        </GridFlex>
-        <GridFlex
-          md={4}
-          lg={4}
-        >
-          <WorkShopCard
-            title={
-              'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
-            }
-            subTitle={'Discover Law - Get into the best UK law schools'}
-            image={workShopImage1}
-          />
-        </GridFlex>
-        <GridFlex
-          md={4}
-          lg={4}
-        >
-          <WorkShopCard
-            title={
-              'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
-            }
-            subTitle={'Discover Law - Get into the best UK law schools'}
-            image={workShopImage1}
-          />
-        </GridFlex>
-        <GridFlex
-          md={4}
-          lg={4}
-        >
-          <WorkShopCard
-            title={
-              'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
-            }
-            subTitle={'Discover Law - Get into the best UK law schools'}
-            image={workShopImage1}
-          />
-        </GridFlex>
-        <GridFlex
-          md={4}
-          lg={4}
-        >
-          <WorkShopCard
-            title={
-              'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
-            }
-            subTitle={'Discover Law - Get into the best UK law schools'}
-            image={workShopImage1}
-          />
-        </GridFlex>
+        {data && !loading ? (
+          data.map((item: any, i: number) => {
+            return (
+              <GridFlex
+                key={i}
+                md={4}
+                lg={4}
+              >
+                <WorkShopCard
+                  title={item.title}
+                  subTitle={item.subTitle}
+                  media={item?.media}
+                  slug={item.slug}
+                  metadata={item.metadata}
+                  place={item.place}
+                />
+              </GridFlex>
+            );
+          })
+        ) : (
+          <CircularProgress />
+        )}
       </GridFlex>
     </Container>
   );

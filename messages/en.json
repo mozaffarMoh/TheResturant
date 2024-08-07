@@ -34,6 +34,14 @@
         "next": "Next",
         "back": "Back"
     },
+    "verify-password": {
+        "enter-email": "Enter Your Email",
+        "enter-code": "Enter Code",
+        "enter-code-subtitle": "We’ve sent an EMAIL with an activation codeto your email",
+        "send-again": "Send code again",
+        "time-is-up": "Time is up!",
+        "create-password": "Create New Password"
+    },
     "validation": {
         "email": "Email is required * ",
         "password": "Password is required * ",
@@ -113,7 +121,10 @@
         "book-now": "Book Now",
         "buy": "Buy",
         "request": "Request",
-        "load-more": "LOAD MORE"
+        "load-more": "LOAD MORE",
+        "confirm": "Confirm",
+        "submit": "Submit",
+        "reset-password": "Reset Password"
     },
     "dialog": {
         "how-to-apply": "How to Apply",
@@ -131,6 +142,10 @@
         "all": "All"
     },
     "messages": {
-        "loading": "Loading.. Please wait"
+        "loading": "Loading.. Please wait",
+        "otp-sent": "We have sent an OTP as SMS to your Email. Please enter the OTP in the box below",
+        "success-create-user": "Process has been completed successfully , Welcome",
+        "full-otp": "You should enter full OTP",
+        "password-update": "Password has been updated successfuly"
     }
 }

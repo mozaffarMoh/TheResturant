@@ -1,14 +1,12 @@
 import CustomAlert from '@/components/alerts/CustomAlert';
 import DetailsWorkShopCard from '@/components/cards/events-workshops/DetailsWorkShopCard';
-import WorkShopCard from '@/components/cards/events-workshops/WorkShopCard';
-import { workShopImage1 } from '@/constant/images';
 import { Container, Grid, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 
-const WorkShopDetailsSection = () => {
+const WorkShopDetailsSection = ({ detailsData }: any) => {
   const [openAlert, setOpenAlert] = useState(false);
-
   const matches = useMediaQuery('(max-width:1024px)');
+
   return (
     <Container
       maxWidth="lg"
@@ -29,26 +27,22 @@ const WorkShopDetailsSection = () => {
           item
           xs={12}
           md={12}
-          lg={9}
+          lg={8}
         >
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-          et assumenda quisquam aspernatur omnis accusamus quos sit veritatis
-          quidem? Fugit magnam perspiciatis repellat vel! Fuga ad perspiciatis
-          placeat exercitationem beatae!
+          <div dangerouslySetInnerHTML={{ __html: detailsData?.description }} />
         </Grid>
         <Grid
           item
           xs={12}
           md={12}
-          lg={3}
+          lg={4}
           container
           justifyContent="center"
           alignItems="center"
         >
           <DetailsWorkShopCard
-            location={'Amman'}
-            person={'Jon duo'}
-            duration={'3:00:00'}
+            location={detailsData?.place && detailsData?.place?.name}
+            metadata={detailsData?.metadata && detailsData?.metadata}
             onClick={setOpenAlert}
           />
         </Grid>

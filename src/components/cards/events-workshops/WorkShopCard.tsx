@@ -10,18 +10,27 @@ import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { domain } from '@/base-api/endPoints';
 
 export default function WorkShopCard({
   title,
   subTitle,
-  image,
+  media,
+  slug,
+  metadata,
+  place,
 }: {
   title: string;
   subTitle: string;
-  image: string;
+  media: any;
+  slug: string;
+  metadata: any;
+  place: any;
 }) {
   const { push } = useRouter();
   const t = useTranslations();
+  let imageURL =
+  media && media.length > 0 && media[0]?.url ? domain + media[0]?.url : '';
   return (
     <Card
       variant="outlined"
@@ -35,7 +44,7 @@ export default function WorkShopCard({
     >
       <CardOverflow className="md-workshop-media">
         <img
-          src={image}
+          src={imageURL}
           loading="lazy"
           alt="workshop image card"
           className="md-workshop-media-image pt-1 "
@@ -53,27 +62,19 @@ export default function WorkShopCard({
         >
           <span className="text-xs opacity-80 m-1">
             <PlaceSVG />
-            AMMAN, JORDAN
+            {place && place?.name}
           </span>
           <span className="text-xs opacity-80">
-            <ClockSVG /> 3:00 pm
-          </span>
-        </div>
-        <div
-          className="  align-center-425  "
-          dir="ltr"
-        >
-          <span className="text-xs opacity-80 m-1">
-            <PlaceSVG />
-            AMMAN, JORDAN
-          </span>
-          <span className="text-xs opacity-80">
-            <ClockSVG /> 2:00 pm
+            <ClockSVG />{' '}
+            {metadata &&
+              metadata.map((item: any) => {
+                return item.slug == 'time' && item.value;
+              })}
           </span>
         </div>
         <Button
           className="general-button-primary mt-1"
-          onClick={() => push('events-workshops/workshops/1')}
+          onClick={() => push(`events-workshops/workshops/${slug}`)}
         >
           {t('buttons.view')}
         </Button>

@@ -33,7 +33,6 @@ const SignIn: NextPage = () => {
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const t = useTranslations();
   const router = useRouter();
-  const [otp, setOtp] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [deviceIp, setDeviceIp] = useState('');

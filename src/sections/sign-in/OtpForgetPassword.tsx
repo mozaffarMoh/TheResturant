@@ -8,8 +8,10 @@ import Cookies from 'js-cookie';
 import CustomAlert from '@/components/alerts/CustomAlert';
 import { endPoints } from '@/base-api/endPoints';
 import usePost from '@/custom-hooks/usePost';
+import { useTranslations } from 'next-intl';
 
 const OtpForgetPassword = ({ handleNextStep }: any) => {
+  const t = useTranslations();
   const emailCookie = Cookies.get('verify-email') || '';
   const [otp, setOtp] = useState('');
   const [seconds, setSeconds] = useState(20);
@@ -37,7 +39,7 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
     if (otp.length == 5) {
       handleCheckOTP();
     } else {
-      setErrorMessageOTP('You should enter full OTP');
+      setErrorMessageOTP(t('messages-full-otp'));
     }
   };
 
@@ -71,9 +73,7 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
         openAlert={successRequestOtp && showSuccess}
         type="success"
         setOpenAlert={() => setShowSuccess(false)}
-        message={
-          'Your OTP has been successfully sent; please check your messages. '
-        }
+        message={t('messages.otp-sent')}
       />
 
       <Stack
@@ -85,14 +85,13 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
           fontWeight={600}
           color={'#FFA000'}
         >
-          Enter Code
+          {t('verify-password.enter-code')}
         </Typography>
         <Typography
           variant="body2"
           fontWeight={600}
         >
-          We’ve sent an EMAIL with an activation code
-          <br /> to your email {emailCookie}
+          {t('verify-password.enter-code-subtitle')} {emailCookie}
         </Typography>
       </Stack>
       <OtpInput
@@ -123,7 +122,7 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
           sx={{ cursor: 'pointer', ':hover': { textDecoration: 'underline' } }}
           onClick={handleRequestOTP}
         >
-          Send code again{' '}
+          {t('verify-password.send-again')}
         </Typography>
         <Typography
           variant="body2"
@@ -133,7 +132,7 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
         >
           {seconds > 0
             ? `00:${seconds < 10 ? '0' : ''}${seconds}`
-            : 'Time is up!'}
+            : t('verify-password.time-is-up')}
         </Typography>
       </Stack>
       <LoadingButton

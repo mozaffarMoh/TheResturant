@@ -11,6 +11,7 @@ import { successCheckMark } from '@/constant/images';
 import { LoadingButton } from '@mui/lab';
 import OTPInput from 'react-otp-input';
 import { CustomInput } from '../inputs/CustomInput';
+import { useTranslations } from 'next-intl';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -42,6 +43,7 @@ const SuccessRegisterModal = ({
   handlePostForSubmit,
   handlePostForFinishSubmit,
 }: SuccessRegisterModalProps) => {
+  const t = useTranslations();
   const handleConfirm = () => {
     userID ? handlePostForFinishSubmit() : handlePostForSubmit();
   };
@@ -62,35 +64,16 @@ const SuccessRegisterModal = ({
           alt="success register"
         />
       </DialogTitle>
-      {/*       <IconButton
-        aria-label="close"
-        onClick={onClose}
-        sx={{
-          position: 'absolute',
-          right: 8,
-          top: 8,
-          color: (theme) => theme.palette.grey[500],
-        }}
-      >
-        <CloseIcon />
-      </IconButton> */}
       <DialogContent dividers>
-        <Typography className="fw500">
-          {/*    Your Request Sent Successfully, The Platform Team Shall Review the
-          Information, You Shall be Notified Via Email of The Feedback */}
-          We sent to you OTP number via email please enter the number in this
-          box below!
-        </Typography>
+        <Typography className="fw500">{t('messages.otp-sent')}</Typography>
       </DialogContent>
       <DialogActions>
         <Stack
           width={'100%'}
           gap={2}
-          alignItems={"center"}
-          
+          alignItems={'center'}
         >
           <OTPInput
-        
             renderInput={(props) => <CustomInput {...props} />}
             value={OTPValue}
             onChange={setOTPValue}
@@ -111,7 +94,7 @@ const SuccessRegisterModal = ({
             fullWidth
             loading={loadingForFinishSubmit || loadingForSubmit}
           >
-            Confirm
+            {t('buttons.confirm')}
           </LoadingButton>
         </Stack>
       </DialogActions>

@@ -1,7 +1,6 @@
 'use client';
 
 import type { NextPage } from 'next';
-import styles from './page.module.css';
 import EventsSection from '@/sections/home/events/eventsSection';
 import GridFlex from '@mui/material/Unstable_Grid2';
 import { Breadcrumbs, Container, Typography } from '@mui/material';

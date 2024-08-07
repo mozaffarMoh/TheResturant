@@ -89,7 +89,7 @@ const ForgetPasswordModal = ({ open, onClose }: TermsModalProps) => {
             textTransform={'capitalize'}
             fontWeight={600}
           >
-            Enter Your Email
+           {t("verify-password.enter-email")}
           </Typography>
 
           <DialogContentText>
@@ -132,7 +132,7 @@ const ForgetPasswordModal = ({ open, onClose }: TermsModalProps) => {
               />
             }
           >
-            Submit
+             {t('buttons.submit')}
           </LoadingButton>
         </Stack>
       </DialogContent>

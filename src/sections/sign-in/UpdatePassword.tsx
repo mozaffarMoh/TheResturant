@@ -86,7 +86,7 @@ const UpdatePassword = () => {
         openAlert={success}
         setOpenAlert={() => {}}
         type="success"
-        message={'Password has been updated successfuly'}
+        message={t('messages.password-update')}
       />{' '}
       <CustomAlert
         openAlert={errorMessage}
@@ -105,7 +105,7 @@ const UpdatePassword = () => {
           textTransform={'capitalize'}
           fontWeight={600}
         >
-          Create New Password
+          {t('verify-password.create-password')}
         </Typography>
 
         <Stack gap={4}>
@@ -165,7 +165,7 @@ const UpdatePassword = () => {
           }
           fullWidth
         >
-          Reset Password
+             {t('buttons.reset-password')}
         </LoadingButton>
       </Stack>
     </Stack>

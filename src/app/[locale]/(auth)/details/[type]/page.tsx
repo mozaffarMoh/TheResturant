@@ -27,9 +27,11 @@ import FormField from '@/components/mui-inputs/FormField';
 import usePost from '@/custom-hooks/usePost';
 import { endPoints } from '@/base-api/endPoints';
 import { typeSchema } from './schema';
+import { useTranslations } from 'next-intl';
 
 const UserDetailsPage: NextPage = () => {
   const router = useRouter();
+  const t = useTranslations();
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const emailCookie = Cookies.get('email');
   const passwordCookie = Cookies.get('password');
@@ -200,7 +202,7 @@ const UserDetailsPage: NextPage = () => {
         openAlert={successForFinishSubmit}
         setOpenAlert={() => {}}
         type="success"
-        message={'User creation process completed successfully.'}
+        message={t('messages.success-create-user')}
       />
       <div className="w-full ">
         <Grid

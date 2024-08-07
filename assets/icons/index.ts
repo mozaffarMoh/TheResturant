@@ -22,7 +22,14 @@ import LinkedInMedSVG from './contact-us-icons/linkedin';
 import ClockSVG from './clock';
 import PlaceSVG from './place';
 import UsersSVG from './users';
+import DurationSVG from './duration';
+import PersonSVG from './person';
+import DateSVG from './date';
+
 export {
+  DurationSVG,
+  PersonSVG,
+  DateSVG,
   ShareSVG,
   PhoneSVG,
   LocationSVG,
