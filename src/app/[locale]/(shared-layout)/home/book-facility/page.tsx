@@ -7,6 +7,7 @@ import GridFlex from '@mui/material/Unstable_Grid2';
 import {
   Box,
   Breadcrumbs,
+  CircularProgress,
   Container,
   FormControl,
   Grid,
@@ -20,60 +21,58 @@ import FacilityListingSection from '@/sections/book-facility/FacilityListingSect
 import React, { useEffect, useState } from 'react';
 import { textSecondaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
+import useGet from '@/custom-hooks/useGet';
+import { endPoints } from '@/base-api/endPoints';
+import Cookies from 'js-cookie';
+import usePost from '@/custom-hooks/usePost';
 
 const BookFacilityPage: NextPage = () => {
   const t = useTranslations();
-  const [category, setCategory] = useState<Number>(0);
-  const [location, setLocation] = useState<Number>(0);
-  const [facilityList, setFacilityList] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const categoryHandleChange = (
-    event: React.ChangeEvent<{ value: Number }>,
-  ) => {
-    setCategory(event.target.value as Number);
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const [category, setCategory] = useState<string>('');
+  const [location, setLocation] = useState<string>('');
+  let body = {
+    modelName: 'Item',
+    filters: {
+      'itemType.slug': 'facility',
+      'place.slug': 'amman',
+      'categories.slug': 'meeting-room',
+    },
   };
+  const [
+    facilityList,
+    loadingFacilityList,
+    getFacilityList,
+    successFacilityList,
+  ] = useGet(endPoints.getFacilityList);
+  const [citiesList, loadingCitiesList, getCitiesList, successCitiesList] =
+    useGet(endPoints.getCitiesList + 'Amman');
+  const [facilityItems, loadingFacilityItems, getFacilityItems] = usePost(
+    endPoints.getFacilityItems,
+    body,
+  );
 
-  const locationHandleChange = (
-    event: React.ChangeEvent<{ value: Number }>,
-  ) => {
-    setLocation(event.target.value as Number);
-  };
+  useEffect(() => {
+    getFacilityList();
+    getCitiesList();
+  }, []);
 
-/*   useEffect(() => {
-    setLoading(true);
-    setFacilityList([]);
-    // fetchFacilityList();
-    const myHeaders = new Headers();
-    myHeaders.append('Accept', 'application/json');
-    myHeaders.append(
-      'Authorization',
-      'Bearer ' + localStorage.getItem('techhubtoken'),
-    );
+  useEffect(() => {
+    if (successFacilityList && successCitiesList) {
+      const newCategory = facilityList[0]?.name && facilityList[0].name;
+      const newLocation =
+        citiesList?.children[0]?.name && citiesList?.children[0].name;
+      setCategory(newCategory);
+      setLocation(newLocation);
+    }
+  }, [successFacilityList, successCitiesList]);
 
-    const requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow',
-    };
-
-    fetch(
-      'https://tempcms.theplatformjo.com/api/facility/category/' + category,
-      requestOptions as any,
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        setLoading(false);
-        console.log(result);
-        setFacilityList(result.data);
-      })
-      .catch((error) => {
-        //console.log(error);
-        setLoading(false);
-      });
-  }, [category]); */
+  /* Get items when location and category be ready also with every change */
+  useEffect(() => {
+    if (category && location) {
+      getFacilityItems();
+    }
+  }, [category, location]);
 
   return (
     <>
@@ -95,14 +94,14 @@ const BookFacilityPage: NextPage = () => {
             <Link
               underline="hover"
               color="inherit"
-              href="/home"
+              href={`/${langCookie}/home`}
             >
               {t('header.home')}
             </Link>
             <Link
               underline="hover"
               color="inherit"
-              href="/home/book-facility"
+              href="#"
             >
               <Typography color={textSecondaryColor}>
                 {' '}
@@ -146,7 +145,7 @@ const BookFacilityPage: NextPage = () => {
               <Select
                 labelId="dropdown-category"
                 value={category}
-                onChange={categoryHandleChange as any}
+                onChange={(e: any) => setCategory(e.target.value)}
                 sx={{
                   borderRadius: '1.5rem',
                   height: '40px',
@@ -155,16 +154,31 @@ const BookFacilityPage: NextPage = () => {
                   },
                 }}
               >
-                <MenuItem
-                  value={0}
-                  selected
-                >
-                  {t('select.all')} :
-                </MenuItem>
-                <MenuItem value={1}>Meeting Room</MenuItem>
-                <MenuItem value={2}>Lecture Room</MenuItem>
-                <MenuItem value={3}>Team Phone Booth</MenuItem>
-                <MenuItem value={4}>Shared Space</MenuItem>
+                {loadingFacilityList ? (
+                  <MenuItem value={0}>
+                    <CircularProgress
+                      size={20}
+                      color="primary"
+                    />
+                  </MenuItem>
+                ) : (
+                  <MenuItem
+                    value={0}
+                    selected
+                  >
+                    {t('select.all')}
+                  </MenuItem>
+                )}
+                {facilityList.map((item: any) => {
+                  return (
+                    <MenuItem
+                      key={item.id}
+                      value={item.id}
+                    >
+                      {item.name}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </Box>
@@ -182,7 +196,7 @@ const BookFacilityPage: NextPage = () => {
                 width: 'auto',
               }}
             >
-              {t('select.location')} : :
+              {t('select.location')} :
             </InputLabel>
             <FormControl
               variant="outlined"
@@ -191,7 +205,7 @@ const BookFacilityPage: NextPage = () => {
               <Select
                 labelId="dropdown-location"
                 value={location}
-                onChange={locationHandleChange as any}
+                onChange={(e: any) => setLocation(e.target.value)}
                 sx={{
                   borderRadius: '1.5rem',
                   height: '40px',
@@ -200,41 +214,38 @@ const BookFacilityPage: NextPage = () => {
                   },
                 }}
               >
-                <MenuItem
-                  value={0}
-                  selected
-                >
-                  {t('select.all')}
-                </MenuItem>
-                <MenuItem value={0}>Marka</MenuItem>
+                {loadingCitiesList ? (
+                  <MenuItem value={0}>
+                    <CircularProgress
+                      size={20}
+                      color="primary"
+                    />
+                  </MenuItem>
+                ) : (
+                  citiesList?.children &&
+                  citiesList?.children.map((item: any) => {
+                    return (
+                      <MenuItem
+                        key={item.id}
+                        value={item.id}
+                      >
+                        {item.name}
+                      </MenuItem>
+                    );
+                  })
+                )}
               </Select>
             </FormControl>
           </Box>
         </Grid>
       </Container>
       {/* Facility Listing Section */}
-      {loading ? (
-        <Container
-          maxWidth="lg"
-          className="mt-1 mb-3"
-        >
-          <Grid
-            container
-            spacing={2}
-            justifyContent="center"
-            alignItems="center"
-          >
-            {/** indicator for loading */}
-            <Typography
-              variant="h4"
-              className={styles.loading}
-            >
-              {t('messages.loading')} :
-            </Typography>
-          </Grid>
-        </Container>
-      ) : null}
-      <FacilityListingSection facilityListData={facilityList} />
+
+      {loadingFacilityItems ? (
+        <CircularProgress />
+      ) : (
+        <FacilityListingSection facilityListData={facilityList} />
+      )}
     </>
   );
 };

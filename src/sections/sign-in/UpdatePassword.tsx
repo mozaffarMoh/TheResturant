@@ -40,7 +40,7 @@ const UpdatePassword = () => {
     setError({ password: '', confirmPassword: '' });
 
     try {
-      passwordSchema.parse({ password, confirmPassword });
+      passwordSchema(t).parse({ password, confirmPassword });
       handleCreateNewPassword();
     } catch (error: any) {
       if (error instanceof z.ZodError) {

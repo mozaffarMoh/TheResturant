@@ -34,7 +34,7 @@ export async function middleware(req: NextRequest) {
 
   const isAuthenticated = Boolean(req.cookies.get('token'));
 
-  if (!isAuthenticated) {
+  if (isAuthenticated) {
     if (
       url.pathname == `/${localeCookies}` ||
       url.pathname.includes('/home') ||

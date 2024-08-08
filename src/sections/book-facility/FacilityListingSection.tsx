@@ -1,5 +1,4 @@
 import { Container, Grid } from '@mui/material';
-import GridFlex from '@mui/material/Unstable_Grid2';
 import { workShopImage1 } from '@/constant/images';
 
 import BookFacilityCard from '@/components/cards/book-facility/BookFacilityCard';

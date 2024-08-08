@@ -24,9 +24,11 @@ import { gray300, primaryColor, textSecondaryColor } from '@/constant/color';
 import IndustryNewsModal from '@/components/modals/industry-news-modal';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import Cookies from 'js-cookie';
 
 const News = () => {
   const t = useTranslations();
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const isScreen900 = useMediaQuery('(max-width:900px)');
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [tags, setTags] = useState<Number>(0);
@@ -82,7 +84,7 @@ const News = () => {
             <Link
               underline="hover"
               color="inherit"
-              href="/home"
+              href={`/${langCookie}/home`}
             >
               {t('header.home')}
             </Link>
@@ -95,7 +97,7 @@ const News = () => {
             <Link
               underline="hover"
               color="inherit"
-              href="/home/industry/news"
+              href="#"
             >
               <Typography color={textSecondaryColor}>
                 {t('header.news')}

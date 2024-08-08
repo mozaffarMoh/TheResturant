@@ -20,14 +20,14 @@ const ContactUsForm = () => {
     ],
   };
   const emailInputField = {
-    id: 1,
+    id: '1',
     type: 0,
     name: 'email',
     label: t('contact-us.email'),
     required: true,
   };
   const nameInputField = {
-    id: 3,
+    id: '3',
     type: 0,
     name: 'name',
     label: t('contact-us.name'),
@@ -60,7 +60,6 @@ const ContactUsForm = () => {
             type={'Select'}
             required={false}
             fieldData={typeInputField.fieldData}
-            defaultValue={typeInputField.defaultValue}
             className={styles.inputsFieldStyle}
           />
         </Grid>

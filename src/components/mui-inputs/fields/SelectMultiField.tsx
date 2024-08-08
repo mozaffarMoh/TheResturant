@@ -57,8 +57,9 @@ function SelectMultiField({
                   .slice(0, 4)
                   .map((value: string) => {
                     const item = fieldData.find(
-                      (option) => option.value === value,
+                      (option: any) => option.id === value,
                     );
+
                     return item ? item.name : value;
                   })
                   .join(' || ')
@@ -71,12 +72,12 @@ function SelectMultiField({
                 }
               }}
             >
-              {fieldData.map((option) => (
+              {fieldData.map((option: any) => (
                 <MenuItem
                   key={option.value}
-                  value={option.value}
+                  value={option.id}
                 >
-                  <Checkbox checked={value.indexOf(option.value) > -1} />
+                  <Checkbox checked={value.indexOf(option.id) > -1} />
                   <ListItemText primary={option.name} />
                 </MenuItem>
               ))}

@@ -8,9 +8,12 @@ import Link from '@mui/material/Link';
 import WorkShopsListingSection from '@/sections/events-workshops/workShopsListingSection';
 import { textSecondaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
+import Cookies from 'js-cookie';
 
 const EventsWorkShopsPage: NextPage = () => {
   const t = useTranslations();
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  
   return (
     <>
       <Container maxWidth="lg">
@@ -29,14 +32,14 @@ const EventsWorkShopsPage: NextPage = () => {
             <Link
               underline="hover"
               color="inherit"
-              href="/home"
+              href={`/${langCookie}/home`}
             >
               {t('header.home')}
             </Link>
             <Link
               underline="hover"
               color="inherit"
-              href="/home/events-workshops"
+              href="#"
             >
               <Typography color={textSecondaryColor}>
                 {t('header.events-workshops')}

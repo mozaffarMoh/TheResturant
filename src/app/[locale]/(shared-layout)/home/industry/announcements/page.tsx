@@ -7,9 +7,10 @@ import AnnounceSection from '@/sections/announcments/AnnounceSection';
 import JobOfferingSection from '@/sections/announcments/JobOfferingSection';
 import { textSecondaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
-
+import Cookies from 'js-cookie';
 const Announcments = () => {
   const t = useTranslations();
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   return (
     <Grid
       container
@@ -33,7 +34,7 @@ const Announcments = () => {
             <Link
               underline="hover"
               color="inherit"
-              href="/home"
+              href={`/${langCookie}/home`}
             >
               {t('header.home')}
             </Link>
@@ -46,7 +47,7 @@ const Announcments = () => {
             <Link
               underline="hover"
               color="inherit"
-              href="/home/industry/announcements"
+              href="#"
             >
               <Typography color={textSecondaryColor}>
                 {t('header.announcements')}

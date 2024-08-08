@@ -100,7 +100,7 @@ const SingUp: NextPage = () => {
     e.preventDefault();
 
     try {
-      signupSchema.parse(formData);
+      signupSchema(t).parse(formData);
       Cookies.set('email', formData.email);
       Cookies.set('password', formData.password);
       getData();

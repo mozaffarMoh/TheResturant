@@ -1,26 +1,32 @@
+'use client'
 import { z } from "zod";
 
-export const signupSchema = z
-    .object({
+export const signupSchema = (t: any) => {
+    return z.object({
         email: z
             .string()
-            .min(1, { message: 'Email is required' })
-            .email({ message: 'Invalid email address' }),
+            .min(1, { message: t('validation.email') })
+            .email({ message: t('validation.invalid-email') }),
         password: z
             .string()
-            .min(8, { message: 'Password must be at least 8 characters long' })
-            .regex(/[A-Z]/, { message: 'Password must contain at least one uppercase letter' })
-            .regex(/[a-z]/, { message: 'Password must contain at least one lowercase letter' })
-            .regex(/[0-9]/, { message: 'Password must contain at least one numeric digit' })
-            .regex(/[\W_]/, { message: 'Password must contain at least one special character' }),
+            .regex(/[A-Z]/, { message: t('validation.one-uppercase') })
+            .regex(/[a-z]/, { message: t('validation.one-lowercase') })
+            .regex(/[0-9]/, { message: t('validation.one-number') })
+            .regex(/[\W_]/, { message: t('validation.one-special') })
+            .min(8, { message: t('validation.eight-char') }),
         confirmPassword: z
             .string()
-            .min(8, { message: 'Password must be at least 8 characters long' }),
+            .regex(/[A-Z]/, { message: t('validation.one-uppercase') })
+            .regex(/[a-z]/, { message: t('validation.one-lowercase') })
+            .regex(/[0-9]/, { message: t('validation.one-number') })
+            .regex(/[\W_]/, { message: t('validation.one-special') })
+            .min(8, { message: t('validation.eight-char') }),
         acceptTerms: z.boolean().refine((val) => val === true, {
-            message: 'You must accept the terms and conditions',
+            message: t('validation.terms'),
         }),
     })
-    .refine((data) => data.password === data.confirmPassword, {
-        message: "Passwords don't match",
-        path: ['confirmPassword'], // specify which path the error should be associated with
-    });
+        .refine((data) => data.password === data.confirmPassword, {
+            message: t('validation.password-not-match'),
+            path: ['confirmPassword'], // specify which path the error should be associated with
+        })
+}

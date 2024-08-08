@@ -8,6 +8,9 @@ export const endPoints = {
     getEvents: "/ecomm/getItemsByType/event",
     getWorkshop: "/ecomm/getItemsByType/workshop",
     showSingleEventOrWorkshop: "/ecomm/item/",
+    "getFacilityList": "/core/getCategoryBy/facility",
+    "getCitiesList": "/core/place/",
+    "getFacilityItems": "/core/filter/"
 }
 
 

@@ -58,14 +58,14 @@ const MentorsPage: NextPage = () => {
             <Link
               underline="hover"
               color="inherit"
-              href="/home"
+              href={`/${langCookie}/home`}
             >
               {t('header.home')}
             </Link>
             <Link
               underline="hover"
               color="inherit"
-              href="/home/mentors"
+              href="#"
             >
               <Typography color={textSecondaryColor}>
                 {t('header.mentors')}

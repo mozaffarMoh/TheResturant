@@ -24,13 +24,14 @@ interface TermsModalProps {
   open: boolean;
   onClose: () => void;
 }
-
-const emailSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: 'Email is required' })
-    .email({ message: 'Invalid email address' }),
-});
+export const emailSchema = (t: any) => {
+  return z.object({
+    email: z
+      .string()
+      .min(1, { message: t('validation.email') })
+      .email({ message: t('validation.invalid-email') }),
+  });
+};
 
 const ForgetPasswordModal = ({ open, onClose }: TermsModalProps) => {
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
@@ -47,7 +48,7 @@ const ForgetPasswordModal = ({ open, onClose }: TermsModalProps) => {
     setError({ email: '' });
 
     try {
-      emailSchema.parse({ email });
+      emailSchema(t).parse({ email });
       Cookies.set('verify-email', email);
       handleSendEmail();
     } catch (error: any) {
@@ -89,7 +90,7 @@ const ForgetPasswordModal = ({ open, onClose }: TermsModalProps) => {
             textTransform={'capitalize'}
             fontWeight={600}
           >
-           {t("verify-password.enter-email")}
+            {t('verify-password.enter-email')}
           </Typography>
 
           <DialogContentText>
@@ -132,7 +133,7 @@ const ForgetPasswordModal = ({ open, onClose }: TermsModalProps) => {
               />
             }
           >
-             {t('buttons.submit')}
+            {t('buttons.submit')}
           </LoadingButton>
         </Stack>
       </DialogContent>

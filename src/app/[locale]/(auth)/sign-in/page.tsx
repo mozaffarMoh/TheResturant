@@ -66,7 +66,7 @@ const SignIn: NextPage = () => {
     e.preventDefault();
     const checkForm = { email, password };
     try {
-      signinSchema.parse(checkForm);
+      signinSchema(t).parse(checkForm);
       handleLoginPost();
     } catch (error: any) {
       if (error instanceof z.ZodError) {

@@ -8,8 +8,6 @@ export const typeSchema = (inputs: any) => {
 
     // Determine initial validation type based on input type
     switch (input.input_type.slug) {
-
-
       case 'Checkbox':
         validation = z.boolean().refine((val) => val === true, {
           message: `${input.name} is required`,

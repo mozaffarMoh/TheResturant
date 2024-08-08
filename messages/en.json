@@ -44,10 +44,16 @@
     },
     "validation": {
         "email": "Email is required * ",
+        "invalid-email": "Invalid email address",
         "password": "Password is required * ",
         "confirm-password": "Confirm Password is required * ",
         "password-not-match": "Password do not match * ",
-        "title": "Title is required * "
+        "eight-char": "Password must be at least 8 characters long",
+        "one-uppercase": "Password must contain at least one uppercase letter",
+        "one-lowercase": " Password must contain at least one lowercase letter",
+        "one-special": "Password must contain at least one special character",
+        "one-number": "Password must contain at least one numeric digit ",
+        "terms": "You must accept the terms and conditions"
     },
     "guest-home": {
         "home": "Home",

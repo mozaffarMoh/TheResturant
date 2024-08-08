@@ -1,15 +1,13 @@
 import * as React from 'react';
-import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
-import Divider from '@mui/joy/Divider';
 import Typography from '@mui/joy/Typography';
 import './book-facility-card.css';
 import { ClockSVG, PlaceSVG, UsersSVG } from '../../../../assets/icons';
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { Router } from 'next/router';
+import Cookies from 'js-cookie';
 
 export default function BookFacilityCard({
   id,
@@ -28,6 +26,7 @@ export default function BookFacilityCard({
   capacity: string;
   location: string;
 }) {
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const { push } = useRouter();
 
   const arrayOfBottomIcons = [
@@ -52,7 +51,7 @@ export default function BookFacilityCard({
         borderRadius: '1.5rem',
         cursor: 'pointer',
       }}
-      onClick={() => push(`/book-facility/details/${id}`)}
+      onClick={() => push(`${langCookie}/home/book-facility/details/${id}`)}
     >
       <CardOverflow>
         <img
@@ -64,7 +63,6 @@ export default function BookFacilityCard({
             width: '100%',
             height: '300px',
             objectFit: 'cover',
-
           }}
         />
       </CardOverflow>

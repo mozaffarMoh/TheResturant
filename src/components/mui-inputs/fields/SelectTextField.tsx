@@ -58,10 +58,10 @@ function SelectTextField({
               },
             }}
           >
-            {fieldData?.map((option) => (
+            {fieldData?.map((option:any) => (
               <MenuItem
                 key={option.value}
-                value={option.value}
+                value={option.id}
               >
                 {option.name}
               </MenuItem>
