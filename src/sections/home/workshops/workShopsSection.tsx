@@ -44,7 +44,7 @@ const WorkShopsSection = () => {
                   <div className={styles.leftCardsContainer}>
                     <div className="sm-flex-col-col-center-center gap1">
                       {data &&
-                        data.length > 0 &&
+                        data.length > 1 &&
                         data.map(
                           (item: any, i: number) =>
                             i > 1 &&
