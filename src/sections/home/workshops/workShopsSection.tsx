@@ -18,9 +18,7 @@ const WorkShopsSection = () => {
   useEffect(() => {
     getData();
   }, []);
-  console.log(data);
 
- 
   return (
     <section
       style={{
@@ -49,12 +47,13 @@ const WorkShopsSection = () => {
                         data.length > 0 &&
                         data.map(
                           (item: any, i: number) =>
-                            i >= 0 &&
-                            i < 3 && (
+                            i > 1 &&
+                            i < 5 && (
                               <WorkShopCardV1
                                 key={i}
                                 title={item.title}
                                 metadata={item.metadata}
+                                place={item.place}
                               />
                             ),
                         )}

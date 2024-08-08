@@ -8,20 +8,28 @@ import { Box, Paper } from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import './workshop-card-v1.css';
+import { Place } from '@mui/icons-material';
 
-export default function WorkShopCardV1({ key, title, metadata }: any) {
+export default function WorkShopCardV1({ key, title, metadata, place }: any) {
+  const [day, setDay] = React.useState('');
   const [month, setMonth] = React.useState('');
+  const [time, setTime] = React.useState('');
 
   React.useEffect(() => {
     if (metadata.length > 0) {
-      let monthValue: string;
       metadata.forEach((item: any) => {
-        if (item.slug == 'time') {
-          monthValue = item.value.split('')[1];
+        if (item.slug == 'date') {
+          setDay(item.value.split('-')[2]);
+          setMonth(
+            new Date(item.value.split('-')[1]).toLocaleDateString('en-GB', {
+              month: 'long',
+            }),
+          );
         }
-        console.log(monthValue);
+        if (item.slug == 'time') {
+          setTime(item.value);
+        }
       });
-      const a = new Date('7').toLocaleDateString('en-GB', { month: 'long' });
     }
   }, [metadata]);
 
@@ -53,7 +61,7 @@ export default function WorkShopCardV1({ key, title, metadata }: any) {
           }}
           className="md-workshop-media-paper"
         >
-          <div>{'day'}</div>
+          <div>{day}</div>
           <div>{month}</div>
         </Paper>
       </CardOverflow>
@@ -61,10 +69,10 @@ export default function WorkShopCardV1({ key, title, metadata }: any) {
         <p className="text-reg-card-v1 fw600 p-px-4">{title}</p>
         <div className="sm-flex-row-col-425  align-center-425 gap1 ">
           <span className="text-xs opacity-80">
-            <PlaceSVG /> AMMAN, JORDAN
+            <PlaceSVG /> {place.name}
           </span>
           <span className="text-xs opacity-80">
-            <ClockSVG /> 8:00 am - 5:00 pm
+            <ClockSVG /> {time}
           </span>
         </div>
       </CardContent>
