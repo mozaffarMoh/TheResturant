@@ -4,46 +4,26 @@ import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
 import Typography from '@mui/joy/Typography';
 import './book-facility-card.css';
-import { ClockSVG, PlaceSVG, UsersSVG } from '../../../../assets/icons';
 import { Grid } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import { domain } from '@/base-api/endPoints';
+import { metadataIcons } from '@/constant/metadataIcons';
+import { PlaceSVG } from '../../../../assets/icons';
 
 export default function BookFacilityCard({
-  id,
+  slug,
   title,
-  category,
-  image,
-  time,
-  capacity,
-  location,
-}: {
-  id: number;
-  title: string;
-  category: string;
-  image: string;
-  time: string;
-  capacity: string;
-  location: string;
-}) {
+  media,
+  categories,
+  metadata,
+  place,
+}: any) {
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const { push } = useRouter();
-
-  const arrayOfBottomIcons = [
-    {
-      icon: <ClockSVG />,
-      text: time,
-    },
-    {
-      icon: <UsersSVG />,
-      text: capacity,
-    },
-    {
-      icon: <PlaceSVG />,
-      text: location,
-    },
-  ];
-
+  let imageURL =
+    media && media.length > 0 && media[0]?.url ? domain + media[0]?.url : '';
+  let categoryName = categories[0]?.name ? categories[0]?.name : '';
   return (
     <Card
       variant="outlined"
@@ -51,11 +31,11 @@ export default function BookFacilityCard({
         borderRadius: '1.5rem',
         cursor: 'pointer',
       }}
-      onClick={() => push(`${langCookie}/home/book-facility/details/${id}`)}
+      onClick={() => push(`/${langCookie}/home/book-facility/details/${slug}`)}
     >
       <CardOverflow>
         <img
-          src={'https://tempcms.theplatformjo.com' + image}
+          src={imageURL}
           loading="lazy"
           alt="facility image card"
           className="pt-1"
@@ -83,7 +63,7 @@ export default function BookFacilityCard({
           >
             <Typography className="text-med-fw700">{title}</Typography>
             <Typography className="text-xs bc-secondary-color bf-category-text">
-              {category}
+              {categoryName}
             </Typography>
           </Grid>
           <Grid
@@ -94,19 +74,36 @@ export default function BookFacilityCard({
             justifyContent={'space-between'}
             alignContent={'center'}
           >
-            {arrayOfBottomIcons.map((icon, index) => (
-              <Grid
-                key={index}
-                item
-                display={'flex'}
-                justifyContent={'start'}
-                alignContent={'center'}
-                letterSpacing={1}
-              >
-                {icon.icon}
-                <Typography className="text-xs">{icon.text}</Typography>
-              </Grid>
-            ))}
+            {metadata.map((item: any) => {
+              let SvgIcon = metadataIcons(item.slug);
+              return (
+                (item.slug == 'capacity-range' || item.slug == 'time') && (
+                  <Grid
+                    key={item.id}
+                    item
+                    display={'flex'}
+                    justifyContent={'start'}
+                    alignContent={'center'}
+                    letterSpacing={1}
+                    gap={1}
+                  >
+                    {SvgIcon && <SvgIcon />}
+                    <Typography className="text-xs">{item.value}</Typography>
+                  </Grid>
+                )
+              );
+            })}
+            <Grid
+              item
+              display={'flex'}
+              justifyContent={'start'}
+              alignContent={'center'}
+              gap={1}
+              letterSpacing={1}
+            >
+              <PlaceSVG />
+              <Typography className="text-xs">{place.name}</Typography>
+            </Grid>
           </Grid>
         </Grid>
       </CardContent>

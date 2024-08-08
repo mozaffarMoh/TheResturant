@@ -12,7 +12,7 @@ import Loading from '@/components/Loading/Loading';
 const HomePage: NextPage = () => {
   const params = useParams();
   const [data, loading, getData] = useGet(
-    endPoints.showSingleEventOrWorkshop + params?.id,
+    endPoints.showSingleItem + params?.id,
     true,
   );
   let imageURL =

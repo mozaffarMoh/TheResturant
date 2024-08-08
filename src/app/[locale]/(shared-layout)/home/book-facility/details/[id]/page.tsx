@@ -1,59 +1,38 @@
 'use client';
-
-import type { NextPage } from 'next';
-import styles from './page.module.css';
 import { HeroSection } from '@/sections/home';
-import { workShopBanner } from '@/constant/images';
-
 import FacilityDetailsSection from '@/sections/book-facility/FacilityDetailsSection';
-import { useEffect,useState } from 'react';
+import { useEffect } from 'react';
+import { domain, endPoints } from '@/base-api/endPoints';
+import useGet from '@/custom-hooks/useGet';
+import { useParams } from 'next/navigation';
+import Loading from '@/components/Loading/Loading';
 
+const FacilityDetailsPage = () => {
+  const params = useParams();
+  const [data, loading, getData, success] = useGet(
+    endPoints.showSingleItem + params?.id,
+    true,
+  );
+  let imageURL =
+    data?.media && data.media.length > 0 && data?.media[0]?.url
+      ? domain + data?.media[0]?.url
+      : '';
 
-
-const FacilityDetailsPage = ({ params }: { params: { id: string } }) => {
-  const id = params.id;
-  const [facility, setFacility] = useState<any>({});
   useEffect(() => {
-    const myHeaders = new Headers();
-    myHeaders.append('Accept', 'application/json');
-    myHeaders.append(
-      'Authorization',
-      'Bearer ' + localStorage.getItem('techhubtoken'),
-    );
-
-    const requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow',
-    };
-
-    fetch(
-      'https://tempcms.theplatformjo.com/api/facility/' + id,
-      requestOptions as any,
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-      
-        if(result.status != 200){
-          //redirect to 404 page
-          window.location.href = '/book-facility';
-        }
-        setFacility(result.data);
-      })
-      .catch((error) => {
-        //console.log(error);
-      });
+    getData();
   }, []);
+  console.log(data);
 
   return (
     <>
+      {loading && <Loading />}
+
       <HeroSection
-        bannerImage={workShopBanner}
+        bannerImage={imageURL}
         noText
       />
-      <FacilityDetailsSection facility={facility} />
+
+      <FacilityDetailsSection facility={data} />
     </>
   );
 };

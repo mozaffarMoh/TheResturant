@@ -7,7 +7,7 @@ export const endPoints = {
     updatePassword: '/update-password',
     getEvents: "/ecomm/getItemsByType/event",
     getWorkshop: "/ecomm/getItemsByType/workshop",
-    showSingleEventOrWorkshop: "/ecomm/item/",
+    showSingleItem: "/ecomm/item/",
     "getFacilityList": "/core/getCategoryBy/facility",
     "getCitiesList": "/core/place/",
     "getFacilityItems": "/core/filter/"

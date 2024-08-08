@@ -23,14 +23,11 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
-
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     //show alert
-  
-    
   };
 
   const handleBookModal = (
@@ -48,9 +45,8 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
 
     let user = localStorage.getItem('techhubuser') as string | null;
     let user_id = JSON.parse(user as string).id;
-    console.log(user_id);
 
-    if(!date || !fromTime || !toTime || !attendees){
+    if (!date || !fromTime || !toTime || !attendees) {
       setLoadingSubmit(false);
       setSuccess(false);
       setMessage('Please fill all the fields!');
@@ -115,7 +111,6 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
           );
 
           //reset form values
-
         } else {
           setSuccess(false);
 
@@ -137,21 +132,6 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
       });
   };
 
-  const dataRows: CardDetailsArray[] = [
-    { label: 'Minimum People', value: facility.min_people, icon: <UsersSVG /> },
-    { label: 'Maximum People', value: facility.max_people, icon: <UsersSVG /> },
-    {
-      label: 'Minimum Hours',
-      value: facility.min_hours + ' Hour',
-      icon: <ClockSVG />,
-    },
-    {
-      label: 'Maximum Hours',
-      value: facility.max_hours + ' Hours',
-      icon: <ClockSVG />,
-    },
-  ];
-
   return (
     <Container
       maxWidth="lg"
@@ -164,39 +144,40 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
         type={success ? 'success' : 'error'}
         position={{ vertical: 'bottom', horizontal: 'right' }}
       />
-      <Grid
-        container
-        //sx={{ gap: 2 }}
-        direction="row"
-      >
+      {facility && (
         <Grid
-          item
-          xs={12}
-          md={12}
-          lg={9}
-          wrap="wrap"
-          sx={{
-            padding: 2,
-            textAlign: 'justify',
-          }}
-        >
-          <Typography>{facility.description}</Typography>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={12}
-          lg={3}
           container
-          justifyContent="center"
-          alignItems="center"
+          direction="row"
         >
-          <DetailsCard
-            dataRows={dataRows}
-            onClick={handleOpenModal}
-          />
+          <Grid
+            item
+            xs={12}
+            md={8}
+            lg={8}
+            wrap="wrap"
+            sx={{
+              padding: 2,
+              textAlign: 'justify',
+            }}
+          >
+            <div dangerouslySetInnerHTML={{ __html: facility.description }} />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            lg={4}
+            container
+            justifyContent="center"
+            alignItems="center"
+          >
+            <DetailsCard
+              facility={facility}
+              onClick={handleOpenModal}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      )}
 
       <FacilityReserveModal
         open={isModalOpen}

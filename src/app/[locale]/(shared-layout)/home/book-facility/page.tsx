@@ -1,8 +1,6 @@
 'use client';
 
 import type { NextPage } from 'next';
-import styles from './page.module.css';
-
 import GridFlex from '@mui/material/Unstable_Grid2';
 import {
   Box,
@@ -14,6 +12,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Stack,
   Typography,
 } from '@mui/material';
 import Link from '@mui/material/Link';
@@ -31,14 +30,17 @@ const BookFacilityPage: NextPage = () => {
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const [category, setCategory] = useState<string>('');
   const [location, setLocation] = useState<string>('');
-  let body = {
-    modelName: 'Item',
-    filters: {
-      'itemType.slug': 'facility',
-      'place.slug': 'amman',
-      'categories.slug': 'meeting-room',
-    },
+  const filters: any = {
+    'itemType.slug': 'facility',
+    'place.slug': 'amman', //location,
+    ...(category !== 'all' && { 'categories.slug': category }),
   };
+
+  const body = {
+    modelName: 'Item',
+    filters,
+  };
+
   const [
     facilityList,
     loadingFacilityList,
@@ -59,19 +61,14 @@ const BookFacilityPage: NextPage = () => {
 
   useEffect(() => {
     if (successFacilityList && successCitiesList) {
-      const newCategory = facilityList[0]?.name && facilityList[0].name;
-      const newLocation =
-        citiesList?.children[0]?.name && citiesList?.children[0].name;
-      setCategory(newCategory);
-      setLocation(newLocation);
+      setCategory('all');
+      setLocation('all');
     }
   }, [successFacilityList, successCitiesList]);
 
   /* Get items when location and category be ready also with every change */
   useEffect(() => {
-    if (category && location) {
-      getFacilityItems();
-    }
+    category && location && getFacilityItems();
   }, [category, location]);
 
   return (
@@ -137,11 +134,18 @@ const BookFacilityPage: NextPage = () => {
               }}
             >
               {t('select.category')} :
+              {loadingFacilityList && (
+                <CircularProgress
+                  size={20}
+                  color="primary"
+                />
+              )}
             </InputLabel>
             <FormControl
               variant="outlined"
               style={{ marginLeft: 5, minWidth: 150 }}
             >
+              {' '}
               <Select
                 labelId="dropdown-category"
                 value={category}
@@ -154,26 +158,13 @@ const BookFacilityPage: NextPage = () => {
                   },
                 }}
               >
-                {loadingFacilityList ? (
-                  <MenuItem value={0}>
-                    <CircularProgress
-                      size={20}
-                      color="primary"
-                    />
-                  </MenuItem>
-                ) : (
-                  <MenuItem
-                    value={0}
-                    selected
-                  >
-                    {t('select.all')}
-                  </MenuItem>
-                )}
+                {' '}
+                <MenuItem value={'all'}>{t('select.all')}</MenuItem>
                 {facilityList.map((item: any) => {
                   return (
                     <MenuItem
                       key={item.id}
-                      value={item.id}
+                      value={item.slug}
                     >
                       {item.name}
                     </MenuItem>
@@ -197,6 +188,12 @@ const BookFacilityPage: NextPage = () => {
               }}
             >
               {t('select.location')} :
+              {loadingCitiesList && (
+                <CircularProgress
+                  size={20}
+                  color="primary"
+                />
+              )}
             </InputLabel>
             <FormControl
               variant="outlined"
@@ -214,26 +211,18 @@ const BookFacilityPage: NextPage = () => {
                   },
                 }}
               >
-                {loadingCitiesList ? (
-                  <MenuItem value={0}>
-                    <CircularProgress
-                      size={20}
-                      color="primary"
-                    />
-                  </MenuItem>
-                ) : (
-                  citiesList?.children &&
+                <MenuItem value={'all'}>{t('select.all')}</MenuItem>
+                {citiesList?.children &&
                   citiesList?.children.map((item: any) => {
                     return (
                       <MenuItem
                         key={item.id}
-                        value={item.id}
+                        value={item.slug}
                       >
                         {item.name}
                       </MenuItem>
                     );
-                  })
-                )}
+                  })}
               </Select>
             </FormControl>
           </Box>
@@ -242,9 +231,15 @@ const BookFacilityPage: NextPage = () => {
       {/* Facility Listing Section */}
 
       {loadingFacilityItems ? (
-        <CircularProgress />
+        <Stack
+          justifyContent={'center'}
+          alignItems={'center'}
+          height={300}
+        >
+          <CircularProgress />
+        </Stack>
       ) : (
-        <FacilityListingSection facilityListData={facilityList} />
+        <FacilityListingSection facilityItems={facilityItems} />
       )}
     </>
   );
