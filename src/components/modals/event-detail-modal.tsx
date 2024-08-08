@@ -53,7 +53,7 @@ const EventDetailsModal = ({
   const t = useTranslations();
   const isScreen600 = useMediaQuery('(max-width:600px)');
   const [data, loading, getData] = useGet(
-    endPoints.showSingleEventOrWorkshop + slug,
+    endPoints.showSingleItem + slug,
     true,
   );
   let imageURL =

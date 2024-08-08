@@ -7,9 +7,20 @@ import WorkShopCardV1 from '@/components/cards/home-section/WorkShopCardV1';
 import WorkShopCardV2 from '@/components/cards/home-section/WorkShopCardV2';
 import { workShopImage1, workShopImage2 } from '@/constant/images';
 import { useTranslations } from 'next-intl';
+import useGet from '@/custom-hooks/useGet';
+import { endPoints } from '@/base-api/endPoints';
+import { useEffect } from 'react';
 
 const WorkShopsSection = () => {
   const t = useTranslations();
+  const [data, loading, getData] = useGet(endPoints.getWorkshop);
+
+  useEffect(() => {
+    getData();
+  }, []);
+  console.log(data);
+
+ 
   return (
     <section
       style={{
@@ -34,48 +45,49 @@ const WorkShopsSection = () => {
                 <div className={styles.workShopCardsContainer}>
                   <div className={styles.leftCardsContainer}>
                     <div className="sm-flex-col-col-center-center gap1">
-                      <WorkShopCardV1
-                        title={'Elegant Light Box Paper New Design Conference'}
-                        day={'06'}
-                        month={'April'}
-                      />
-
-                      <WorkShopCardV1
-                        title={'Elegant Light Box Paper New Design Conference'}
-                        day={'06'}
-                        month={'April'}
-                      />
-
-                      <WorkShopCardV1
-                        title={'Elegant Light Box Paper New Design Conference'}
-                        day={'06'}
-                        month={'April'}
-                      />
+                      {data &&
+                        data.length > 0 &&
+                        data.map(
+                          (item: any, i: number) =>
+                            i >= 0 &&
+                            i < 3 && (
+                              <WorkShopCardV1
+                                key={i}
+                                title={item.title}
+                                metadata={item.metadata}
+                              />
+                            ),
+                        )}
                     </div>
                   </div>
+
                   {/* cards Vertical cards  section */}
-                  <div className={styles.rightCardsContainer}>
-                    <div>
-                      <div className="sm-flex-row-col-center-center">
-                        <WorkShopCardV2
-                          title={
-                            'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
-                          }
-                          image={workShopImage1}
-                        />
+                  {data && data.length > 0 && (
+                    <div className={styles.rightCardsContainer}>
+                      <div>
+                        <div className="sm-flex-row-col-center-center">
+                          <WorkShopCardV2
+                            title={data[0]?.title}
+                            media={data[0]?.media}
+                            metadata={data[0]?.metadata}
+                            place={data[0]?.place}
+                          />
+                        </div>
                       </div>
+                      {data[1]?.title && (
+                        <div>
+                          <div className="sm-flex-row-col-center-center">
+                            <WorkShopCardV2
+                              title={data[1]?.title}
+                              media={data[1]?.media}
+                              metadata={data[1]?.metadata}
+                              place={data[1]?.place}
+                            />
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    <div>
-                      <div className="sm-flex-row-col-center-center">
-                        <WorkShopCardV2
-                          title={
-                            'An Indigenous Anatolian Syllabic Script From 3500 Years Ago'
-                          }
-                          image={workShopImage2}
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </div>
               </div>
               <div className="mt-2 sm-flex-row-row-center-end  m-inline-end-2">

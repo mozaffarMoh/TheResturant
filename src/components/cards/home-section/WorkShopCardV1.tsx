@@ -9,17 +9,25 @@ import { primaryColor } from '@/constant/color';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import './workshop-card-v1.css';
 
-export default function WorkShopCardV1({
-  title,
-  day,
-  month,
-}: {
-  title: string;
-  day: string;
-  month: string;
-}) {
+export default function WorkShopCardV1({ key, title, metadata }: any) {
+  const [month, setMonth] = React.useState('');
+
+  React.useEffect(() => {
+    if (metadata.length > 0) {
+      let monthValue: string;
+      metadata.forEach((item: any) => {
+        if (item.slug == 'time') {
+          monthValue = item.value.split('')[1];
+        }
+        console.log(monthValue);
+      });
+      const a = new Date('7').toLocaleDateString('en-GB', { month: 'long' });
+    }
+  }, [metadata]);
+
   return (
     <Card
+      key={key}
       orientation="horizontal"
       variant="outlined"
       sx={{
@@ -45,7 +53,7 @@ export default function WorkShopCardV1({
           }}
           className="md-workshop-media-paper"
         >
-          <div>{day}</div>
+          <div>{'day'}</div>
           <div>{month}</div>
         </Paper>
       </CardOverflow>

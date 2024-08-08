@@ -1,20 +1,14 @@
 import * as React from 'react';
-import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
-import Divider from '@mui/joy/Divider';
-import Typography from '@mui/joy/Typography';
 import './workshop-card-v2.css';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
+import { domain } from '@/base-api/endPoints';
 
-export default function WorkShopCardV2({
-  title,
-  image,
-}: {
-  title: string;
-  image: string;
-}) {
+export default function WorkShopCardV2({ title, media, metadata, place }: any) {
+  let imageURL =
+    media && media.length > 0 && media[0]?.url ? domain + media[0]?.url : '';
   return (
     <Card
       variant="outlined"
@@ -28,7 +22,7 @@ export default function WorkShopCardV2({
     >
       <CardOverflow className="md-workshop-media">
         <img
-          src={image}
+          src={imageURL}
           loading="lazy"
           alt="workshop image card"
           className="md-workshop-media-image pt-1 pb-1"
@@ -38,11 +32,16 @@ export default function WorkShopCardV2({
         <div className="sm-flex-row-col-425  align-center-425 gap1 ">
           <span className="text-reg-fw500 opacity-80">
             <PlaceSVG />
-            AMMAN, JORDAN
+            {place.name}
           </span>
-          <span className="text-reg-fw500 opacity-80">
-            <ClockSVG /> 8:00 am - 5:00 pm
-          </span>
+          {metadata.map(
+            (item: any) =>
+              item.slug == 'time' && (
+                <span className="text-reg-fw500 opacity-80">
+                  <ClockSVG /> {item.value}
+                </span>
+              ),
+          )}
         </div>
         <p className="text-med-fw700 max-subtile-80 ">{title}</p>
       </CardContent>
