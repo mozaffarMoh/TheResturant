@@ -81,10 +81,14 @@ const MultiFilesField = ({
             ];
           }
         });
+
+        // Trigger validation
+        field.onChange(updatedArray);
+
+        // Reset file input to allow re-upload of the same file
+        event.target.value = '';
       }
     }
-
-    event.target.files && event.target.files.length == 0;
   };
 
   const handleDelete = (indexToDelete: number) => {
@@ -102,6 +106,8 @@ const MultiFilesField = ({
       updatedArray[index].value = filteredArray;
       return updatedArray;
     });
+
+    field.onChange(filteredArray);
   };
 
   return (

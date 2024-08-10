@@ -43,7 +43,7 @@ const UserDetailsPage: NextPage = () => {
   const [userID, setUserID]: any = useState('');
   const [OTPValue, setOTPValue]: any = useState('');
   const { handleSubmit, control } = useForm({
-    resolver: zodResolver(typeSchema(typeDetails.inputs)),
+    resolver: zodResolver(typeSchema(typeDetails.inputs, t)),
   });
   const bodyWithoutOTP = {
     email: emailCookie,
@@ -160,6 +160,12 @@ const UserDetailsPage: NextPage = () => {
   const onSubmit = () => {
     handlePostForOTP();
   };
+
+  useEffect(() => {
+    console.log(fullFormData);
+  }, [fullFormData]);
+
+
 
   return formData ? (
     <div className={styles.signInContainer}>

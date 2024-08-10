@@ -46,7 +46,7 @@ function SelectTextField({
               // Update the onChange handler
               field.onChange(e);
               if (onChange) {
-                onChange(e.target.value); // Call the passed onChange function
+                onChange([e.target.value]); // Call the passed onChange function
               }
             }}
             variant="outlined"

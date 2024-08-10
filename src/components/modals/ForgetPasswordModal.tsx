@@ -28,8 +28,10 @@ export const emailSchema = (t: any) => {
   return z.object({
     email: z
       .string()
-      .min(1, { message: t('validation.email') })
-      .email({ message: t('validation.invalid-email') }),
+      .email({ message: t('validation.invalid-email') })
+      .regex(/^[^\d]/, { message: t('validation.email-start-with-char') })
+      .regex(/^.{3,}@/, { message: t('validation.invalid-email') })
+      .min(1, { message: t('validation.email') }),
   });
 };
 

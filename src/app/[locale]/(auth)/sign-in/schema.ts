@@ -5,9 +5,11 @@ export const signinSchema = (t: any) => {
   return z.object({
     email: z
       .string()
-      .min(1, { message: t('validation.email') })
-      .email({ message: t('validation.invalid-email') }),
-    password: z
+      .email({ message: t('validation.invalid-email') })
+      .regex(/^[^\d]/, { message: t('validation.email-start-with-char') })
+      .regex(/^.{3,}@/, { message: t('validation.invalid-email') })
+      .min(1, { message: t('validation.email') }),
+    password: z 
       .string()
       .regex(/[A-Z]/, { message: t('validation.one-uppercase') })
       .regex(/[a-z]/, { message: t('validation.one-lowercase') })
