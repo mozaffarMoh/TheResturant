@@ -1,12 +1,7 @@
 'use client';
 import type { NextPage } from 'next';
 import LoadingButton from '@mui/lab/LoadingButton';
-import {
-  Button,
-  Grid,
-  Paper,
-  Stack,
-} from '@mui/material';
+import { Button, Grid, Paper, Stack } from '@mui/material';
 import Link from 'next/link';
 import { loginBgImage } from '@/constant/images';
 import styles from '../../sign-in/page.module.css';
@@ -162,10 +157,8 @@ const UserDetailsPage: NextPage = () => {
     handlePostForOTP();
   };
 
-
   return formData ? (
     <div className={styles.signInContainer}>
-
       {/* Success Modal when user Success register */}
       <SuccessRegisterModal
         open={successForOTP}

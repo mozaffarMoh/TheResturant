@@ -12,6 +12,7 @@ import { LoadingButton } from '@mui/lab';
 import OTPInput from 'react-otp-input';
 import { CustomInput } from '../inputs/CustomInput';
 import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -47,6 +48,7 @@ const SuccessRegisterModal = ({
   const handleConfirm = () => {
     userID ? handlePostForFinishSubmit() : handlePostForSubmit();
   };
+
   return (
     <BootstrapDialog
       aria-labelledby="customized-dialog-title"
@@ -76,7 +78,18 @@ const SuccessRegisterModal = ({
           <OTPInput
             renderInput={(props) => <CustomInput {...props} />}
             value={OTPValue}
-            onChange={setOTPValue}
+            onChange={(value) => {
+              setOTPValue(value);
+              if (value.length < 5) {
+                const allInputs: any = document.querySelectorAll('input');
+                const otpInputs = [...allInputs].slice(-5);
+
+                if (otpInputs[value.length]) {
+                  otpInputs[value.length].focus();
+                }
+              }
+            }}
+            shouldAutoFocus={true}
             numInputs={5}
             renderSeparator={<p style={{ width: '8px' }}></p>}
             inputStyle={{

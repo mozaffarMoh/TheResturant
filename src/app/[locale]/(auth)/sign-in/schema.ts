@@ -8,8 +8,9 @@ export const signinSchema = (t: any) => {
       .email({ message: t('validation.invalid-email') })
       .regex(/^[^\d]/, { message: t('validation.email-start-with-char') })
       .regex(/^.{3,}@/, { message: t('validation.invalid-email') })
+      .regex(/^\S+$/, { message: t('validation.no-spaces-in-email') })
       .min(1, { message: t('validation.email') }),
-    password: z 
+    password: z
       .string()
       .regex(/[A-Z]/, { message: t('validation.one-uppercase') })
       .regex(/[a-z]/, { message: t('validation.one-lowercase') })

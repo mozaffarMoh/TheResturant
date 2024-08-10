@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation';
 import styles from './header.module.css';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Link from 'next/link';
-import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 
 interface IProps {
   title: string;
@@ -22,15 +22,29 @@ const NestedMenuList = ({
   handleClose,
   links,
 }: IProps) => {
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const pathname = usePathname();
-  const isActive = (path: string) => pathname === path;
+  const [isActive, setIsActive] = useState(false);
+  const checkActive = () => links.some((link: any) => link.path === pathname);
+
+  const isListActive = (path: string) => {
+    if (path == pathname) {
+      return true;
+    }
+  };
+
+  useEffect(() => {
+    if (checkActive()) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [pathname]);
 
   return (
     <>
       <Button
         onClick={handleClick}
-        className={styles.menuListItem}
+        className={`${styles.menuListItem} ${isActive && styles.active}`}
         sx={{
           all: 'inherit',
         }}
@@ -49,13 +63,16 @@ const NestedMenuList = ({
         {links?.map((item, i: number) => (
           <Link
             key={i}
-            href={`/${langCookie}/${item.path}`}
-            style={{ textDecoration: 'none', color: 'inherit' }}
+            href={item.path}
+            style={{
+              textDecoration: 'none',
+              color: isListActive(item.path) ? 'red' : 'inherit',
+            }}
           >
             <MenuItem
               key={item.id}
               onClick={handleClose}
-              href={`/${langCookie}/${item.path}`}
+              href={item.path}
             >
               {item.value}
             </MenuItem>

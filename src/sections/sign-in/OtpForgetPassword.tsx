@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import OtpInput from 'react-otp-input';
 import { LoadingButton } from '@mui/lab';
@@ -13,6 +14,7 @@ import { useTranslations } from 'next-intl';
 const OtpForgetPassword = ({ handleNextStep }: any) => {
   const t = useTranslations();
   const emailCookie = Cookies.get('verify-email') || '';
+  const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [seconds, setSeconds] = useState(20);
   const [errorMessageOTP, setErrorMessageOTP] = useState('');
@@ -49,6 +51,10 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
       Cookies.set('verify-token', data?.token);
     }
   }, [success]);
+
+  useEffect(() => {
+    setEmail(emailCookie);
+  }, []);
 
   useEffect(() => {
     setShowSuccess(true);
@@ -91,13 +97,21 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
           variant="body2"
           fontWeight={600}
         >
-          {t('verify-password.enter-code-subtitle')} {emailCookie}
+          {t('verify-password.enter-code-subtitle')} {email}
         </Typography>
       </Stack>
       <OtpInput
         renderInput={(props) => <CustomInput {...props} />}
         value={otp}
-        onChange={setOtp}
+        onChange={(value) => {
+          setOtp(value);
+          if (value.length < 5) {
+            // Move focus to the next input
+            document.querySelectorAll('input')[value.length].focus();
+          }
+          
+        }}
+        shouldAutoFocus={true}
         numInputs={5}
         renderSeparator={<p style={{ width: '8px' }}></p>}
         inputStyle={{
@@ -110,6 +124,7 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
           border: '1px solid grey',
         }}
       />
+
       <Stack
         direction={'row'}
         justifyContent={'center'}
@@ -154,7 +169,7 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
         }
         fullWidth
       >
-        Verify
+        {t('buttons.verify')}
       </LoadingButton>
     </Box>
   );

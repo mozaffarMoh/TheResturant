@@ -46,6 +46,7 @@
         "email": "البريد الإلكتروني مطلوب *",
         "invalid-email": "عنوان البريد الإلكتروني غير صالح",
         "email-start-with-char": "يجب أن لا يبدأ البريد الإلكتروني برقم",
+        "no-spaces-in-email": "لايجب أن لا يحتوي الايميل على مسافات",
         "password": "كلمة المرور مطلوبة *",
         "confirm-password": "تأكيد كلمة المرور مطلوب *",
         "password-not-match": "كلمات المرور غير متطابقة *",
@@ -165,7 +166,8 @@
         "load-more": "تحميل المزيد",
         "confirm": "تأكيد",
         "submit": "إرسال",
-        "reset-password": "تغيير كلمة السر"
+        "reset-password": "تغيير كلمة السر",
+        "verify": "تحقق"
     },
     "select": {
         "category": "الفئة",

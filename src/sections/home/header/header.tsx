@@ -72,12 +72,12 @@ const Header = () => {
   const industryLinks = [
     {
       id: 0,
-      path: `/home/industry/news`,
+      path: `/${langCookie}/home/industry/news`,
       value: t('header.news'),
     },
     {
       id: 1,
-      path: `/home/industry/announcements`,
+      path: `/${langCookie}/home/industry/announcements`,
       value: t('header.announcements'),
     },
   ];
@@ -192,22 +192,22 @@ const Header = () => {
                   <MenuList className={styles.menuListStyle}>
                     <NormalMenuList
                       indexKey={0}
-                      href={`/home`}
+                      href={`/${langCookie}/home`}
                       title={t('header.home')}
                     />
                     <NormalMenuList
                       indexKey={1}
-                      href={`/home/events-workshops`}
+                      href={`/${langCookie}/home/events-workshops`}
                       title={t('header.events-workshops')}
                     />
                     <NormalMenuList
                       indexKey={2}
-                      href={`/home/book-facility`}
+                      href={`/${langCookie}/home/book-facility`}
                       title={t('header.book-facility')}
                     />
                     <NormalMenuList
                       indexKey={3}
-                      href={`/home/mentors`}
+                      href={`/${langCookie}/home/mentors`}
                       title={t('header.mentors')}
                     />
 
@@ -222,7 +222,7 @@ const Header = () => {
 
                     <NormalMenuList
                       indexKey={5}
-                      href={`/contact-us`}
+                      href={`/${langCookie}/contact-us`}
                       title={t('header.contact-us')}
                     />
                   </MenuList>

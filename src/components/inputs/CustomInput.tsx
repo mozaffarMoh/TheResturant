@@ -1,7 +1,9 @@
 import { Input } from '@mui/material';
 import { InputProps } from 'react-otp-input';
 
-export const CustomInput: React.FC<InputProps> = (props: any) => {
+export const CustomInput: React.FC<InputProps> = (
+  props: any,
+) => {
   return (
     <Input
       {...props}

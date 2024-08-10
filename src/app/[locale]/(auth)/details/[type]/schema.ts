@@ -31,6 +31,7 @@ export const typeSchema = (inputs: any, t: any) => {
           .email({ message: t('validation.invalid-email') })
           .regex(/^[^\d]/, { message: t('validation.email-start-with-char') })
           .regex(/^.{3,}@/, { message: t('validation.invalid-email') })
+          .regex(/^\S+$/, { message: t('validation.no-spaces-in-email') })
           .min(1, { message: t('validation.email') });
         break;
 

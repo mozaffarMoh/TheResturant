@@ -46,6 +46,7 @@
         "email": "Email is required * ",
         "invalid-email": "Invalid email address",
         "email-start-with-char": "Email should not start with number",
+        "no-spaces-in-email": "Email should not cotains spaces",
         "password": "Password is required * ",
         "confirm-password": "Confirm Password is required * ",
         "password-not-match": "Password do not match * ",
@@ -157,7 +158,8 @@
         "load-more": "LOAD MORE",
         "confirm": "Confirm",
         "submit": "Submit",
-        "reset-password": "Reset Password"
+        "reset-password": "Reset Password",
+        "verify": "Verify"
     },
     "dialog": {
         "how-to-apply": "How to Apply",

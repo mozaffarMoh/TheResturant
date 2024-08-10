@@ -191,7 +191,7 @@ const EventDetailsModal = ({
                   fontWeight={600}
                   color={primaryColor}
                 >
-                  Location
+                 {t('dialog.location')}
                 </Typography>
               </Stack>
               <Typography color={gray100}>

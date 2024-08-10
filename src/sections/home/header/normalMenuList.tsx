@@ -3,6 +3,7 @@ import { usePathname } from 'next/navigation';
 import styles from './header.module.css';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 
 interface IProps {
   indexKey: number;
@@ -11,16 +12,29 @@ interface IProps {
 }
 
 const NormalMenuList = ({ indexKey, href, title }: IProps) => {
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const pathname = usePathname();
-  const isActive = (path: string) => pathname === path;
+
+  const [isActive, setIsActive] = useState(false);
+
+  const checkActive = () => {
+    return pathname === href;
+  };
+
+  useEffect(() => {
+    if (checkActive()) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [pathname]);
+
   return (
     <MenuItem
       key={indexKey}
-      className={`${styles.menuListItem} ${isActive(href) && styles.active}`}
+      className={`${styles.menuListItem} ${isActive && styles.active}`}
     >
       <Link
-        href={`/${langCookie}/${href}`}
+        href={href}
         style={{ all: 'inherit', border: 'none' }}
       >
         <ListItemText>{title}</ListItemText>
