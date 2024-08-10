@@ -2,14 +2,10 @@
 import type { NextPage } from 'next';
 import LoadingButton from '@mui/lab/LoadingButton';
 import {
-  Box,
   Button,
   Grid,
-  MenuItem,
   Paper,
-  Select,
   Stack,
-  TextField,
 } from '@mui/material';
 import Link from 'next/link';
 import { loginBgImage } from '@/constant/images';
@@ -39,6 +35,7 @@ const UserDetailsPage: NextPage = () => {
   const userType = Cookies.get('userType');
   const [typeDetails, setTypeDetails]: any = useState({ inputs: [] });
   const [fullFormData, setFullFormData]: any = useState([]);
+  const [email, setEmail]: any = useState('');
   const [fullFormID, setFullFormID]: any = useState(0);
   const [userID, setUserID]: any = useState('');
   const [OTPValue, setOTPValue]: any = useState('');
@@ -46,13 +43,13 @@ const UserDetailsPage: NextPage = () => {
     resolver: zodResolver(typeSchema(typeDetails.inputs, t)),
   });
   const bodyWithoutOTP = {
-    email: emailCookie,
+    email: email,
     password: passwordCookie,
     password_confirmation: passwordCookie,
     place_slug: 'jordan',
   };
   const bodyWithOTP = {
-    email: emailCookie,
+    email: email,
     password: passwordCookie,
     password_confirmation: passwordCookie,
     place_slug: 'jordan',
@@ -96,6 +93,7 @@ const UserDetailsPage: NextPage = () => {
     if (!formData) {
       router.push(`/${langCookie}/sign-up`);
     } else {
+      setEmail(emailCookie);
       let formDataParsed: any = JSON.parse(formData);
       let typeIndex: number = 0;
       formDataParsed.children.forEach((item: any, index: number) => {
@@ -139,7 +137,10 @@ const UserDetailsPage: NextPage = () => {
   }, [successForFinishSubmit]);
 
   /* Handle changing fields values */
-  const handleChangeValue = (value: any, formId: number) => {
+  const handleChangeValue = (value: any, formId: number, slug: string) => {
+    if (slug == 'email-1') {
+      setEmail(value);
+    }
     setFullFormData((prevArray: any) => {
       const index = prevArray.findIndex(
         (item: any) => item.form_field_id === formId,
@@ -161,14 +162,10 @@ const UserDetailsPage: NextPage = () => {
     handlePostForOTP();
   };
 
-  useEffect(() => {
-    console.log(fullFormData);
-  }, [fullFormData]);
-
-
 
   return formData ? (
     <div className={styles.signInContainer}>
+
       {/* Success Modal when user Success register */}
       <SuccessRegisterModal
         open={successForOTP}
@@ -258,7 +255,7 @@ const UserDetailsPage: NextPage = () => {
                           required={false}
                           fieldData={item.input_options}
                           onChange={(e: any) =>
-                            handleChangeValue(e, item.form_field_id)
+                            handleChangeValue(e, item.form_field_id, item.slug)
                           }
                           setFormData={setFullFormData}
                           formId={item.form_field_id}

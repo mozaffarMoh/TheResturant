@@ -3,7 +3,7 @@ import { Container, Grid } from '@mui/material';
 import BookFacilityCard from '@/components/cards/book-facility/BookFacilityCard';
 
 const FacilityListingSection = ({ facilityItems }: any) => {
-  console.log(facilityItems);
+
   return (
     <Container
       maxWidth="lg"

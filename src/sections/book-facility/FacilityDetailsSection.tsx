@@ -36,7 +36,6 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
     toTime: string,
     attendees: string,
   ) => {
-    console.log({ date, fromTime, toTime, attendees });
 
     setLoadingSubmit(true);
     setMessage('');

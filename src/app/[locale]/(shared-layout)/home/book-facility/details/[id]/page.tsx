@@ -21,7 +21,6 @@ const FacilityDetailsPage = () => {
   useEffect(() => {
     getData();
   }, []);
-  console.log(data);
 
   return (
     <>
