@@ -79,7 +79,6 @@ const SingUp: NextPage = () => {
     setShowModal((prv) => !prv);
   };
 
-
   /* if success getting date navigate to who-are-you page nad store formData in cookies */
   useEffect(() => {
     if (success) {

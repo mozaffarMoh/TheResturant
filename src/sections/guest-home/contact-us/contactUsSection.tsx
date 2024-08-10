@@ -1,13 +1,9 @@
 import { Container, Grid, useMediaQuery } from '@mui/material';
 import styles from './contact-us.module.css';
 import {
-  AlarmClockSVG,
-  EditSVG,
   FaceBookMedSVG,
   InstagramMedSVG,
   LinkedInMedSVG,
-  LocationSVG,
-  PhoneSVG,
   ShareSVG,
   SkypeMedSVG,
   TwitterMedSVG,
@@ -15,36 +11,18 @@ import {
 import ContactUsSectionCard from '@/components/cards/contact-us-section/contactUsSectionCard';
 import ContactUsForm from './contact-us-form/contactUsForm';
 import { useTranslations } from 'next-intl';
+import useGet from '@/custom-hooks/useGet';
+import { endPoints } from '@/base-api/endPoints';
+import { useEffect } from 'react';
 
 const ContactUsSection = () => {
   const isScreen700 = useMediaQuery('(max-width:700px)');
   const t = useTranslations();
-  const cards = [
-    {
-      id: 0,
-      title: t('contact-us.find-us'),
-      content: '2301 AMMAN . JORDAN,WI 53711',
-      icon: <LocationSVG />,
-    },
-    {
-      id: 1,
-      title: t('contact-us.phone'),
-      content: '+ (06) 905-2321 + (06) 905-2322',
-      icon: <PhoneSVG />,
-    },
-    {
-      id: 2,
-      title: t('contact-us.working-hours'),
-      content: 'Mon-Fri: 8 AM - 5 PM Sat-Sun: 8 AM - 2 PM',
-      icon: <AlarmClockSVG />,
-    },
-    {
-      id: 3,
-      title: t('contact-us.write-to-us'),
-      content: 'info@Tech Hub.com courses@Tech Hub.com',
-      icon: <EditSVG />,
-    },
-  ];
+  const [data, , getData] = useGet(endPoints.contactUsDetials);
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <Container
@@ -83,20 +61,22 @@ const ContactUsSection = () => {
                 spacing={2}
                 rowSpacing={2}
               >
-                {cards.map((item) => (
-                  <Grid
-                    key={item.id}
-                    item
-                    xs={12}
-                    md={5.5}
-                  >
-                    <ContactUsSectionCard
-                      title={item.title}
-                      content={item.content}
-                      icon={item.icon}
-                    />
-                  </Grid>
-                ))}
+                {data &&
+                  data?.children &&
+                  data.children.map((item: any) => (
+                    <Grid
+                      key={item.id}
+                      item
+                      xs={12}
+                      md={5.5}
+                    >
+                      <ContactUsSectionCard
+                        title={item.value}
+                        content={item.children}
+                        media={item.media}
+                      />
+                    </Grid>
+                  ))}
 
                 <Grid
                   container

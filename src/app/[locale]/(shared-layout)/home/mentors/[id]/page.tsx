@@ -113,7 +113,8 @@ const MentorDetails: NextPage = () => {
           </Stack>
           <Button
             variant="contained"
-            color="secondary"
+            color="inherit"
+            className="general-button-primary mt-1"
             sx={{
               width: '200px',
               height: '50px',

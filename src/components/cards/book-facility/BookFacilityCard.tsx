@@ -10,6 +10,7 @@ import Cookies from 'js-cookie';
 import { domain } from '@/base-api/endPoints';
 import { metadataIcons } from '@/constant/metadataIcons';
 import { PlaceSVG } from '../../../../assets/icons';
+import { greyBackground } from '@/constant/images';
 
 export default function BookFacilityCard({
   slug,
@@ -22,7 +23,7 @@ export default function BookFacilityCard({
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const { push } = useRouter();
   let imageURL =
-    media && media.length > 0 && media[0]?.url ? domain + media[0]?.url : '';
+    media && media.length > 0 && media[0]?.url ? domain + media[0]?.url : greyBackground;
   let categoryName = categories[0]?.name ? categories[0]?.name : '';
   return (
     <Card

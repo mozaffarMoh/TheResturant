@@ -8,9 +8,11 @@ export const endPoints = {
     getEvents: "/ecomm/getItemsByType/event",
     getWorkshop: "/ecomm/getItemsByType/workshop",
     showSingleItem: "/ecomm/item/",
-    "getFacilityList": "/core/getCategoryBy/facility",
-    "getCitiesList": "/core/place/",
-    "getFacilityItems": "/core/filter/"
+    getFacilityList: "/core/getCategoryBy/facility",
+    getCitiesList: "/core/place/",
+    getFacilityItems: "/core/filter/",
+    contactUsForm: '/form/tpf-contact-form',
+    contactUsDetials: '/core/dynamicLookup/tpf-contact-details',
 }
 
 

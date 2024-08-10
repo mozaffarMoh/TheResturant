@@ -31,6 +31,7 @@ function SelectTextField({
       name={name}
       control={control}
       render={({ field, fieldState }) => {
+
         return (
           <MuiTextField
             {...field}
@@ -58,7 +59,7 @@ function SelectTextField({
               },
             }}
           >
-            {fieldData?.map((option:any) => (
+            {fieldData?.map((option: any) => (
               <MenuItem
                 key={option.value}
                 value={option.id}

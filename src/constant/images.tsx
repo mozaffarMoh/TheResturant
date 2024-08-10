@@ -25,6 +25,7 @@ export const aboutUsSectionImage = '/about-us-section.png';
 export const servicesSectionImage = '/services-bg.png';
 
 export const successCheckMark = '/green-check.png';
+export const greyBackground = '/greyBackground.jpg';
 
 export const heroCard1 = '/hero-card1.png';
 export const heroCard2 = '/hero-card2.png';

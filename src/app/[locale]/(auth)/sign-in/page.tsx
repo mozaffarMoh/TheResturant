@@ -225,6 +225,8 @@ const SignIn: NextPage = () => {
                 <div>
                   <LoadingButton
                     variant="contained"
+                    color="inherit"
+                    className="general-button-primary mt-1"
                     loading={loading}
                     sx={{
                       width: '100%',

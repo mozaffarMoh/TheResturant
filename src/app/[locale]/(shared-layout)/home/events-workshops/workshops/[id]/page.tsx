@@ -8,6 +8,7 @@ import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { domain, endPoints } from '@/base-api/endPoints';
 import Loading from '@/components/Loading/Loading';
+import { greyBackground } from '@/constant/images';
 
 const HomePage: NextPage = () => {
   const params = useParams();
@@ -18,7 +19,7 @@ const HomePage: NextPage = () => {
   let imageURL =
     data?.media && data.media.length > 0 && data?.media[0]?.url
       ? domain + data?.media[0]?.url
-      : '';
+      : greyBackground;
 
   useEffect(() => {
     getData();

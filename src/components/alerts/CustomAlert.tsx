@@ -1,4 +1,5 @@
-import { Alert, Snackbar, SnackbarOrigin } from '@mui/material';
+import { Alert, Snackbar, SnackbarOrigin, Typography } from '@mui/material';
+import Cookies from 'js-cookie';
 
 interface IProps {
   openAlert: boolean;
@@ -14,6 +15,9 @@ const CustomAlert = ({
   type = 'error',
   position = { vertical: 'top', horizontal: 'right' },
 }: IProps) => {
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const reverseDirection = langCookie == 'en' ? 'rtl' : 'ltr';
+
   return (
     <Snackbar
       anchorOrigin={position}
@@ -32,6 +36,8 @@ const CustomAlert = ({
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          gap: '10px',
+          direction: reverseDirection,
         }}
       >
         {message}

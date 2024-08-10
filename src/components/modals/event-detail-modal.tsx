@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
-import { eventBgImage } from '@/constant/images';
+import { eventBgImage, greyBackground } from '@/constant/images';
 import {
   Box,
   Button,
@@ -18,7 +18,7 @@ import {
   Stack,
   useMediaQuery,
 } from '@mui/material';
-import { gray100, gray200, primaryColor, secondaryColor } from '@/constant/color';
+import { gray100, primaryColor } from '@/constant/color';
 import { PlaceSVG } from '../../../assets/icons';
 import { useTranslations } from 'next-intl';
 import { domain, endPoints } from '@/base-api/endPoints';
@@ -59,7 +59,7 @@ const EventDetailsModal = ({
   let imageURL =
     data?.media && data.media.length > 0 && data?.media[0]?.url
       ? domain + data?.media[0]?.url
-      : '';
+      : greyBackground;
 
   useEffect(() => {
     slug && getData();
@@ -96,21 +96,12 @@ const EventDetailsModal = ({
           height={250}
           marginBottom={3}
         >
-          {imageURL ? (
-            <Image
-              src={imageURL}
-              fill
-              style={{ borderRadius: '20px' }}
-              alt="event details page"
-            />
-          ) : (
-            <Box
-              width={'100%'}
-              height={250}
-              bgcolor={"#686f7d"}
-              borderRadius={5}
-            ></Box>
-          )}
+          <Image
+            src={imageURL}
+            fill
+            style={{ borderRadius: '20px' }}
+            alt="event details page"
+          />
         </Box>
         {loading ? (
           <Stack

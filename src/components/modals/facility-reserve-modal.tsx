@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -8,6 +8,7 @@ import {
   TextField,
   MenuItem,
   Typography,
+  Select,
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {
@@ -17,6 +18,7 @@ import {
 } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import './facility-reserve-modal.css';
+import { useTranslations } from 'next-intl';
 
 interface ReservationModalProps {
   open: boolean;
@@ -41,16 +43,19 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   onClose,
   onBook,
   facility,
-  resetForm
+  resetForm,
 }) => {
+  const t = useTranslations();
   const [date, setDate] = useState<Dayjs | null>(null);
   const [fromTime, setFromTime] = useState('');
   const [toTime, setToTime] = useState('');
-  const [attendees, setAttendees] = useState('');
+  const [minAttendees, setMinAttendees] = useState(0);
+  const [maxAttendees, setMaxAttendees] = useState(0);
+  const [attendees, setAttendees] = useState(0);
   const maxDate = getMaxDate();
 
   const handleReserve = () => {
-    onBook(dayjs(date).format('YYYY-MM-DD'), fromTime, toTime, attendees);
+    onBook(dayjs(date).format('YYYY-MM-DD'), fromTime, toTime, '');
   };
 
   const handleDateChange = (newDate: Dayjs | null) => {
@@ -63,9 +68,25 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       setDate(null);
       setFromTime('');
       setToTime('');
-      setAttendees('');
     }
   }, [resetForm]);
+
+  useEffect(() => {
+    if (facility && facility?.metadata) {
+      facility.metadata.forEach((item: any) => {
+        if (item.slug == 'minimum-number-of-people') {
+          setMinAttendees(Number(item.value));
+        }
+        if (item.slug == 'maximum-number-of-people') {
+          setMaxAttendees(Number(item.value));
+        }
+      });
+    }
+  }, [facility]);
+
+  useEffect(() => {
+    setAttendees(minAttendees);
+  }, [minAttendees]);
 
   return (
     <Dialog
@@ -129,24 +150,24 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
               fullWidth
             />
           </Box>
-          <TextField
-            select
+
+          <Select
             label="Number Of Attendees"
             value={attendees}
-            onChange={(e) => setAttendees(e.target.value)}
+            onChange={(e) => setAttendees(Number(e.target.value))}
             fullWidth
           >
-            {(facility.max_people - facility.min_people + 1) > 0 && [...Array(facility.max_people - facility.min_people + 1)].map(
-              (_, index) => (
+            {maxAttendees > 0 &&
+              minAttendees >= 0 &&
+              [...Array(maxAttendees - minAttendees + 1)].map((_, index) => (
                 <MenuItem
                   key={index}
-                  value={facility.min_people + index}
+                  value={minAttendees + index}
                 >
-                  {facility.min_people + index}
+                  {minAttendees + index}
                 </MenuItem>
-              ),
-            )}
-          </TextField>
+              ))}
+          </Select>
           <Button
             variant="contained"
             color={'primary'}
@@ -154,7 +175,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
             sx={{ width: '100%' }}
             className="reserve"
           >
-            Reserve
+            {t('buttons.reserve')}
           </Button>
         </Box>
       </DialogContent>

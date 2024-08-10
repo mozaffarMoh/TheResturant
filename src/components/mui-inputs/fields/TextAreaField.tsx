@@ -1,16 +1,13 @@
 import { Controller } from 'react-hook-form';
 import { TextField as MuiTextField } from '@mui/material';
-import Cookies from 'js-cookie';
 
-interface TextFieldProps {
+interface TextAreaFieldProps {
   name: string;
   label: string;
   control: any;
   className?: string;
   value: any;
   onChange?: any;
-  setFormData: any;
-  formId: any;
   key: string;
 }
 
@@ -22,15 +19,12 @@ function TextField({
   onChange,
   value,
   key,
-}: TextFieldProps) {
-  const emailCookie = Cookies.get('email') || '';
-
+}: TextAreaFieldProps) {
   return (
     <Controller
       key={key}
       name={name}
       control={control}
-      defaultValue={name === 'email-1' ? emailCookie : ''}
       render={({ field, fieldState }) => (
         <MuiTextField
           fullWidth
@@ -47,11 +41,12 @@ function TextField({
           error={!!fieldState.error}
           helperText={fieldState.error ? fieldState.error.message : ''}
           variant="outlined"
-          rows={name == 'Text Area' ? 6 : 1}
+          rows={6}
+          multiline
           className={className}
           sx={{
             '& .MuiInputBase-root': {
-              borderRadius: '50px',
+              borderRadius: '12px',
               paddingLeft: '0.8rem',
             },
           }}

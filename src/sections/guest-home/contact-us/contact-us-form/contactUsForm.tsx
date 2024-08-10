@@ -1,138 +1,133 @@
 import { buttonPrimaryColor } from '@/constant/color';
-import { Button, Grid, TextField } from '@mui/material';
+import { Button, Grid, TextField, useMediaQuery } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import styles from '../contact-us.module.css';
 import { useTranslations } from 'next-intl';
-import FormField from '@/components/mui-inputs/FormField';
+import { useEffect, useState } from 'react';
+import useGet from '@/custom-hooks/useGet';
+import { endPoints } from '@/base-api/endPoints';
+import FormContactUSField from '@/components/mui-inputs/FormContactUSField';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { contactUsSchema } from './schema';
 
 const ContactUsForm = () => {
   const t = useTranslations();
-  const typeInputField: any = {
-    id: 0,
-    type: 1,
-    name: 'type',
-    label: t('contact-us.type'),
-    required: true,
-    defaultValue: '',
-    fieldData: [
-      { name: t('contact-us.complain'), value: 'complain' },
-      { name: t('contact-us.reach-out'), value: 'reach_out' },
-    ],
+  const isScreen900 = useMediaQuery('(max-width:900px)');
+  const [fullFormData, setFullFormData]: any = useState([]);
+  const [fullFormID, setFullFormID]: any = useState(0);
+  const [userID, setUserID]: any = useState('');
+  const [data, , getData] = useGet(endPoints.contactUsForm);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const { handleSubmit, control } = useForm({
+    resolver: zodResolver(contactUsSchema(data, t)),
+  });
+
+  useEffect(() => {
+    if (data) {
+      setFullFormID(data.id);
+    }
+  }, [data]);
+
+  /* Handle changing fields values */
+  const handleChangeValue = (value: any, formId: number) => {
+    setFullFormData((prevArray: any) => {
+      const index = prevArray.findIndex(
+        (item: any) => item.form_field_id === formId,
+      );
+
+      if (index !== -1) {
+        // Update existing element
+        const updatedArray = [...prevArray];
+        updatedArray[index].value = value;
+        return updatedArray;
+      } else {
+        // Add new element
+        return [...prevArray, { form_field_id: formId, value: value }];
+      }
+    });
   };
-  const emailInputField = {
-    id: '1',
-    type: 0,
-    name: 'email',
-    label: t('contact-us.email'),
-    required: true,
+
+  /*   useEffect(() => {
+    console.log(fullFormData);
+  }, [fullFormData]); */
+
+  const onSubmit = () => {
+    console.log('submit is success');
   };
-  const nameInputField = {
-    id: '3',
-    type: 0,
-    name: 'name',
-    label: t('contact-us.name'),
-    required: true,
-  };
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-    clearErrors,
-    setError,
-    reset,
-    control,
-    watch,
-    setValue,
-  } = useForm();
 
   return (
-    <div className="w-full ">
-      <Grid container>
+    <form
+      className="w-full "
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      {data && data?.children && (
         <Grid
-          item
-          xs={12}
+          container
+          direction={'column'}
         >
-          <FormField
-            key={typeInputField.id}
-            name={typeInputField.name}
-            label={typeInputField.label}
-            control={control}
-            type={'Select'}
-            required={false}
-            fieldData={typeInputField.fieldData}
-            className={styles.inputsFieldStyle}
-          />
-        </Grid>
-
-        <Grid
-          item
-          xs={12}
-          md={6}
-        >
-          <FormField
-            key={nameInputField.id}
-            name={nameInputField.name}
-            label={nameInputField.label}
-            control={control}
-            type={'Text'}
-            required={false}
-            className={styles.inputsFieldStyle}
-          />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={5.5}
-        >
-          <FormField
-            key={emailInputField.id}
-            name={emailInputField.name}
-            label={emailInputField.label}
-            control={control}
-            type={'Text'}
-            required={false}
-            className={styles.inputsFieldStyle}
-          />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={12}
-        >
-          <TextField
-            id="outlined-multiline-static"
-            label={t('contact-us.message')}
-            multiline
-            rows={6}
-            className={styles.inputsFieldStyle}
-            sx={{
-              '& .MuiInputBase-root': {
-                borderRadius: '12px',
-                paddingLeft: '0.8rem',
-              },
-            }}
-          />
-        </Grid>
-        <Grid
-          item
-          xs={5}
-        >
-          <Button
-            variant="contained"
-            sx={{
-              width: '100%',
-              borderRadius: '50px',
-              backgroundColor: buttonPrimaryColor,
-              marginBottom: '4rem',
-              marginTop: '3rem',
-              height: '3rem',
-            }}
+          <Grid
+            item
+            container
+            direction={isScreen900 ? 'column' : 'row'}
           >
-            {t('contact-us.send')}
-          </Button>
+            {data?.children[0]?.inputs &&
+              data?.children[0]?.inputs.map((item: any, i: number) => {
+                return (
+                  <Grid
+                    key={item.id}
+                    item
+                    xs={6}
+                    md={i == 1 || i == 2 ? 5.7 : 12}
+                  >
+                    <FormContactUSField
+                      key={item.id}
+                      name={item.slug}
+                      label={item.name}
+                      control={control}
+                      value={
+                        fullFormData.find(
+                          (field: any) =>
+                            field.form_field_id === item.form_field_id,
+                        )?.value
+                      }
+                      onChange={(e: any) =>
+                        handleChangeValue(e, item.form_field_id)
+                      }
+                      type={item.input_type.slug}
+                      fieldData={item.input_options}
+                      className={styles.inputsFieldStyle}
+                    />
+                  </Grid>
+                );
+              })}
+          </Grid>
+
+          <Grid
+            item
+            width={'40%'}
+          >
+            <Button
+              variant="contained"
+              color="inherit"
+              type="submit"
+              className="general-button-primary mt-1"
+              sx={{
+                width: '100%',
+                borderRadius: '50px',
+                marginBottom: '4rem',
+                marginTop: '3rem',
+                height: '3rem',
+              }}
+            >
+              {t('contact-us.send')}
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
+      )}
+    </form>
   );
 };
 

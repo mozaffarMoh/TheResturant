@@ -2,7 +2,6 @@ import { endPoints } from '@/base-api/endPoints';
 import EventCard from '@/components/cards/home-section/EventCard';
 import CarouselElement from '@/components/carousel/CarouselElement';
 import EventDetailsModal from '@/components/modals/event-detail-modal';
-import { eventBgImage } from '@/constant/images';
 import useGet from '@/custom-hooks/useGet';
 import { CircularProgress, Container } from '@mui/material';
 import { useEffect, useState } from 'react';
@@ -10,29 +9,6 @@ import { useEffect, useState } from 'react';
 interface IProps {
   title: string;
 }
-const items = [
-  {
-    id: 0,
-    title: 'What is growth hacking and how to apply ',
-    description:
-      ' The room is designed to provide sufficient space for attendees, with the necessary privacy considerations.',
-    image: eventBgImage,
-  },
-  {
-    id: 1,
-    title: 'What is growth hacking and how to apply ',
-    description:
-      ' The room is designed to provide sufficient space for attendees, with the necessary privacy considerations.',
-    image: eventBgImage,
-  },
-  {
-    id: 2,
-    title: 'What is growth hacking and how to apply ',
-    description:
-      ' The room is designed to provide sufficient space for attendees, with the necessary privacy considerations.',
-    image: eventBgImage,
-  },
-];
 
 const EventsSection = ({ title }: IProps) => {
   const [showModal, setShowModal] = useState(false);

@@ -11,6 +11,7 @@ import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { domain } from '@/base-api/endPoints';
+import { greyBackground } from '@/constant/images';
 
 export default function WorkShopCard({
   title,
@@ -30,7 +31,9 @@ export default function WorkShopCard({
   const { push } = useRouter();
   const t = useTranslations();
   let imageURL =
-  media && media.length > 0 && media[0]?.url ? domain + media[0]?.url : '';
+    media && media.length > 0 && media[0]?.url
+      ? domain + media[0]?.url
+      : greyBackground;
   return (
     <Card
       variant="outlined"

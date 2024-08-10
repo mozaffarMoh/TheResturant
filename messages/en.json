@@ -57,8 +57,8 @@
         "one-number": "Password must contain at least one numeric digit ",
         "terms": "You must accept the terms and conditions",
         "required": "Required",
-        "fullNameMin": "Full Name must be at least 3 characters",
-        "fullNameNoNum": "Full Name must not start with a number",
+        "fullNameMin": "Name must be at least 3 characters",
+        "fullNameNoNum": "Name must not start with a number",
         "validPhone": "Please enter a valid phone number",
         "nationalNum": "National personal number must be exactly 10 digits",
         "personalInterests": "Personal interests must include at least one interest",
@@ -81,7 +81,8 @@
         "previousMentoringNoNum": "Previous mentoring experience must not contain numbers or special characters",
         "addressMin5": "Address must contain at least 5 characters",
         "uploadCert": "You should upload at least one professional certification",
-        "confirmMentorship": "You must confirm that you are interested in providing mentorship"
+        "confirmMentorship": "You must confirm that you are interested in providing mentorship",
+        "message": "Message must be at least 10 characters"
     },
     "guest-home": {
         "home": "Home",
@@ -159,7 +160,8 @@
         "confirm": "Confirm",
         "submit": "Submit",
         "reset-password": "Reset Password",
-        "verify": "Verify"
+        "verify": "Verify",
+        "reserve": "Reserve"
     },
     "dialog": {
         "how-to-apply": "How to Apply",
