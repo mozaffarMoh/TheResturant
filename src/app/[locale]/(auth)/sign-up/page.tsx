@@ -79,14 +79,6 @@ const SingUp: NextPage = () => {
     setShowModal((prv) => !prv);
   };
 
-  /* in first render : if email and password are exist in cookies store it in states values */
-  useEffect(() => {
-    if (emailCookies && passwordCookies) {
-      setFormData((prev: any) => {
-        return { ...prev, email: emailCookies, password: passwordCookies };
-      });
-    }
-  }, []);
 
   /* if success getting date navigate to who-are-you page nad store formData in cookies */
   useEffect(() => {

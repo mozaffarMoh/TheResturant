@@ -18,7 +18,7 @@ import {
   Stack,
   useMediaQuery,
 } from '@mui/material';
-import { gray100, primaryColor, secondaryColor } from '@/constant/color';
+import { gray100, gray200, primaryColor, secondaryColor } from '@/constant/color';
 import { PlaceSVG } from '../../../assets/icons';
 import { useTranslations } from 'next-intl';
 import { domain, endPoints } from '@/base-api/endPoints';
@@ -96,13 +96,20 @@ const EventDetailsModal = ({
           height={250}
           marginBottom={3}
         >
-          {data?.media && (
+          {imageURL ? (
             <Image
               src={imageURL}
               fill
               style={{ borderRadius: '20px' }}
               alt="event details page"
             />
+          ) : (
+            <Box
+              width={'100%'}
+              height={250}
+              bgcolor={"#686f7d"}
+              borderRadius={5}
+            ></Box>
           )}
         </Box>
         {loading ? (
@@ -191,7 +198,7 @@ const EventDetailsModal = ({
                   fontWeight={600}
                   color={primaryColor}
                 >
-                 {t('dialog.location')}
+                  {t('dialog.location')}
                 </Typography>
               </Stack>
               <Typography color={gray100}>
