@@ -184,6 +184,7 @@
         "otp-sent": "We have sent an OTP as SMS to your Email. Please enter the OTP in the box below",
         "success-create-user": "Process has been completed successfully , Welcome",
         "full-otp": "You should enter full OTP",
-        "password-update": "Password has been updated successfuly"
+        "password-update": "Password has been updated successfuly",
+        "send-message": "Message sent successfully"
     }
 }

@@ -20,68 +20,67 @@ import NestedMenuList from './nestedMenuList';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
 
-const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
-// type 0 means normal link , type 1 means menu link (dropdown link)
-const menu = [
-  {
-    id: 0,
-    type: 0,
-    title: 'HOME',
-    link: `/${langCookie}/home`,
-    name: 'Home',
-  },
-
-  {
-    id: 1,
-    type: 0,
-    title: 'EVENTS & WORKSHOPS',
-    link: `/${langCookie}/home/events-workshops`,
-    name: 'Events',
-  },
-  {
-    id: 2,
-    type: 0,
-    title: 'BOOK FACULTY',
-    link: `/${langCookie}/home/book-facility`,
-    name: 'BokFaculty',
-  },
-  {
-    id: 3,
-    type: 0,
-    title: 'MENTORS',
-    link: `/${langCookie}/home/mentors`,
-    name: 'Mentors',
-  },
-  {
-    id: 4,
-    type: 1,
-    title: 'THE INDUSTRY',
-    link: '#',
-    links: [
-      { id: 0, path: `/${langCookie}/home/industry/news`, value: 'ind1' },
-      {
-        id: 1,
-        path: `/${langCookie}/home/industry/announcements`,
-        value: 'ind2',
-      },
-    ],
-    name: 'Industry',
-  },
-  {
-    id: 5,
-    type: 0,
-    title: 'CONTACT US',
-    link: `/${langCookie}/contact-us`,
-    name: 'ContactUs',
-  },
-];
-
 const Header = () => {
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
 
+  const menu = [
+    {
+      id: 0,
+      type: 0,
+      title: 'HOME',
+      link: `/${langCookie}/home`,
+      name: 'Home',
+    },
+
+    {
+      id: 1,
+      type: 0,
+      title: 'EVENTS & WORKSHOPS',
+      link: `/${langCookie}/home/events-workshops`,
+      name: 'Events',
+    },
+    {
+      id: 2,
+      type: 0,
+      title: 'BOOK FACULTY',
+      link: `/${langCookie}/home/book-facility`,
+      name: 'BokFaculty',
+    },
+    {
+      id: 3,
+      type: 0,
+      title: 'MENTORS',
+      link: `/${langCookie}/home/mentors`,
+      name: 'Mentors',
+    },
+    {
+      id: 4,
+      type: 1,
+      title: 'THE INDUSTRY',
+      link: '#',
+      links: [
+        { id: 0, path: `/${langCookie}/home/industry/news`, value: 'ind1' },
+        {
+          id: 1,
+          path: `/${langCookie}/home/industry/announcements`,
+          value: 'ind2',
+        },
+      ],
+      name: 'Industry',
+    },
+    {
+      id: 5,
+      type: 0,
+      title: 'CONTACT US',
+      link: `/${langCookie}/contact-us`,
+      name: 'ContactUs',
+    },
+  ];
+  
   const isActive = (path: string) => pathname == path;
 
   const [open, setOpen] = useState(false);

@@ -123,14 +123,13 @@ const Footer = () => {
                 xs={12}
                 md={12}
                 lg={8}
+                xl={12}
                 // columnGap={{ xs: 0, sm: 0, md: 8, lg: 0 }}
-                justifyContent="center"
+                justifyContent="space-between"
                 alignItems="center"
               >
                 <Grid
-                  xs={12}
-                  sm={5.5}
-                  md={4}
+                  md={5}
                   lg={4}
                   display="flex"
                   justifyContent="flex-start"
@@ -168,8 +167,6 @@ const Footer = () => {
                   </Item>
                 </Grid>
                 <Grid
-                  xs={12}
-                  sm={5.5}
                   md={4}
                   lg={4}
                   display="flex"
@@ -197,9 +194,7 @@ const Footer = () => {
                   </Item>
                 </Grid>
                 <Grid
-                  xs={12}
-                  sm={5.5}
-                  md={4}
+                  md={3}
                   lg={4}
                   className={styles.lgHeight}
                   sx={{ marginTop: '-1rem' }}
@@ -224,6 +219,7 @@ const Footer = () => {
                 xs={12}
                 md={5}
                 lg={4}
+                xl={12}
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
@@ -267,7 +263,9 @@ const Footer = () => {
                     opacity: '0.7',
                   }}
                 >
-                  {isArabic ? t('lang.ar') : t('lang.en')}
+                  <p style={{ margin: isArabic ? '0px 10px' : '' }}>
+                    {isArabic ? t('lang.ar') : t('lang.en')}
+                  </p>
                 </Button>
                 <Menu
                   id="basic-menu"

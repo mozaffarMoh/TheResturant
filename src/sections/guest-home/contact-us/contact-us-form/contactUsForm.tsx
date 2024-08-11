@@ -9,21 +9,33 @@ import { endPoints } from '@/base-api/endPoints';
 import FormContactUSField from '@/components/mui-inputs/FormContactUSField';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { contactUsSchema } from './schema';
+import usePost from '@/custom-hooks/usePost';
+import CustomAlert from '@/components/alerts/CustomAlert';
+import { LoadingButton } from '@mui/lab';
 
 const ContactUsForm = () => {
   const t = useTranslations();
   const isScreen900 = useMediaQuery('(max-width:900px)');
   const [fullFormData, setFullFormData]: any = useState([]);
   const [fullFormID, setFullFormID]: any = useState(0);
-  const [userID, setUserID]: any = useState('');
   const [data, , getData] = useGet(endPoints.contactUsForm);
   useEffect(() => {
     getData();
   }, []);
 
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     resolver: zodResolver(contactUsSchema(data, t)),
   });
+
+  const bodyForFinsihSubmit = {
+    form_id: fullFormID,
+    data: fullFormData,
+  };
+
+  const [, loading, handlePostSubmit, , success, errorMessage] = usePost(
+    endPoints.formSubmit,
+    bodyForFinsihSubmit,
+  );
 
   useEffect(() => {
     if (data) {
@@ -55,14 +67,33 @@ const ContactUsForm = () => {
   }, [fullFormData]); */
 
   const onSubmit = () => {
-    console.log('submit is success');
+    handlePostSubmit();
   };
+
+  useEffect(() => {
+    if (success) {
+      setFullFormData([]);
+      reset();
+    }
+  }, [success]);
 
   return (
     <form
       className="w-full "
       onSubmit={handleSubmit(onSubmit)}
     >
+      <CustomAlert
+        openAlert={errorMessage}
+        setOpenAlert={() => {}}
+        message={errorMessage}
+      />
+
+      <CustomAlert
+        openAlert={success}
+        setOpenAlert={() => {}}
+        type="success"
+        message={t('messages.send-message')}
+      />
       {data && data?.children && (
         <Grid
           container
@@ -91,7 +122,7 @@ const ContactUsForm = () => {
                         fullFormData.find(
                           (field: any) =>
                             field.form_field_id === item.form_field_id,
-                        )?.value
+                        )?.value || ''
                       }
                       onChange={(e: any) =>
                         handleChangeValue(e, item.form_field_id)
@@ -109,7 +140,8 @@ const ContactUsForm = () => {
             item
             width={'40%'}
           >
-            <Button
+            <LoadingButton
+              loading={loading}
               variant="contained"
               color="inherit"
               type="submit"
@@ -123,7 +155,7 @@ const ContactUsForm = () => {
               }}
             >
               {t('contact-us.send')}
-            </Button>
+            </LoadingButton>
           </Grid>
         </Grid>
       )}

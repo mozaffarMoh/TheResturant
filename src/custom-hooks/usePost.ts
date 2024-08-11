@@ -27,6 +27,7 @@ const usePost = (endPoint: string, body: any, authToken?: string): any => {
                 setSuccess(true);
                 setLoading(false);
                 setData(res.data?.data);
+                setSuccessMessage(res.data?.message)
                 setTimeout(() => {
                     setSuccessMessage("")
                 }, 3000);
