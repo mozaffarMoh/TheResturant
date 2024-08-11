@@ -24,6 +24,7 @@ const NestedMenuList = ({
 }: IProps) => {
   const pathname = usePathname();
   const [isActive, setIsActive] = useState(false);
+  let isArabic = pathname.startsWith('/ar');
   const checkActive = () => links.some((link: any) => link.path === pathname);
 
   const isListActive = (path: string) => {
@@ -48,7 +49,14 @@ const NestedMenuList = ({
         sx={{
           all: 'inherit',
         }}
-        endIcon={<KeyboardArrowDownIcon />}
+        endIcon={
+          <KeyboardArrowDownIcon
+            sx={{
+              marginRight: isArabic ? '5px' : '',
+              marginLeft: !isArabic ? '5px' : '',
+            }}
+          />
+        }
       >
         {title}
       </Button>

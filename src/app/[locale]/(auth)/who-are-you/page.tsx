@@ -1,6 +1,6 @@
 'use client';
 import type { NextPage } from 'next';
-import { Box, Button, Grid, Paper } from '@mui/material';
+import { Box, Button, Grid, Paper, Stack } from '@mui/material';
 import Link from 'next/link';
 import { loginBgImage } from '@/constant/images';
 import styles from '../sign-in/page.module.css';
@@ -11,12 +11,14 @@ import { ToggleButtonGroup, Button as JoyButton } from '@mui/joy';
 import whoAreStyles from './page.module.css';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const WhoAreYouPage: NextPage = () => {
   const router = useRouter();
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const formData: any = localStorage.getItem('formData');
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const t = useTranslations();
   const [type, setType] = useState('');
 
@@ -28,7 +30,6 @@ const WhoAreYouPage: NextPage = () => {
     router.push(`/${langCookie}/details/${type}`);
     Cookies.set('userType', type);
   };
-
 
   return formData ? (
     <div className={styles.signInContainer}>
@@ -97,39 +98,48 @@ const WhoAreYouPage: NextPage = () => {
                 </ToggleButtonGroup>
                 <p className="fc-secondary"> {t('who-are-you.select')}</p>
               </div>
-              <div
-                className=" sm-flex-row-row-center-between  w-full mt-2 "
-                dir="ltr"
+              <Stack
+                direction={'row'}
+                justifyContent={'space-between'}
               >
-                <Link href={`/${langCookie}/sign-up`}>
-                  <Button
-                    variant="outlined"
-                    sx={{
+                <Button
+                  variant="outlined"
+                  sx={{
+                    border: 'none',
+                    marginBottom: '4rem',
+                    textDecoration: 'underline',
+                    textTransform: 'none',
+                    fontSize: '1.2rem',
+                    gap: isArabic ? '10px' : '',
+                    '&:hover': {
                       border: 'none',
-                      marginBottom: '4rem',
-                      textDecoration: 'underline',
-                      textTransform: 'none',
-                      fontSize: '1.2rem',
-                      '&:hover': {
-                        border: 'none',
-                        backgroundColor: 'transparent',
-                      },
-                    }}
-                    startIcon={<KeyboardDoubleArrowLeftIcon />}
-                  >
-                    {t('who-are-you.back')}
-                  </Button>
-                </Link>
+                      backgroundColor: 'transparent',
+                    },
+                  }}
+                  startIcon={
+                    isArabic ? (
+                      <KeyboardDoubleArrowRightIcon />
+                    ) : (
+                      <KeyboardDoubleArrowLeftIcon />
+                    )
+                  }
+                  onClick={() => {
+                    router.push(`/${langCookie}/sign-up`);
+                  }}
+                >
+                  {t('who-are-you.back')}
+                </Button>
 
                 <Button
                   variant="outlined"
                   sx={{
                     border: 'none',
                     marginBottom: '4rem',
-                    marginLeft: '10rem',
+                    marginLeft: !isArabic ? '10rem' : '',
                     textDecoration: 'underline',
                     textTransform: 'none',
                     fontSize: '1.2rem',
+                    gap: isArabic ? '10px' : '',
                     '&:hover': {
                       border: 'none',
                       backgroundColor: 'transparent',
@@ -137,11 +147,17 @@ const WhoAreYouPage: NextPage = () => {
                   }}
                   disabled={!type ? true : false}
                   onClick={handleChooseType}
-                  endIcon={<KeyboardDoubleArrowRightIcon />}
+                  endIcon={
+                    isArabic ? (
+                      <KeyboardDoubleArrowLeftIcon />
+                    ) : (
+                      <KeyboardDoubleArrowRightIcon />
+                    )
+                  }
                 >
                   {t('who-are-you.next')}
                 </Button>
-              </div>
+              </Stack>
             </Box>
           </Grid>
           <Grid

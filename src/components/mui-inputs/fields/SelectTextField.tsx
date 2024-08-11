@@ -1,5 +1,6 @@
 import { Controller } from 'react-hook-form';
 import { TextField as MuiTextField, Grid, MenuItem } from '@mui/material';
+import { usePathname } from 'next/navigation';
 
 interface SelectTextFieldProps {
   name: string;
@@ -25,13 +26,14 @@ function SelectTextField({
   value,
   className = 'text-field-style',
 }: SelectTextFieldProps) {
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   return (
     <Controller
       key={key}
       name={name}
       control={control}
       render={({ field, fieldState }) => {
-
         return (
           <MuiTextField
             {...field}
@@ -52,10 +54,29 @@ function SelectTextField({
             }}
             variant="outlined"
             className={className}
+            InputLabelProps={{
+              sx: {
+                right: isArabic ? 25 : '',
+                left: isArabic ? 'auto' : '',
+                transformOrigin: isArabic ? 'top right' : '',
+                textAlign: isArabic ? 'right' : 'left',
+              },
+            }}
             sx={{
               '& .MuiInputBase-root': {
                 borderRadius: '50px',
                 paddingLeft: '0.8rem',
+              },
+              '& .MuiFormHelperText-root': {
+                textAlign: isArabic ? 'right' : 'left', // Align helper text to the right
+              },
+              '& .MuiOutlinedInput-notchedOutline legend': {
+                textAlign: isArabic ? 'right' : 'left',
+              },
+              '& .MuiSvgIcon-root': {
+                position: 'absolute',
+                right: isArabic ? 'auto' : '0.5rem',  // Position to the left if not Arabic
+                left: isArabic ? '0.5rem' : 'auto', // Position to the right if Arabic
               },
             }}
           >

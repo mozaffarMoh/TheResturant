@@ -9,7 +9,9 @@ import {
   FormControl,
   InputLabel,
   FormHelperText,
+  Stack,
 } from '@mui/material';
+import { usePathname } from 'next/navigation';
 
 interface SelectTextFieldProps {
   key: string;
@@ -32,6 +34,8 @@ function SelectMultiField({
   onChange,
   value = [],
 }: SelectTextFieldProps) {
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   return (
     <Controller
       key={key}
@@ -44,6 +48,29 @@ function SelectMultiField({
             fullWidth
             className="input-form-control-multi-check"
             error={!!fieldState.error}
+            sx={{
+              '& .MuiInputBase-root': {
+                borderRadius: '50px',
+                paddingLeft: '0.8rem',
+              },
+              '& .MuiFormLabel-root': {
+                right: isArabic ? 25 : '',
+                left: isArabic ? 'auto' : '',
+                transformOrigin: isArabic ? 'top right' : '',
+                textAlign: isArabic ? 'right' : 'left',
+              },
+              '& .MuiFormHelperText-root': {
+                textAlign: isArabic ? 'right' : 'left', // Align helper text to the right
+              },
+              '& .MuiOutlinedInput-notchedOutline legend': {
+                textAlign: isArabic ? 'right' : 'left',
+              },
+              '& .MuiSvgIcon-root': {
+                position: 'absolute',
+                right: isArabic ? 'auto' : '0.5rem', // Position to the left if not Arabic
+                left: isArabic ? '0.5rem' : 'auto', // Position to the right if Arabic
+              },
+            }}
           >
             <InputLabel required={required}>{label}</InputLabel>
             <Select
@@ -83,7 +110,9 @@ function SelectMultiField({
               ))}
             </Select>
             {fieldState.error && (
-              <FormHelperText>{fieldState.error.message}</FormHelperText> // Display error message
+              <Stack direction={'row'}>
+                <FormHelperText>{fieldState.error.message}</FormHelperText>
+              </Stack>
             )}
           </FormControl>
         );

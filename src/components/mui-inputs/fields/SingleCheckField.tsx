@@ -6,6 +6,7 @@ import {
   FormHelperText,
 } from '@mui/material';
 import { buttonPrimaryColor } from '@/constant/color';
+import { usePathname } from 'next/navigation';
 
 interface CheckboxFieldProps {
   key: string;
@@ -26,6 +27,8 @@ const SingleCheckboxField = ({
   value,
   onChange,
 }: CheckboxFieldProps) => {
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const {
     field,
     fieldState: { error },
@@ -44,6 +47,7 @@ const SingleCheckboxField = ({
       error={!!error}
       className="input-form-control"
       fullWidth
+      sx={{ display: 'flex', alignItems: 'flex-start' }}
     >
       <FormControlLabel
         control={
@@ -58,18 +62,22 @@ const SingleCheckboxField = ({
             }}
             checked={value}
             sx={{
-              display: 'inline-block',
               color: buttonPrimaryColor,
               '&.Mui-checked': {
                 color: 'orange',
               },
+              marginLeft : !isArabic ? '10px' : ''
             }}
           />
         }
         label={label}
         labelPlacement="end"
       />
-      {error && <FormHelperText>{error.message}</FormHelperText>}
+      {error && (
+        <FormHelperText sx={{ margin: isArabic ? '0px 30px' : '' }}>
+          {error.message}
+        </FormHelperText>
+      )}
     </FormControl>
   );
 };

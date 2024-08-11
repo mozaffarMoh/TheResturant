@@ -90,7 +90,7 @@ export const typeSchema = (inputs: any, t: any) => {
 
       case 'areas-of-expertise-marke':
         validation = z.string().min(3, { message: t('validation.valueMin3Letters') })
-          .regex(/^[a-zA-Z\s]*$/, { message: t('validation.expertiseOnlyLetters') });
+          .regex(/^[^\d]/, { message: t('validation.valueMin3Letters') })
         break;
 
       case 'method-of-communication':
@@ -116,7 +116,7 @@ export const typeSchema = (inputs: any, t: any) => {
       case 'previous-mentoring-experi':
         validation = z.string()
           .min(5, { message: t('validation.previousMentoringMin5') })
-          .regex(/^[A-Za-z\s]+$/, { message:  t('validation.previousMentoringNoNum')});
+          .regex(/^[A-Za-z\s]+$/, { message: t('validation.previousMentoringNoNum') });
         break;
 
       case 'address':

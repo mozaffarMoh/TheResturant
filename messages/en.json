@@ -161,7 +161,8 @@
         "submit": "Submit",
         "reset-password": "Reset Password",
         "verify": "Verify",
-        "reserve": "Reserve"
+        "reserve": "Reserve",
+        "upload-files": "Upload Files"
     },
     "dialog": {
         "how-to-apply": "How to Apply",

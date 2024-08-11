@@ -20,41 +20,69 @@ import NestedMenuList from './nestedMenuList';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
 
+const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
 // type 0 means normal link , type 1 means menu link (dropdown link)
 const menu = [
   {
     id: 0,
     type: 0,
     title: 'HOME',
-    link: '/home',
+    link: `/${langCookie}/home`,
     name: 'Home',
   },
 
-  { id: 1, type: 0, title: 'EVENTS & WORKSHOPS', link: '#', name: 'Events' },
-  { id: 2, type: 0, title: 'BOOK FACULTY', link: '#', name: 'BokFaculty' },
-  { id: 3, type: 0, title: 'MENTORS', link: '#', name: 'Mentors' },
+  {
+    id: 1,
+    type: 0,
+    title: 'EVENTS & WORKSHOPS',
+    link: `/${langCookie}/home/events-workshops`,
+    name: 'Events',
+  },
+  {
+    id: 2,
+    type: 0,
+    title: 'BOOK FACULTY',
+    link: `/${langCookie}/home/book-facility`,
+    name: 'BokFaculty',
+  },
+  {
+    id: 3,
+    type: 0,
+    title: 'MENTORS',
+    link: `/${langCookie}/home/mentors`,
+    name: 'Mentors',
+  },
   {
     id: 4,
     type: 1,
     title: 'THE INDUSTRY',
     link: '#',
     links: [
-      { id: 0, path: 'ind1', value: 'ind1' },
-      { id: 1, path: 'ind2', value: 'ind2' },
+      { id: 0, path: `/${langCookie}/home/industry/news`, value: 'ind1' },
+      {
+        id: 1,
+        path: `/${langCookie}/home/industry/announcements`,
+        value: 'ind2',
+      },
     ],
     name: 'Industry',
   },
-  { id: 5, type: 0, title: 'CONTACT US', link: '/', name: 'ContactUs' },
+  {
+    id: 5,
+    type: 0,
+    title: 'CONTACT US',
+    link: `/${langCookie}/contact-us`,
+    name: 'ContactUs',
+  },
 ];
 
 const Header = () => {
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
 
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) => pathname == path;
 
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -120,7 +148,10 @@ const Header = () => {
     setAnchorElIndustry(null);
     setOpenIndustry(false);
   };
-
+  const handleNavigation = (path: string) => {
+    router.push(path);
+    setMenuOpen(false);
+  };
   const toggleDrawer = (newOpen: boolean) => () => {
     setMenuOpen(newOpen);
   };
@@ -305,7 +336,7 @@ const Header = () => {
                     <Box
                       sx={{ width: 250 }}
                       role="presentation"
-                      onClick={toggleDrawer(false)}
+                      // Remove onClick handler here to prevent closing on interaction
                     >
                       <div className={styles.drawerDivLogo}>
                         <img
@@ -319,9 +350,9 @@ const Header = () => {
                           {menu &&
                             menu.map((item: any, idx: number) => (
                               <MenuItem
-                                href={`/${langCookie}/${item.link}`}
                                 key={idx}
                                 className={`${styles.menuItemDrawer} ${isActive(item.link) && styles.drawerActive}`}
+                                onClick={() => handleNavigation(item.link)}
                               >
                                 <ListItemText>{item.title}</ListItemText>
                               </MenuItem>
@@ -330,13 +361,17 @@ const Header = () => {
                       </div>
                       <div className={styles.authDrawerDivButton}>
                         <Button
-                          onClick={() => router.push(`/${langCookie}/sign-up`)}
+                          onClick={() =>
+                            handleNavigation(`/${langCookie}/sign-up`)
+                          }
                           className={styles.authDrawerButton}
                         >
                           {t('auth.signup-title')}
                         </Button>
                         <Button
-                          onClick={() => router.push(`/${langCookie}/sign-in`)}
+                          onClick={() =>
+                            handleNavigation(`/${langCookie}/sign-in`)
+                          }
                           className={styles.authDrawerButton}
                         >
                           {t('auth.signin-title')}

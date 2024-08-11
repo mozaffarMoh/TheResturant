@@ -9,8 +9,10 @@ import {
   ListItem,
   ListItemText,
   IconButton,
+  Stack,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useTranslations } from 'next-intl';
 
 interface FileInputProps {
   name: string;
@@ -35,6 +37,7 @@ const MultiFilesField = ({
   onChange,
   required,
 }: FileInputProps) => {
+  const t = useTranslations();
   const {
     field,
     fieldState: { error },
@@ -145,13 +148,15 @@ const MultiFilesField = ({
             borderStyle: 'dashed',
           }}
         >
-          Upload Files
+          {t('buttons.upload-files')}
         </Button>
       </label>
-      {error && <FormHelperText>{error.message}</FormHelperText>}
+      <Stack direction={'row'}>
+        {error && <FormHelperText>{error.message}</FormHelperText>}
+      </Stack>
       <List>
         {value.map((file: File, index: number) => (
-          <ListItem key={index}>
+          <ListItem key={index} dir='ltr'>
             <ListItemText
               primary={file.name}
               sx={{ fontSize: '0.8rem' }}

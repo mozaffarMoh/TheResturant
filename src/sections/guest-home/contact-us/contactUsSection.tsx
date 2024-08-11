@@ -49,6 +49,17 @@ const ContactUsSection = () => {
               item
               xs={12}
               md={6}
+              className={styles.rightContainer}
+            >
+              <p className="text-large-title fw700">
+                {t('contact-us.have-a-question')}
+              </p>
+              <ContactUsForm />
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={6}
               className={styles.leftContainer}
             >
               <p className="text-large-title fw700">
@@ -118,17 +129,6 @@ const ContactUsSection = () => {
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              md={6}
-              className={styles.rightContainer}
-            >
-              <p className="text-large-title fw700">
-                {t('contact-us.have-a-question')}
-              </p>
-              <ContactUsForm />
             </Grid>
           </Grid>
         </div>

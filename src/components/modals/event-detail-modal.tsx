@@ -142,7 +142,7 @@ const EventDetailsModal = ({
                   >
                     <Stack
                       direction={'row'}
-                      justifyContent={'flex-start'}
+                      justifyContent={'space-between'}
                       alignItems={'center'}
                       gap={2}
                     >
@@ -154,12 +154,18 @@ const EventDetailsModal = ({
                       </Stack>
                       <Typography
                         fontWeight={600}
+                        fontSize={13}
                         color={primaryColor}
                       >
                         {item.name}
                       </Typography>
                     </Stack>
-                    <Typography color={gray100}>{item.value}</Typography>
+                    <Typography
+                      fontSize={13}
+                      color={gray100}
+                    >
+                      {item.value}
+                    </Typography>
                   </Grid>
                 );
               })}

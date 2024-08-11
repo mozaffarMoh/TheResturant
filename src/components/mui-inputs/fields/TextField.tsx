@@ -1,6 +1,7 @@
 import { Controller } from 'react-hook-form';
 import { TextField as MuiTextField } from '@mui/material';
 import Cookies from 'js-cookie';
+import { usePathname } from 'next/navigation';
 
 interface TextFieldProps {
   name: string;
@@ -24,6 +25,8 @@ function TextField({
   key,
 }: TextFieldProps) {
   const emailCookie = Cookies.get('email') || '';
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
 
   return (
     <Controller
@@ -49,10 +52,25 @@ function TextField({
           variant="outlined"
           rows={name == 'Text Area' ? 6 : 1}
           className={className}
+          InputLabelProps={{
+            sx: {
+              right: isArabic ? 25 : '',
+              left: isArabic ? 'auto' : '',
+              transformOrigin: isArabic ? 'top right' : '',
+              textAlign: isArabic ? 'right' : 'left',
+            },
+          }}
           sx={{
             '& .MuiInputBase-root': {
               borderRadius: '50px',
               paddingLeft: '0.8rem',
+              paddingRight: '0.8rem', // Ensure the text does not hit the border
+            },
+            '& .MuiFormHelperText-root': {
+              textAlign: isArabic ? 'right' : 'left',
+            },
+            '& .MuiOutlinedInput-notchedOutline legend': {
+              textAlign: isArabic ? 'right' : 'left',
             },
           }}
         />

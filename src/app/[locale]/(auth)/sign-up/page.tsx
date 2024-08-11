@@ -16,9 +16,10 @@ import { loginBgImage } from '@/constant/images';
 import { buttonPrimaryColor } from '@/constant/color';
 import styles from '../sign-in/page.module.css';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import { useEffect, useState } from 'react';
 import TermsConditionsModal from '@/components/modals/terms-condition-modal';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
 import { endPoints } from '@/base-api/endPoints';
@@ -32,9 +33,9 @@ const SingUp: NextPage = () => {
   const t = useTranslations();
   const router = useRouter();
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
-  let emailCookies = Cookies.get('email') || '';
-  let passwordCookies = Cookies.get('password') || '';
   const [showModal, setShowModal] = useState(false);
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -247,10 +248,7 @@ const SingUp: NextPage = () => {
                     {errors.acceptTerms}
                   </Typography>
                 )}
-                <Stack
-                  alignItems={'flex-end'}
-                  style={{ direction: 'ltr' }}
-                >
+                <Stack alignItems={'flex-end'}>
                   <Button
                     variant="outlined"
                     sx={{
@@ -259,12 +257,19 @@ const SingUp: NextPage = () => {
                       textDecoration: 'underline',
                       textTransform: 'none',
                       fontSize: '1.2rem',
+                      gap: isArabic ? '10px' : '',
                       '&:hover': {
                         border: 'none',
                         backgroundColor: 'transparent',
                       },
                     }}
-                    endIcon={<KeyboardDoubleArrowRightIcon />}
+                    endIcon={
+                      isArabic ? (
+                        <KeyboardDoubleArrowLeftIcon />
+                      ) : (
+                        <KeyboardDoubleArrowRightIcon />
+                      )
+                    }
                     onClick={handleNextStep}
                   >
                     {t('auth.next')}

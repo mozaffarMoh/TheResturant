@@ -1,5 +1,6 @@
 import { Controller } from 'react-hook-form';
 import { TextField as MuiTextField } from '@mui/material';
+import { usePathname } from 'next/navigation';
 
 interface TextAreaFieldProps {
   name: string;
@@ -20,6 +21,8 @@ function TextField({
   value,
   key,
 }: TextAreaFieldProps) {
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   return (
     <Controller
       key={key}
@@ -44,10 +47,25 @@ function TextField({
           rows={6}
           multiline
           className={className}
+          InputLabelProps={{
+            sx: {
+              right: isArabic ? 25 : '',
+              left: isArabic ? 'auto' : '',
+              transformOrigin: isArabic ? 'top right' : '',
+              textAlign: isArabic ? 'right' : 'left',
+            },
+          }}
           sx={{
             '& .MuiInputBase-root': {
-              borderRadius: '12px',
+              borderRadius: '15px',
               paddingLeft: '0.8rem',
+              paddingRight: '0.8rem', // Ensure the text does not hit the border
+            },
+            '& .MuiFormHelperText-root': {
+              textAlign: isArabic ? 'right' : 'left',
+            },
+            '& .MuiOutlinedInput-notchedOutline legend': {
+              textAlign: isArabic ? 'right' : 'left',
             },
           }}
         />
