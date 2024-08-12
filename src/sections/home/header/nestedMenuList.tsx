@@ -25,10 +25,11 @@ const NestedMenuList = ({
   const pathname = usePathname();
   const [isActive, setIsActive] = useState(false);
   let isArabic = pathname.startsWith('/ar');
-  const checkActive = () => links.some((link: any) => link.path === pathname);
+  const checkActive = () =>
+    links.some((link: any) => pathname.includes(link.path));
 
   const isListActive = (path: string) => {
-    if (path == pathname) {
+    if (pathname.includes(path)) {
       return true;
     }
   };

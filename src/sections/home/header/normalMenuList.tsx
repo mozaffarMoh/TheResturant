@@ -17,7 +17,17 @@ const NormalMenuList = ({ indexKey, href, title }: IProps) => {
   const [isActive, setIsActive] = useState(false);
 
   const checkActive = () => {
-    return pathname === href;
+    const pathPieces = href.split('/');
+    if (
+      pathPieces[3] &&
+      (pathPieces[3] == 'events-workshops' ||
+        pathPieces[3] == 'book-facility' ||
+        pathPieces[3] == 'mentors')
+    ) {
+      return pathname.includes(pathPieces[3]);
+    } else {
+      return pathname == href;
+    }
   };
 
   useEffect(() => {

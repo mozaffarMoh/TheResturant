@@ -1,4 +1,4 @@
-import { Container, Grid, useMediaQuery } from '@mui/material';
+import { Container, Grid, Stack, useMediaQuery } from '@mui/material';
 import styles from './contact-us.module.css';
 import {
   FaceBookMedSVG,
@@ -14,11 +14,14 @@ import { useTranslations } from 'next-intl';
 import useGet from '@/custom-hooks/useGet';
 import { endPoints } from '@/base-api/endPoints';
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 const ContactUsSection = () => {
   const isScreen700 = useMediaQuery('(max-width:700px)');
   const t = useTranslations();
   const [data, , getData] = useGet(endPoints.contactUsDetials);
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
 
   useEffect(() => {
     getData();
@@ -109,12 +112,17 @@ const ContactUsSection = () => {
                       {t('contact-us.follow-us')}
                     </p>
 
-                    <div className="sm-flex-row-row-center-start gap05 mt-1 w-50">
-                      <div className={styles.socialIconContainer}>
-                        <FaceBookMedSVG />
-                      </div>
+                    <Stack
+                      direction={'row'}
+                      position={'relative'}
+                      left={isArabic ? 12 : -12}
+                      gap={1}
+                    >
                       <div className={styles.socialIconContainer}>
                         <TwitterMedSVG />
+                      </div>
+                      <div className={styles.socialIconContainer}>
+                        <FaceBookMedSVG />
                       </div>
                       <div className={styles.socialIconContainer}>
                         <InstagramMedSVG />
@@ -125,7 +133,7 @@ const ContactUsSection = () => {
                       <div className={styles.socialIconContainer}>
                         <SkypeMedSVG />
                       </div>
-                    </div>
+                    </Stack>
                   </Grid>
                 </Grid>
               </Grid>

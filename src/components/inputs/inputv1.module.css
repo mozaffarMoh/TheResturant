@@ -5,10 +5,20 @@
   border-bottom: 2px solid black;
   border-radius: 0px;
   width: 25rem;
-  @media (max-width: 576px) {
-    width: 18rem;
-  }
+
+
 }
+
+/* Scoped svg styling inside generalInput */
+.generalInput svg {
+  width: 18px;
+  height: 18px;
+}
+.svgIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
 .generalInput:focus:active {
   outline: none !important;
   border: none !important;

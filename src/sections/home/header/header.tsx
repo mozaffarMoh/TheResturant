@@ -9,6 +9,8 @@ import {
   Menu,
   Drawer,
   Box,
+  Typography,
+  Stack,
 } from '@mui/material';
 import styles from './header.module.css';
 import { usePathname, useRouter } from 'next/navigation';
@@ -31,7 +33,7 @@ const Header = () => {
     {
       id: 0,
       type: 0,
-      title: 'HOME',
+      title: t('header.home'),
       link: `/${langCookie}/home`,
       name: 'Home',
     },
@@ -39,28 +41,28 @@ const Header = () => {
     {
       id: 1,
       type: 0,
-      title: 'EVENTS & WORKSHOPS',
+      title: t('header.events-workshops'),
       link: `/${langCookie}/home/events-workshops`,
       name: 'Events',
     },
     {
       id: 2,
       type: 0,
-      title: 'BOOK FACULTY',
+      title: t('header.book-facility'),
       link: `/${langCookie}/home/book-facility`,
       name: 'BokFaculty',
     },
     {
       id: 3,
       type: 0,
-      title: 'MENTORS',
+      title: t('header.mentors'),
       link: `/${langCookie}/home/mentors`,
       name: 'Mentors',
     },
     {
       id: 4,
       type: 1,
-      title: 'THE INDUSTRY',
+      title: t('header.industry'),
       link: '#',
       links: [
         { id: 0, path: `/${langCookie}/home/industry/news`, value: 'ind1' },
@@ -75,12 +77,12 @@ const Header = () => {
     {
       id: 5,
       type: 0,
-      title: 'CONTACT US',
+      title: t('header.contact-us'),
       link: `/${langCookie}/contact-us`,
       name: 'ContactUs',
     },
   ];
-  
+
   const isActive = (path: string) => pathname == path;
 
   const [open, setOpen] = useState(false);
@@ -205,6 +207,8 @@ const Header = () => {
                 xs={8}
                 sm={10}
                 md={2}
+                sx={{ cursor: 'pointer' }}
+                onClick={() => router.push(`/${langCookie}/home`)}
               >
                 <img
                   src="/logo_white.svg"
@@ -331,6 +335,7 @@ const Header = () => {
                   <Drawer
                     open={menuOpen}
                     onClose={toggleDrawer(false)}
+                    anchor={isArabic ? 'right' : 'left'}
                   >
                     <Box
                       sx={{ width: 250 }}
@@ -358,22 +363,46 @@ const Header = () => {
                             ))}
                         </MenuList>
                       </div>
+                      <Stack
+                        className={styles.langButton}
+                        alignItems={'flex-start'}
+                        paddingX={2}
+                        paddingBottom={3}
+                      >
+                        <Button
+                          id="basic-button"
+                          onClick={handleClick}
+                          className={styles.langMenuButton}
+                          sx={{ textTransform: 'none !Important' }}
+                        >
+                          <LanguageIcon
+                            className={styles.langIcon}
+                            color="action"
+                          />{' '}
+                          <Typography color={'black'}>
+                            {isArabic ? t('lang.ar') : t('lang.en')}
+                          </Typography>{' '}
+                        </Button>
+                        <Menu
+                          id="basic-menu"
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                        >
+                          <MenuItem onClick={() => changeLanguage('ar')}>
+                            {t('lang.ar')}
+                          </MenuItem>
+                          <MenuItem onClick={() => changeLanguage('en')}>
+                            {t('lang.en')}
+                          </MenuItem>
+                        </Menu>
+                      </Stack>
                       <div className={styles.authDrawerDivButton}>
                         <Button
-                          onClick={() =>
-                            handleNavigation(`/${langCookie}/sign-up`)
-                          }
+                          onClick={handleLogout}
                           className={styles.authDrawerButton}
                         >
-                          {t('auth.signup-title')}
-                        </Button>
-                        <Button
-                          onClick={() =>
-                            handleNavigation(`/${langCookie}/sign-in`)
-                          }
-                          className={styles.authDrawerButton}
-                        >
-                          {t('auth.signin-title')}
+                          {t('header.logout')}
                         </Button>
                       </div>
                     </Box>

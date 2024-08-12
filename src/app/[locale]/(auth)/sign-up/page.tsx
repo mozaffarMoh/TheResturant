@@ -1,19 +1,16 @@
 'use client';
 import type { NextPage } from 'next';
-import {
-  Box,
-  Button,
-  Checkbox,
-  Grid,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Grid, Paper, Stack } from '@mui/material';
 import Link from 'next/link';
-import { ClosedEyeSVG, LockSVG, MessageSVG } from '../../../../../assets/icons';
-import InputV1 from '@/components/inputs/InputV1';
+import {
+  ClosedEyeSVG,
+  LocationSVG,
+  LockSVG,
+  MessageSVG,
+  PersonSVG,
+  PhoneSVG,
+} from '../../../../../assets/icons';
 import { loginBgImage } from '@/constant/images';
-import { buttonPrimaryColor } from '@/constant/color';
 import styles from '../sign-in/page.module.css';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
@@ -25,60 +22,121 @@ import Cookies from 'js-cookie';
 import { endPoints } from '@/base-api/endPoints';
 import useGet from '@/custom-hooks/useGet';
 import Loading from '@/components/Loading/Loading';
-import { z } from 'zod';
 import CustomAlert from '@/components/alerts/CustomAlert';
 import { signupSchema } from './schema';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import SignUpInput from '@/components/inputs/signUpInput';
 
 const SingUp: NextPage = () => {
   const t = useTranslations();
   const router = useRouter();
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const [showModal, setShowModal] = useState(false);
+  const [governorateArray, setGovernorateArray] = useState([]);
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
-    acceptTerms: false,
-  });
-  const [errors, setErrors] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
-    acceptTerms: false,
-  });
+  const [fullFormData, setFullFormData] = useState([]);
 
+  const signUpArray = [
+    {
+      name: t('auth.first-name-title'),
+      placeholder: t('auth.first-name-placeholder'),
+      slug: 'first_name',
+      type: 'text',
+      startIcon: <PersonSVG />,
+    },
+    {
+      name: t('auth.last-name-title'),
+      placeholder: t('auth.last-name-placeholder'),
+      slug: 'last_name',
+      type: 'text',
+      startIcon: <PersonSVG />,
+    },
+    {
+      name: t('auth.email-title'),
+      placeholder: t('auth.email-placeholder'),
+      slug: 'email',
+      type: 'text',
+      startIcon: <MessageSVG />,
+    },
+    {
+      name: t('auth.phone-title'),
+      placeholder: t('auth.phone-placeholder'),
+      slug: 'phone',
+      type: 'text',
+      startIcon: <PhoneSVG />,
+    },
+    {
+      name: t('auth.password-title'),
+      placeholder: t('auth.password-placeholder'),
+      slug: 'password',
+      type: 'password',
+      startIcon: <LockSVG />,
+      endIcon: <ClosedEyeSVG />,
+    },
+    {
+      name: t('auth.password-confirm-title'),
+      placeholder: t('auth.password-confirm-placeholder'),
+      slug: 'password_confirmation',
+      type: 'password',
+      startIcon: <LockSVG />,
+      endIcon: <ClosedEyeSVG />,
+    },
+    {
+      name: t('auth.gender'),
+      slug: 'gender',
+      type: 'select',
+      placeholder: t('auth.gender'),
+      fieldData: [
+        { name: t('select.male'), slug: 'male' },
+        { name: t('select.female'), slug: 'female' },
+      ],
+      startIcon: <PersonSVG />,
+    },
+    {
+      name: t('auth.governorate'),
+      placeholder: t('auth.governorate'),
+      slug: 'governorate',
+      type: 'select',
+      fieldData: governorateArray,
+      startIcon: <LocationSVG />,
+    },
+    {
+      name: t('auth.terms'),
+      slug: 'terms',
+      type: 'checkbox',
+    },
+  ];
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(signupSchema(signUpArray, t)),
+    mode: 'onChange',
+  });
   const [data, loading, getData, success, successMessage, errorMessage] =
     useGet(endPoints.whoAreYou);
+  const [governorateData, , getGovernorateData, , , errorStatusGovernorate] =
+    useGet(endPoints.getGovernorate);
 
-  const handleChangePassword = (e: any) => {
-    setFormData((prev: any) => {
-      return { ...prev, password: e?.target?.value };
-    });
-  };
-
-  const handleChangeConfirmPassword = (e: any) => {
-    setFormData((prev: any) => {
-      return { ...prev, confirmPassword: e?.target?.value };
-    });
-  };
-
-  const handleAcceptTerms = (e: any) => {
-    setFormData((prev: any) => {
-      return { ...prev, acceptTerms: !formData.acceptTerms };
-    });
-  };
-
-  const handleChangeEmail = (e: any) => {
-    setFormData((prev: any) => {
-      return { ...prev, email: e?.target?.value };
-    });
-  };
-
-  const handleTermsModal = () => {
-    setShowModal((prv) => !prv);
-  };
+  /* get the governorate data and store it in state array */
+  useEffect(() => {
+    getGovernorateData();
+  }, []);
+  useEffect(() => {
+    if (errorStatusGovernorate) {
+      getGovernorateData();
+    }
+  }, [errorStatusGovernorate]);
+  useEffect(() => {
+    if (governorateData?.children) {
+      const array = governorateData?.children;
+      setGovernorateArray(array);
+    }
+  }, [governorateData]);
 
   /* if success getting date navigate to who-are-you page nad store formData in cookies */
   useEffect(() => {
@@ -88,22 +146,17 @@ const SingUp: NextPage = () => {
     }
   }, [success]);
 
-  const handleNextStep = (e: any) => {
-    e.preventDefault();
+  const onSubmit = () => {
+    getData();
+    Cookies.set('signUpData', JSON.stringify(fullFormData));
+  };
 
-    try {
-      signupSchema(t).parse(formData);
-      Cookies.set('email', formData.email);
-      Cookies.set('password', formData.password);
-      getData();
-    } catch (error: any) {
-      if (error instanceof z.ZodError) {
-        const fieldErrors = error.errors.reduce((acc: any, err: any) => {
-          acc[err.path[0]] = err.message;
-          return acc;
-        }, {});
-        setErrors(fieldErrors);
-      }
+  /* Handle changing fields values */
+  const handleChangeValue = (value: any, slug: string) => {
+    if (slug !== 'terms') {
+      setFullFormData((prevObj): any => {
+        return { ...prevObj, [slug]: value };
+      });
     }
   };
 
@@ -161,99 +214,38 @@ const SingUp: NextPage = () => {
                   </Link>
                 </p>
               </div>
-              <div>
-                <div className="mb-3">
-                  <label className="fc-light-black">
-                    {' '}
-                    {t('auth.email-title')}
-                  </label>
-                  <InputV1
-                    label={t('auth.email-placeholder')}
-                    startIcon={<MessageSVG />}
-                    onChange={handleChangeEmail}
-                    value={formData.email}
-                  />
-                  {errors.email && (
-                    <Typography
-                      variant="caption"
-                      color={'red'}
-                    >
-                      {errors.email}
-                    </Typography>
-                  )}
-                </div>
-                <div className="mb-1">
-                  <label className="fc-light-black">
-                    {t('auth.password-title')}
-                  </label>
-                  <div className="mb-2">
-                    <InputV1
-                      label={t('auth.password-placeholder')}
-                      startIcon={<LockSVG />}
-                      endIcon={<ClosedEyeSVG />}
-                      isPassword
-                      onChange={handleChangePassword}
-                      value={formData.password}
-                    />{' '}
-                    {errors.password && (
-                      <Typography
-                        variant="caption"
-                        color={'red'}
-                      >
-                        {errors.password}
-                      </Typography>
-                    )}
-                  </div>
-                  <InputV1
-                    label={t('auth.password-confirm-placeholder')}
-                    startIcon={<LockSVG />}
-                    endIcon={<ClosedEyeSVG />}
-                    isPassword
-                    onChange={handleChangeConfirmPassword}
-                    value={formData.confirmPassword}
-                  />{' '}
-                  {errors.confirmPassword && (
-                    <Typography
-                      variant="caption"
-                      color={'red'}
-                    >
-                      {errors.confirmPassword}
-                    </Typography>
-                  )}
-                </div>
-                <div className="sm-flex-row-row-center-start">
-                  <Checkbox
-                    size="small"
-                    sx={{
-                      display: 'inline-block',
-                      color: buttonPrimaryColor,
-                      '&.Mui-checked': {
-                        color: 'orange',
-                      },
-                    }}
-                    onChange={handleAcceptTerms}
-                  />
-                  <p
-                    onClick={handleTermsModal}
-                    className="cursor-pointer"
-                  >
-                    {t('auth.terms')}
-                  </p>
-                </div>
-                {errors.acceptTerms && (
-                  <Typography
-                    variant="caption"
-                    color={'red'}
-                  >
-                    {errors.acceptTerms}
-                  </Typography>
-                )}
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <Stack
+                  height={400}
+                  overflow={'auto'}
+                  width={350}
+                  gap={2}
+                >
+                  {signUpArray.map((item: any) => {
+                    return (
+                      <SignUpInput
+                        slug={item.slug}
+                        name={item.slug}
+                        title={item.name}
+                        label={item.placeholder}
+                        type={item.type}
+                        fieldData={item.fieldData}
+                        control={control}
+                        errors={errors}
+                        startIcon={item.startIcon}
+                        endIcon={item.endIcon}
+                        onChange={(e: any) => handleChangeValue(e, item.slug)}
+                      />
+                    );
+                  })}
+                </Stack>
                 <Stack alignItems={'flex-end'}>
                   <Button
                     variant="outlined"
+                    type="submit"
                     sx={{
                       border: 'none',
-                      marginBottom: '4rem',
+                      margin: '15px 0px',
                       textDecoration: 'underline',
                       textTransform: 'none',
                       fontSize: '1.2rem',
@@ -270,12 +262,11 @@ const SingUp: NextPage = () => {
                         <KeyboardDoubleArrowRightIcon />
                       )
                     }
-                    onClick={handleNextStep}
                   >
                     {t('auth.next')}
                   </Button>
-                </Stack>
-              </div>
+                </Stack>{' '}
+              </form>
             </Box>
           </Grid>
           <Grid

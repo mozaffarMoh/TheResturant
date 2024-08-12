@@ -3,6 +3,7 @@ export const endPoints = {
     createUser: '/create-user',
     formSubmit: '/form/formSubmit',
     login: '/login-user',
+    getGovernorate:'/core/place/jordan',
     forgotPassword: '/forgot-password',
     updatePassword: '/update-password',
     getEvents: "/ecomm/getItemsByType/event",

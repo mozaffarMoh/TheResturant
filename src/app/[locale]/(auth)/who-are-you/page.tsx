@@ -1,7 +1,6 @@
 'use client';
 import type { NextPage } from 'next';
 import { Box, Button, Grid, Paper, Stack } from '@mui/material';
-import Link from 'next/link';
 import { loginBgImage } from '@/constant/images';
 import styles from '../sign-in/page.module.css';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';

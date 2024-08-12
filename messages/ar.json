@@ -14,6 +14,14 @@
         "register-here": "إنشاء حساب من هنا!",
         "email-title": "البريد الإلكتروني",
         "email-placeholder": "أدخل بريدك الإلكتروني",
+        "first-name-title": "الاسم الأول",
+        "first-name-placeholder": "أدخل اسمك الأول",
+        "last-name-title": "اسم العائلة",
+        "last-name-placeholder": "أدخل اسم عائلتك",
+        "phone-title": "رقم الهاتف",
+        "phone-placeholder": "أدخل رقم هاتفك",
+        "gender": "الجنس",
+        "governorate": "المحافظة",
         "password-title": "كلمة المرور",
         "new-password-title": "كلمة المرور الجديدة ",
         "password-placeholder": "أدخل كلمة المرور الخاصة بك",
@@ -176,7 +184,9 @@
         "location": "الموقع",
         "profession": "المهنة",
         "tags": "الوسوم",
-        "all": "الجميع"
+        "all": "الجميع",
+        "male": "ذكر",
+        "female": "أنثى"
     },
     "messages": {
         "loading": " يتم التحميل الرجاء الانتظار",

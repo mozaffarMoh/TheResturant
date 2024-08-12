@@ -7,15 +7,6 @@ export const typeSchema = (inputs: any, t: any) => {
     let validation: any;
 
     switch (input.slug) {
-      case 'full-name':
-        validation = z.string()
-          .min(3, { message: t('validation.fullNameMin') })
-          .regex(/^[^\d]/, { message: t('validation.fullNameNoNum') });
-        break;
-
-      case 'phone-number':
-        validation = z.string().regex(/^\+?\d{10,15}$/, { message: t('validation.validPhone') });
-        break;
 
       case 'nationalpersonal-number':
         validation = z.string()
@@ -26,21 +17,8 @@ export const typeSchema = (inputs: any, t: any) => {
         validation = z.array(z.number()).min(1, { message: t('validation.personalInterests') });
         break;
 
-      case 'email-1':
-        validation = z.string()
-          .email({ message: t('validation.invalid-email') })
-          .regex(/^[^\d]/, { message: t('validation.email-start-with-char') })
-          .regex(/^.{3,}@/, { message: t('validation.invalid-email') })
-          .regex(/^\S+$/, { message: t('validation.no-spaces-in-email') })
-          .min(1, { message: t('validation.email') });
-        break;
-
       case 'nationality':
         validation = z.number()
-        break;
-
-      case 'gender':
-        validation = z.number();
         break;
 
       case 'age':
@@ -49,10 +27,6 @@ export const typeSchema = (inputs: any, t: any) => {
             const numberValue = Number(value);
             return !isNaN(numberValue) && numberValue >= 16 && numberValue <= 100;
           }, { message: t('validation.ageRange') });
-        break;
-
-      case 'governorate':
-        validation = z.number();
         break;
 
       case 'linkedin-profile-link':

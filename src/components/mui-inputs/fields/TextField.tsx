@@ -1,6 +1,5 @@
 import { Controller } from 'react-hook-form';
 import { TextField as MuiTextField } from '@mui/material';
-import Cookies from 'js-cookie';
 import { usePathname } from 'next/navigation';
 
 interface TextFieldProps {
@@ -24,7 +23,6 @@ function TextField({
   value,
   key,
 }: TextFieldProps) {
-  const emailCookie = Cookies.get('email') || '';
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
 
@@ -33,7 +31,6 @@ function TextField({
       key={key}
       name={name}
       control={control}
-      defaultValue={name === 'email-1' ? emailCookie : ''}
       render={({ field, fieldState }) => (
         <MuiTextField
           fullWidth

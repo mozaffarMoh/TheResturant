@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import SuccessRegisterModal from '@/components/modals/success-register-modal';
 import CustomAlert from '@/components/alerts/CustomAlert';
 import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import FormField from '@/components/mui-inputs/FormField';
 import usePost from '@/custom-hooks/usePost';
 import { endPoints } from '@/base-api/endPoints';
@@ -23,14 +23,15 @@ import { useTranslations } from 'next-intl';
 const UserDetailsPage: NextPage = () => {
   const router = useRouter();
   const t = useTranslations();
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
-  const emailCookie = Cookies.get('email');
-  const passwordCookie = Cookies.get('password');
+  const signupData: any = Cookies.get('signUpData') || '';
+  const signupDataParsed = signupData ? JSON.parse(signupData) : null;
   const formData: any = localStorage.getItem('formData');
   const userType = Cookies.get('userType');
   const [typeDetails, setTypeDetails]: any = useState({ inputs: [] });
   const [fullFormData, setFullFormData]: any = useState([]);
-  const [email, setEmail]: any = useState('');
   const [fullFormID, setFullFormID]: any = useState(0);
   const [userID, setUserID]: any = useState('');
   const [OTPValue, setOTPValue]: any = useState('');
@@ -38,15 +39,11 @@ const UserDetailsPage: NextPage = () => {
     resolver: zodResolver(typeSchema(typeDetails.inputs, t)),
   });
   const bodyWithoutOTP = {
-    email: email,
-    password: passwordCookie,
-    password_confirmation: passwordCookie,
+    ...signupDataParsed,
     place_slug: 'jordan',
   };
   const bodyWithOTP = {
-    email: email,
-    password: passwordCookie,
-    password_confirmation: passwordCookie,
+    ...signupDataParsed,
     place_slug: 'jordan',
     otp: OTPValue,
   };
@@ -88,7 +85,6 @@ const UserDetailsPage: NextPage = () => {
     if (!formData) {
       router.push(`/${langCookie}/sign-up`);
     } else {
-      setEmail(emailCookie);
       let formDataParsed: any = JSON.parse(formData);
       let typeIndex: number = 0;
       formDataParsed.children.forEach((item: any, index: number) => {
@@ -118,24 +114,23 @@ const UserDetailsPage: NextPage = () => {
   /* finally if submit success store token in cookies then navigate to home */
   useEffect(() => {
     if (successForFinishSubmit) {
-      Cookies.remove('email');
-      Cookies.remove('password');
-      Cookies.remove('userType');
-      localStorage.removeItem('formData');
-      Cookies.set('token', dataForSubmit.token.token, {
-        expires: new Date('9999-12-31T23:59:59'),
-      });
-      setTimeout(() => {
-        router.push(`/${langCookie}/home`);
-      }, 2000);
+      const finishProcess = async () => {
+        await Cookies.set('token', dataForSubmit.token.token, {
+          expires: new Date('9999-12-31T23:59:59'),
+        });
+        await setTimeout(() => {
+          router.push(`/${langCookie}/home`);
+          localStorage.removeItem('formData');
+          Cookies.remove('signUpData');
+          Cookies.remove('userType');
+        }, 2000);
+      };
+      finishProcess();
     }
   }, [successForFinishSubmit]);
 
   /* Handle changing fields values */
-  const handleChangeValue = (value: any, formId: number, slug: string) => {
-    if (slug == 'email-1') {
-      setEmail(value);
-    }
+  const handleChangeValue = (value: any, formId: number) => {
     setFullFormData((prevArray: any) => {
       const index = prevArray.findIndex(
         (item: any) => item.form_field_id === formId,
@@ -248,7 +243,7 @@ const UserDetailsPage: NextPage = () => {
                           required={false}
                           fieldData={item.input_options}
                           onChange={(e: any) =>
-                            handleChangeValue(e, item.form_field_id, item.slug)
+                            handleChangeValue(e, item.form_field_id)
                           }
                           setFormData={setFullFormData}
                           formId={item.form_field_id}
@@ -260,7 +255,6 @@ const UserDetailsPage: NextPage = () => {
                   direction={'row'}
                   justifyContent={'space-between'}
                   marginTop={4}
-                  style={{ direction: 'ltr' }}
                 >
                   <Link href={`/${langCookie}/who-are-you`}>
                     <Button
@@ -271,12 +265,19 @@ const UserDetailsPage: NextPage = () => {
                         textDecoration: 'underline',
                         textTransform: 'none',
                         fontSize: '1.2rem',
+                        gap: isArabic ? '10px' : '',
                         '&:hover': {
                           border: 'none',
                           backgroundColor: 'transparent',
                         },
                       }}
-                      startIcon={<KeyboardDoubleArrowLeftIcon />}
+                      startIcon={
+                        isArabic ? (
+                          <KeyboardDoubleArrowRightIcon />
+                        ) : (
+                          <KeyboardDoubleArrowLeftIcon />
+                        )
+                      }
                     >
                       {t('who-are-you.back')}
                     </Button>
@@ -293,6 +294,7 @@ const UserDetailsPage: NextPage = () => {
                       textDecoration: 'underline',
                       textTransform: 'none',
                       fontSize: '1.2rem',
+                      gap: isArabic ? '10px' : '',
                       '&:hover': {
                         border: 'none',
                         backgroundColor: 'transparent',
@@ -303,7 +305,13 @@ const UserDetailsPage: NextPage = () => {
                         pointerEvents: 'auto',
                       },
                     }}
-                    endIcon={<KeyboardDoubleArrowRightIcon />}
+                    endIcon={
+                      isArabic ? (
+                        <KeyboardDoubleArrowLeftIcon />
+                      ) : (
+                        <KeyboardDoubleArrowRightIcon />
+                      )
+                    }
                     disabled={false}
                   >
                     {t('buttons.submit')}

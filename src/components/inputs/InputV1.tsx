@@ -2,6 +2,7 @@
 import { Input } from '@mui/joy';
 import styles from './inputv1.module.css';
 import { ReactElement, useState } from 'react';
+import { useMediaQuery } from '@mui/material';
 
 interface inputV1Props {
   startIcon?: ReactElement | null;
@@ -20,6 +21,7 @@ const InputV1 = ({
   onChange,
   value,
 }: inputV1Props) => {
+  const isScreen570 = useMediaQuery('(max-width:570px)');
   const [showPassword, setShowPassword] = useState(false);
   return (
     <Input
@@ -31,6 +33,10 @@ const InputV1 = ({
       }
       className={styles.generalInput}
       sx={{
+        '&.MuiInput-root': {
+          width: isScreen570 ? '100%' : '25rem',
+        },
+
         '--Input-focusedThickness': '0rem',
         '--Input-focusedHighlight': 'white',
         '&::before': {
