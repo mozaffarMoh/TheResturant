@@ -124,6 +124,7 @@ const EventDetailsModal = ({
             display={'flex'}
             alignItems={'center'}
             justifyContent={'center'}
+            paddingY={2}
           >
             {data?.metadata &&
               data?.metadata.map((item: any, i: number) => {
@@ -135,16 +136,19 @@ const EventDetailsModal = ({
                     xs={12}
                     sm={6}
                     display={'flex'}
-                    justifyContent={'space-between'}
+                    justifyContent={'flex-start'}
                     alignItems={'center'}
                     height={50}
-                    padding={5}
+                    gap={2}
+                    paddingX={1.5}
+                    paddingY={3}
                   >
                     <Stack
                       direction={'row'}
-                      justifyContent={'space-between'}
+                      justifyContent={'flex-start'}
                       alignItems={'center'}
                       gap={2}
+                      width={'100%'}
                     >
                       <Stack
                         sx={{ width: '10px', height: '50px' }}
@@ -152,6 +156,7 @@ const EventDetailsModal = ({
                       >
                         {SvgIcon && <SvgIcon />}
                       </Stack>
+
                       <Typography
                         fontWeight={600}
                         fontSize={13}
@@ -160,12 +165,18 @@ const EventDetailsModal = ({
                         {item.name}
                       </Typography>
                     </Stack>
-                    <Typography
-                      fontSize={13}
-                      color={gray100}
+                    <Stack
+                      width={'50%'}
+                      height={70}
+                      justifyContent={'center'}
                     >
-                      {item.value}
-                    </Typography>
+                      <Typography
+                        fontSize={13}
+                        color={gray100}
+                      >
+                        {item.value}
+                      </Typography>
+                    </Stack>
                   </Grid>
                 );
               })}
@@ -177,30 +188,39 @@ const EventDetailsModal = ({
               justifyContent={'space-between'}
               alignItems={'center'}
               height={50}
-              padding={5}
+              paddingX={1.5}
+              paddingY={3}
             >
               <Stack
                 direction={'row'}
                 justifyContent={'flex-start'}
                 alignItems={'center'}
                 gap={1}
+                width={'100%'}
               >
-                <Stack
-                  sx={{ width: '100%', height: '50px' }}
-                  justifyContent={'center'}
-                >
+                <Stack justifyContent={'center'}>
                   <PlaceSVG />
                 </Stack>
                 <Typography
                   fontWeight={600}
+                  fontSize={13}
                   color={primaryColor}
                 >
                   {t('dialog.location')}
                 </Typography>
               </Stack>
-              <Typography color={gray100}>
-                {data?.place && data?.place?.name}
-              </Typography>
+              <Stack
+                width={'50%'}
+                height={70}
+                justifyContent={'center'}
+              >
+                <Typography
+                  fontSize={13}
+                  color={gray100}
+                >
+                  {data?.place && data?.place?.name}
+                </Typography>
+              </Stack>
             </Grid>
           </Grid>
         )}

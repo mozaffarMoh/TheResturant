@@ -1,6 +1,6 @@
 'use client';
 import type { NextPage } from 'next';
-import { Box, Button, Grid, Paper, Stack } from '@mui/material';
+import { Box, Button, Grid, Paper, Stack, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
 import {
   ClosedEyeSVG,
@@ -8,7 +8,7 @@ import {
   LockSVG,
   MessageSVG,
   PersonSVG,
-  PhoneSVG,
+  Phone18SVG,
 } from '../../../../../assets/icons';
 import { loginBgImage } from '@/constant/images';
 import styles from '../sign-in/page.module.css';
@@ -31,6 +31,7 @@ import SignUpInput from '@/components/inputs/signUpInput';
 const SingUp: NextPage = () => {
   const t = useTranslations();
   const router = useRouter();
+  const isScreen500 = useMediaQuery('(max-width:500px)');
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const [showModal, setShowModal] = useState(false);
   const [governorateArray, setGovernorateArray] = useState([]);
@@ -65,7 +66,7 @@ const SingUp: NextPage = () => {
       placeholder: t('auth.phone-placeholder'),
       slug: 'phone',
       type: 'text',
-      startIcon: <PhoneSVG />,
+      startIcon: <Phone18SVG />,
     },
     {
       name: t('auth.password-title'),
@@ -217,8 +218,8 @@ const SingUp: NextPage = () => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack
                   height={400}
-                  overflow={'auto'}
-                  width={350}
+                  sx={{ overflowY: 'auto', overflowX: 'hidden' }}
+                  width={isScreen500 ? 300 : 400}
                   gap={2}
                 >
                   {signUpArray.map((item: any) => {
@@ -235,6 +236,7 @@ const SingUp: NextPage = () => {
                         startIcon={item.startIcon}
                         endIcon={item.endIcon}
                         onChange={(e: any) => handleChangeValue(e, item.slug)}
+                        handleShowTerms={() => setShowModal(true)}
                       />
                     );
                   })}

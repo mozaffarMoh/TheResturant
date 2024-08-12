@@ -19,38 +19,40 @@ const WorkShopsListingSection = () => {
       maxWidth="lg"
       className="mt-3"
     >
-      <p className="general-title primary-color"> {t('header.workshops')}</p>
-      <GridFlex
-        container
-        rowGap={2}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        paddingY={5}
-      >
-        {data && !loading ? (
-          data.map((item: any, i: number) => {
-            return (
-              <GridFlex
-                key={i}
-                md={4}
-                lg={4}
-              >
-                <WorkShopCard
-                  title={item.title}
-                  subTitle={item.subTitle}
-                  media={item?.media}
-                  slug={item.slug}
-                  metadata={item.metadata}
-                  place={item.place}
-                />
-              </GridFlex>
-            );
-          })
-        ) : (
-          <CircularProgress />
-        )}
-      </GridFlex>
+      <div id="workshops">
+        <p className="general-title primary-color"> {t('header.workshops')}</p>
+        <GridFlex
+          container
+          rowGap={2}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          paddingY={5}
+        >
+          {data && !loading ? (
+            data.map((item: any, i: number) => {
+              return (
+                <GridFlex
+                  key={i}
+                  md={4}
+                  lg={4}
+                >
+                  <WorkShopCard
+                    title={item.title}
+                    subTitle={item.subTitle}
+                    media={item?.media}
+                    slug={item.slug}
+                    metadata={item.metadata}
+                    place={item.place}
+                  />
+                </GridFlex>
+              );
+            })
+          ) : (
+            <CircularProgress />
+          )}
+        </GridFlex>
+      </div>
     </Container>
   );
 };

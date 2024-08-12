@@ -5,15 +5,18 @@ import { primaryColor } from '@/constant/color';
 import { ArrowRight } from '@mui/icons-material';
 import WorkShopCardV1 from '@/components/cards/home-section/WorkShopCardV1';
 import WorkShopCardV2 from '@/components/cards/home-section/WorkShopCardV2';
-import { workShopImage1, workShopImage2 } from '@/constant/images';
 import { useTranslations } from 'next-intl';
 import useGet from '@/custom-hooks/useGet';
 import { endPoints } from '@/base-api/endPoints';
 import { useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 const WorkShopsSection = () => {
   const t = useTranslations();
   const [data, loading, getData] = useGet(endPoints.getWorkshop);
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const router = useRouter();
 
   useEffect(() => {
     getData();
@@ -102,6 +105,9 @@ const WorkShopsSection = () => {
                       textDecoration: 'underline',
                     },
                   }}
+                  onClick={() =>
+                    router.push(`/${langCookie}/home/events-workshops#workshops`)
+                  }
                   endIcon={<ArrowRight />}
                 >
                   {t('buttons.view')}

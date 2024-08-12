@@ -6,7 +6,6 @@
   border-radius: 0px;
   width: 25rem;
 
-
 }
 
 /* Scoped svg styling inside generalInput */
@@ -14,6 +13,7 @@
   width: 18px;
   height: 18px;
 }
+
 .svgIcon svg {
   width: 18px;
   height: 18px;

@@ -30,6 +30,7 @@ interface SignUpInputProps {
   name: string;
   title: string;
   errors: any;
+  handleShowTerms: any;
 }
 
 const SignUpInput = ({
@@ -45,6 +46,7 @@ const SignUpInput = ({
   name,
   title,
   errors,
+  handleShowTerms,
 }: SignUpInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const renderInputField: any = ({ field, fieldState }: any) => {
@@ -222,7 +224,14 @@ const SignUpInput = ({
                   }}
                 />
               }
-              label={title}
+              label={
+                <span
+                  onClick={handleShowTerms}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {title}
+                </span>
+              }
               labelPlacement="end"
             />
             {!!error && (

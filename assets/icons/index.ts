@@ -26,9 +26,11 @@ import DurationSVG from './duration';
 import PersonSVG from './person';
 import DateSVG from './date';
 import JordanSVG from './jordan';
+import Phone18SVG from './phone18';
 
 export {
   JordanSVG,
+  Phone18SVG,
   DurationSVG,
   PersonSVG,
   DateSVG,
