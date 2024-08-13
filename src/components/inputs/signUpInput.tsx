@@ -53,6 +53,7 @@ const SignUpInput = ({
     const error = errors[slug] ? errors[slug]?.message : '';
     const pathname = usePathname();
     let isArabic = pathname.startsWith('/ar');
+    let callValue = slug == 'phone' ? '+962' : '';
 
     return (
       <Box>
@@ -99,6 +100,7 @@ const SignUpInput = ({
           >
             <Input
               error={!!error}
+              defaultValue={callValue}
               type={type}
               style={{ width: '100%' }}
               startDecorator={startIcon}
@@ -226,7 +228,11 @@ const SignUpInput = ({
               }
               label={
                 <span
-                  onClick={handleShowTerms}
+                  onClick={(e) => {
+                    // Prevent checkbox click event when clicking the label
+                    e.preventDefault();
+                    handleShowTerms();
+                  }}
                   style={{ cursor: 'pointer' }}
                 >
                   {title}

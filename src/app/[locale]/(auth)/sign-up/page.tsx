@@ -4,6 +4,7 @@ import { Box, Button, Grid, Paper, Stack, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
 import {
   ClosedEyeSVG,
+  JordanSVG,
   LocationSVG,
   LockSVG,
   MessageSVG,
@@ -66,7 +67,7 @@ const SingUp: NextPage = () => {
       placeholder: t('auth.phone-placeholder'),
       slug: 'phone',
       type: 'text',
-      startIcon: <Phone18SVG />,
+      startIcon: <JordanSVG />,
     },
     {
       name: t('auth.password-title'),
@@ -160,6 +161,7 @@ const SingUp: NextPage = () => {
       });
     }
   };
+
 
   return (
     <div className={styles.signInContainer}>

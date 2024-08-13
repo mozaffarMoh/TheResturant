@@ -44,7 +44,7 @@ const ContactUsSectionCard = ({ title, content, media }: IProps) => {
           sx={{ textAlign: isRTL ? 'right' : 'left' }}
           className="fc-light-black-new"
         >
-          {content && content[0].value}
+          {content && content[0] && content[0]?.value}
         </Typography>
       </Grid>
     </Grid>
