@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { buttonPrimaryColor } from '@/constant/color';
+import { OpenEyeSVG } from '../../../assets/icons';
 
 interface SignUpInputProps {
   startIcon?: ReactElement | null;
@@ -53,7 +54,7 @@ const SignUpInput = ({
     const error = errors[slug] ? errors[slug]?.message : '';
     const pathname = usePathname();
     let isArabic = pathname.startsWith('/ar');
-  
+
     return (
       <Box>
         {type !== 'checkbox' && (
@@ -70,8 +71,8 @@ const SignUpInput = ({
               style={{ width: '100%' }}
               startDecorator={startIcon}
               endDecorator={
-                <div onClick={() => setShowPassword((prv) => !prv)}>
-                  {endIcon}
+                <div onClick={() => setShowPassword((prv) => !prv)} style={{marginTop:'10px'}}>
+                  {showPassword ? <OpenEyeSVG /> : endIcon}
                 </div>
               }
               placeholder={label}

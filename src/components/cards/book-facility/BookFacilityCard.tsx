@@ -83,9 +83,10 @@ export default function BookFacilityCard({
             {metadata &&
               metadata.length > 0 &&
               metadata.map((item: any) => {
-                let SvgIcon = metadataIcons(item.slug);
+                let SvgIcon = metadataIcons(item?.itemMetaKey?.slug);
                 return (
-                  (item.slug == 'capacity-range' || item.slug == 'time') && (
+                  (item?.itemMetaKey?.slug == 'capacity-range' ||
+                    item?.itemMetaKey?.slug == 'time') && (
                     <Grid
                       key={item.id}
                       item
@@ -110,7 +111,9 @@ export default function BookFacilityCard({
               letterSpacing={1}
             >
               <PlaceSVG />
-              <Typography className="text-xs">{place && place?.name}</Typography>
+              <Typography className="text-xs">
+                {place && place?.name}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>

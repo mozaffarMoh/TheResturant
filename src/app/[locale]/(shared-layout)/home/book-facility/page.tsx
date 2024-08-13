@@ -38,6 +38,31 @@ const BookFacilityPage: NextPage = () => {
 
   const body = {
     modelName: 'Item',
+    fields: ['id', 'title', 'slug', 'description', 'price_start_from','media'],
+    relations: {
+      itemMetaData: {
+        fields: ['id', 'value'],
+        relations: {
+          itemMetaKey: {
+            fields: ['id', 'name', 'slug', 'media'],
+          },
+        },
+      },
+      categories: {
+        fields: ['name'],
+      },
+      place: {
+        fields: ['name', 'slug'],
+        relations: {
+          parent: {
+            fields: ['name', 'slug'],
+          },
+        },
+      },
+    },
+    'with-pagination': false,
+    limit: 2,
+    page: 2,
     filters,
   };
 

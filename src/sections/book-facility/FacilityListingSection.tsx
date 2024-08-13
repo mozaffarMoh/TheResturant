@@ -1,9 +1,10 @@
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Pagination } from '@mui/material';
 
 import BookFacilityCard from '@/components/cards/book-facility/BookFacilityCard';
 
 const FacilityListingSection = ({ facilityItems }: any) => {
-
+  const paginationCount =
+    facilityItems.length >= 5 ? facilityItems.length / 5 : 1;
   return (
     <Container
       maxWidth="lg"
@@ -29,11 +30,16 @@ const FacilityListingSection = ({ facilityItems }: any) => {
               title={item.title}
               categories={item.categories}
               media={item.media}
-              metadata={item.metadata}
+              metadata={item.itemMetaData}
               place={item.place}
             />
           </Grid>
         ))}
+        <Pagination
+          variant="outlined"
+          color="secondary"
+          count={paginationCount}
+        />
       </Grid>
     </Container>
   );

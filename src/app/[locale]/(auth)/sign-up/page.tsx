@@ -1,6 +1,15 @@
 'use client';
 import type { NextPage } from 'next';
-import { Box, Button, Grid, Paper, Stack, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Button,
+  Grid,
+  MenuItem,
+  Paper,
+  Select,
+  Stack,
+  useMediaQuery,
+} from '@mui/material';
 import Link from 'next/link';
 import {
   ClosedEyeSVG,
@@ -66,9 +75,18 @@ const SingUp: NextPage = () => {
       slug: 'phone',
       type: 'text',
       startIcon: (
-        <span style={{ direction: 'ltr', unicodeBidi: 'bidi-override' }}>
-          +962
-        </span>
+        <Select
+          value="+962"
+          variant="standard"
+          style={{ direction: 'ltr', unicodeBidi: 'bidi-override' }}
+        >
+          <MenuItem
+            value={'+962'}
+            style={{ direction: 'ltr', unicodeBidi: 'bidi-override' }}
+          >
+            +962
+          </MenuItem>
+        </Select>
       ),
     },
     {
