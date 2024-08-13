@@ -33,7 +33,7 @@ function TextField({
       control={control}
       render={({ field, fieldState }) => (
         <MuiTextField
-          fullWidth
+          style={{ width: '100%' }}
           {...field}
           value={field.value || value}
           onChange={(e) => {

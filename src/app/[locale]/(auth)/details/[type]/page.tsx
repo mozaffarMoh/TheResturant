@@ -29,6 +29,7 @@ const UserDetailsPage: NextPage = () => {
   const signupData: any = Cookies.get('signUpData') || '';
   const signupDataParsed = signupData ? JSON.parse(signupData) : null;
   const formData: any = localStorage.getItem('formData');
+  const [showOTPModal, setShowOTPModal] = useState<boolean>(false);
   const userType = Cookies.get('userType');
   const [typeDetails, setTypeDetails]: any = useState({ inputs: [] });
   const [fullFormData, setFullFormData]: any = useState([]);
@@ -152,11 +153,16 @@ const UserDetailsPage: NextPage = () => {
     handlePostForOTP();
   };
 
+  useEffect(() => {
+    successForOTP && setShowOTPModal(true);
+  }, [successForOTP]);
+
   return formData ? (
     <div className={styles.signInContainer}>
       {/* Success Modal when user Success register */}
       <SuccessRegisterModal
-        open={successForOTP}
+        open={showOTPModal}
+        handleClose={() => setShowOTPModal(false)}
         OTPValue={OTPValue}
         userID={userID}
         setOTPValue={setOTPValue}
@@ -222,7 +228,7 @@ const UserDetailsPage: NextPage = () => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack
                   height={400}
-                  overflow={'auto'}
+                  sx={{ overflowY: 'auto', overflowX: 'hidden' }}
                   gap={2}
                 >
                   {typeDetails?.inputs &&

@@ -5,14 +5,14 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import Typography from '@mui/material/Typography';
-import { DialogActions, Stack, TextField } from '@mui/material';
+import { DialogActions, IconButton, Stack, TextField } from '@mui/material';
 import Image from 'next/image';
 import { successCheckMark } from '@/constant/images';
 import { LoadingButton } from '@mui/lab';
 import OTPInput from 'react-otp-input';
 import { CustomInput } from '../inputs/CustomInput';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -25,6 +25,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 interface SuccessRegisterModalProps {
   open: boolean;
+  handleClose: any;
   OTPValue: string;
   userID: string;
   setOTPValue: React.Dispatch<React.SetStateAction<string>>;
@@ -36,6 +37,7 @@ interface SuccessRegisterModalProps {
 
 const SuccessRegisterModal = ({
   open = false,
+  handleClose,
   OTPValue,
   userID,
   setOTPValue,
@@ -54,8 +56,21 @@ const SuccessRegisterModal = ({
       aria-labelledby="customized-dialog-title"
       open={open}
     >
+      {' '}
+      <IconButton
+        aria-label="close"
+        onClick={handleClose}
+        sx={{
+          position: 'absolute',
+          right: 8,
+          top: 8,
+          color: (theme) => theme.palette.grey[500],
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
       <DialogTitle
-        sx={{ m: 0 }}
+        sx={{ m: 0, padding: '50px' }}
         className="sm-flex-col-col-center-center"
         id="customized-dialog-title"
       >

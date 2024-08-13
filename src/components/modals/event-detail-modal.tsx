@@ -30,6 +30,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiPaper-root': {
     backgroundColor: primaryColor, // Set the background color to red
     color: 'white',
+    width: '700px',
+    maxWidth : '700px',
     borderRadius: '12px',
   },
   '& .MuiDialogContent-root': {
@@ -93,7 +95,7 @@ const EventDetailsModal = ({
       <DialogContent>
         <Box
           className=" position-relative  "
-          height={250}
+          height={300}
           marginBottom={3}
         >
           <Image
@@ -105,7 +107,7 @@ const EventDetailsModal = ({
         </Box>
         {loading ? (
           <Stack
-            width={isScreen600 ? 300 : 500}
+            width={'100%'}
             height={100}
             borderRadius={5}
             justifyContent={'center'}
@@ -118,7 +120,8 @@ const EventDetailsModal = ({
         ) : (
           <Grid
             container
-            width={isScreen600 ? 300 : 500}
+            width={'100%'}
+            height={!isScreen600 ? 250 : ''}
             bgcolor={'white'}
             borderRadius={5}
             display={'flex'}
@@ -148,7 +151,7 @@ const EventDetailsModal = ({
                       justifyContent={'flex-start'}
                       alignItems={'center'}
                       gap={2}
-                      width={'100%'}
+                      width={'60%'}
                     >
                       <Stack
                         sx={{ width: '10px', height: '50px' }}
@@ -166,7 +169,7 @@ const EventDetailsModal = ({
                       </Typography>
                     </Stack>
                     <Stack
-                      width={'50%'}
+                      width={'40%'}
                       height={70}
                       justifyContent={'center'}
                     >
@@ -210,9 +213,10 @@ const EventDetailsModal = ({
                 </Typography>
               </Stack>
               <Stack
-                width={'50%'}
+                width={'60%'}
                 height={70}
                 justifyContent={'center'}
+                alignItems={"flex-start"}
               >
                 <Typography
                   fontSize={13}

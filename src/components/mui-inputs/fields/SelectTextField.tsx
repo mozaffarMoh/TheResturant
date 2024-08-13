@@ -37,7 +37,7 @@ function SelectTextField({
         return (
           <MuiTextField
             {...field}
-            fullWidth
+            style={{ width:'100%'}}
             id={name}
             label={label}
             select

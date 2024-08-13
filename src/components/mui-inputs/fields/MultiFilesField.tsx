@@ -119,7 +119,7 @@ const MultiFilesField = ({
       error={!!error}
       className="input-form-control"
       sx={{ marginTop: '0.5rem' }}
-      fullWidth
+      style={{ width: '100%' }}
     >
       <FormLabel sx={{ marginBottom: '0.4rem' }}>{label}</FormLabel>
       <input
@@ -156,7 +156,10 @@ const MultiFilesField = ({
       </Stack>
       <List>
         {value.map((file: File, index: number) => (
-          <ListItem key={index} dir='ltr'>
+          <ListItem
+            key={index}
+            dir="ltr"
+          >
             <ListItemText
               primary={file.name}
               sx={{ fontSize: '0.8rem' }}

@@ -2,7 +2,7 @@
 import { Button, Container, Grid } from '@mui/material';
 import styles from './work-shops.module.css';
 import { primaryColor } from '@/constant/color';
-import { ArrowRight } from '@mui/icons-material';
+import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import WorkShopCardV1 from '@/components/cards/home-section/WorkShopCardV1';
 import WorkShopCardV2 from '@/components/cards/home-section/WorkShopCardV2';
 import { useTranslations } from 'next-intl';
@@ -10,13 +10,15 @@ import useGet from '@/custom-hooks/useGet';
 import { endPoints } from '@/base-api/endPoints';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const WorkShopsSection = () => {
   const t = useTranslations();
   const [data, loading, getData] = useGet(endPoints.getWorkshop);
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const router = useRouter();
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
 
   useEffect(() => {
     getData();
@@ -106,9 +108,11 @@ const WorkShopsSection = () => {
                     },
                   }}
                   onClick={() =>
-                    router.push(`/${langCookie}/home/events-workshops#workshops`)
+                    router.push(
+                      `/${langCookie}/home/events-workshops#workshops`,
+                    )
                   }
-                  endIcon={<ArrowRight />}
+                  endIcon={isArabic ? <ArrowLeft /> : <ArrowRight />}
                 >
                   {t('buttons.view')}
                 </Button>

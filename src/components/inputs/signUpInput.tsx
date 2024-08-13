@@ -53,8 +53,7 @@ const SignUpInput = ({
     const error = errors[slug] ? errors[slug]?.message : '';
     const pathname = usePathname();
     let isArabic = pathname.startsWith('/ar');
-    let callValue = slug == 'phone' ? '+962' : '';
-
+  
     return (
       <Box>
         {type !== 'checkbox' && (
@@ -100,7 +99,6 @@ const SignUpInput = ({
           >
             <Input
               error={!!error}
-              defaultValue={callValue}
               type={type}
               style={{ width: '100%' }}
               startDecorator={startIcon}
@@ -203,6 +201,7 @@ const SignUpInput = ({
             error={!!error}
             className="input-form-control"
             fullWidth
+            sx={{ marginRight: -2 }}
           >
             <FormControlLabel
               control={

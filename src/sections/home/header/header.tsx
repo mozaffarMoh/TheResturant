@@ -11,6 +11,7 @@ import {
   Box,
   Typography,
   Stack,
+  Select,
 } from '@mui/material';
 import styles from './header.module.css';
 import { usePathname, useRouter } from 'next/navigation';
@@ -31,55 +32,30 @@ const Header = () => {
 
   const menu = [
     {
-      id: 0,
-      type: 0,
       title: t('header.home'),
       link: `/${langCookie}/home`,
-      name: 'Home',
     },
 
     {
-      id: 1,
-      type: 0,
       title: t('header.events-workshops'),
       link: `/${langCookie}/home/events-workshops`,
-      name: 'Events',
     },
     {
-      id: 2,
-      type: 0,
       title: t('header.book-facility'),
       link: `/${langCookie}/home/book-facility`,
-      name: 'BokFaculty',
     },
     {
-      id: 3,
-      type: 0,
       title: t('header.mentors'),
       link: `/${langCookie}/home/mentors`,
-      name: 'Mentors',
     },
     {
-      id: 4,
-      type: 1,
       title: t('header.industry'),
       link: '#',
-      links: [
-        { id: 0, path: `/${langCookie}/home/industry/news`, value: 'ind1' },
-        {
-          id: 1,
-          path: `/${langCookie}/home/industry/announcements`,
-          value: 'ind2',
-        },
-      ],
-      name: 'Industry',
+      isList: true,
     },
     {
-      id: 5,
-      type: 0,
       title: t('header.contact-us'),
       link: `/${langCookie}/contact-us`,
-      name: 'ContactUs',
     },
   ];
 
@@ -352,15 +328,32 @@ const Header = () => {
                       <div>
                         <MenuList className={styles.menuListDrawer}>
                           {menu &&
-                            menu.map((item: any, idx: number) => (
-                              <MenuItem
-                                key={idx}
-                                className={`${styles.menuItemDrawer} ${isActive(item.link) && styles.drawerActive}`}
-                                onClick={() => handleNavigation(item.link)}
-                              >
-                                <ListItemText>{item.title}</ListItemText>
-                              </MenuItem>
-                            ))}
+                            menu.map((item: any, idx: number) => {
+                              return item?.isList ? (
+                                <MenuItem key={idx}>
+                                  {industryLinks.map((link: any, i: number) => {
+                                    return (
+                                      <MenuItem
+                                        key={i}
+                                        onClick={() =>
+                                          handleNavigation(link.path)
+                                        }
+                                      >
+                                        {link.value}
+                                      </MenuItem>
+                                    );
+                                  })}
+                                </MenuItem>
+                              ) : (
+                                <MenuItem
+                                  key={idx}
+                                  className={`${styles.menuItemDrawer} ${isActive(item.link) && styles.drawerActive}`}
+                                  onClick={() => handleNavigation(item.link)}
+                                >
+                                  <ListItemText>{item.title}</ListItemText>
+                                </MenuItem>
+                              );
+                            })}
                         </MenuList>
                       </div>
                       <Stack

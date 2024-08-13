@@ -23,8 +23,13 @@ export default function BookFacilityCard({
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const { push } = useRouter();
   let imageURL =
-    media && media.length > 0 && media[0]?.url ? domain + media[0]?.url : greyBackground;
-  let categoryName = categories[0]?.name ? categories[0]?.name : '';
+    media && media.length > 0 && media[0]?.url
+      ? domain + media[0]?.url
+      : greyBackground;
+  let categoryName =
+    categories && categories.length > 0 && categories[0]?.name
+      ? categories[0]?.name
+      : '';
   return (
     <Card
       variant="outlined"
@@ -75,25 +80,27 @@ export default function BookFacilityCard({
             justifyContent={'space-between'}
             alignContent={'center'}
           >
-            {metadata.map((item: any) => {
-              let SvgIcon = metadataIcons(item.slug);
-              return (
-                (item.slug == 'capacity-range' || item.slug == 'time') && (
-                  <Grid
-                    key={item.id}
-                    item
-                    display={'flex'}
-                    justifyContent={'start'}
-                    alignContent={'center'}
-                    letterSpacing={1}
-                    gap={1}
-                  >
-                    {SvgIcon && <SvgIcon />}
-                    <Typography className="text-xs">{item.value}</Typography>
-                  </Grid>
-                )
-              );
-            })}
+            {metadata &&
+              metadata.length > 0 &&
+              metadata.map((item: any) => {
+                let SvgIcon = metadataIcons(item.slug);
+                return (
+                  (item.slug == 'capacity-range' || item.slug == 'time') && (
+                    <Grid
+                      key={item.id}
+                      item
+                      display={'flex'}
+                      justifyContent={'start'}
+                      alignContent={'center'}
+                      letterSpacing={1}
+                      gap={1}
+                    >
+                      {SvgIcon && <SvgIcon />}
+                      <Typography className="text-xs">{item.value}</Typography>
+                    </Grid>
+                  )
+                );
+              })}
             <Grid
               item
               display={'flex'}
@@ -103,7 +110,7 @@ export default function BookFacilityCard({
               letterSpacing={1}
             >
               <PlaceSVG />
-              <Typography className="text-xs">{place.name}</Typography>
+              <Typography className="text-xs">{place && place?.name}</Typography>
             </Grid>
           </Grid>
         </Grid>

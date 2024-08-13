@@ -45,9 +45,9 @@ function SelectMultiField({
         return (
           <FormControl
             variant="outlined"
-            fullWidth
             className="input-form-control-multi-check"
             error={!!fieldState.error}
+            style={{ width:'100%'}}
             sx={{
               '& .MuiInputBase-root': {
                 borderRadius: '50px',

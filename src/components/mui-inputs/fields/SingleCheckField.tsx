@@ -46,8 +46,9 @@ const SingleCheckboxField = ({
       key={key}
       error={!!error}
       className="input-form-control"
-      fullWidth
+      style={{ width:'100%'}}
       sx={{ display: 'flex', alignItems: 'flex-start' }}
+      
     >
       <FormControlLabel
         control={
@@ -70,7 +71,7 @@ const SingleCheckboxField = ({
             }}
           />
         }
-        label={label}
+        label={<span style={{fontSize:'15px'}}>{label}</span>}
         labelPlacement="end"
       />
       {error && (

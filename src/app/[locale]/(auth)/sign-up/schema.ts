@@ -21,9 +21,8 @@ export const signupSchema = (inputs: any, t: any) => {
                 break;
 
             case 'phone':
-                validation = z.string().regex(/^\+962\d{9}$/, { message: t('validation.validPhone') });
+                validation = z.string().regex(/^\d{9}$/, { message: t('validation.validPhone') });
                 break;
-
 
             case 'email':
                 validation = z.string()

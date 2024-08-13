@@ -4,12 +4,10 @@ import { Box, Button, Grid, Paper, Stack, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
 import {
   ClosedEyeSVG,
-  JordanSVG,
   LocationSVG,
   LockSVG,
   MessageSVG,
   PersonSVG,
-  Phone18SVG,
 } from '../../../../../assets/icons';
 import { loginBgImage } from '@/constant/images';
 import styles from '../sign-in/page.module.css';
@@ -67,7 +65,11 @@ const SingUp: NextPage = () => {
       placeholder: t('auth.phone-placeholder'),
       slug: 'phone',
       type: 'text',
-      startIcon: <JordanSVG />,
+      startIcon: (
+        <span style={{ direction: 'ltr', unicodeBidi: 'bidi-override' }}>
+          +962
+        </span>
+      ),
     },
     {
       name: t('auth.password-title'),
@@ -157,11 +159,13 @@ const SingUp: NextPage = () => {
   const handleChangeValue = (value: any, slug: string) => {
     if (slug !== 'terms') {
       setFullFormData((prevObj): any => {
-        return { ...prevObj, [slug]: value };
+        let checkPhone = slug == 'phone' ? '+962' + value : value;
+        return { ...prevObj, [slug]: checkPhone };
       });
     }
   };
 
+  //console.log(fullFormData);
 
   return (
     <div className={styles.signInContainer}>
