@@ -57,6 +57,7 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
   }, []);
 
   useEffect(() => {
+    successRequestOtp && setSeconds(20);
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
@@ -109,7 +110,6 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
             // Move focus to the next input
             document.querySelectorAll('input')[value.length].focus();
           }
-          
         }}
         shouldAutoFocus={true}
         numInputs={5}

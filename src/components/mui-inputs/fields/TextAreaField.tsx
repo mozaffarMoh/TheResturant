@@ -32,6 +32,7 @@ function TextField({
         <MuiTextField
           fullWidth
           {...field}
+          style={{width : '100%'}}
           value={field.value || value}
           onChange={(e) => {
             // Update the onChange handler

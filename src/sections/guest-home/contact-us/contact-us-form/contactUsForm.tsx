@@ -12,6 +12,7 @@ import { contactUsSchema } from './schema';
 import usePost from '@/custom-hooks/usePost';
 import CustomAlert from '@/components/alerts/CustomAlert';
 import { LoadingButton } from '@mui/lab';
+import { usePathname } from 'next/navigation';
 
 const ContactUsForm = () => {
   const t = useTranslations();
@@ -19,6 +20,9 @@ const ContactUsForm = () => {
   const [fullFormData, setFullFormData]: any = useState([]);
   const [fullFormID, setFullFormID]: any = useState(0);
   const [data, , getData] = useGet(endPoints.contactUsForm);
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
+
   useEffect(() => {
     getData();
   }, []);
@@ -103,6 +107,11 @@ const ContactUsForm = () => {
             item
             container
             direction={isScreen900 ? 'column' : 'row'}
+            justifyContent={'space-between'}
+            paddingTop={2}
+            paddingRight={!isArabic ? 5 : 0}
+            paddingLeft={isArabic ? 5 : 0}
+            padding={isScreen900 ? 0 : ''}
           >
             {data?.children[0]?.inputs &&
               data?.children[0]?.inputs.map((item: any, i: number) => {
@@ -111,7 +120,7 @@ const ContactUsForm = () => {
                     key={item.id}
                     item
                     xs={6}
-                    md={i == 1 || i == 2 ? 5.7 : 12}
+                    md={i == 1 || i == 2 ? 5.9 : 12}
                   >
                     <FormContactUSField
                       key={item.id}

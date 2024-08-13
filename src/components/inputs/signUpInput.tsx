@@ -68,10 +68,15 @@ const SignUpInput = ({
             <Input
               error={!!error}
               type={showPassword ? 'text' : 'password'}
-              style={{ width: '100%' }}
+              sx={{
+                width: '100%',
+              }}
               startDecorator={startIcon}
               endDecorator={
-                <div onClick={() => setShowPassword((prv) => !prv)} style={{marginTop:'10px'}}>
+                <div
+                  onClick={() => setShowPassword((prv) => !prv)}
+                  style={{ marginTop: '10px' }}
+                >
                   {showPassword ? <OpenEyeSVG /> : endIcon}
                 </div>
               }
@@ -83,8 +88,9 @@ const SignUpInput = ({
                 }
               }}
               value={field.value}
-              className={styles.generalInput}
+              className={`${styles.generalInput} ${isArabic && styles.passwordARdirection}`}
             />
+
             {!!error && (
               <FormHelperText sx={{ textAlign: isArabic ? 'right' : 'left' }}>
                 {error}
@@ -110,7 +116,7 @@ const SignUpInput = ({
                 onChange(e.target.value);
               }}
               value={field.value}
-              className={styles.generalInput}
+              className={`${styles.generalInput} ${isArabic && styles.passwordARdirection}`}
             />{' '}
             {!!error && (
               <FormHelperText sx={{ textAlign: isArabic ? 'right' : 'left' }}>
