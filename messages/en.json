@@ -45,7 +45,7 @@
     "verify-password": {
         "enter-email": "Enter Your Email",
         "enter-code": "Enter Code",
-        "enter-code-subtitle": "We’ve sent an EMAIL with an activation codeto your email",
+        "enter-code-subtitle": "We’ve sent an EMAIL with an activation code to your email",
         "send-again": "Send code again",
         "time-is-up": "Time is up!",
         "create-password": "Create New Password"

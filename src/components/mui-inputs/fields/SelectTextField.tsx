@@ -9,7 +9,6 @@ interface SelectTextFieldProps {
   required: boolean;
   fieldData: { name: string; value: string; id: number }[];
   setFormData: any;
-  formId: any;
   className?: string;
   value: any;
   onChange?: any;

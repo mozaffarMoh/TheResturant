@@ -31,6 +31,7 @@ interface SuccessRegisterModalProps {
   setOTPValue: React.Dispatch<React.SetStateAction<string>>;
   loadingForSubmit: boolean;
   loadingForFinishSubmit: boolean;
+  loadingForFilesSubmit: boolean;
   handlePostForSubmit: any;
   handlePostForFinishSubmit: any;
 }
@@ -43,6 +44,7 @@ const SuccessRegisterModal = ({
   setOTPValue,
   loadingForSubmit,
   loadingForFinishSubmit,
+  loadingForFilesSubmit,
   handlePostForSubmit,
   handlePostForFinishSubmit,
 }: SuccessRegisterModalProps) => {
@@ -120,7 +122,11 @@ const SuccessRegisterModal = ({
             color="success"
             onClick={handleConfirm}
             fullWidth
-            loading={loadingForFinishSubmit || loadingForSubmit}
+            loading={
+              loadingForFinishSubmit ||
+              loadingForSubmit ||
+              loadingForFilesSubmit
+            }
           >
             {t('buttons.confirm')}
           </LoadingButton>

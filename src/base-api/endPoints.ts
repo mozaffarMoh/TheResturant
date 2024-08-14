@@ -2,6 +2,7 @@ export const endPoints = {
     whoAreYou: '/form/TPF-Register-Form',
     createUser: '/create-user',
     formSubmit: '/form/formSubmit',
+    formSumitMedia: '/form/formSubmitMedia',
     login: '/login-user',
     getGovernorate: '/core/place/jordan',
     forgotPassword: '/forgot-password',

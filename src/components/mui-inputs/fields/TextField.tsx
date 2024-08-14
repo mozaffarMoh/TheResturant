@@ -10,7 +10,6 @@ interface TextFieldProps {
   value: any;
   onChange?: any;
   setFormData: any;
-  formId: any;
   key: string;
 }
 

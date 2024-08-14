@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import './globals.css';
-
-const inter = Inter({ subsets: ['latin'] });
+import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'The Platform',
@@ -20,14 +18,15 @@ export default async function LocaleLayout({
 }) {
   // Providing all messages to the client
   const messages = await getMessages();
-  const isRTL = locale === 'ar' ? 'rtl' : 'ltr';
+  const isArabic = locale === 'ar';
 
   return (
     <html
       lang={locale}
-      dir={isRTL}
+      dir={isArabic ? 'rtl' : 'ltr'}
+      className={isArabic ? 'arabicFont' : 'englishFont'}
     >
-      <body className={inter.className}>
+      <body>
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

@@ -103,7 +103,7 @@ export const typeSchema = (inputs: any, t: any) => {
         break;
 
       case 'professional-certificatio':
-  /*       validation = z.union([
+        validation = z.union([
           z.string().min(5, { message: t('validation.uploadCert') }), // Accepts a string
           z.array(z.instanceof(Object)) // Accepts an array of files
         ]).refine((value) => {
@@ -111,8 +111,7 @@ export const typeSchema = (inputs: any, t: any) => {
             return value.trim().length > 0; // Ensure the string is not empty
           }
           return value.length > 0; // Ensure the array has at least one file
-        }, { message: t('validation.uploadCert') }); */
-        validation = z.string();
+        }, { message: t('validation.uploadCert') });
         break;
 
       default:

@@ -7,7 +7,7 @@ import {
 } from './fields';
 import { createElement } from 'react';
 
-const fieldComponents = [
+const fieldComponents: any = [
   TextField,
   SelectTextField,
   SingleCheckedField,
@@ -26,8 +26,9 @@ interface FormFieldProps {
   className?: string;
   onChange?: any;
   value?: any;
-  formId?: any;
-  setFormData?: any;
+  filesFormArray?:any;
+  handleSetFilesFieldId?: any;
+  setFilesFormArray?: any;
 }
 
 export default function FormField({
@@ -40,8 +41,9 @@ export default function FormField({
   required,
   onChange,
   value,
-  setFormData,
-  formId,
+  filesFormArray,
+  setFilesFormArray,
+  handleSetFilesFieldId,
   className = 'text-field-style',
 }: FormFieldProps) {
   const getIndexOfType = () => {
@@ -69,8 +71,8 @@ export default function FormField({
     required,
     onChange,
     className,
-    setFormData,
-    formId,
+    filesFormArray,
+    setFilesFormArray,
+    handleSetFilesFieldId,
   });
-  
 }

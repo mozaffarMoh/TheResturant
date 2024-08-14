@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useController } from 'react-hook-form';
 import {
   FormControl,
@@ -20,8 +20,9 @@ interface FileInputProps {
   label: string;
   required?: boolean;
   value: any;
-  setFormData: any;
-  formId: any;
+  filesFormArray: any;
+  setFilesFormArray: any;
+  handleSetFilesFieldId: any;
   onChange?: any;
   key: string;
 }
@@ -32,8 +33,9 @@ const MultiFilesField = ({
   control,
   label,
   value,
-  setFormData,
-  formId,
+  filesFormArray,
+  setFilesFormArray,
+  handleSetFilesFieldId,
   onChange,
   required,
 }: FileInputProps) => {
@@ -56,62 +58,46 @@ const MultiFilesField = ({
     value = [];
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-/*     if (value.length < 5) {
-      const newFile: any = event.target.files ? event.target.files[0] : '';
-
-      if (newFile?.type === 'application/pdf') {
-        const updatedArray = value ? value : [];
-        if (updatedArray && Array(updatedArray)) {
-          updatedArray.push(newFile);
-        }
-
-        setFormData((prevArray: any) => {
-          const index = prevArray.findIndex(
-            (item: any) => item.form_field_id === formId,
-          );
-
-          if (index !== -1) {
-            // Update existing element
-            const updatedArray = [...prevArray];
-            updatedArray[index].value = value;
-            return updatedArray;
-          } else {
-            // Add new element
-            return [
-              ...prevArray,
-              { form_field_id: formId, value: updatedArray },
-            ];
-          }
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    handleSetFilesFieldId();
+    const files = e.target.files;
+    if (files) {
+      const filePromises = Array.from(files).map((file) => {
+        return new Promise<any>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const arrayBuffer = reader.result as ArrayBuffer;
+            const uint8Array = new Uint8Array(arrayBuffer);
+            resolve({
+              name: file.name,
+              type: file.type,
+              data: uint8Array,
+            });
+          };
+          reader.onerror = reject;
+          reader.readAsArrayBuffer(file); // Convert file to binary ArrayBuffer
         });
+      });
+      const binaryFiles = await Promise.all(filePromises);
+      setFilesFormArray((prevArray: any) => {
+        const newArray = [...prevArray];
+        newArray.push(...binaryFiles);
+        field.onChange(newArray);
+        return newArray;
+      });
+    }
 
-        // Trigger validation
-        field.onChange(updatedArray);
-
-        // Reset file input to allow re-upload of the same file
-        event.target.value = '';
-      }
-    } */
+    e.target.value = '';
   };
 
   const handleDelete = (indexToDelete: number) => {
-    const filteredArray = value.filter(
+    const filteredArray = filesFormArray.filter(
       (_: any, i: number) => i !== indexToDelete,
     );
-
-    setFormData((prevArray: any) => {
-      const index = prevArray.findIndex(
-        (item: any) => item.form_field_id === formId,
-      );
-
-      // Update existing element
-      const updatedArray = [...prevArray];
-      updatedArray[index].value = filteredArray;
-      return updatedArray;
-    });
-
+    setFilesFormArray(filteredArray);
     field.onChange(filteredArray);
   };
+  
 
   return (
     <FormControl
@@ -155,13 +141,13 @@ const MultiFilesField = ({
         {error && <FormHelperText>{error.message}</FormHelperText>}
       </Stack>
       <List>
-        {value.map((file: File, index: number) => (
+        {filesFormArray.map((file: File, index: number) => (
           <ListItem
             key={index}
             dir="ltr"
           >
             <ListItemText
-              primary={file.name}
+              primary={file?.name}
               sx={{ fontSize: '0.8rem' }}
             />
             <IconButton

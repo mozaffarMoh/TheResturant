@@ -33,8 +33,11 @@ const UserDetailsPage: NextPage = () => {
   const userType = Cookies.get('userType');
   const [typeDetails, setTypeDetails]: any = useState({ inputs: [] });
   const [fullFormData, setFullFormData]: any = useState([]);
+  const [filesFormArray, setFilesFormArray]: any = useState([]);
   const [fullFormID, setFullFormID]: any = useState(0);
   const [userID, setUserID]: any = useState('');
+  const [formSubmitId, setFormSubmitId]: any = useState('');
+  const [filesFieldId, setFilesFieldId]: any = useState('');
   const [OTPValue, setOTPValue]: any = useState('');
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(typeSchema(typeDetails.inputs, t)),
@@ -53,6 +56,12 @@ const UserDetailsPage: NextPage = () => {
     user_id: userID,
     data: fullFormData,
   };
+  const bodyForFilesSubmit = {
+    form_submit_id: formSubmitId,
+    form_field_id: filesFieldId,
+    media: filesFormArray,
+  };
+
   const [
     ,
     loadingForOTP,
@@ -72,13 +81,22 @@ const UserDetailsPage: NextPage = () => {
   ] = usePost(endPoints.createUser, bodyWithOTP);
 
   const [
-    ,
+    dataForFinishSubmit,
     loadingForFinishSubmit,
     handlePostForFinishSubmit,
     successForFinishSubmit,
     ,
     errorMessageForFinishSubmit,
   ] = usePost(endPoints.formSubmit, bodyForFinsihSubmit);
+
+  const [
+    ,
+    loadingForFilesSubmit,
+    handlePostForFilesSubmit,
+    successForFilesSubmit,
+    ,
+    errorMessageForFilesSubmit,
+  ] = usePost(endPoints.formSumitMedia, bodyForFilesSubmit);
 
   /* Check if formData comes from localStorage is exist to continue if not redirect to sign-up */
   /* if continue extract typeDetail object from children array */
@@ -100,6 +118,10 @@ const UserDetailsPage: NextPage = () => {
     }
   }, []);
 
+  useEffect(() => {
+    successForOTP && setShowOTPModal(true);
+  }, [successForOTP]);
+
   /* When success second request set user id for submit */
   useEffect(() => {
     if (successForSubmit) {
@@ -115,23 +137,36 @@ const UserDetailsPage: NextPage = () => {
   /* finally if submit success store token in cookies then navigate to home */
   useEffect(() => {
     if (successForFinishSubmit) {
-      const finishProcess = async () => {
-        await Cookies.set('token', dataForSubmit.token.token, {
-          expires: new Date('9999-12-31T23:59:59'),
-        });
-        await setTimeout(() => {
-          router.push(`/${langCookie}/home`);
-          localStorage.removeItem('formData');
-          Cookies.remove('signUpData');
-          Cookies.remove('userType');
-        }, 2000);
-      };
-      finishProcess();
+      let submitId = dataForFinishSubmit?.form_submit_id;
+      setFormSubmitId(submitId);
     }
   }, [successForFinishSubmit]);
 
+  useEffect(() => {
+    formSubmitId && handlePostForFilesSubmit();
+  }, [formSubmitId]);
+
+  useEffect(() => {
+    if (successForFilesSubmit) {
+      if (successForFinishSubmit) {
+        const finishProcess = async () => {
+          await Cookies.set('token', dataForSubmit.token.token, {
+            expires: new Date('9999-12-31T23:59:59'),
+          });
+          await setTimeout(() => {
+            router.push(`/${langCookie}/home`);
+            localStorage.removeItem('formData');
+            Cookies.remove('signUpData');
+            Cookies.remove('userType');
+          }, 2000);
+        };
+        finishProcess();
+      }
+    }
+  }, [successForFilesSubmit]);
+
   /* Handle changing fields values */
-  const handleChangeValue = (value: any, formId: number, slug: string) => {
+  const handleChangeValue = (value: any, formId: number) => {
     setFullFormData((prevArray: any) => {
       const index = prevArray.findIndex(
         (item: any) => item.form_field_id === formId,
@@ -148,15 +183,10 @@ const UserDetailsPage: NextPage = () => {
       }
     });
   };
-  console.log(fullFormData);
 
   const onSubmit = () => {
     handlePostForOTP();
   };
-
-  useEffect(() => {
-    successForOTP && setShowOTPModal(true);
-  }, [successForOTP]);
 
   return formData ? (
     <div className={styles.signInContainer}>
@@ -169,6 +199,7 @@ const UserDetailsPage: NextPage = () => {
         setOTPValue={setOTPValue}
         loadingForSubmit={loadingForSubmit}
         loadingForFinishSubmit={loadingForFinishSubmit}
+        loadingForFilesSubmit={loadingForFilesSubmit}
         handlePostForSubmit={handlePostForSubmit}
         handlePostForFinishSubmit={handlePostForFinishSubmit}
       />
@@ -177,18 +208,20 @@ const UserDetailsPage: NextPage = () => {
         openAlert={
           errorMessageForOTP ||
           errorMessageForSubmit ||
-          errorMessageForFinishSubmit
+          errorMessageForFinishSubmit ||
+          errorMessageForFilesSubmit
         }
         setOpenAlert={() => {}}
         message={
           errorMessageForOTP ||
           errorMessageForSubmit ||
-          errorMessageForFinishSubmit
+          errorMessageForFinishSubmit ||
+          errorMessageForFilesSubmit
         }
       />
 
       <CustomAlert
-        openAlert={successForFinishSubmit}
+        openAlert={successForFilesSubmit}
         setOpenAlert={() => {}}
         type="success"
         message={t('messages.success-create-user')}
@@ -251,10 +284,13 @@ const UserDetailsPage: NextPage = () => {
                           required={false}
                           fieldData={item.input_options}
                           onChange={(e: any) =>
-                            handleChangeValue(e, item.form_field_id, item.slug)
+                            handleChangeValue(e, item.form_field_id)
                           }
-                          setFormData={setFullFormData}
-                          formId={item.form_field_id}
+                          filesFormArray={filesFormArray}
+                          setFilesFormArray={setFilesFormArray}
+                          handleSetFilesFieldId={() =>
+                            setFilesFieldId(item.form_field_id)
+                          }
                         />
                       );
                     })}
