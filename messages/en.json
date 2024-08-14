@@ -182,7 +182,8 @@
         "book-facility": "Book Facility",
         "select-date": "Select Date",
         "start-time": "Start Time",
-        "end-time": "End Time"
+        "end-time": "End Time",
+        "number-of-attendees": "Number Of Attendees"
     },
     "select": {
         "category": "Category",
@@ -200,6 +201,6 @@
         "full-otp": "You should enter full OTP",
         "password-update": "Password has been updated successfuly",
         "send-message": "Message sent successfully",
-        "success-reserve-facility":"Reservation Completed Successfully"
+        "success-reserve-facility": "Reservation Completed Successfully"
     }
 }

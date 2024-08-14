@@ -158,7 +158,7 @@ const BookFacilityPage: NextPage = () => {
                 width: 'auto',
               }}
             >
-              {t('select.category')} :
+              {t('select.category')} :&nbsp;&nbsp;
               {loadingFacilityList && (
                 <CircularProgress
                   size={20}
@@ -212,7 +212,7 @@ const BookFacilityPage: NextPage = () => {
                 width: 'auto',
               }}
             >
-              {t('select.location')} :
+              {t('select.location')} :&nbsp;&nbsp;
               {loadingCitiesList && (
                 <CircularProgress
                   size={20}

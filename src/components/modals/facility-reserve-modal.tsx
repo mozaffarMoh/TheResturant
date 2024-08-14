@@ -27,6 +27,7 @@ import Cookies from 'js-cookie';
 import { LoadingButton } from '@mui/lab';
 import CustomAlert from '../alerts/CustomAlert';
 import { z } from 'zod';
+import { usePathname } from 'next/navigation';
 
 interface ReservationModalProps {
   open: boolean;
@@ -55,6 +56,8 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   const t = useTranslations();
   const token = Cookies.get('token') || '';
   const [date, setDate]: any = useState(getFirstDate());
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const [fromTime, setFromTime] = useState('');
   const [toTime, setToTime] = useState('');
   const [successMessage, setSuccessMessage]: any = useState('');
@@ -223,7 +226,26 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
               gap={2}
               width="100%"
             >
-              <Stack width={'100%'}>
+              <Stack
+                width={'100%'}
+                sx={{
+                  '& .MuiFormLabel-root': {
+                    right: isArabic ? 25 : '',
+                    left: isArabic ? 'auto' : '',
+                    transformOrigin: isArabic ? 'top right' : '',
+                    textAlign: isArabic ? 'right' : 'left',
+                  },
+
+                  '& .MuiOutlinedInput-notchedOutline legend': {
+                    textAlign: isArabic ? 'right' : 'left',
+                  },
+                  '& .MuiSvgIcon-root': {
+                    position: 'absolute',
+                    right: isArabic ? 'auto' : '0.5rem', // Position to the left if not Arabic
+                    left: isArabic ? '0.5rem' : 'auto', // Position to the right if Arabic
+                  },
+                }}
+              >
                 <TextField
                   label={t('dialog.start-time')}
                   type="time"
@@ -243,7 +265,26 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                 )}
               </Stack>
 
-              <Stack width={'100%'}>
+              <Stack
+                width={'100%'}
+                sx={{
+                  '& .MuiFormLabel-root': {
+                    right: isArabic ? 25 : '',
+                    left: isArabic ? 'auto' : '',
+                    transformOrigin: isArabic ? 'top right' : '',
+                    textAlign: isArabic ? 'right' : 'left',
+                  },
+
+                  '& .MuiOutlinedInput-notchedOutline legend': {
+                    textAlign: isArabic ? 'right' : 'left',
+                  },
+                  '& .MuiSvgIcon-root': {
+                    position: 'absolute',
+                    right: isArabic ? 'auto' : '0.5rem', // Position to the left if not Arabic
+                    left: isArabic ? '0.5rem' : 'auto', // Position to the right if Arabic
+                  },
+                }}
+              >
                 <TextField
                   label={t('dialog.end-time')}
                   type="time"
@@ -263,11 +304,37 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                 )}
               </Stack>
             </Box>
-            <FormControl fullWidth>
-              <InputLabel id="attendees-label">Number Of Attendees</InputLabel>
+            <FormControl
+              fullWidth
+              sx={{
+                '& .MuiInputBase-root': {
+                  paddingLeft: '0.8rem',
+                },
+                '& .MuiFormLabel-root': {
+                  right: isArabic ? 25 : '',
+                  left: isArabic ? 'auto' : '',
+                  transformOrigin: isArabic ? 'top right' : '',
+                  textAlign: isArabic ? 'right' : 'left',
+                },
+                '& .MuiFormHelperText-root': {
+                  textAlign: isArabic ? 'right' : 'left', // Align helper text to the right
+                },
+                '& .MuiOutlinedInput-notchedOutline legend': {
+                  textAlign: isArabic ? 'right' : 'left',
+                },
+                '& .MuiSvgIcon-root': {
+                  position: 'absolute',
+                  right: isArabic ? 'auto' : '0.5rem', // Position to the left if not Arabic
+                  left: isArabic ? '0.5rem' : 'auto', // Position to the right if Arabic
+                },
+              }}
+            >
+              <InputLabel id="attendees-label">
+                {t('dialog.number-of-attendees')}
+              </InputLabel>
 
               <Select
-                label="Number Of Attendees"
+                label={t('dialog.number-of-attendees')}
                 value={attendees ? attendees : ''}
                 onChange={(e) => setAttendees(Number(e.target.value))}
                 fullWidth

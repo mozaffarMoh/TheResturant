@@ -332,45 +332,20 @@ const Header = () => {
                                   key={idx}
                                 >
                                   {item?.isList ? (
-                                    <Select
-                                      fullWidth
-                                      variant="standard"
-                                      sx={{
-                                        '& .MuiSelect-select': {
-                                          border: 'none',
-                                        },
-                                        '& .MuiInput-underline:hover:not(.Mui-disabled):before':
-                                          {
-                                            border: 'none',
-                                          },
-                                        '& .MuiInput-underline:after': {
-                                          border: 'none',
-                                        },
-                                      }}
-                                    >
-                                      {industryLinks.map(
-                                        (link: any, i: number) => {
-                                          return (
-                                            <MenuItem
-                                              key={i}
-                                              onClick={() =>
-                                                handleNavigation(link.path)
-                                              }
-                                            >
-                                              {link.value}
-                                            </MenuItem>
-                                          );
-                                        },
-                                      )}
-                                    </Select>
+                                    <NestedMenuList
+                                      title={t('header.industry')}
+                                      anchorEl={anchorElIndustry}
+                                      open={openIndustry}
+                                      handleClick={handleClickIndustry}
+                                      handleClose={handleCloseIndustry}
+                                      links={industryLinks}
+                                    />
                                   ) : (
-                                    <ListItemText
-                                      onClick={() =>
-                                        handleNavigation(item.link)
-                                      }
-                                    >
-                                      {item.title}
-                                    </ListItemText>
+                                    <NormalMenuList
+                                      indexKey={5}
+                                      href={item.link}
+                                      title={item.title}
+                                    />
                                   )}
                                 </MenuItem>
                               );

@@ -86,6 +86,8 @@ const MentorsPage: NextPage = () => {
             alignItems={'center'}
           >
             <InputLabel
+            
+            style={{direction:"rtl"}}
               id="dropdown-profession"
               sx={{
                 whiteSpace: 'nowrap',
@@ -94,7 +96,7 @@ const MentorsPage: NextPage = () => {
                 width: 'auto',
               }}
             >
-              {t('select.profession')}:
+              {t('select.profession')}:&nbsp;&nbsp;
             </InputLabel>
             <FormControl
               variant="outlined"

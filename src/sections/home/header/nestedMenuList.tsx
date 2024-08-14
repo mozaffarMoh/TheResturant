@@ -1,4 +1,4 @@
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Button, Menu, MenuItem, useMediaQuery } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import styles from './header.module.css';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -25,6 +25,7 @@ const NestedMenuList = ({
   const pathname = usePathname();
   const [isActive, setIsActive] = useState(false);
   let isArabic = pathname.startsWith('/ar');
+  const isScreen1100 = useMediaQuery('(max-width:1100px)');
   const checkActive = () =>
     links.some((link: any) => pathname.includes(link.path));
 
@@ -47,8 +48,9 @@ const NestedMenuList = ({
       <Button
         onClick={handleClick}
         className={`${styles.menuListItem} ${isActive && styles.active}`}
-        sx={{
-          all: 'inherit',
+        style={{
+          fontSize: '16px',
+          margin: isScreen1100 ? '0px 18px' : '3px 5px 0px 5px',
         }}
         endIcon={
           <KeyboardArrowDownIcon

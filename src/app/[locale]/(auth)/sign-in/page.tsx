@@ -201,7 +201,7 @@ const SignIn: NextPage = () => {
                   )}
                 </div>
                 <div className="sm-flex-row-row-center-between mb-3">
-                  <FormControlLabel
+         {/*          <FormControlLabel
                     label={t('auth.remember-me')}
                     control={
                       <Checkbox
@@ -211,7 +211,7 @@ const SignIn: NextPage = () => {
                         }}
                       />
                     }
-                  />
+                  /> */}
                   <div>
                     <Typography
                       variant="body2"

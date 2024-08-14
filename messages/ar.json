@@ -167,7 +167,8 @@
         "book-facility": "حجز المنشأة",
         "select-date": "تحديد الوقت",
         "start-time": "بداية الوقت",
-        "end-time": "نهاية الوفت"
+        "end-time": "نهاية الوفت",
+        "number-of-attendees": "عدد الحضور"
     },
     "buttons": {
         "view": "عرض",
@@ -199,6 +200,6 @@
         "full-otp": "يجب إدخال رمز التحقق بالكامل",
         "password-update": "تم تحديث كلمة المرور بنجاح",
         "send-message": "تم إرسال الرسالة بنجاح",
-        "success-reserve-facility":"تم الحجز بنجاح"
+        "success-reserve-facility": "تم الحجز بنجاح"
     }
 }
