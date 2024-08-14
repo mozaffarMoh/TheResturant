@@ -183,7 +183,6 @@ const SingUp: NextPage = () => {
     }
   };
 
-  console.log(fullFormData);
 
   return (
     <div className={styles.signInContainer}>

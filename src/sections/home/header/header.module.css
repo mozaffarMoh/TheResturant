@@ -37,16 +37,18 @@
   margin-inline: 0.5rem;
   border: none;
   color: white;
+  text-transform: capitalize !important;
+  transition: all .2s ease;
 }
 
 .menuListItem:hover {
-  border-top: 1px solid #eb6b2a;
+  border-top: .5px solid #eb6b2a;
   color: #eb6b2a;
 }
 
 .active {
   border-top: 1px solid #eb6b2a;
-  color: #eb6b2a;
+  color: #eb6b2a !important;
 }
 
 

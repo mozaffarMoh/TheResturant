@@ -9,6 +9,8 @@ import {
   Menu,
   Drawer,
   Box,
+  Stack,
+  Typography,
 } from '@mui/material';
 import styles from './guest-header.module.css';
 import { usePathname } from 'next/navigation';
@@ -21,11 +23,12 @@ import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
 
 const GuestHeader = () => {
-  const pathname = usePathname();
   const router = useRouter();
+  const pathname = usePathname();
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   let isArabic = pathname.startsWith('/ar');
-  const isActive = (path: string) => pathname === path;
+  const [activeValue, setActiveValue] = useState('');
+  const isActive = (value: string) => value == activeValue;
   const t = useTranslations();
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -78,6 +81,12 @@ const GuestHeader = () => {
       link: '#contact',
     },
   ];
+
+  const handleNavigation = (path: string, value: string) => {
+    router.push(path);
+    setActiveValue(value);
+    setMenuOpen(false);
+  };
 
   return (
     <div className={styles.headerGuestContainer}>
@@ -145,10 +154,11 @@ const GuestHeader = () => {
                       menu.map((item, idx) => (
                         <MenuItem
                           key={idx}
-                          className={`${styles.menuListItem} ${isActive(item.link) && styles.active}`}
+                          className={`${styles.menuListItem} ${isActive(item.title) && styles.active}`}
                         >
                           <Link
                             href={`/${langCookie}/${item.link}`}
+                            onClick={() => setActiveValue(item.title)}
                             style={{ all: 'inherit' }}
                           >
                             <ListItemText>{item.title}</ListItemText>
@@ -228,11 +238,12 @@ const GuestHeader = () => {
                   <Drawer
                     open={menuOpen}
                     onClose={toggleDrawer(false)}
+                    anchor={isArabic ? 'right' : 'left'}
                   >
                     <Box
                       sx={{ width: 250 }}
                       role="presentation"
-                      onClick={toggleDrawer(false)}
+                      onClick={() => toggleDrawer(false)}
                     >
                       <div className={styles.drawerDivLogo}>
                         <img
@@ -248,13 +259,50 @@ const GuestHeader = () => {
                               <MenuItem
                                 href="#"
                                 key={idx}
-                                className={`${styles.menuItemDrawer} ${isActive(item.link) && styles.drawerActive}`}
+                                className={`${styles.menuItemDrawer} ${isActive(item.title) && styles.drawerActive}`}
+                                onClick={() =>
+                                  handleNavigation(item.link, item.title)
+                                }
                               >
                                 <ListItemText>{item.title}</ListItemText>
                               </MenuItem>
                             ))}
                         </MenuList>
-                      </div>
+                      </div>{' '}
+                      <Stack
+                        className={styles.langButton}
+                        alignItems={'flex-start'}
+                        paddingX={2}
+                        paddingBottom={3}
+                      >
+                        <Button
+                          id="basic-button"
+                          onClick={handleClick}
+                          className={styles.langMenuButton}
+                          sx={{ textTransform: 'none !Important' }}
+                        >
+                          <LanguageIcon
+                            className={styles.langIcon}
+                            color="action"
+                          />{' '}
+                          <Typography color={'black'}>
+                            {isArabic ? t('lang.ar') : t('lang.en')}
+                          </Typography>{' '}
+                        </Button>
+                        <Menu
+                          id="basic-menu"
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                        >
+                          <MenuItem onClick={() => changeLanguage('ar')}>
+                            {t('lang.ar')}
+                          </MenuItem>
+                          <MenuItem onClick={() => changeLanguage('en')}>
+                            {t('lang.en')}
+                          </MenuItem>
+                        </Menu>
+                      </Stack>
                       <div className={styles.authDrawerDivButton}>
                         <Button
                           onClick={() => router.push(`/${langCookie}/sign-up`)}

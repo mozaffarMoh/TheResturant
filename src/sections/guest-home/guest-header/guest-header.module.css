@@ -59,6 +59,7 @@
 .menuListItem {
   color: white;
   padding: 0;
+  transition: all .3s ease;
 }
 
 .menuListItem:hover {
@@ -96,9 +97,11 @@
 .authButton {
   background-color: transparent;
   color: white;
-  border-radius: 20px;
+  border-radius: 14px;
   border: 1px solid white;
-  width: 90px;
+  font-size: 13px;
+  width: 115px;
+  height: 40px;
 }
 
 .authButton:hover {

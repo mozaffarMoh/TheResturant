@@ -122,10 +122,7 @@ const Header = () => {
     setAnchorElIndustry(null);
     setOpenIndustry(false);
   };
-  const handleNavigation = (path: string) => {
-    router.push(path);
-    setMenuOpen(false);
-  };
+
   const toggleDrawer = (newOpen: boolean) => () => {
     setMenuOpen(newOpen);
   };
