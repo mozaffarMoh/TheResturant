@@ -42,6 +42,7 @@ const GuestHeader = () => {
       handleClose();
     }
     const newPathname = `/${locale}${pathname.replace(/^\/(en|ar)/, '')}`;
+    Cookies.set('NEXT_LOCALE', locale);
     router.push(newPathname);
     handleClose();
   };

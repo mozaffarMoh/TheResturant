@@ -27,6 +27,7 @@ import { useState } from 'react';
 import { KeyboardArrowDown } from '@mui/icons-material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 const Footer = () => {
   const t = useTranslations();
@@ -58,6 +59,7 @@ const Footer = () => {
       handleClose();
     }
     const newPathname = `/${locale}${pathname.replace(/^\/(en|ar)/, '')}`;
+    Cookies.set('NEXT_LOCALE', locale);
     router.push(newPathname);
     handleClose();
   };

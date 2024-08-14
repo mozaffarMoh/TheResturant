@@ -198,6 +198,7 @@
         "success-create-user": "تمت العملية بنجاح، أهلاً وسهلاً",
         "full-otp": "يجب إدخال رمز التحقق بالكامل",
         "password-update": "تم تحديث كلمة المرور بنجاح",
-        "send-message": "تم إرسال الرسالة بنجاح"
+        "send-message": "تم إرسال الرسالة بنجاح",
+        "success-reserve-facility":"تم الحجز بنجاح"
     }
 }

@@ -22,85 +22,90 @@ import { useTranslations } from 'next-intl';
 import { endPoints } from '@/base-api/endPoints';
 import usePost from '@/custom-hooks/usePost';
 import Cookies from 'js-cookie';
+import { LoadingButton } from '@mui/lab';
+import CustomAlert from '../alerts/CustomAlert';
 
 interface ReservationModalProps {
   open: boolean;
-  onClose: () => void;
-  onBook: (
-    date: any,
-    fromTime: string,
-    toTime: string,
-    attendees: string,
-  ) => void;
+  onClose: any;
   facility: any;
-  resetForm: boolean;
 }
 
 // Helper function to get the date one month from now
 const getMaxDate = (): Dayjs => {
-  return dayjs().add(1, 'month');
+  return dayjs()?.add(1, 'month');
+};
+
+const getFirstDate = (): Dayjs => {
+  return dayjs().add(1, 'day');
+};
+
+const getFormatDate = (date: any) => {
+  return dayjs(date).format('YYYY-MM-DD');
 };
 
 const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   open,
   onClose,
-  onBook,
   facility,
-  resetForm,
 }) => {
   const t = useTranslations();
   const token = Cookies.get('token') || '';
-  const [date, setDate] = useState<Dayjs | null>(null);
-  const [fromTime, setFromTime] = useState('');
-  const [toTime, setToTime] = useState('');
+  const [date, setDate]: any = useState(getFirstDate());
+  const [fromTime, setFromTime] = useState('00:00');
+  const [toTime, setToTime] = useState('00:00');
+  const [successMessage, setSuccessMessage]: any = useState('');
   const [minAttendees, setMinAttendees] = useState(0);
   const [maxAttendees, setMaxAttendees] = useState(0);
   const [attendees, setAttendees] = useState(0);
+  const [itemId, setItemId] = useState('');
   const maxDate = getMaxDate();
   let body = {
     order_type: 'booking',
     items: [
       {
-        item_id: 1,
-        start_timeslot_date: '2024-08-11',
-        end_timeslot_date: '2024-08-11',
-        start_timeslot_time: '08:00',
-        end_timeslot_time: '10:00',
+        item_id: itemId,
+        start_timeslot_date: date ? getFormatDate(date) : '',
+        end_timeslot_date: date ? getFormatDate(date) : '',
+        start_timeslot_time: fromTime,
+        end_timeslot_time: toTime,
         meta: {
-          'number-of-attendees': '5',
+          'number-of-attendees': attendees,
         },
       },
     ],
   };
-  const [data, loading, handlePost, success, , errorMessage] = usePost(
+  const [, loading, handlePost, success, , errorMessage] = usePost(
     endPoints.createOrder,
     body,
     token,
   );
 
-  console.log(data);
-
   const handleReserve = () => {
     handlePost();
-
-    //onBook(dayjs(date).format('YYYY-MM-DD'), fromTime, toTime, '');
   };
 
-  const handleDateChange = (newDate: Dayjs | null) => {
+  const handleDateChange = (newDate: any) => {
     setDate(newDate);
   };
 
   // Reset form when the resetForm prop changes
   useEffect(() => {
-    if (resetForm) {
-      setDate(null);
-      setFromTime('');
-      setToTime('');
+    if (success) {
+      setDate(getFirstDate());
+      setFromTime('00:00');
+      setToTime('00:00');
+      setSuccessMessage(t('messages.success-reserve-facility'));
+      setTimeout(() => {
+        setSuccessMessage('');
+        onClose();
+      }, 2000);
     }
-  }, [resetForm]);
+  }, [success]);
 
   useEffect(() => {
     if (facility && facility?.metadata) {
+      setItemId(facility?.id);
       facility.metadata.forEach((item: any) => {
         if (item.slug == 'minimum-number-of-people') {
           setMinAttendees(Number(item.value));
@@ -124,6 +129,19 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       maxWidth="sm"
       className="facility-reserve-modal"
     >
+      {' '}
+      {/* This alert when some fields are error from the server */}
+      <CustomAlert
+        openAlert={errorMessage}
+        setOpenAlert={() => {}}
+        message={errorMessage}
+      />
+      <CustomAlert
+        openAlert={successMessage}
+        setOpenAlert={() => {}}
+        type="success"
+        message={successMessage}
+      />
       <DialogTitle style={{ textAlign: 'center' }}>
         {t('dialog.book-facility')}
       </DialogTitle>
@@ -198,7 +216,8 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                 </MenuItem>
               ))}
           </Select>
-          <Button
+          <LoadingButton
+            loading={loading}
             variant="contained"
             color={'primary'}
             onClick={handleReserve}
@@ -206,7 +225,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
             className="reserve"
           >
             {t('buttons.reserve')}
-          </Button>
+          </LoadingButton>
         </Box>
       </DialogContent>
     </Dialog>
