@@ -57,7 +57,7 @@ const MultiFilesField = ({
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (value.length < 5) {
+/*     if (value.length < 5) {
       const newFile: any = event.target.files ? event.target.files[0] : '';
 
       if (newFile?.type === 'application/pdf') {
@@ -91,7 +91,7 @@ const MultiFilesField = ({
         // Reset file input to allow re-upload of the same file
         event.target.value = '';
       }
-    }
+    } */
   };
 
   const handleDelete = (indexToDelete: number) => {

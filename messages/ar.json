@@ -163,7 +163,11 @@
         "details": "التفاصيل",
         "person": "الشخص",
         "location": "الموقع",
-        "duration": "المدة"
+        "duration": "المدة",
+        "book-facility": "حجز المنشأة",
+        "select-date": "تحديد الوقت",
+        "start-time": "بداية الوقت",
+        "end-time": "نهاية الوفت"
     },
     "buttons": {
         "view": "عرض",

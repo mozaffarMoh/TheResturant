@@ -131,7 +131,7 @@ const UserDetailsPage: NextPage = () => {
   }, [successForFinishSubmit]);
 
   /* Handle changing fields values */
-  const handleChangeValue = (value: any, formId: number) => {
+  const handleChangeValue = (value: any, formId: number, slug: string) => {
     setFullFormData((prevArray: any) => {
       const index = prevArray.findIndex(
         (item: any) => item.form_field_id === formId,
@@ -148,6 +148,7 @@ const UserDetailsPage: NextPage = () => {
       }
     });
   };
+  console.log(fullFormData);
 
   const onSubmit = () => {
     handlePostForOTP();
@@ -229,6 +230,7 @@ const UserDetailsPage: NextPage = () => {
                 <Stack
                   height={400}
                   sx={{ overflowY: 'auto', overflowX: 'hidden' }}
+                  paddingX={1}
                   gap={2}
                 >
                   {typeDetails?.inputs &&
@@ -249,7 +251,7 @@ const UserDetailsPage: NextPage = () => {
                           required={false}
                           fieldData={item.input_options}
                           onChange={(e: any) =>
-                            handleChangeValue(e, item.form_field_id)
+                            handleChangeValue(e, item.form_field_id, item.slug)
                           }
                           setFormData={setFullFormData}
                           formId={item.form_field_id}

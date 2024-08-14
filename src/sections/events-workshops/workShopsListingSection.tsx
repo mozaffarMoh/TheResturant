@@ -38,12 +38,12 @@ const WorkShopsListingSection = () => {
                   lg={4}
                 >
                   <WorkShopCard
-                    title={item.title}
-                    subTitle={item.subTitle}
+                    title={item?.title}
+                    subTitle={item?.subTitle}
                     media={item?.media}
-                    slug={item.slug}
-                    metadata={item.metadata}
-                    place={item.place}
+                    slug={item?.slug}
+                    metadata={item?.metadata}
+                    place={item?.place}
                   />
                 </GridFlex>
               );

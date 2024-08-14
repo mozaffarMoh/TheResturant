@@ -19,6 +19,9 @@ import {
 import dayjs, { Dayjs } from 'dayjs';
 import './facility-reserve-modal.css';
 import { useTranslations } from 'next-intl';
+import { endPoints } from '@/base-api/endPoints';
+import usePost from '@/custom-hooks/usePost';
+import Cookies from 'js-cookie';
 
 interface ReservationModalProps {
   open: boolean;
@@ -46,6 +49,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   resetForm,
 }) => {
   const t = useTranslations();
+  const token = Cookies.get('token') || '';
   const [date, setDate] = useState<Dayjs | null>(null);
   const [fromTime, setFromTime] = useState('');
   const [toTime, setToTime] = useState('');
@@ -53,9 +57,33 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   const [maxAttendees, setMaxAttendees] = useState(0);
   const [attendees, setAttendees] = useState(0);
   const maxDate = getMaxDate();
+  let body = {
+    order_type: 'booking',
+    items: [
+      {
+        item_id: 1,
+        start_timeslot_date: '2024-08-11',
+        end_timeslot_date: '2024-08-11',
+        start_timeslot_time: '08:00',
+        end_timeslot_time: '10:00',
+        meta: {
+          'number-of-attendees': '5',
+        },
+      },
+    ],
+  };
+  const [data, loading, handlePost, success, , errorMessage] = usePost(
+    endPoints.createOrder,
+    body,
+    token,
+  );
+
+  console.log(data);
 
   const handleReserve = () => {
-    onBook(dayjs(date).format('YYYY-MM-DD'), fromTime, toTime, '');
+    handlePost();
+
+    //onBook(dayjs(date).format('YYYY-MM-DD'), fromTime, toTime, '');
   };
 
   const handleDateChange = (newDate: Dayjs | null) => {
@@ -96,7 +124,9 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       maxWidth="sm"
       className="facility-reserve-modal"
     >
-      <DialogTitle style={{ textAlign: 'center' }}>Book Facility</DialogTitle>
+      <DialogTitle style={{ textAlign: 'center' }}>
+        {t('dialog.book-facility')}
+      </DialogTitle>
       <DialogContent sx={{ display: 'flex', flexDirection: 'column' }}>
         <Box
           display="flex"
@@ -111,7 +141,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
             flexDirection={'column'}
             width="100%"
           >
-            <Typography variant="body1">Select Date</Typography>
+            <Typography variant="body1">{t('dialog.select-date')}</Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <StaticDateTimePicker
                 displayStaticWrapperAs="desktop"
@@ -132,7 +162,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
             width="100%"
           >
             <TextField
-              label="Start Time"
+              label={t('dialog.start-time')}
               type="time"
               value={fromTime}
               onChange={(e) => setFromTime(e.target.value)}
@@ -141,7 +171,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
               fullWidth
             />
             <TextField
-              label="End Time"
+              label={t('dialog.end-time')}
               type="time"
               value={toTime}
               onChange={(e) => setToTime(e.target.value)}

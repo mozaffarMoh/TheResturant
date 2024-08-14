@@ -20,10 +20,16 @@ const WhoAreYouPage: NextPage = () => {
   let isArabic = pathname.startsWith('/ar');
   const t = useTranslations();
   const [type, setType] = useState('');
+  const [typesArray, setTypesArray] = useState([]);
 
   useEffect(() => {
-    !formData && router.push(`/${langCookie}/sign-up`);
-  }, []);
+    if (!formData) {
+      router.push(`/${langCookie}/sign-up`);
+    } else {
+      let parsedTypes = JSON.parse(formData);
+      setTypesArray(parsedTypes.inputs[0].input_options);
+    }
+  }, [formData]);
 
   const handleChooseType = () => {
     router.push(`/${langCookie}/details/${type}`);
@@ -74,26 +80,24 @@ const WhoAreYouPage: NextPage = () => {
                   }}
                   aria-label="text alignment"
                 >
-                  {JSON.parse(formData).inputs[0].input_options.map(
-                    (item: any) => {
-                      return (
-                        <JoyButton
-                          key={item.id}
-                          value={item.value}
-                          aria-label={item.name}
-                          className={whoAreStyles.singleButtonGroup}
-                          style={{
-                            backgroundColor:
-                              type === item.name ? 'orange' : 'transparent',
-                            color: type === item.name ? 'white' : 'black',
-                          }}
-                          disabled={type === item.name}
-                        >
-                          {item.name}
-                        </JoyButton>
-                      );
-                    },
-                  )}
+                  {typesArray.map((item: any) => {
+                    return (
+                      <JoyButton
+                        key={item.id}
+                        value={item.value}
+                        aria-label={item.name}
+                        className={whoAreStyles.singleButtonGroup}
+                        style={{
+                          backgroundColor:
+                            type === item.name ? 'orange' : 'transparent',
+                          color: type === item.name ? 'white' : 'black',
+                        }}
+                        disabled={type === item.name}
+                      >
+                        {item.name}
+                      </JoyButton>
+                    );
+                  })}
                 </ToggleButtonGroup>
                 <p className="fc-secondary"> {t('who-are-you.select')}</p>
               </div>

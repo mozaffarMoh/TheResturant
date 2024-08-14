@@ -1,17 +1,8 @@
 import CustomAlert from '@/components/alerts/CustomAlert';
 import DetailsCard from '@/components/cards/book-facility/DetailsCard';
-import { workShopImage1 } from '@/constant/images';
-import { Container, Grid, useMediaQuery } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useState } from 'react';
-import { ClockSVG, PlaceSVG, UsersSVG } from '../../../assets/icons';
 import FacilityReserveModal from '@/components/modals/facility-reserve-modal';
-import { Typography } from '@mui/joy';
-import dayjs, { Dayjs } from 'dayjs';
-type CardDetailsArray = {
-  label: string;
-  value: string;
-  icon: any;
-};
 
 const FacilityDetailsSection = ({ facility }: { facility: any }) => {
   const [openAlert, setOpenAlert] = useState(false);
@@ -36,7 +27,6 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
     toTime: string,
     attendees: string,
   ) => {
-
     setLoadingSubmit(true);
     setMessage('');
     setOpenAlert(false);

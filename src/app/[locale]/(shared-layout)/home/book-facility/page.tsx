@@ -62,7 +62,7 @@ const BookFacilityPage: NextPage = () => {
     },
     'with-pagination': false,
     limit: 2,
-    page: 2,
+    page: 1,
     filters,
   };
 

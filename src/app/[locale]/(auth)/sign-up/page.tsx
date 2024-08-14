@@ -208,7 +208,7 @@ const SingUp: NextPage = () => {
           <Grid
             item
             xs={12}
-            sm={8}
+            sm={8.5}
             md={6}
             component={Paper}
             elevation={6}
@@ -242,8 +242,12 @@ const SingUp: NextPage = () => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack
                   height={400}
-                  sx={{ overflowY: 'auto', overflowX: 'hidden' }}
-                  width={isScreen500 ? 300 : 400}
+                  sx={{
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                    paddingX: 1,
+                  }}
+                  width={isScreen500 ? 300 : 410}
                   gap={2}
                 >
                   {signUpArray.map((item: any) => {
@@ -298,7 +302,7 @@ const SingUp: NextPage = () => {
           <Grid
             item
             xs={false}
-            sm={4}
+            sm={3.5}
             md={6}
             sx={{
               backgroundImage: 'url("/register-bg.png")',

@@ -13,6 +13,7 @@ import {
   MenuItem,
   Select,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { buttonPrimaryColor } from '@/constant/color';
@@ -50,6 +51,7 @@ const SignUpInput = ({
   handleShowTerms,
 }: SignUpInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
+  const isScreen500 = useMediaQuery('(max-width:500px)');
   const renderInputField: any = ({ field, fieldState }: any) => {
     const error = errors[slug] ? errors[slug]?.message : '';
     const pathname = usePathname();
@@ -61,16 +63,11 @@ const SignUpInput = ({
           <Typography variant="body2">{title}</Typography>
         )}
         {type === 'password' && (
-          <FormControl
-            error={!!error}
-            fullWidth
-          >
+          <FormControl error={!!error}  fullWidth>
             <Input
               error={!!error}
               type={showPassword ? 'text' : 'password'}
-              sx={{
-                width: '100%',
-              }}
+              style={{width:'100%'}}
               startDecorator={startIcon}
               endDecorator={
                 <div

@@ -70,6 +70,7 @@ export default function WorkShopCard({
           <span className="text-xs opacity-80">
             <ClockSVG />{' '}
             {metadata &&
+              metadata.length > 0 &&
               metadata.map((item: any) => {
                 return item.slug == 'time' && item.value;
               })}
