@@ -137,8 +137,10 @@ const UserDetailsPage: NextPage = () => {
   /* finally if submit success store token in cookies then navigate to home */
   useEffect(() => {
     if (successForFinishSubmit) {
-      let submitId = dataForFinishSubmit?.form_submit_id;
-      setFormSubmitId(submitId);
+      if (userType !== 'Student') {
+        let submitId = dataForFinishSubmit?.form_submit_id;
+        setFormSubmitId(submitId);
+      }
     }
   }, [successForFinishSubmit]);
 
@@ -147,23 +149,25 @@ const UserDetailsPage: NextPage = () => {
   }, [formSubmitId]);
 
   useEffect(() => {
-    if (successForFilesSubmit) {
-      if (successForFinishSubmit) {
-        const finishProcess = async () => {
-          await Cookies.set('token', dataForSubmit.token.token, {
-            expires: new Date('9999-12-31T23:59:59'),
-          });
-          await setTimeout(() => {
-            router.push(`/${langCookie}/home`);
-            localStorage.removeItem('formData');
-            Cookies.remove('signUpData');
-            Cookies.remove('userType');
-          }, 2000);
-        };
-        finishProcess();
-      }
+    const finishProcess = async () => {
+      await Cookies.set('token', dataForSubmit.token.token, {
+        expires: new Date('9999-12-31T23:59:59'),
+      });
+      await setTimeout(() => {
+        router.push(`/${langCookie}/home`);
+        localStorage.removeItem('formData');
+        Cookies.remove('signUpData');
+        Cookies.remove('userType');
+      }, 2000);
+    };
+
+    if (
+      successForFilesSubmit ||
+      (successForFinishSubmit && userType == 'Student')
+    ) {
+      finishProcess();
     }
-  }, [successForFilesSubmit]);
+  }, [successForFilesSubmit, successForFinishSubmit]);
 
   /* Handle changing fields values */
   const handleChangeValue = (value: any, formId: number) => {
@@ -221,7 +225,11 @@ const UserDetailsPage: NextPage = () => {
       />
 
       <CustomAlert
-        openAlert={successForFilesSubmit}
+        openAlert={
+          userType !== 'Student'
+            ? successForFilesSubmit
+            : successForFinishSubmit
+        }
         setOpenAlert={() => {}}
         type="success"
         message={t('messages.success-create-user')}

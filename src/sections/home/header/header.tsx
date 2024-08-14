@@ -60,15 +60,11 @@ const Header = () => {
   ];
 
   const isActive = (path: string) => pathname == path;
-
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
-
   const [open2, setOpen2] = useState(false);
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
-  const [menuOpen2, setMenuOpen2] = useState(false);
-
   const [openIndustry, setOpenIndustry] = useState(false);
   const [anchorElIndustry, setAnchorElIndustry] = useState<null | HTMLElement>(
     null,
@@ -330,28 +326,52 @@ const Header = () => {
                         <MenuList className={styles.menuListDrawer}>
                           {menu &&
                             menu.map((item: any, idx: number) => {
-                              return item?.isList ? (
-                                <MenuItem key={idx}>
-                                  {industryLinks.map((link: any, i: number) => {
-                                    return (
-                                      <MenuItem
-                                        key={i}
-                                        onClick={() =>
-                                          handleNavigation(link.path)
-                                        }
-                                      >
-                                        {link.value}
-                                      </MenuItem>
-                                    );
-                                  })}
-                                </MenuItem>
-                              ) : (
+                              return (
                                 <MenuItem
-                                  key={idx}
                                   className={`${styles.menuItemDrawer} ${isActive(item.link) && styles.drawerActive}`}
-                                  onClick={() => handleNavigation(item.link)}
+                                  key={idx}
                                 >
-                                  <ListItemText>{item.title}</ListItemText>
+                                  {item?.isList ? (
+                                    <Select
+                                      fullWidth
+                                      variant="standard"
+                                      sx={{
+                                        '& .MuiSelect-select': {
+                                          border: 'none',
+                                        },
+                                        '& .MuiInput-underline:hover:not(.Mui-disabled):before':
+                                          {
+                                            border: 'none',
+                                          },
+                                        '& .MuiInput-underline:after': {
+                                          border: 'none',
+                                        },
+                                      }}
+                                    >
+                                      {industryLinks.map(
+                                        (link: any, i: number) => {
+                                          return (
+                                            <MenuItem
+                                              key={i}
+                                              onClick={() =>
+                                                handleNavigation(link.path)
+                                              }
+                                            >
+                                              {link.value}
+                                            </MenuItem>
+                                          );
+                                        },
+                                      )}
+                                    </Select>
+                                  ) : (
+                                    <ListItemText
+                                      onClick={() =>
+                                        handleNavigation(item.link)
+                                      }
+                                    >
+                                      {item.title}
+                                    </ListItemText>
+                                  )}
                                 </MenuItem>
                               );
                             })}

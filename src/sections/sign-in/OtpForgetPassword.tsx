@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import OtpInput from 'react-otp-input';
 import { LoadingButton } from '@mui/lab';
-import { Box, CircularProgress, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import { CustomInput } from '@/components/inputs/CustomInput';
 import Cookies from 'js-cookie';
@@ -13,6 +19,7 @@ import { useTranslations } from 'next-intl';
 
 const OtpForgetPassword = ({ handleNextStep }: any) => {
   const t = useTranslations();
+  const isScreen510 = useMediaQuery('(max-width:510px)');
   const emailCookie = Cookies.get('verify-email') || '';
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
@@ -115,9 +122,9 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
         numInputs={5}
         renderSeparator={<p style={{ width: '8px' }}></p>}
         inputStyle={{
-          width: '60px',
-          height: '60px',
-          margin: '0 8px',
+          width: !isScreen510 ? '60px' : '50px',
+          height: !isScreen510 ? '60px' : '50px',
+          margin: !isScreen510 ? '0 8px' : '0 4px',
           justifyContent: 'center',
           fontSize: '30px',
           borderRadius: '10px',

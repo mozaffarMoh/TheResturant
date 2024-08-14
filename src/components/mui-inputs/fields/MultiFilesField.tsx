@@ -61,30 +61,32 @@ const MultiFilesField = ({
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     handleSetFilesFieldId();
     const files = e.target.files;
-    if (files) {
-      const filePromises = Array.from(files).map((file) => {
-        return new Promise<any>((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const arrayBuffer = reader.result as ArrayBuffer;
-            const uint8Array = new Uint8Array(arrayBuffer);
-            resolve({
-              name: file.name,
-              type: file.type,
-              data: uint8Array,
-            });
-          };
-          reader.onerror = reject;
-          reader.readAsArrayBuffer(file); // Convert file to binary ArrayBuffer
+    if (filesFormArray.length < 5) {
+      if (files) {
+        const filePromises = Array.from(files).map((file) => {
+          return new Promise<any>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              const arrayBuffer = reader.result as ArrayBuffer;
+              const uint8Array = new Uint8Array(arrayBuffer);
+              resolve({
+                name: file.name,
+                type: file.type,
+                data: uint8Array,
+              });
+            };
+            reader.onerror = reject;
+            reader.readAsArrayBuffer(file); // Convert file to binary ArrayBuffer
+          });
         });
-      });
-      const binaryFiles = await Promise.all(filePromises);
-      setFilesFormArray((prevArray: any) => {
-        const newArray = [...prevArray];
-        newArray.push(...binaryFiles);
-        field.onChange(newArray);
-        return newArray;
-      });
+        const binaryFiles = await Promise.all(filePromises);
+        setFilesFormArray((prevArray: any) => {
+          const newArray = [...prevArray];
+          newArray.push(...binaryFiles);
+          field.onChange(newArray);
+          return newArray;
+        });
+      }
     }
 
     e.target.value = '';
@@ -97,7 +99,6 @@ const MultiFilesField = ({
     setFilesFormArray(filteredArray);
     field.onChange(filteredArray);
   };
-  
 
   return (
     <FormControl
@@ -110,7 +111,7 @@ const MultiFilesField = ({
       <FormLabel sx={{ marginBottom: '0.4rem' }}>{label}</FormLabel>
       <input
         type="file"
-        accept="application/pdf"
+        accept="application/pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/*"
         multiple
         onChange={(e: any) => {
           // Update the onChange handler

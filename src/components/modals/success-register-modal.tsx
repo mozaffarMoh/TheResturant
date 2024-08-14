@@ -5,7 +5,13 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import Typography from '@mui/material/Typography';
-import { DialogActions, IconButton, Stack, TextField } from '@mui/material';
+import {
+  DialogActions,
+  IconButton,
+  Stack,
+  TextField,
+  useMediaQuery,
+} from '@mui/material';
 import Image from 'next/image';
 import { successCheckMark } from '@/constant/images';
 import { LoadingButton } from '@mui/lab';
@@ -49,6 +55,7 @@ const SuccessRegisterModal = ({
   handlePostForFinishSubmit,
 }: SuccessRegisterModalProps) => {
   const t = useTranslations();
+  const isScreen550 = useMediaQuery('(max-width:550px)');
   const handleConfirm = () => {
     userID ? handlePostForFinishSubmit() : handlePostForSubmit();
   };
@@ -58,24 +65,24 @@ const SuccessRegisterModal = ({
       aria-labelledby="customized-dialog-title"
       open={open}
     >
-      {' '}
-      <IconButton
-        aria-label="close"
-        onClick={handleClose}
-        sx={{
-          position: 'absolute',
-          right: 8,
-          top: 8,
-          color: (theme) => theme.palette.grey[500],
-        }}
-      >
-        <CloseIcon />
-      </IconButton>
       <DialogTitle
         sx={{ m: 0, padding: '50px' }}
         className="sm-flex-col-col-center-center"
         id="customized-dialog-title"
       >
+        {' '}
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
         <Image
           src={successCheckMark}
           width={120}
@@ -108,11 +115,12 @@ const SuccessRegisterModal = ({
             }}
             shouldAutoFocus={true}
             numInputs={5}
-            renderSeparator={<p style={{ width: '8px' }}></p>}
+            renderSeparator={<p style={{ width: '8px' }}>-</p>}
             inputStyle={{
-              width: '45px',
-              height: '50px',
-              margin: '0 8px',
+              width: !isScreen550 ? '60px' : '40px',
+              height: !isScreen550 ? '60px' : '40px',
+              margin: !isScreen550 ? '0 8px' : '0 4px',
+              fontSize: !isScreen550 ? '30px' : '22px',
               borderRadius: '10px',
               border: '1px solid grey',
             }}

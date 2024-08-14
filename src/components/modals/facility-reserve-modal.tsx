@@ -9,11 +9,13 @@ import {
   MenuItem,
   Typography,
   Select,
+  FormControl,
+  InputLabel,
+  Stack,
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {
   LocalizationProvider,
-  DatePicker,
   StaticDateTimePicker,
 } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
@@ -24,6 +26,7 @@ import usePost from '@/custom-hooks/usePost';
 import Cookies from 'js-cookie';
 import { LoadingButton } from '@mui/lab';
 import CustomAlert from '../alerts/CustomAlert';
+import { z } from 'zod';
 
 interface ReservationModalProps {
   open: boolean;
@@ -52,14 +55,19 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   const t = useTranslations();
   const token = Cookies.get('token') || '';
   const [date, setDate]: any = useState(getFirstDate());
-  const [fromTime, setFromTime] = useState('00:00');
-  const [toTime, setToTime] = useState('00:00');
+  const [fromTime, setFromTime] = useState('');
+  const [toTime, setToTime] = useState('');
   const [successMessage, setSuccessMessage]: any = useState('');
   const [minAttendees, setMinAttendees] = useState(0);
   const [maxAttendees, setMaxAttendees] = useState(0);
   const [attendees, setAttendees] = useState(0);
   const [itemId, setItemId] = useState('');
   const maxDate = getMaxDate();
+  const [errors, setErrors] = useState({
+    fromTime: '',
+    toTime: '',
+    attendees: '',
+  });
   let body = {
     order_type: 'booking',
     items: [
@@ -81,8 +89,41 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
     token,
   );
 
-  const handleReserve = () => {
-    handlePost();
+  let dataReview = {
+    fromTime,
+    toTime,
+    attendees,
+  };
+  const schema = z.object({
+    fromTime: z.string().min(1, {
+      message: t('validation.required'),
+    }),
+    toTime: z.string().min(1, {
+      message: t('validation.required'),
+    }),
+    attendees: z.number().min(1, { message: t('validation.required') }),
+  });
+
+  const handleReserve = (e: any) => {
+    e.preventDefault();
+    setErrors({
+      fromTime: '',
+      toTime: '',
+      attendees: '',
+    });
+    try {
+      schema.parse(dataReview);
+
+      handlePost();
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        const fieldErrors = error.errors.reduce((acc: any, err: any) => {
+          acc[err.path[0]] = err.message;
+          return acc;
+        }, {});
+        setErrors(fieldErrors);
+      }
+    }
   };
 
   const handleDateChange = (newDate: any) => {
@@ -93,8 +134,9 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   useEffect(() => {
     if (success) {
       setDate(getFirstDate());
-      setFromTime('00:00');
-      setToTime('00:00');
+      setFromTime('');
+      setToTime('');
+      setAttendees(0);
       setSuccessMessage(t('messages.success-reserve-facility'));
       setTimeout(() => {
         setSuccessMessage('');
@@ -116,10 +158,6 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       });
     }
   }, [facility]);
-
-  useEffect(() => {
-    setAttendees(minAttendees);
-  }, [minAttendees]);
 
   return (
     <Dialog
@@ -146,87 +184,128 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
         {t('dialog.book-facility')}
       </DialogTitle>
       <DialogContent sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          gap={2}
-          sx={{ padding: 3 }}
+        <form
+          style={{ width: '100%' }}
+          onSubmit={handleReserve}
+          noValidate
         >
           <Box
-            display={'flex'}
-            flexDirection={'column'}
-            width="100%"
-          >
-            <Typography variant="body1">{t('dialog.select-date')}</Typography>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <StaticDateTimePicker
-                displayStaticWrapperAs="desktop"
-                disablePast
-                value={date}
-                onChange={handleDateChange}
-                maxDate={maxDate}
-                views={['year', 'month', 'day']} // Shows only date views
-                minDate={dayjs().add(1, 'day')} // Minimum date is tomorrow
-                disableHighlightToday
-              />
-            </LocalizationProvider>
-          </Box>
-
-          <Box
             display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
             gap={2}
-            width="100%"
+            sx={{ padding: 3 }}
           >
-            <TextField
-              label={t('dialog.start-time')}
-              type="time"
-              value={fromTime}
-              onChange={(e) => setFromTime(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              inputProps={{ step: 300 }} // 5 min
-              fullWidth
-            />
-            <TextField
-              label={t('dialog.end-time')}
-              type="time"
-              value={toTime}
-              onChange={(e) => setToTime(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              inputProps={{ step: 300 }} // 5 min
-              fullWidth
-            />
-          </Box>
+            <Box
+              display={'flex'}
+              flexDirection={'column'}
+              width="100%"
+            >
+              <Typography variant="body1">{t('dialog.select-date')}</Typography>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <StaticDateTimePicker
+                  displayStaticWrapperAs="desktop"
+                  disablePast
+                  value={date}
+                  onChange={handleDateChange}
+                  maxDate={maxDate}
+                  views={['year', 'month', 'day']} // Shows only date views
+                  minDate={dayjs().add(1, 'day')} // Minimum date is tomorrow
+                  disableHighlightToday
+                  sx={{ direction: 'ltr' }}
+                />
+              </LocalizationProvider>
+            </Box>
 
-          <Select
-            label="Number Of Attendees"
-            value={attendees}
-            onChange={(e) => setAttendees(Number(e.target.value))}
-            fullWidth
-          >
-            {maxAttendees > 0 &&
-              minAttendees >= 0 &&
-              [...Array(maxAttendees - minAttendees + 1)].map((_, index) => (
-                <MenuItem
-                  key={index}
-                  value={minAttendees + index}
+            <Box
+              display="flex"
+              gap={2}
+              width="100%"
+            >
+              <Stack width={'100%'}>
+                <TextField
+                  label={t('dialog.start-time')}
+                  type="time"
+                  value={fromTime}
+                  onChange={(e) => setFromTime(e.target.value)}
+                  InputLabelProps={{ shrink: true }}
+                  inputProps={{ step: 300 }}
+                  fullWidth
+                />
+                {errors.fromTime && (
+                  <Typography
+                    variant="caption"
+                    color={'red'}
+                  >
+                    {errors.fromTime}
+                  </Typography>
+                )}
+              </Stack>
+
+              <Stack width={'100%'}>
+                <TextField
+                  label={t('dialog.end-time')}
+                  type="time"
+                  value={toTime}
+                  onChange={(e) => setToTime(e.target.value)}
+                  InputLabelProps={{ shrink: true }}
+                  inputProps={{ step: 300 }}
+                  fullWidth
+                />
+                {errors.toTime && (
+                  <Typography
+                    variant="caption"
+                    color={'red'}
+                  >
+                    {errors.toTime}
+                  </Typography>
+                )}
+              </Stack>
+            </Box>
+            <FormControl fullWidth>
+              <InputLabel id="attendees-label">Number Of Attendees</InputLabel>
+
+              <Select
+                label="Number Of Attendees"
+                value={attendees ? attendees : ''}
+                onChange={(e) => setAttendees(Number(e.target.value))}
+                fullWidth
+              >
+                {maxAttendees > 0 &&
+                  minAttendees >= 0 &&
+                  [...Array(maxAttendees - minAttendees + 1)].map(
+                    (_, index) => (
+                      <MenuItem
+                        key={index}
+                        value={minAttendees + index}
+                      >
+                        {minAttendees + index}
+                      </MenuItem>
+                    ),
+                  )}
+              </Select>
+              {errors.attendees && (
+                <Typography
+                  variant="caption"
+                  color={'red'}
                 >
-                  {minAttendees + index}
-                </MenuItem>
-              ))}
-          </Select>
-          <LoadingButton
-            loading={loading}
-            variant="contained"
-            color={'primary'}
-            onClick={handleReserve}
-            sx={{ width: '100%' }}
-            className="reserve"
-          >
-            {t('buttons.reserve')}
-          </LoadingButton>
-        </Box>
+                  {errors.attendees}
+                </Typography>
+              )}
+            </FormControl>
+            <LoadingButton
+              type="submit"
+              loading={loading}
+              variant="contained"
+              color={'primary'}
+              sx={{ width: '100%' }}
+              className="reserve"
+            >
+              {t('buttons.reserve')}
+            </LoadingButton>
+          </Box>{' '}
+        </form>
       </DialogContent>
     </Dialog>
   );
