@@ -11,6 +11,7 @@ const usePost = (endPoint: string, body: any, authToken?: string): any => {
         Authorization: authToken ? `Bearer ${authToken}` : ''
     };
     const [data, setData] = useState<any>([]);
+    const [fullData, setFullData] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
     const [successMessage, setSuccessMessage] = useState<string>("");
@@ -27,6 +28,7 @@ const usePost = (endPoint: string, body: any, authToken?: string): any => {
                 setSuccess(true);
                 setLoading(false);
                 setData(res.data?.data);
+                setFullData(res.data)
                 setSuccessMessage(res.data?.message)
                 setTimeout(() => {
                     setSuccessMessage("")
@@ -42,7 +44,7 @@ const usePost = (endPoint: string, body: any, authToken?: string): any => {
             })
     };
 
-    return [data, loading, handlePost, success, successMessage, errorMessage, setData];
+    return [data, loading, handlePost, success, successMessage, errorMessage, setData, fullData];
 };
 
 export default usePost;

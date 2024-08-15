@@ -115,7 +115,7 @@ export const typeSchema = (inputs: any, t: any) => {
         break;
 
       default:
-        validation = z.string();
+        validation = z.union([z.string(), z.number()]);
         break;
     }
 

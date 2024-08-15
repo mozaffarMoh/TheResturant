@@ -10,6 +10,7 @@ import {
   FormControl,
   FormControlLabel,
   FormHelperText,
+  InputLabel,
   MenuItem,
   Select,
   Typography,
@@ -51,7 +52,6 @@ const SignUpInput = ({
   handleShowTerms,
 }: SignUpInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
-  const isScreen500 = useMediaQuery('(max-width:500px)');
   const renderInputField: any = ({ field, fieldState }: any) => {
     const error = errors[slug] ? errors[slug]?.message : '';
     const pathname = usePathname();
@@ -63,11 +63,14 @@ const SignUpInput = ({
           <Typography variant="body2">{title}</Typography>
         )}
         {type === 'password' && (
-          <FormControl error={!!error}  fullWidth>
+          <FormControl
+            error={!!error}
+            fullWidth
+          >
             <Input
               error={!!error}
               type={showPassword ? 'text' : 'password'}
-              style={{width:'100%'}}
+              style={{ width: '100%' }}
               startDecorator={startIcon}
               endDecorator={
                 <div
@@ -140,7 +143,8 @@ const SignUpInput = ({
                 <Box
                   sx={{
                     position: 'absolute',
-                    right: isArabic ? '13px' : '',
+                    top: '8px',
+                    right: isArabic ? '11px' : '',
                     left: !isArabic ? '13px' : '',
                     zIndex: '30',
                   }}
@@ -162,7 +166,7 @@ const SignUpInput = ({
                     border: 'none',
                   },
                   '& .MuiSelect-select': {
-                    background: '#f7f7f7',
+                    background: '#fbfbfb',
                     padding: '5px 20px',
                     paddingRight: isArabic ? '40px' : '',
                     paddingLeft: !isArabic ? '40px' : '',
@@ -236,7 +240,7 @@ const SignUpInput = ({
                     e.preventDefault();
                     handleShowTerms();
                   }}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', fontSize: '15px' }}
                 >
                   {title}
                 </span>

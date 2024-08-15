@@ -98,6 +98,18 @@ const UserDetailsPage: NextPage = () => {
     errorMessageForFilesSubmit,
   ] = usePost(endPoints.formSumitMedia, bodyForFilesSubmit);
 
+  /* Create a function to check if files input is exist in Form */
+  const isFilesInputExist = () => {
+    let result: boolean = false;
+    if (typeDetails?.inputs.length > 0) {
+      typeDetails.inputs.forEach((item: any) => {
+        if (item.input_type.slug == 'FileUpload') {
+          result = true;
+        }
+      });
+    }
+    return result;
+  };
   /* Check if formData comes from localStorage is exist to continue if not redirect to sign-up */
   /* if continue extract typeDetail object from children array */
   useEffect(() => {
@@ -137,7 +149,7 @@ const UserDetailsPage: NextPage = () => {
   /* finally if submit success store token in cookies then navigate to home */
   useEffect(() => {
     if (successForFinishSubmit) {
-      if (userType !== 'Student') {
+      if (isFilesInputExist()) {
         let submitId = dataForFinishSubmit?.form_submit_id;
         setFormSubmitId(submitId);
       }
@@ -163,7 +175,7 @@ const UserDetailsPage: NextPage = () => {
 
     if (
       successForFilesSubmit ||
-      (successForFinishSubmit && userType == 'Student')
+      (successForFinishSubmit && !isFilesInputExist())
     ) {
       finishProcess();
     }
@@ -226,9 +238,7 @@ const UserDetailsPage: NextPage = () => {
 
       <CustomAlert
         openAlert={
-          userType !== 'Student'
-            ? successForFilesSubmit
-            : successForFinishSubmit
+          isFilesInputExist() ? successForFilesSubmit : successForFinishSubmit
         }
         setOpenAlert={() => {}}
         type="success"

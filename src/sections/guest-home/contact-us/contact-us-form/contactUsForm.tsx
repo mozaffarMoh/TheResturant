@@ -123,7 +123,6 @@ const ContactUsForm = () => {
                     md={i == 1 || i == 2 ? 5.9 : 12}
                   >
                     <FormContactUSField
-                      key={item.id}
                       name={item.slug}
                       label={item.name}
                       control={control}

@@ -14,6 +14,8 @@ import {
   Select,
   Stack,
   Typography,
+  Pagination,
+  PaginationItem,
 } from '@mui/material';
 import Link from '@mui/material/Link';
 import FacilityListingSection from '@/sections/book-facility/FacilityListingSection';
@@ -23,22 +25,31 @@ import { useTranslations } from 'next-intl';
 import useGet from '@/custom-hooks/useGet';
 import { endPoints } from '@/base-api/endPoints';
 import Cookies from 'js-cookie';
+import {
+  ArrowBackIosNewRounded,
+  ArrowForwardIosRounded,
+} from '@mui/icons-material';
+import { usePathname } from 'next/navigation';
 import usePost from '@/custom-hooks/usePost';
 
 const BookFacilityPage: NextPage = () => {
   const t = useTranslations();
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const [category, setCategory] = useState<string>('');
   const [location, setLocation] = useState<string>('');
+  const [page, setPage] = useState(0);
+  const [total, setTotal] = useState(0);
   const filters: any = {
     'itemType.slug': 'facility',
-    'place.slug': 'amman', //location,
+    ...(location !== 'all' && { 'place.slug': location }),
     ...(category !== 'all' && { 'categories.slug': category }),
   };
 
   const body = {
     modelName: 'Item',
-    fields: ['id', 'title', 'slug', 'description', 'price_start_from','media'],
+    fields: ['id', 'title', 'slug', 'description', 'price_start_from', 'media'],
     relations: {
       itemMetaData: {
         fields: ['id', 'value'],
@@ -60,9 +71,9 @@ const BookFacilityPage: NextPage = () => {
         },
       },
     },
-    'with-pagination': false,
-    limit: 2,
-    page: 1,
+    'with-pagination': true,
+    limit: 3,
+    page: page,
     filters,
   };
 
@@ -74,10 +85,16 @@ const BookFacilityPage: NextPage = () => {
   ] = useGet(endPoints.getFacilityList);
   const [citiesList, loadingCitiesList, getCitiesList, successCitiesList] =
     useGet(endPoints.getCitiesList + 'Amman');
-  const [facilityItems, loadingFacilityItems, getFacilityItems] = usePost(
-    endPoints.getFacilityItems,
-    body,
-  );
+  const [
+    facilityItems,
+    loadingFacilityItems,
+    getFacilityItems,
+    successFacilityItems,
+    ,
+    ,
+    ,
+    facilityItemsFullData,
+  ] = usePost(endPoints.getFacilityItems, body);
 
   useEffect(() => {
     getFacilityList();
@@ -93,8 +110,26 @@ const BookFacilityPage: NextPage = () => {
 
   /* Get items when location and category be ready also with every change */
   useEffect(() => {
-    category && location && getFacilityItems();
+    if (category && location) {
+      page == 0 ? setPage(1) : getFacilityItems();
+    }
   }, [category, location]);
+
+  useEffect(() => {
+    page > 0 && getFacilityItems();
+  }, [page]);
+
+  useEffect(() => {
+    if (successFacilityItems) {
+      let totalNum = facilityItemsFullData?.meta?.total || 0;
+      const paginationCount = Math.ceil(totalNum / 3);
+      setTotal(paginationCount);
+    }
+  }, [successFacilityItems]);
+
+  const handleChange = (e: any, value: number) => {
+    setPage(value);
+  };
 
   return (
     <>
@@ -191,7 +226,7 @@ const BookFacilityPage: NextPage = () => {
                       key={item.id}
                       value={item.slug}
                     >
-                      {item.name}
+                      {item.key_word}
                     </MenuItem>
                   );
                 })}
@@ -266,6 +301,31 @@ const BookFacilityPage: NextPage = () => {
       ) : (
         <FacilityListingSection facilityItems={facilityItems} />
       )}
+      <Stack
+        alignItems={'center'}
+        paddingBottom={10}
+      >
+        <Pagination
+          onChange={handleChange}
+          page={page}
+          color="primary"
+          count={total}
+          siblingCount={2} // Number of siblings to show around the current page
+          renderItem={(item) => (
+            <PaginationItem
+              {...item}
+              slots={{
+                previous: isArabic
+                  ? ArrowForwardIosRounded
+                  : ArrowBackIosNewRounded,
+                next: isArabic
+                  ? ArrowBackIosNewRounded
+                  : ArrowForwardIosRounded,
+              }}
+            />
+          )}
+        />
+      </Stack>
     </>
   );
 };

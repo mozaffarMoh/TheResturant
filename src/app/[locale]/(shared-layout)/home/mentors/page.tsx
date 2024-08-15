@@ -86,8 +86,7 @@ const MentorsPage: NextPage = () => {
             alignItems={'center'}
           >
             <InputLabel
-            
-            style={{direction:"rtl"}}
+              style={{ direction: 'rtl' }}
               id="dropdown-profession"
               sx={{
                 whiteSpace: 'nowrap',

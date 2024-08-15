@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import {
   Box,
   Button,
+  CircularProgress,
   Grid,
   MenuItem,
   Paper,
@@ -46,6 +47,14 @@ const SingUp: NextPage = () => {
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const [fullFormData, setFullFormData] = useState([]);
+  const [
+    governorateData,
+    governorateLoading,
+    getGovernorateData,
+    ,
+    ,
+    errorStatusGovernorate,
+  ] = useGet(endPoints.getGovernorate);
 
   const signUpArray = [
     {
@@ -78,7 +87,18 @@ const SingUp: NextPage = () => {
         <Select
           value="+962"
           variant="standard"
-          style={{ direction: 'ltr', unicodeBidi: 'bidi-override' }}
+          sx={{
+            '&::before': { borderBottom: 'none' }, // Removes the line before interaction
+            '&::after': { borderBottom: 'none' }, // Removes the line after interaction
+            '&:hover:not(.Mui-disabled)::before': {
+              borderBottom: 'none', // Removes the line when hovering over the input
+            },
+          }}
+          style={{
+            direction: 'ltr',
+            unicodeBidi: 'bidi-override',
+            border: 'none',
+          }}
         >
           <MenuItem
             value={'+962'}
@@ -122,7 +142,7 @@ const SingUp: NextPage = () => {
       slug: 'governorate',
       type: 'select',
       fieldData: governorateArray,
-      startIcon: <LocationSVG />,
+      startIcon: governorateLoading ? <CircularProgress size={18} /> : <LocationSVG />,
     },
     {
       name: t('auth.terms'),
@@ -139,10 +159,9 @@ const SingUp: NextPage = () => {
     resolver: zodResolver(signupSchema(signUpArray, t)),
     mode: 'onChange',
   });
-  const [data, loading, getData, success, successMessage, errorMessage] =
-    useGet(endPoints.whoAreYou);
-  const [governorateData, , getGovernorateData, , , errorStatusGovernorate] =
-    useGet(endPoints.getGovernorate);
+  const [data, loading, getData, success, , errorMessage] = useGet(
+    endPoints.whoAreYou,
+  );
 
   /* get the governorate data and store it in state array */
   useEffect(() => {
@@ -182,7 +201,6 @@ const SingUp: NextPage = () => {
       });
     }
   };
-
 
   return (
     <div className={styles.signInContainer}>

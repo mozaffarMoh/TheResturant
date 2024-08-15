@@ -4,7 +4,6 @@ import { createElement } from 'react';
 const fieldComponents: any = [TextField, SelectTextField, TextAreaField];
 
 interface FormContactUSFieldProps {
-  key: string;
   name: string;
   label: string;
   fieldData?: { name: string; value: string; id: number }[];
@@ -16,7 +15,6 @@ interface FormContactUSFieldProps {
 }
 
 export default function FormContactUSField({
-  key,
   name,
   fieldData = [],
   type,
@@ -38,7 +36,6 @@ export default function FormContactUSField({
 
   return createElement(fieldComponents[getIndexOfType()], {
     name,
-    key,
     label,
     value,
     fieldData,

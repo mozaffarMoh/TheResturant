@@ -9,7 +9,9 @@ import { greyBackground } from '@/constant/images';
 
 export default function WorkShopCardV2({ title, media, metadata, place }: any) {
   let imageURL =
-    media && media.length > 0 && media[0]?.url ? domain + media[0]?.url : greyBackground;
+    media && media.length > 0 && media[0]?.url
+      ? domain + media[0]?.url
+      : greyBackground;
   return (
     <Card
       variant="outlined"
@@ -38,7 +40,10 @@ export default function WorkShopCardV2({ title, media, metadata, place }: any) {
           {metadata.map(
             (item: any) =>
               item.slug == 'time' && (
-                <span className="text-reg-fw500 opacity-80">
+                <span
+                  key={item?.id}
+                  className="text-reg-fw500 opacity-80"
+                >
                   <ClockSVG /> {item.value}
                 </span>
               ),
