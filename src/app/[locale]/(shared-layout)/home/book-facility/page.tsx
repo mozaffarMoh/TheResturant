@@ -56,7 +56,7 @@ const BookFacilityPage: NextPage = () => {
         relations: {
           itemMetaKey: {
             fields: ['id', 'name', 'slug', 'media'],
-          },
+          },time:{}
         },
       },
       categories: {

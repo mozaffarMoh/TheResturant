@@ -2,15 +2,15 @@ import * as React from 'react';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
-import Typography from '@mui/joy/Typography';
 import './book-facility-card.css';
-import { Grid, useMediaQuery } from '@mui/material';
+import { Grid, Typography, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { domain } from '@/base-api/endPoints';
 import { metadataIcons } from '@/constant/metadataIcons';
-import { PlaceSVG } from '../../../../assets/icons';
+import { ClockSVG, DurationSVG, PlaceSVG } from '../../../../assets/icons';
 import { greyBackground } from '@/constant/images';
+import { gray100, gray300 } from '@/constant/color';
 
 export default function BookFacilityCard({
   slug,
@@ -68,8 +68,14 @@ export default function BookFacilityCard({
             display={'flex'}
             justifyContent={'start'}
             alignContent={'center'}
+            flexWrap={'wrap'}
           >
-            <Typography className="text-med-fw700">{title}</Typography>
+            <Typography
+              style={{ fontSize: 18 }}
+              className="text-med-fw700"
+            >
+              {title}
+            </Typography>
             <Typography className="text-xs bc-secondary-color bf-category-text">
               {categoryName}
             </Typography>
@@ -79,8 +85,10 @@ export default function BookFacilityCard({
             xs={12}
             sm={12}
             display={'flex'}
-            justifyContent={'space-between'}
+            gap={5}
+            justifyContent={'flex-start'}
             alignContent={'center'}
+            marginY={2}
           >
             {metadata &&
               metadata.length > 0 &&
@@ -99,11 +107,32 @@ export default function BookFacilityCard({
                       gap={1}
                     >
                       {SvgIcon && <SvgIcon />}
-                      <Typography className="text-xs">{item.value}</Typography>
+                      <Typography
+                        variant="body2"
+                        color={gray300}
+                      >
+                        {item.value}
+                      </Typography>
                     </Grid>
                   )
                 );
               })}
+          {/*   <Grid
+              item
+              display={'flex'}
+              justifyContent={'start'}
+              alignContent={'center'}
+              gap={1}
+              letterSpacing={1}
+            >
+              <ClockSVG />
+              <Typography
+                variant="body2"
+                color={gray300}
+              >
+                12:32:00
+              </Typography>
+            </Grid> */}
             <Grid
               item
               display={'flex'}
@@ -113,7 +142,10 @@ export default function BookFacilityCard({
               letterSpacing={1}
             >
               <PlaceSVG />
-              <Typography className="text-xs">
+              <Typography
+                variant="body2"
+                color={gray300}
+              >
                 {place && place?.name}
               </Typography>
             </Grid>
