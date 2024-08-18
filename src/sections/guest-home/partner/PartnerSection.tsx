@@ -29,12 +29,12 @@ const PartnerSection = () => {
   ];
   return (
     <Container
-      className="mt-4 bg-primary-color "
+      className="mt-4 bg-primary-color"
       maxWidth="xl"
       id="partners"
     >
       <div className="sm-flex-col-col-center-center">
-        <div className="text-align-center mt-2">
+        <div className="text-align-center mt-2 ">
           <p className="text-xlarge-title-secondary">
             {t('guest-home.partners')}
           </p>

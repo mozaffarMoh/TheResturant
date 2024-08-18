@@ -341,7 +341,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
               >
                 {maxAttendees > 0 &&
                   minAttendees >= 0 &&
-                  [...Array(maxAttendees - minAttendees + 1)].map(
+                  [...Array(Math.abs(maxAttendees - minAttendees + 1))].map(
                     (_, index) => (
                       <MenuItem
                         key={index}

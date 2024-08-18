@@ -89,7 +89,10 @@ const GuestHeader = () => {
   };
 
   return (
-    <div className={styles.headerGuestContainer}>
+    <div
+      className={styles.headerGuestContainer}
+      style={{ width: open ? '98.8%' : '100%' }}
+    >
       <Box
         width={'100%'}
         bgcolor={'white'}

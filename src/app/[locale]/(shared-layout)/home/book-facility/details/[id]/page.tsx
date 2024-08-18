@@ -6,7 +6,7 @@ import { domain, endPoints } from '@/base-api/endPoints';
 import useGet from '@/custom-hooks/useGet';
 import { useParams } from 'next/navigation';
 import Loading from '@/components/Loading/Loading';
-import { greyBackground } from '@/constant/images';
+import { DefautImage1Large } from '@/constant/images';
 
 const FacilityDetailsPage = () => {
   const params = useParams();
@@ -17,7 +17,7 @@ const FacilityDetailsPage = () => {
   let imageURL =
     data?.media && data.media.length > 0 && data?.media[0]?.url
       ? domain + data?.media[0]?.url
-      : greyBackground;
+      : DefautImage1Large;
 
   useEffect(() => {
     getData();

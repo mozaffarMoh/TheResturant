@@ -5,13 +5,13 @@ import CardOverflow from '@mui/joy/CardOverflow';
 import './workshop-card-v2.css';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { domain } from '@/base-api/endPoints';
-import { greyBackground } from '@/constant/images';
+import { DefautImage1 } from '@/constant/images';
 
 export default function WorkShopCardV2({ title, media, metadata, place }: any) {
   let imageURL =
     media && media.length > 0 && media[0]?.url
       ? domain + media[0]?.url
-      : greyBackground;
+      : DefautImage1;
   return (
     <Card
       variant="outlined"
@@ -29,6 +29,7 @@ export default function WorkShopCardV2({ title, media, metadata, place }: any) {
           loading="lazy"
           alt="workshop image card"
           className="md-workshop-media-image pt-1 pb-1"
+          style={{ height: 200 }}
         />
       </CardOverflow>
       <CardContent>

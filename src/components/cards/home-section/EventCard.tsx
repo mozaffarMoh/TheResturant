@@ -10,7 +10,7 @@ import {
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { useTranslations } from 'next-intl';
 import { domain } from '@/base-api/endPoints';
-import { greyBackground } from '@/constant/images';
+import { DefautImage1 } from '@/constant/images';
 
 const EventCard = ({
   title,
@@ -31,7 +31,7 @@ const EventCard = ({
   let imageURL =
     media && media.length > 0 && media[0]?.url
       ? domain + media[0]?.url
-      : greyBackground;
+      : DefautImage1;
   return (
     <Paper className="event-card-paper">
       <Card sx={{ display: 'flex', border: 'none', boxShadow: 'none' }}>

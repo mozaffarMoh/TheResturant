@@ -61,8 +61,9 @@ const MultiFilesField = ({
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     handleSetFilesFieldId();
     const files = e.target.files;
-    if (filesFormArray.length < 5) {
-      if (files) {
+    if (files) {
+      const totalFilesCount = filesFormArray.length + files.length;
+      if (totalFilesCount <= 5) {
         const filePromises = Array.from(files).map((file) => {
           return new Promise<any>((resolve, reject) => {
             const reader = new FileReader();

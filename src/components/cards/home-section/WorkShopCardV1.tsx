@@ -1,14 +1,11 @@
 import * as React from 'react';
-import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
-import Typography from '@mui/joy/Typography';
-import { Box, Paper } from '@mui/material';
+import {  Paper } from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import './workshop-card-v1.css';
-import { Place } from '@mui/icons-material';
 
 export default function WorkShopCardV1({ key, title, metadata, place }: any) {
   const [day, setDay] = React.useState('');

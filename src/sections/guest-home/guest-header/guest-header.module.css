@@ -1,15 +1,13 @@
 .headerGuestContainer {
   position: fixed;
+  top: 0px;
+  left: 0px;
   z-index: 10;
-  width: 100%;
 
-
-  
 }
 
-
 .headerContainer {
-  padding: 10px 0;
+  padding: 10px 0px;
   background-color: #3f485e;
 }
 
@@ -81,6 +79,7 @@
 .langMenuButton {
   color: white;
   padding: 0;
+
 }
 
 .langIcon {

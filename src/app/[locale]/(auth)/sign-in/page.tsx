@@ -86,7 +86,7 @@ const SignIn: NextPage = () => {
         ? new Date('9999-12-31T23:59:59')
         : undefined;
       Cookies.set('token', data.token.token, {
-        expires: expiresDuration,
+        expires: new Date('9999-12-31T23:59:59'),
       });
       setTimeout(() => {
         router.push(`/${langCookie}/home`);
@@ -201,7 +201,7 @@ const SignIn: NextPage = () => {
                   )}
                 </div>
                 <div className="sm-flex-row-row-center-between mb-3">
-         {/*          <FormControlLabel
+                  {/*          <FormControlLabel
                     label={t('auth.remember-me')}
                     control={
                       <Checkbox

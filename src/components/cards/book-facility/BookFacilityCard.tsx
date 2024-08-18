@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 import { domain } from '@/base-api/endPoints';
 import { metadataIcons } from '@/constant/metadataIcons';
 import { ClockSVG, DurationSVG, PlaceSVG } from '../../../../assets/icons';
-import { greyBackground } from '@/constant/images';
+import { DefautImage1 } from '@/constant/images';
 import { gray100, gray300 } from '@/constant/color';
 
 export default function BookFacilityCard({
@@ -26,7 +26,7 @@ export default function BookFacilityCard({
   let imageURL =
     media && media.length > 0 && media[0]?.url
       ? domain + media[0]?.url
-      : greyBackground;
+      : DefautImage1;
   let categoryName =
     categories && categories.length > 0 && categories[0]?.name
       ? categories[0]?.name

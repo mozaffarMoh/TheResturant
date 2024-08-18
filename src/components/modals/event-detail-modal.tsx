@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
-import { eventBgImage, greyBackground } from '@/constant/images';
+import { DefautImage1 } from '@/constant/images';
 import {
   Box,
   Button,
@@ -31,7 +31,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     backgroundColor: primaryColor, // Set the background color to red
     color: 'white',
     width: '700px',
-    maxWidth : '700px',
+    maxWidth: '700px',
     borderRadius: '12px',
   },
   '& .MuiDialogContent-root': {
@@ -61,7 +61,7 @@ const EventDetailsModal = ({
   let imageURL =
     data?.media && data.media.length > 0 && data?.media[0]?.url
       ? domain + data?.media[0]?.url
-      : greyBackground;
+      : DefautImage1;
 
   useEffect(() => {
     slug && getData();
@@ -95,7 +95,7 @@ const EventDetailsModal = ({
       <DialogContent>
         <Box
           className=" position-relative  "
-          height={300}
+          height={340}
           marginBottom={3}
         >
           <Image
@@ -216,7 +216,7 @@ const EventDetailsModal = ({
                 width={'60%'}
                 height={70}
                 justifyContent={'center'}
-                alignItems={"flex-start"}
+                alignItems={'flex-start'}
               >
                 <Typography
                   fontSize={13}
@@ -241,7 +241,15 @@ const EventDetailsModal = ({
         <Button
           autoFocus
           onClick={handleClose}
-          className="general-button-secondary w-90 "
+          className="w-90 "
+          sx={{
+            borderRadius : '50px',
+            color:'white',
+            background: '#3f485e',
+            '&:hover': {
+              backgroundColor: '#eb6b2a',
+            },
+          }}
         >
           {t('buttons.book-now')}
         </Button>

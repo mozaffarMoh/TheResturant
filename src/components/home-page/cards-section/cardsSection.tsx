@@ -64,6 +64,7 @@ const CardsSection = () => {
             container
             spacing={4}
             rowGap={4}
+            style={{ width: '100%' }}
           >
             {data &&
               data.map((item, idx) => (
