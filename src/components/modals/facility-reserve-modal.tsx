@@ -71,8 +71,8 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   const [itemId, setItemId] = useState('');
   const maxDate = getMaxDate();
   const [errors, setErrors] = useState({
-    fromTime: '',
-    toTime: '',
+    time: '',
+    hours: '',
     attendees: '',
   });
   let bodyDays = {
@@ -86,8 +86,8 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
         item_id: itemId,
         start_timeslot_date: date ? getFormatDate(date) : '',
         end_timeslot_date: date ? getFormatDate(date) : '',
-        start_timeslot_time: '08:00', //`${time}:00`,
-        end_timeslot_time: '15:00', //`${hours}:00`,
+        start_timeslot_time: `${time < 10 ? '0' : ''}${time}:00`,
+        end_timeslot_time: hours,
         meta: {
           'number-of-attendees': attendees,
         },
@@ -106,26 +106,25 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   );
 
   let dataReview = {
-    fromTime,
-    toTime,
+    time,
+    hours,
     attendees,
   };
   const schema = z.object({
-    fromTime: z.number().min(1, { message: t('validation.required') }),
-    toTime: z.number().min(1, { message: t('validation.required') }),
+    time: z.number().min(1, { message: t('validation.required') }),
+    hours: z.number().min(1, { message: t('validation.required') }),
     attendees: z.number().min(1, { message: t('validation.required') }),
   });
 
   const handleReserve = (e: any) => {
     e.preventDefault();
     setErrors({
-      fromTime: '',
-      toTime: '',
+      time: '',
+      hours: '',
       attendees: '',
     });
     try {
       schema.parse(dataReview);
-
       handlePost();
     } catch (error: any) {
       if (error instanceof z.ZodError) {
@@ -146,8 +145,8 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   useEffect(() => {
     if (success) {
       setDate(getFirstDate());
-      setFromTime(0);
-      setToTime(0);
+      setTime(0);
+      setHours(0);
       setAttendees(0);
       setSuccessMessage(t('messages.success-reserve-facility'));
       setTimeout(() => {
@@ -285,7 +284,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
 
                 <Select
                   label={t('dialog.start-time')}
-                  value={time}
+                  value={time ? time : ''}
                   onChange={(e) => setTime(Number(e.target.value))}
                 >
                   {toTime > 0 &&
@@ -304,12 +303,12 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                     )}
                 </Select>
 
-                {errors.fromTime && (
+                {errors.time && (
                   <Typography
                     variant="caption"
                     color={'red'}
                   >
-                    {errors.fromTime}
+                    {errors.time}
                   </Typography>
                 )}
               </FormControl>
@@ -345,7 +344,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
 
                 <Select
                   label={t('dialog.number-of-hours')}
-                  value={hours}
+                  value={hours ? hours : ''}
                   onChange={(e) => setHours(Number(e.target.value))}
                 >
                   {maxHours > 0 &&
@@ -361,12 +360,12 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                       ),
                     )}
                 </Select>
-                {errors.toTime && (
+                {errors.hours && (
                   <Typography
                     variant="caption"
                     color={'red'}
                   >
-                    {errors.toTime}
+                    {errors.hours}
                   </Typography>
                 )}
               </FormControl>
