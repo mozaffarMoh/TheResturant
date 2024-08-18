@@ -13,56 +13,91 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  PaginationItem,
 } from '@mui/material';
 import Link from '@mui/material/Link';
 import GridFlex from '@mui/material/Unstable_Grid2';
-import NewsImage1 from '../../../../../../../public/industry/news/news1.png';
-import NewsImage2 from '../../../../../../../public/industry/news/news2.png';
-import NewsImage3 from '../../../../../../../public/industry/news/news3.png';
-import Image from 'next/image';
 import { gray300, primaryColor, textSecondaryColor } from '@/constant/color';
 import IndustryNewsModal from '@/components/modals/industry-news-modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
+import { domain, endPoints } from '@/base-api/endPoints';
+import usePost from '@/custom-hooks/usePost';
+import {
+  ArrowBackIosNewRounded,
+  ArrowForwardIosRounded,
+} from '@mui/icons-material';
+import { usePathname } from 'next/navigation';
+import { DefautImage1Large } from '@/constant/images';
 
 const News = () => {
   const t = useTranslations();
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const isScreen900 = useMediaQuery('(max-width:900px)');
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
+  const [page, setPage] = useState(0);
+  const [total, setTotal] = useState(0);
   const [tags, setTags] = useState<Number>(0);
+  const body = {
+    modelName: 'Item',
+    filters: {
+      'itemType.slug': 'News',
+    },
+    fields: ['slug', 'title', 'subTitle', 'media', 'created_at', 'description'],
+    add_fields: {
+      categories: 'first,name,category',
+    },
+    'with-pagination': true,
+    limit: 10,
+    page: 1,
+  };
+
+  const [data, loading, getData, success, , , , fullData] = usePost(
+    endPoints.DynamicFilter,
+    body,
+  );
+
+  const tagsItems = [
+    t('tags.Art'),
+    t('tags.Exercise'),
+    t('tags.Material Design'),
+    t('tags.Software Development'),
+    t('tags.Music'),
+    t('tags.Photography'),
+  ];
   const tagsHandleChange = (event: React.ChangeEvent<{ value: Number }>) => {
     setTags(event.target.value as Number);
   };
-  const newsArray = [
-    {
-      image: NewsImage1,
-      title: ' The Complete JavaScript Course 2020: Build Real Projects!',
-      content:
-        'Convallis vitae, nunc ut venenatis, lectus. Tellus nunc orci dolor nec facilisis et lacus, eu aliquet. Amet imperdiet ac venenatis, lacus. Tortor interdum quisque et, eu etiam ac.',
-    },
-    {
-      image: NewsImage2,
-      title: ' The Complete JavaScript Course 2020: Build Real Projects!',
-      content:
-        'Convallis vitae, nunc ut venenatis, lectus. Tellus nunc orci dolor nec facilisis et lacus, eu aliquet. Amet imperdiet ac venenatis, lacus. Tortor interdum quisque et, eu etiam ac.',
-    },
-    {
-      image: NewsImage3,
-      title: ' The Complete JavaScript Course 2020: Build Real Projects!',
-      content:
-        'Convallis vitae, nunc ut venenatis, lectus. Tellus nunc orci dolor nec facilisis et lacus, eu aliquet. Amet imperdiet ac venenatis, lacus. Tortor interdum quisque et, eu etiam ac.',
-    },
-  ];
-  const tagsItems = [
-    'Art',
-    'Exercise',
-    'Material Design ',
-    'Software Development',
-    'Music',
-    'Photography',
-  ];
+
+  const handleChange = (e: any, value: number) => {
+    setPage(value);
+  };
+
+  const handleShowItem = (data: any) => {
+    setIsDetailsVisible(true);
+    setSelectedData(data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    page > 0 && getData();
+  }, [page]);
+
+  useEffect(() => {
+    if (success) {
+      let totalNum = fullData?.meta?.total || 0;
+      const paginationCount = Math.ceil(totalNum / 3);
+      setTotal(paginationCount);
+    }
+  }, [success]);
+
   return (
     <Grid
       container
@@ -117,56 +152,61 @@ const News = () => {
             flexDirection={'column'}
             className="news-items"
           >
-            {newsArray.map((item: any) => {
-              return (
-                <Stack
-                  className="news-item"
-                  justifyContent={'flex-start'}
-                  direction={'row'}
-                  onClick={() => setIsDetailsVisible(true)}
-                  sx={{
-                    '&:hover': {
-                      cursor: 'pointer',
-                    },
-                  }}
-                >
-                  <Image
-                    src={item.image}
-                    alt="NewsImage"
-                    className="news-image"
-                  />
-
+            {data &&
+              data.map((item: any) => {
+                let imageURL =
+                  item.media.length > 0 && item.media[0]?.url
+                    ? domain + item.media[0]?.url
+                    : DefautImage1Large;
+                return (
                   <Stack
-                    justifyContent={'center'}
-                    className="news-details-text"
-                    margin={2}
+                    className="news-item"
+                    justifyContent={'flex-start'}
+                    direction={'row'}
+                    onClick={() => handleShowItem(item)}
+                    sx={{
+                      '&:hover': {
+                        cursor: 'pointer',
+                      },
+                    }}
                   >
-                    <Typography
-                      variant="h6"
-                      color={primaryColor}
-                      fontFamily={'Jost'}
-                      fontWeight={'500'}
+                    <img
+                      src={imageURL}
+                      alt="NewsImage"
+                      className="news-image"
+                    />
+
+                    <Stack
+                      justifyContent={'flex-start'}
+                      className="news-details-text"
+                      margin={2}
                     >
-                      {item.title}
-                    </Typography>
-                    <Typography
-                      variant="caption"
-                      color={primaryColor}
-                      fontFamily={'Jost'}
-                      fontWeight={'400'}
-                    >
-                      {item.content}
-                    </Typography>
-                    <Typography
-                      variant="caption"
-                      color={textSecondaryColor}
-                    >
-                      Art
-                    </Typography>
+                      <Typography
+                        variant="h6"
+                        color={primaryColor}
+                        fontFamily={'Jost'}
+                        fontWeight={'500'}
+                      >
+                        {item.title}
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        color={primaryColor}
+                        fontFamily={'Jost'}
+                        fontWeight={'400'}
+                      >
+                        {item.subTitle}
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        color={textSecondaryColor}
+                      >
+                        {item.category}
+                      </Typography>
+                    </Stack>
                   </Stack>
-                </Stack>
-              );
-            })}
+                );
+              })}
           </Grid>
           {!isScreen900 ? (
             <Grid
@@ -218,7 +258,7 @@ const News = () => {
                   width: 'auto',
                 }}
               >
-                {t('select.tags')} :
+                {t('select.tags')} :&nbsp;
               </InputLabel>
               <FormControl
                 variant="outlined"
@@ -245,15 +285,35 @@ const News = () => {
           )}
         </Stack>
       </Container>
-      <Pagination
-        count={3}
-        color={'secondary'}
-        sx={{ margin: '50px 0px 50px 0px' }}
-        dir="ltr"
-      />
+      <Stack
+        alignItems={'center'}
+        paddingBottom={10}
+      >
+        <Pagination
+          onChange={handleChange}
+          page={page}
+          color="primary"
+          count={total}
+          siblingCount={2} // Number of siblings to show around the current page
+          renderItem={(item) => (
+            <PaginationItem
+              {...item}
+              slots={{
+                previous: isArabic
+                  ? ArrowForwardIosRounded
+                  : ArrowBackIosNewRounded,
+                next: isArabic
+                  ? ArrowBackIosNewRounded
+                  : ArrowForwardIosRounded,
+              }}
+            />
+          )}
+        />
+      </Stack>
       <IndustryNewsModal
         open={isDetailsVisible}
         onClose={() => setIsDetailsVisible(false)}
+        data={selectedData}
       />
     </Grid>
   );

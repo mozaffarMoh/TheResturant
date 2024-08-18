@@ -13,7 +13,7 @@ export const endPoints = {
     createOrder: '/ecomm/order/',
     getFacilityList: "/core/getCategoryBy/facility",
     getCitiesList: "/core/place/",
-    getFacilityItems: "/core/filter/",
+    DynamicFilter: "/core/filter/",
     contactUsForm: '/form/tpf-contact-form',
     contactUsDetials: '/core/dynamicLookup/tpf-contact-details',
 }

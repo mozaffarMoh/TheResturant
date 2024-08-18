@@ -1,4 +1,3 @@
-import CustomAlert from '@/components/alerts/CustomAlert';
 import DetailsCard from '@/components/cards/book-facility/DetailsCard';
 import { Container, Grid } from '@mui/material';
 import { useState } from 'react';

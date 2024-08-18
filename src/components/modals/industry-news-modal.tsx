@@ -7,21 +7,28 @@ import {
   Typography,
 } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
-import HighlightOffSharpIcon from '@mui/icons-material/HighlightOffSharp';
 import { primaryColor } from '@/constant/color';
-import newsImage from '../../../public/industry/news/dialog.png';
 import Image from 'next/image';
 import CloseSVG from '../../../assets/icons/close';
+import { DefautImage1Large } from '@/constant/images';
+import { domain } from '@/base-api/endPoints';
 
 interface IndustryNewsModalProps {
   open: boolean;
   onClose: Dispatch<SetStateAction<boolean>>;
+  data: any;
 }
 
 const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
   open,
   onClose,
+  data,
 }) => {
+  let imageURL =
+    data && data?.media && data.media.length > 0 && data.media[0]?.url
+      ? domain + data.media[0]?.url
+      : DefautImage1Large;
+
   return (
     <Dialog
       open={open}
@@ -41,7 +48,7 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
       </Stack>
       <Stack
         padding={5}
-        alignItems={'center'}
+        alignItems={'flex-start'}
       >
         <DialogTitle>
           <Typography
@@ -51,8 +58,7 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
             textTransform={'capitalize'}
             fontWeight={600}
           >
-            Keep your face always toward the sunshine - and shadows will fall
-            behind you.
+            {data?.title}
           </Typography>
         </DialogTitle>
         <DialogContent>
@@ -61,53 +67,28 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
               variant="body2"
               fontFamily={'Jost'}
             >
-              Master Figma app to get a job in UI Design, User Interface, User
-              Experience design, Web Design & UX design.
-              <br /> April 06, 2020 <br />
-              <span style={{ color: 'red' }}>Art</span>
+              {data?.subTitle}
+              <br /> {data?.created_at} <br />
+              <span style={{ color: 'red' }}>{data.category}</span>
             </Typography>
           </DialogContentText>
         </DialogContent>
-        <Image
-          style={{ width: '100%', height: '150px', borderRadius: '20px' }}
-          src={newsImage}
+        <img
+          style={{ width: '100%', height: '250px', borderRadius: '20px' }}
+          src={imageURL}
           alt="newsImage"
         />
         <br />
         <br />
-        <DialogTitle alignSelf={'flex-start'}>
-          <Typography
-            variant="body2"
-            fontFamily={'Nobile'}
-            color={primaryColor}
-            fontWeight={600}
-          >
-            Course Description
-          </Typography>
-        </DialogTitle>
+
         <DialogContent>
           <DialogContentText>
             <Typography
               variant="body2"
               fontFamily={'Jost'}
             >
-              Aliquam hendrerit sollicitudin purus, quis rutrum mi accumsan nec.
-              Quisque bibendum orci ac nibh facilisis, at malesuada orci congue.
-              Nullam tempus sollicitudin cursus. Ut et adipiscing erat.
-              Curabitur this is a text link libero tempus congue.
-              <br />
-              <br />
-              <br />
-              Duis mattis laoreet neque, et ornare neque sollicitudin at. Proin
-              sagittis dolor sed mi elementum pretium. Donec et justo ante.
-              Vivamus egestas sodales est, eu rhoncus urna semper eu. Cum sociis
-              natoque penatibus et magnis dis parturient montes, nascetur
-              ridiculus mus. Integer tristique elit lobortis purus bibendum,
-              quis dictum metus mattis. Phasellus posuere felis sed eros
-              porttitor mattis. Curabitur massa magna, tempor in blandit id,
-              porta in ligula. Aliquam laoreet nisl massa, at interdum mauris
-              sollicitudin et.
-              <span style={{ color: 'red' }}>Art</span>
+              <div dangerouslySetInnerHTML={{ __html: data?.description }} />
+              <span style={{ color: 'red' }}>{data?.category}</span>
             </Typography>
           </DialogContentText>
         </DialogContent>

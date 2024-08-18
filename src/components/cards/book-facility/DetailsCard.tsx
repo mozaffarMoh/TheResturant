@@ -8,6 +8,8 @@ import { metadataIcons } from '@/constant/metadataIcons';
 
 export default function DetailsCard({ facility, onClick }: any) {
   const t = useTranslations();
+  console.log('fac : ',facility);
+  
   return (
     <Card
       variant="outlined"
@@ -21,8 +23,8 @@ export default function DetailsCard({ facility, onClick }: any) {
       <CardContent>
         <p className="text-med-fw700  p-0 ">{t('dialog.details')}</p>
 
-        {facility?.metadata &&
-          facility.metadata.map((item: any) => {
+        {facility?.itemMetaData &&
+          facility.itemMetaData.map((item: any) => {
             let SvgIcon = metadataIcons(item.slug);
 
             return (
@@ -34,7 +36,7 @@ export default function DetailsCard({ facility, onClick }: any) {
                         {' '}
                         {SvgIcon && <SvgIcon />}
                       </span>
-                      {item.name}
+                      {item.itemMetaKey?.name}
                     </span>
                     <p>{item.value}</p>
                   </div>

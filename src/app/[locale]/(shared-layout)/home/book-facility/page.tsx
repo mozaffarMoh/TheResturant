@@ -94,7 +94,7 @@ const BookFacilityPage: NextPage = () => {
     ,
     ,
     facilityItemsFullData,
-  ] = usePost(endPoints.getFacilityItems, body);
+  ] = usePost(endPoints.DynamicFilter, body);
 
   useEffect(() => {
     getFacilityList();

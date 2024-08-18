@@ -58,12 +58,16 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   const [date, setDate]: any = useState(getFirstDate());
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const [fromTime, setFromTime] = useState('');
-  const [toTime, setToTime] = useState('');
+  const [fromTime, setFromTime] = useState(0);
+  const [toTime, setToTime] = useState(0);
   const [successMessage, setSuccessMessage]: any = useState('');
   const [minAttendees, setMinAttendees] = useState(0);
   const [maxAttendees, setMaxAttendees] = useState(0);
   const [attendees, setAttendees] = useState(0);
+  const [minHours, setMinHours] = useState(0);
+  const [maxHours, setMaxHours] = useState(0);
+  const [hours, setHours] = useState(0);
+  const [time, setTime] = useState(0);
   const [itemId, setItemId] = useState('');
   const maxDate = getMaxDate();
   const [errors, setErrors] = useState({
@@ -71,6 +75,10 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
     toTime: '',
     attendees: '',
   });
+  let bodyDays = {
+    modelName: 'Day',
+    fields: ['id', 'name', 'slug'],
+  };
   let body = {
     order_type: 'booking',
     items: [
@@ -78,8 +86,8 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
         item_id: itemId,
         start_timeslot_date: date ? getFormatDate(date) : '',
         end_timeslot_date: date ? getFormatDate(date) : '',
-        start_timeslot_time: fromTime,
-        end_timeslot_time: toTime,
+        start_timeslot_time: '08:00', //`${time}:00`,
+        end_timeslot_time: '15:00', //`${hours}:00`,
         meta: {
           'number-of-attendees': attendees,
         },
@@ -91,6 +99,11 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
     body,
     token,
   );
+  const [apiDays, , handleGetDays, successDays] = usePost(
+    endPoints.DynamicFilter,
+    bodyDays,
+    token,
+  );
 
   let dataReview = {
     fromTime,
@@ -98,12 +111,8 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
     attendees,
   };
   const schema = z.object({
-    fromTime: z.string().min(1, {
-      message: t('validation.required'),
-    }),
-    toTime: z.string().min(1, {
-      message: t('validation.required'),
-    }),
+    fromTime: z.number().min(1, { message: t('validation.required') }),
+    toTime: z.number().min(1, { message: t('validation.required') }),
     attendees: z.number().min(1, { message: t('validation.required') }),
   });
 
@@ -137,8 +146,8 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   useEffect(() => {
     if (success) {
       setDate(getFirstDate());
-      setFromTime('');
-      setToTime('');
+      setFromTime(0);
+      setToTime(0);
       setAttendees(0);
       setSuccessMessage(t('messages.success-reserve-facility'));
       setTimeout(() => {
@@ -149,16 +158,35 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   }, [success]);
 
   useEffect(() => {
-    if (facility && facility?.metadata) {
+    if (facility && facility?.itemMetaData) {
       setItemId(facility?.id);
-      facility.metadata.forEach((item: any) => {
-        if (item.slug == 'minimum-number-of-people') {
+      facility.itemMetaData.forEach((item: any) => {
+        if (item?.itemMetaKey?.slug == 'minimum-number-of-people') {
           setMinAttendees(Number(item.value));
         }
-        if (item.slug == 'maximum-number-of-people') {
+        if (item?.itemMetaKey?.slug == 'maximum-number-of-people') {
           setMaxAttendees(Number(item.value));
         }
+        if (item?.itemMetaKey?.slug == 'minimum-number-of-hours') {
+          setMinHours(Number(item.value));
+        }
+        if (item?.itemMetaKey?.slug == 'maximum-number-of-hours') {
+          setMaxHours(Number(item.value));
+        }
       });
+    }
+
+    if (
+      facility &&
+      facility?.children &&
+      Array.isArray(facility?.children) &&
+      facility?.children.length > 0
+    ) {
+      let from = facility?.children[0]?.itemTimes[0]?.from_time;
+      let to = facility?.children[0]?.itemTimes[0]?.to_time;
+
+      setFromTime(parseInt(from.split(':')[0], 10));
+      setToTime(parseInt(to.split(':')[0], 10));
     }
   }, [facility]);
 
@@ -226,16 +254,21 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
               gap={2}
               width="100%"
             >
-              <Stack
-                width={'100%'}
+              <FormControl
+                fullWidth
                 sx={{
+                  '& .MuiInputBase-root': {
+                    paddingLeft: '0.8rem',
+                  },
                   '& .MuiFormLabel-root': {
                     right: isArabic ? 25 : '',
                     left: isArabic ? 'auto' : '',
                     transformOrigin: isArabic ? 'top right' : '',
                     textAlign: isArabic ? 'right' : 'left',
                   },
-
+                  '& .MuiFormHelperText-root': {
+                    textAlign: isArabic ? 'right' : 'left', // Align helper text to the right
+                  },
                   '& .MuiOutlinedInput-notchedOutline legend': {
                     textAlign: isArabic ? 'right' : 'left',
                   },
@@ -246,15 +279,31 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                   },
                 }}
               >
-                <TextField
+                <InputLabel id="attendees-label">
+                  {t('dialog.start-time')}
+                </InputLabel>
+
+                <Select
                   label={t('dialog.start-time')}
-                  type="time"
-                  value={fromTime}
-                  onChange={(e) => setFromTime(e.target.value)}
-                  InputLabelProps={{ shrink: true }}
-                  inputProps={{ step: 300 }}
-                  fullWidth
-                />
+                  value={time}
+                  onChange={(e) => setTime(Number(e.target.value))}
+                >
+                  {toTime > 0 &&
+                    fromTime >= 0 &&
+                    [...Array(Math.abs(toTime - fromTime + 1))].map(
+                      (_, index) => (
+                        <MenuItem
+                          key={index}
+                          value={fromTime + index}
+                        >
+                          {fromTime + index < 10 ? '0' : ''}
+                          {fromTime + index}
+                          :00
+                        </MenuItem>
+                      ),
+                    )}
+                </Select>
+
                 {errors.fromTime && (
                   <Typography
                     variant="caption"
@@ -263,18 +312,23 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                     {errors.fromTime}
                   </Typography>
                 )}
-              </Stack>
+              </FormControl>
 
-              <Stack
-                width={'100%'}
+              <FormControl
+                fullWidth
                 sx={{
+                  '& .MuiInputBase-root': {
+                    paddingLeft: '0.8rem',
+                  },
                   '& .MuiFormLabel-root': {
                     right: isArabic ? 25 : '',
                     left: isArabic ? 'auto' : '',
                     transformOrigin: isArabic ? 'top right' : '',
                     textAlign: isArabic ? 'right' : 'left',
                   },
-
+                  '& .MuiFormHelperText-root': {
+                    textAlign: isArabic ? 'right' : 'left', // Align helper text to the right
+                  },
                   '& .MuiOutlinedInput-notchedOutline legend': {
                     textAlign: isArabic ? 'right' : 'left',
                   },
@@ -285,15 +339,28 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                   },
                 }}
               >
-                <TextField
-                  label={t('dialog.end-time')}
-                  type="time"
-                  value={toTime}
-                  onChange={(e) => setToTime(e.target.value)}
-                  InputLabelProps={{ shrink: true }}
-                  inputProps={{ step: 300 }}
-                  fullWidth
-                />
+                <InputLabel id="attendees-label">
+                  {t('dialog.number-of-hours')}
+                </InputLabel>
+
+                <Select
+                  label={t('dialog.number-of-hours')}
+                  value={hours}
+                  onChange={(e) => setHours(Number(e.target.value))}
+                >
+                  {maxHours > 0 &&
+                    minHours >= 0 &&
+                    [...Array(Math.abs(maxHours - minHours + 1))].map(
+                      (_, index) => (
+                        <MenuItem
+                          key={index}
+                          value={minHours + index}
+                        >
+                          {minHours + index}
+                        </MenuItem>
+                      ),
+                    )}
+                </Select>
                 {errors.toTime && (
                   <Typography
                     variant="caption"
@@ -302,7 +369,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                     {errors.toTime}
                   </Typography>
                 )}
-              </Stack>
+              </FormControl>
             </Box>
             <FormControl
               fullWidth

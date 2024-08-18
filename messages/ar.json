@@ -167,7 +167,7 @@
         "book-facility": "حجز المنشأة",
         "select-date": "تحديد الوقت",
         "start-time": "بداية الوقت",
-        "end-time": "نهاية الوفت",
+        "number-of-hours": "عدد الساعات",
         "number-of-attendees": "عدد الحضور"
     },
     "buttons": {
@@ -201,5 +201,13 @@
         "password-update": "تم تحديث كلمة المرور بنجاح",
         "send-message": "تم إرسال الرسالة بنجاح",
         "success-reserve-facility": "تم الحجز بنجاح"
+    },
+    "tags": {
+        "Art": "فن",
+        "Exercise": "تمرين",
+        "Material Design": "تصميم المواد",
+        "Software Development": "تطوير البرمجيات",
+        "Music": "موسيقى",
+        "Photography": "تصوير فوتوغرافي"
     }
 }

@@ -182,7 +182,7 @@
         "book-facility": "Book Facility",
         "select-date": "Select Date",
         "start-time": "Start Time",
-        "end-time": "End Time",
+        "number-of-hours": "Hours",
         "number-of-attendees": "Number Of Attendees"
     },
     "select": {
@@ -202,5 +202,13 @@
         "password-update": "Password has been updated successfuly",
         "send-message": "Message sent successfully",
         "success-reserve-facility": "Reservation Completed Successfully"
+    },
+    "tags": {
+        "Art": "Art",
+        "Exercise": "Exercise",
+        "Material Design": "Material Design",
+        "Software Development": "Software Development",
+        "Music": "Music",
+        "Photography": "Photography"
     }
 }
