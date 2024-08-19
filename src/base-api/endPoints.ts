@@ -11,6 +11,7 @@ export const endPoints = {
     getWorkshop: "/ecomm/getItemsByType/workshop",
     showSingleItem: "/ecomm/item/",
     createOrder: '/ecomm/order/',
+    checkAvailability: '/ecomm/checkAvailability/',
     getFacilityList: "/core/getCategoryBy/facility",
     getCitiesList: "/core/place/",
     DynamicFilter: "/core/filter/",

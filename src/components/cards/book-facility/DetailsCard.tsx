@@ -8,7 +8,6 @@ import { metadataIcons } from '@/constant/metadataIcons';
 
 export default function DetailsCard({ facility, onClick }: any) {
   const t = useTranslations();
-  console.log('fac : ',facility);
   
   return (
     <Card

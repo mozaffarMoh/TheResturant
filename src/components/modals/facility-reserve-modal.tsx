@@ -28,6 +28,8 @@ import { LoadingButton } from '@mui/lab';
 import CustomAlert from '../alerts/CustomAlert';
 import { z } from 'zod';
 import { usePathname } from 'next/navigation';
+import { baseApi } from '@/base-api/baseApi';
+import { headers } from 'next/headers';
 
 interface ReservationModalProps {
   open: boolean;
@@ -55,7 +57,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
 }) => {
   const t = useTranslations();
   const token = Cookies.get('token') || '';
-  const [date, setDate]: any = useState(getFirstDate());
+  const [date, setDate]: any = useState(null);
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const [fromTime, setFromTime] = useState(0);
@@ -94,12 +96,13 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       },
     ],
   };
+
   const [, loading, handlePost, success, , errorMessage] = usePost(
     endPoints.createOrder,
     body,
     token,
   );
-  const [apiDays, , handleGetDays, successDays] = usePost(
+  const [apiDays, , handleGetDays] = usePost(
     endPoints.DynamicFilter,
     bodyDays,
     token,
@@ -138,8 +141,42 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   };
 
   const handleDateChange = (newDate: any) => {
-    setDate(newDate);
+    const dayOfWeek = dayjs(newDate).format('dddd').toLocaleLowerCase();
+    let dayId = 0;
+    apiDays.forEach((item: any) => {
+      if (item.slug === dayOfWeek) {
+        dayId = item.id;
+      }
+    });
+
+    let bodyCheck = {
+      item_id: itemId,
+      day_id: dayId,
+      start_timeslot_date: getFormatDate(newDate),
+      end_timeslot_date: getFormatDate(newDate),
+    };
+    let headers = {
+      Accept: 'application/json',
+      Language: 'en',
+      Token: 'z9abe71334aea8236dwell811077c7cb768f7e816290f1',
+      Authorization: `Bearer ${token}`,
+    };
+
+    baseApi
+      .post(endPoints.checkAvailability, bodyCheck, {
+        headers: headers,
+      })
+      .then(() => {
+        setDate(newDate);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
+  useEffect(() => {
+    handleGetDays();
+  }, []);
 
   // Reset form when the resetForm prop changes
   useEffect(() => {
@@ -188,6 +225,29 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       setToTime(parseInt(to.split(':')[0], 10));
     }
   }, [facility]);
+
+  const selectProps = {
+    '& .MuiInputBase-root': {
+      paddingLeft: '0.8rem',
+    },
+    '& .MuiFormLabel-root': {
+      right: isArabic ? 25 : '',
+      left: isArabic ? 'auto' : '',
+      transformOrigin: isArabic ? 'top right' : '',
+      textAlign: isArabic ? 'right' : 'left',
+    },
+    '& .MuiFormHelperText-root': {
+      textAlign: isArabic ? 'right' : 'left', // Align helper text to the right
+    },
+    '& .MuiOutlinedInput-notchedOutline legend': {
+      textAlign: isArabic ? 'right' : 'left',
+    },
+    '& .MuiSvgIcon-root': {
+      position: 'absolute',
+      right: isArabic ? 'auto' : '0.5rem', // Position to the left if not Arabic
+      left: isArabic ? '0.5rem' : 'auto', // Position to the right if Arabic
+    },
+  };
 
   return (
     <Dialog
@@ -255,28 +315,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
             >
               <FormControl
                 fullWidth
-                sx={{
-                  '& .MuiInputBase-root': {
-                    paddingLeft: '0.8rem',
-                  },
-                  '& .MuiFormLabel-root': {
-                    right: isArabic ? 25 : '',
-                    left: isArabic ? 'auto' : '',
-                    transformOrigin: isArabic ? 'top right' : '',
-                    textAlign: isArabic ? 'right' : 'left',
-                  },
-                  '& .MuiFormHelperText-root': {
-                    textAlign: isArabic ? 'right' : 'left', // Align helper text to the right
-                  },
-                  '& .MuiOutlinedInput-notchedOutline legend': {
-                    textAlign: isArabic ? 'right' : 'left',
-                  },
-                  '& .MuiSvgIcon-root': {
-                    position: 'absolute',
-                    right: isArabic ? 'auto' : '0.5rem', // Position to the left if not Arabic
-                    left: isArabic ? '0.5rem' : 'auto', // Position to the right if Arabic
-                  },
-                }}
+                sx={{ ...selectProps }}
               >
                 <InputLabel id="attendees-label">
                   {t('dialog.start-time')}
@@ -315,28 +354,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
 
               <FormControl
                 fullWidth
-                sx={{
-                  '& .MuiInputBase-root': {
-                    paddingLeft: '0.8rem',
-                  },
-                  '& .MuiFormLabel-root': {
-                    right: isArabic ? 25 : '',
-                    left: isArabic ? 'auto' : '',
-                    transformOrigin: isArabic ? 'top right' : '',
-                    textAlign: isArabic ? 'right' : 'left',
-                  },
-                  '& .MuiFormHelperText-root': {
-                    textAlign: isArabic ? 'right' : 'left', // Align helper text to the right
-                  },
-                  '& .MuiOutlinedInput-notchedOutline legend': {
-                    textAlign: isArabic ? 'right' : 'left',
-                  },
-                  '& .MuiSvgIcon-root': {
-                    position: 'absolute',
-                    right: isArabic ? 'auto' : '0.5rem', // Position to the left if not Arabic
-                    left: isArabic ? '0.5rem' : 'auto', // Position to the right if Arabic
-                  },
-                }}
+                sx={{ ...selectProps }}
               >
                 <InputLabel id="attendees-label">
                   {t('dialog.number-of-hours')}
@@ -372,28 +390,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
             </Box>
             <FormControl
               fullWidth
-              sx={{
-                '& .MuiInputBase-root': {
-                  paddingLeft: '0.8rem',
-                },
-                '& .MuiFormLabel-root': {
-                  right: isArabic ? 25 : '',
-                  left: isArabic ? 'auto' : '',
-                  transformOrigin: isArabic ? 'top right' : '',
-                  textAlign: isArabic ? 'right' : 'left',
-                },
-                '& .MuiFormHelperText-root': {
-                  textAlign: isArabic ? 'right' : 'left', // Align helper text to the right
-                },
-                '& .MuiOutlinedInput-notchedOutline legend': {
-                  textAlign: isArabic ? 'right' : 'left',
-                },
-                '& .MuiSvgIcon-root': {
-                  position: 'absolute',
-                  right: isArabic ? 'auto' : '0.5rem', // Position to the left if not Arabic
-                  left: isArabic ? '0.5rem' : 'auto', // Position to the right if Arabic
-                },
-              }}
+              sx={{ ...selectProps }}
             >
               <InputLabel id="attendees-label">
                 {t('dialog.number-of-attendees')}
