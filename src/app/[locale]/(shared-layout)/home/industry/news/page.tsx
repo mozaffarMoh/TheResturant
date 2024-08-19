@@ -14,6 +14,7 @@ import {
   FormControl,
   InputLabel,
   PaginationItem,
+  CircularProgress,
 } from '@mui/material';
 import Link from '@mui/material/Link';
 import GridFlex from '@mui/material/Unstable_Grid2';
@@ -29,7 +30,7 @@ import {
   ArrowForwardIosRounded,
 } from '@mui/icons-material';
 import { usePathname } from 'next/navigation';
-import { DefautImage1Large } from '@/constant/images';
+import { DefautImage1 } from '@/constant/images';
 
 const News = () => {
   const t = useTranslations();
@@ -38,8 +39,8 @@ const News = () => {
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const isScreen900 = useMediaQuery('(max-width:900px)');
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
-  const [selectedData, setSelectedData] = useState({});
-  const [page, setPage] = useState(0);
+  const [slug, setSlug] = useState('');
+  const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [tags, setTags] = useState<Number>(0);
   const body = {
@@ -47,13 +48,13 @@ const News = () => {
     filters: {
       'itemType.slug': 'News',
     },
-    fields: ['slug', 'title', 'subTitle', 'media', 'created_at', 'description'],
+    fields: ['slug', 'title', 'subTitle', 'media'],
     add_fields: {
       categories: 'first,name,category',
     },
     'with-pagination': true,
-    limit: 10,
-    page: 1,
+    limit: 3,
+    page: page,
   };
 
   const [data, loading, getData, success, , , , fullData] = usePost(
@@ -77,17 +78,13 @@ const News = () => {
     setPage(value);
   };
 
-  const handleShowItem = (data: any) => {
+  const handleShowItem = (slug: string) => {
     setIsDetailsVisible(true);
-    setSelectedData(data);
+    setSlug(slug);
   };
 
   useEffect(() => {
     getData();
-  }, []);
-
-  useEffect(() => {
-    page > 0 && getData();
   }, [page]);
 
   useEffect(() => {
@@ -152,18 +149,28 @@ const News = () => {
             flexDirection={'column'}
             className="news-items"
           >
+            {loading && (
+              <Stack
+                height={700}
+                justifyContent={'center'}
+                alignItems={'center'}
+              >
+                <CircularProgress />
+              </Stack>
+            )}
             {data &&
+              !loading &&
               data.map((item: any) => {
                 let imageURL =
                   item.media.length > 0 && item.media[0]?.url
                     ? domain + item.media[0]?.url
-                    : DefautImage1Large;
+                    : DefautImage1;
                 return (
                   <Stack
                     className="news-item"
                     justifyContent={'flex-start'}
                     direction={'row'}
-                    onClick={() => handleShowItem(item)}
+                    onClick={() => handleShowItem(item?.slug)}
                     sx={{
                       '&:hover': {
                         cursor: 'pointer',
@@ -313,7 +320,8 @@ const News = () => {
       <IndustryNewsModal
         open={isDetailsVisible}
         onClose={() => setIsDetailsVisible(false)}
-        data={selectedData}
+        slug={slug}
+        setSlug={setSlug}
       />
     </Grid>
   );

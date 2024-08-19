@@ -55,7 +55,7 @@ export default function DetailsCard({ facility, onClick }: any) {
           className="general-button-primary mt-1"
           onClick={onClick}
         >
-          Book Now
+         {t('buttons.book-now')}
         </Button>
       </CardContent>
     </Card>

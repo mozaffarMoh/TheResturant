@@ -6,25 +6,18 @@ import {
   CardMedia,
   Grid,
   Paper,
-  Typography,
 } from '@mui/material';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { DefautImage1 } from '@/constant/images';
+import { domain } from '@/base-api/endPoints';
 
-const AnnounceCard = ({
-  title,
-  description,
-  image,
-  handleModal,
-}: {
-  title: string;
-  description: string;
-  image: string;
-  handleModal: any;
-}) => {
+const AnnounceCard = ({ item, handleShowDetails }: any) => {
   const t = useTranslations();
-  const { push } = useRouter();
+  let imageURL =
+    item.media && item.media.length > 0 && item.media[0]?.url
+      ? domain + item.media[0]?.url
+      : DefautImage1;
   return (
     <Paper
       className="event-card-paper"
@@ -55,7 +48,7 @@ const AnnounceCard = ({
                 minHeight: '12rem',
                 borderRadius: '1.1rem',
               }}
-              image={image}
+              image={imageURL}
               alt="Live from space album cover"
             />
           </Grid>
@@ -68,21 +61,22 @@ const AnnounceCard = ({
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flex: '1 0 auto' }}>
                 <p className="general-title-v2  primary-color  fw600">
-                  {title}
+                  {item?.title}
                   <Button
                     variant="contained"
                     sx={{
                       borderRadius: '50px',
+                      marginX: 2,
                       fontSize: '11px',
                       height: '23px',
                       background: '#EB6B2A',
                     }}
                     color="error"
                   >
-                    General
+                    {item?.category}
                   </Button>
                 </p>
-                <p className="text-med-fw400 ">{description}</p>
+                <p className="text-med-fw400 ">{item?.subTitle}</p>
               </CardContent>
               <Box className="xs-flex-row-col-375 ml-1 gap1">
                 <div>
@@ -92,7 +86,7 @@ const AnnounceCard = ({
                     className="text-med-fw400  opacity-80"
                   >
                     {' '}
-                    AMMAN, JORDAN
+                    {item?.place && item?.place?.name}
                   </span>{' '}
                 </div>
                 <div>
@@ -101,7 +95,12 @@ const AnnounceCard = ({
                     style={{ marginInline: '0.4rem' }}
                     className="text-med-fw400  opacity-80"
                   >
-                    8:00 am - 5:00 pm
+                    {item?.itemMetaData &&
+                      item?.itemMetaData?.map((val: any) => {
+                        if (val?.itemMetaKey?.slug == 'time') {
+                          return val?.value;
+                        }
+                      })}
                   </span>
                 </div>
               </Box>
@@ -117,7 +116,7 @@ const AnnounceCard = ({
                 <Button
                   variant="outlined"
                   sx={{ borderRadius: '50px', paddingInline: '2rem' }}
-                  onClick={handleModal}
+                  onClick={() => handleShowDetails(item?.slug)}
                 >
                   {t('buttons.view')}
                 </Button>

@@ -11,6 +11,8 @@ import Cookies from 'js-cookie';
 const Announcments = () => {
   const t = useTranslations();
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+
+  
   return (
     <Grid
       container

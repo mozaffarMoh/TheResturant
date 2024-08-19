@@ -62,6 +62,8 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   let isArabic = pathname.startsWith('/ar');
   const [fromTime, setFromTime] = useState(0);
   const [toTime, setToTime] = useState(0);
+  const [fromTimeBooked, setFromTimeBooked] = useState(fromTime);
+  const [toTimeBooked, setToTimeBooked] = useState(toTime);
   const [successMessage, setSuccessMessage]: any = useState('');
   const [minAttendees, setMinAttendees] = useState(0);
   const [maxAttendees, setMaxAttendees] = useState(0);
@@ -71,6 +73,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   const [hours, setHours] = useState(0);
   const [time, setTime] = useState(0);
   const [itemId, setItemId] = useState('');
+  const [slotId, setSlotId] = useState('');
   const maxDate = getMaxDate();
   const [errors, setErrors] = useState({
     time: '',
@@ -86,13 +89,18 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
     items: [
       {
         item_id: itemId,
-        start_timeslot_date: date ? getFormatDate(date) : '',
-        end_timeslot_date: date ? getFormatDate(date) : '',
-        start_timeslot_time: `${time < 10 ? '0' : ''}${time}:00`,
-        end_timeslot_time: hours,
-        meta: {
-          'number-of-attendees': attendees,
-        },
+        children: [
+          {
+            item_id: slotId,
+            start_timeslot_date: date ? getFormatDate(date) : '',
+            end_timeslot_date: date ? getFormatDate(date) : '',
+            start_timeslot_time: `${time < 10 ? '0' : ''}${time}:00`,
+            end_timeslot_time: `${time + hours < 10 ? '0' : ''}${time + hours}:00`,
+            meta: {
+              'number-of-attendees': attendees,
+            },
+          },
+        ],
       },
     ],
   };
@@ -140,7 +148,14 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
     }
   };
 
+  /* This is for disabe friady and saturday from picker */
+  const disableFridaysAndSaturdays = (date: any) => {
+    const day = date.day();
+    return day === 5 || day === 6;
+  };
+
   const handleDateChange = (newDate: any) => {
+    setDate(newDate);
     const dayOfWeek = dayjs(newDate).format('dddd').toLocaleLowerCase();
     let dayId = 0;
     apiDays.forEach((item: any) => {
@@ -162,12 +177,23 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       Authorization: `Bearer ${token}`,
     };
 
+    setFromTimeBooked(8);
+    setToTimeBooked(17);
     baseApi
       .post(endPoints.checkAvailability, bodyCheck, {
         headers: headers,
       })
-      .then(() => {
-        setDate(newDate);
+      .then((res: any) => {
+        let booked = res.data?.data?.booked;
+        if (booked && booked.length > 0) {
+          let from = booked[0]?.times[0]?.start_timeslot_time;
+          let to = booked[0]?.times[0]?.end_timeslot_time;
+          setFromTimeBooked(parseInt(from.split(':')[0], 10));
+          setToTimeBooked(parseInt(to.split(':')[0], 10) - 1);
+        } else {
+          setFromTimeBooked(0);
+          setToTimeBooked(0);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -178,13 +204,23 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
     handleGetDays();
   }, []);
 
+  const handleReset = () => {
+    setDate(null);
+    setTime(0);
+    setHours(0);
+    setFromTimeBooked(fromTime);
+    setToTimeBooked(toTime);
+    setAttendees(0);
+  };
+  const handleClose = () => {
+    handleReset();
+    onClose();
+  };
+
   // Reset form when the resetForm prop changes
   useEffect(() => {
     if (success) {
-      setDate(getFirstDate());
-      setTime(0);
-      setHours(0);
-      setAttendees(0);
+      handleReset();
       setSuccessMessage(t('messages.success-reserve-facility'));
       setTimeout(() => {
         setSuccessMessage('');
@@ -218,6 +254,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       Array.isArray(facility?.children) &&
       facility?.children.length > 0
     ) {
+      setSlotId(facility?.children[0]?.id);
       let from = facility?.children[0]?.itemTimes[0]?.from_time;
       let to = facility?.children[0]?.itemTimes[0]?.to_time;
 
@@ -225,6 +262,10 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       setToTime(parseInt(to.split(':')[0], 10));
     }
   }, [facility]);
+  useEffect(() => {
+    setFromTimeBooked(fromTime);
+    setToTimeBooked(toTime);
+  }, [fromTime, toTime]);
 
   const selectProps = {
     '& .MuiInputBase-root': {
@@ -252,7 +293,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       fullWidth
       maxWidth="sm"
       className="facility-reserve-modal"
@@ -303,6 +344,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                   views={['year', 'month', 'day']} // Shows only date views
                   minDate={dayjs().add(1, 'day')} // Minimum date is tomorrow
                   disableHighlightToday
+                  shouldDisableDate={disableFridaysAndSaturdays}
                   sx={{ direction: 'ltr' }}
                 />
               </LocalizationProvider>
@@ -328,17 +370,17 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                 >
                   {toTime > 0 &&
                     fromTime >= 0 &&
-                    [...Array(Math.abs(toTime - fromTime + 1))].map(
-                      (_, index) => (
-                        <MenuItem
-                          key={index}
-                          value={fromTime + index}
-                        >
-                          {fromTime + index < 10 ? '0' : ''}
-                          {fromTime + index}
-                          :00
-                        </MenuItem>
-                      ),
+                    [...Array(Math.abs(toTime - fromTime + 1) - 1)].map(
+                      (_, index) =>
+                        (fromTime + index < fromTimeBooked ||
+                          fromTime + index > toTimeBooked) && (
+                          <MenuItem
+                            key={index}
+                            value={fromTime + index}
+                          >
+                            {`${fromTime + index < 10 ? '0' : ''}${fromTime + index}:00`}{' '}
+                          </MenuItem>
+                        ),
                     )}
                 </Select>
 

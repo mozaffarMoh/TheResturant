@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Card,
   CardContent,
@@ -13,21 +12,79 @@ import {
   Typography,
 } from '@mui/material';
 import sortIcon from '../../../assets/icons/sort.png';
-import jobOfferImage from '../../../public/industry/announcments/job-offer.png';
-import InstructorImage from '../../../public/industry/announcments/instructor.png';
 import { primaryColor } from '@/constant/color';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useTranslations } from 'next-intl';
+import usePost from '@/custom-hooks/usePost';
+import { domain, endPoints } from '@/base-api/endPoints';
+import { DefautImage1, DefautImage2 } from '@/constant/images';
+import { LoadingButton } from '@mui/lab';
 
 const JobOfferingSection = () => {
   const t = useTranslations();
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
-  const isRTL = langCookie == 'ar';
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const [sortItems, setSortItems] = useState<Number>(0);
   const router = useRouter();
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [filteredData, setFilteredData]: any = useState([]);
+
+  const body = {
+    modelName: 'Item',
+    filters: {
+      'itemType.slug': 'job-offerings',
+    },
+    fields: ['slug', 'title', 'subTitle', 'media'],
+    relations: {
+      itemMetaData: {
+        relations: {
+          itemMetaKey: {
+            fields: ['name', 'slug'],
+          },
+        },
+        fields: ['value', 'media'],
+      },
+    },
+    'with-pagination': true,
+    limit: 9,
+    page: page,
+  };
+
+  const [data, loading, getData, success, , , , fullData] = usePost(
+    endPoints.DynamicFilter,
+    body,
+  );
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (success) {
+      setFilteredData((prevArray: any) => {
+        const newArray = [...prevArray];
+        newArray.push(...data);
+        return newArray;
+      });
+    }
+  }, [success]);
+
+  useEffect(() => {
+    page > 1 && getData();
+  }, [page]);
+
+  useEffect(() => {
+    if (success) {
+      let totalNum = fullData?.meta?.total || 0;
+      setTotal(totalNum);
+    }
+  }, [success]);
+
   const sortHandleChange = (event: React.ChangeEvent<{ value: Number }>) => {
     setSortItems(event.target.value as Number);
   };
@@ -40,6 +97,7 @@ const JobOfferingSection = () => {
         direction={'row'}
         justifyContent={'space-between'}
         marginBottom={5}
+        padding={2}
       >
         <Typography
           fontFamily={'Nobile'}
@@ -66,7 +124,7 @@ const JobOfferingSection = () => {
             <Image
               src={sortIcon}
               alt={'sortIcon'}
-              style={{ marginTop: '5px' }}
+              style={{ marginTop: '5px', margin: '0px 5px' }}
             />
           </InputLabel>
           <FormControl
@@ -99,94 +157,121 @@ const JobOfferingSection = () => {
           </FormControl>
         </Stack>
       </Stack>
-      <Stack
-        margin={0}
-        direction={'row'}
-        flexWrap={'wrap'}
-        justifyContent={'center'}
-      >
-        {Array(9)
-          .fill('')
-          .map((_, i) => {
-            return (
-              <Card
-                key={i}
-                sx={{
-                  width: '340px',
-                  padding: '10px',
-                  margin: '10px',
-                  cursor: 'pointer',
-                  position: 'relative',
-                }}
-                onClick={() =>
-                  router.push(`/${langCookie}/home/industry/announcements/id`)
-                }
-              >
-                <Image
-                  src={jobOfferImage}
-                  alt={'jobOfferImage'}
-                  style={{ width: '100%' }}
-                />
-
-                <Image
-                  src={InstructorImage}
-                  alt={'InstructorImage'}
-                  style={{
-                    position: 'absolute',
-                    borderRadius: '50%',
-                    right: `${!isRTL ? '20px' : ''}`,
-                    left: `${isRTL ? '20px' : ''}`,
-                    bottom: '100px',
-                  }}
-                />
-
-                <CardContent>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                  >
-                    Company
-                  </Typography>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    fontFamily={'Jost'}
-                    fontWeight={600}
-                    color={'#2F2D51'}
-                  >
-                    Project Manager
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                  >
-                    Discover Law - Get into the best UK law schools
-                  </Typography>
-                </CardContent>
-              </Card>
-            );
-          })}
-        <Button
-          variant="contained"
-          color="inherit"
-          sx={{
-            width: '200px',
-            height: '40px',
-            background: 'white',
-            borderRadius: '50px',
-            margin: '20px',
-          }}
-        >
-          <CircularProgress size={20} />
-          <Typography
-            fontFamily={'Jost'}
-            color={primaryColor}
-            marginLeft={1}
+      {loading && filteredData.length == 0 ? (
+        <Stack alignItems={'center'}>
+          {' '}
+          <CircularProgress />
+        </Stack>
+      ) : (
+        <Stack alignItems={'center'}>
+          <Stack
+            margin={0}
+            direction={'row'}
+            flexWrap={'wrap'}
+            justifyContent={'center'}
           >
-            {t('buttons.load-more')}
-          </Typography>
-        </Button>
-      </Stack>
+            {filteredData.length > 0 &&
+              filteredData.map((item: any, i: any) => {
+                let imageURL =
+                  item.media && item.media.length > 0 && item.media[0]?.url
+                    ? domain + item.media[0]?.url
+                    : DefautImage1;
+                let imageURLAvatart =
+                  item.itemMetaData &&
+                  item.itemMetaData.length > 0 &&
+                  item?.itemMetaData[0]?.media &&
+                  item?.itemMetaData[0]?.media.length > 0
+                    ? domain + item?.itemMetaData[0]?.media[0]?.url
+                    : DefautImage2;
+
+                return (
+                  <Card
+                    key={i}
+                    sx={{
+                      width: '340px',
+                      padding: '10px',
+                      margin: '10px',
+                      cursor: 'pointer',
+                      position: 'relative',
+                    }}
+                    onClick={() =>
+                      router.push(
+                        `/${langCookie}/home/industry/announcements/${item?.slug}`,
+                      )
+                    }
+                  >
+                    <img
+                      src={imageURL}
+                      alt={'jobOfferImage'}
+                      style={{
+                        width: '100%',
+                        height: '300px',
+                        borderRadius: '20px',
+                      }}
+                    />
+
+                    <img
+                      src={imageURLAvatart}
+                      alt={'InstructorImage'}
+                      style={{
+                        position: 'absolute',
+                        width: '60px',
+                        height: '60px',
+                        borderRadius: '50%',
+                        right: `${!isArabic ? '20px' : ''}`,
+                        left: `${isArabic ? '20px' : ''}`,
+                        bottom: '100px',
+                      }}
+                    />
+
+                    <CardContent>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                      >
+                        {item.itemMetaData.length > 0 &&
+                          item?.itemMetaData[0]?.itemMetaKey &&
+                          item?.itemMetaData[0]?.itemMetaKey?.name}
+                      </Typography>
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        fontFamily={'Jost'}
+                        fontWeight={600}
+                        color={'#2F2D51'}
+                      >
+                        {item?.title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                      >
+                        {item?.subTitle}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                );
+              })}{' '}
+          </Stack>
+          {filteredData.length < total && (
+            <LoadingButton
+              onClick={() => setPage((prev) => prev + 1)}
+              loading={loading}
+              variant="contained"
+              color="inherit"
+              sx={{
+                width: '200px',
+                height: '40px',
+                background: 'white',
+                borderRadius: '50px',
+                margin: '20px',
+              }}
+            >
+              {t('buttons.load-more')}
+            </LoadingButton>
+          )}
+        </Stack>
+      )}
     </Container>
   );
 };

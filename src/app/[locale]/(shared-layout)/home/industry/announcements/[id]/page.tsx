@@ -15,18 +15,70 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import InstructorImage from '../../../../../../../../public/industry/announcments/instructor.png';
 import { useTranslations } from 'next-intl';
+import usePost from '@/custom-hooks/usePost';
+import { domain, endPoints } from '@/base-api/endPoints';
+import { DefautImage1Large, DefautImage2 } from '@/constant/images';
+import { useEffect } from 'react';
+import { useParams, usePathname } from 'next/navigation';
 
 const JobOfferDetails: NextPage = () => {
   const t = useTranslations();
   const isScreen1024 = useMediaQuery('(max-width:1024px)');
   const isScreen600 = useMediaQuery('(max-width:600px)');
+  const params = useParams();
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
+
+  const body = {
+    modelName: 'Item',
+    filters: {
+      slug: params?.id,
+    },
+    fields: ['slug', 'title', 'subTitle', 'description', 'media'],
+    relations: {
+      itemMetaData: {
+        relations: {
+          itemMetaKey: {
+            fields: ['name', 'slug'],
+          },
+        },
+        fields: ['value', 'media'],
+      },
+    },
+  };
+
+  const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
+  const isMetaDataExist =
+    data &&
+    data.length > 0 &&
+    data[0].itemMetaData &&
+    data[0].itemMetaData.length > 0;
+
+  let imageURL =
+    data &&
+    data.length > 0 &&
+    data[0].media.length > 0 &&
+    data[0]?.media[0]?.url
+      ? domain + data[0]?.media[0]?.url
+      : DefautImage1Large;
+
+  let imageURLAvatart =
+    isMetaDataExist &&
+    data[0]?.itemMetaData[0]?.media &&
+    data[0]?.itemMetaData[0]?.media.length > 0
+      ? domain + data[0]?.itemMetaData[0]?.media[0]?.url
+      : DefautImage2;
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <>
       <Stack position={'relative'}>
-        <Image
-          src={jobOfferImage}
+        <img
+          src={imageURL}
           alt={'jobOfferImage'}
           style={{ width: '100%', height: isScreen600 ? '250px' : '400px' }}
         />
@@ -64,9 +116,14 @@ const JobOfferDetails: NextPage = () => {
                 alignItems={'center'}
                 width={'200px'}
               >
-                <Image
-                  src={InstructorImage}
+                <img
+                  src={imageURLAvatart}
                   alt={'InstructorImage'}
+                  style={{
+                    width: '70px',
+                    height: '70px',
+                    borderRadius: '50%',
+                  }}
                 />
 
                 <Typography
@@ -74,44 +131,33 @@ const JobOfferDetails: NextPage = () => {
                   fontWeight={600}
                   className=" primary-color"
                   fontFamily={'Jost'}
-                  marginLeft={1}
+                  marginX={2}
                 >
-                  Company
+                  {isMetaDataExist &&
+                    data[0]?.itemMetaData[0]?.itemMetaKey?.name}
                 </Typography>
               </Stack>
-              <Box padding={1}>
+              <Stack padding={2} gap={2}>
                 <Typography
                   variant="h6"
                   fontWeight={600}
                   className=" primary-color"
                   fontFamily={'Jost'}
                 >
-                  Project Manager
+                  {data[0] && data[0]?.title}
                 </Typography>
                 <Typography
                   variant="body1"
                   fontFamily={'Jost'}
                 >
-                  A dedicated space in an office or facility for holding
-                  meetings and discussions. These rooms are typically designed
-                  to provide a conducive and comfortable environment for teams
-                  or individuals to interact and exchange ideas. Here is a
-                  description of the meeting room <br />
-                  <br />
-                  A dedicated space in an office or facility for holding
-                  meetings and discussions. These rooms are typically designed
-                  to provide a conducive and comfortable environment for teams
-                  or individuals to interact and exchange ideas. Here is a
-                  description of the meeting room <br />
-                  <br />
-                  A dedicated space in an office or facility for holding
-                  meetings and discussions. These rooms are typically designed
-                  to provide a conducive and comfortable environment for teams
-                  or individuals to interact and exchange ideas. Here is a
-                  description of the meeting room <br />
-                  <br />
+                  {data[0] && data[0]?.description}
+                  {/*    <div
+                    dangerouslySetInnerHTML={{
+                      __html: data[0] && data[0]?.description,
+                    }}
+                  /> */}
                 </Typography>
-              </Box>
+              </Stack>
             </Stack>
           </Grid>
           <Grid
@@ -139,14 +185,15 @@ const JobOfferDetails: NextPage = () => {
                   className=" primary-color"
                   fontFamily={'Montserrat'}
                 >
-                  
-                  {t('dialog.how-to-apply')}
+                  {isMetaDataExist &&
+                    data[0]?.itemMetaData[1]?.itemMetaKey?.name}
                 </Typography>
                 <Typography
                   variant="body1"
                   fontFamily={'Jost'}
                 >
-                  {t('dialog.equippedWithTools')}
+                  {isMetaDataExist &&
+                    data[0]?.itemMetaData[1]?.value}
                 </Typography>
                 <Button
                   className="general-button-primary mt-1"

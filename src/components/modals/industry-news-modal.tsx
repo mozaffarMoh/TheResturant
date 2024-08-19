@@ -1,33 +1,60 @@
 import {
+  CircularProgress,
   Dialog,
   DialogContent,
   DialogContentText,
   DialogTitle,
   Stack,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { primaryColor } from '@/constant/color';
 import Image from 'next/image';
 import CloseSVG from '../../../assets/icons/close';
 import { DefautImage1Large } from '@/constant/images';
-import { domain } from '@/base-api/endPoints';
+import { domain, endPoints } from '@/base-api/endPoints';
+import usePost from '@/custom-hooks/usePost';
 
 interface IndustryNewsModalProps {
   open: boolean;
   onClose: Dispatch<SetStateAction<boolean>>;
-  data: any;
+  slug: string;
+  setSlug: any;
 }
 
 const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
   open,
   onClose,
-  data,
+  slug,
+  setSlug,
 }) => {
+  const body = {
+    modelName: 'Item',
+    filters: { slug: slug },
+    fields: ['slug', 'title', 'subTitle', 'description', 'created_at', 'media'],
+    add_fields: {
+      categories: 'first,name,category',
+    },
+  };
+  const isScreen640 = useMediaQuery('(max-width:640px)');
+  const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
   let imageURL =
-    data && data?.media && data.media.length > 0 && data.media[0]?.url
-      ? domain + data.media[0]?.url
+    data[0] &&
+    data[0]?.media &&
+    data[0].media.length > 0 &&
+    data[0].media[0]?.url
+      ? domain + data[0].media[0]?.url
       : DefautImage1Large;
+
+  const handleClose = () => {
+    onClose(false);
+    setSlug('');
+  };
+
+  useEffect(() => {
+    slug && getData();
+  }, [slug]);
 
   return (
     <Dialog
@@ -40,59 +67,83 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
         width={'100%'}
       >
         <div
-          onClick={() => onClose(false)}
+          onClick={handleClose}
           style={{ margin: '10px', cursor: 'pointer' }}
         >
           <CloseSVG />
         </div>
       </Stack>
-      <Stack
-        padding={5}
-        alignItems={'flex-start'}
-      >
-        <DialogTitle>
-          <Typography
-            variant="h6"
-            fontFamily={'Nobile'}
-            color={primaryColor}
-            textTransform={'capitalize'}
-            fontWeight={600}
-          >
-            {data?.title}
-          </Typography>
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+      {loading ? (
+        <Stack
+          alignItems={'center'}
+          justifyContent={'center'}
+          sx={{
+            width: isScreen640 ? '300px' : '550px',
+            height: '400px',
+          }}
+        >
+          {' '}
+          <CircularProgress />
+        </Stack>
+      ) : (
+        <Stack
+          padding={5}
+          alignItems={'flex-start'}
+        >
+          <DialogTitle>
             <Typography
-              variant="body2"
-              fontFamily={'Jost'}
+              variant="h6"
+              fontFamily={'Nobile'}
+              color={primaryColor}
+              textTransform={'capitalize'}
+              fontWeight={600}
             >
-              {data?.subTitle}
-              <br /> {data?.created_at} <br />
-              <span style={{ color: 'red' }}>{data.category}</span>
+              {data[0] && data[0]?.title}
             </Typography>
-          </DialogContentText>
-        </DialogContent>
-        <img
-          style={{ width: '100%', height: '250px', borderRadius: '20px' }}
-          src={imageURL}
-          alt="newsImage"
-        />
-        <br />
-        <br />
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <Typography
+                variant="body2"
+                fontFamily={'Jost'}
+              >
+                {data?.subTitle}
+                <br /> {data[0] && data[0]?.created_at} <br />
+                <span style={{ color: 'red' }}>
+                  {' '}
+                  {data[0] && data[0]?.category}
+                </span>
+              </Typography>
+            </DialogContentText>
+          </DialogContent>
+          <img
+            style={{ width: '100%', height: '300px', borderRadius: '13px' }}
+            src={imageURL}
+            alt="newsImage"
+          />
+          <br />
+          <br />
 
-        <DialogContent>
-          <DialogContentText>
-            <Typography
-              variant="body2"
-              fontFamily={'Jost'}
-            >
-              <div dangerouslySetInnerHTML={{ __html: data?.description }} />
-              <span style={{ color: 'red' }}>{data?.category}</span>
-            </Typography>
-          </DialogContentText>
-        </DialogContent>
-      </Stack>
+          <DialogContent>
+            <DialogContentText>
+              <Typography
+                variant="body2"
+                fontFamily={'Jost'}
+              >
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: data[0] && data[0]?.description,
+                  }}
+                />
+                <span style={{ color: 'red' }}>
+                  {' '}
+                  {data[0] && data[0]?.category}
+                </span>
+              </Typography>
+            </DialogContentText>
+          </DialogContent>
+        </Stack>
+      )}
     </Dialog>
   );
 };

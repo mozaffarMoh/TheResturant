@@ -1,46 +1,65 @@
+import { endPoints } from '@/base-api/endPoints';
 import AnnounceCard from '@/components/cards/announcements/AnnounceCard';
 import CarouselElement from '@/components/carousel/CarouselElement';
 import AnnounceModal from '@/components/modals/announceModal';
 import { primaryColor } from '@/constant/color';
-import { announceImage } from '@/constant/images';
-import { Box, Container, Typography } from '@mui/material';
+import usePost from '@/custom-hooks/usePost';
+import {
+  Box,
+  CircularProgress,
+  Container,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
-
-const items = [
-  {
-    id: 0,
-    title: 'What is growth hacking and how to apply ',
-    description:
-      ' The room is designed to provide sufficient space for attendees, with the necessary privacy considerations.',
-    image: announceImage,
-  },
-  {
-    id: 1,
-    title: 'What is growth hacking and how to apply ',
-    description:
-      ' The room is designed to provide sufficient space for attendees, with the necessary privacy considerations.',
-    image: announceImage,
-  },
-  {
-    id: 2,
-    title: 'What is growth hacking and how to apply ',
-    description:
-      ' The room is designed to provide sufficient space for attendees, with the necessary privacy considerations.',
-    image: announceImage,
-  },
-];
+import { useEffect, useState } from 'react';
 
 const AnnounceSection = () => {
   const t = useTranslations();
   const [showModal, setShowModal] = useState(false);
+  const [slug, setSlug] = useState('');
 
-  const handleModal = () => {
-    setShowModal((prv) => !prv);
+  const body = {
+    modelName: 'Item',
+    filters: {
+      'itemType.slug': 'announcement',
+    },
+    fields: ['slug', 'title', 'subTitle', 'media'],
+    relations: {
+      place: {
+        fields: ['name', 'slug'],
+      },
+      itemMetaData: {
+        relations: {
+          itemMetaKey: {
+            fields: ['name', 'slug'],
+          },
+        },
+        fields: ['value'],
+      },
+    },
+    add_fields: {
+      categories: 'first,name,category',
+    },
+    'with-pagination': false,
+    limit: 10,
+    page: 1,
   };
+
+  const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
+
+  const handleShowDetails = (slugValue: string) => {
+    setShowModal((prv) => !prv);
+    setSlug(slugValue);
+  };
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <Container
@@ -51,8 +70,9 @@ const AnnounceSection = () => {
       <AnnounceModal
         open={showModal}
         handleClose={handleCloseModal}
+        slug={slug}
+        setSlug={setSlug}
       />
-
       <div className="sm-flex-col-col-center-center">
         <Typography
           fontFamily={'Nobile'}
@@ -62,19 +82,28 @@ const AnnounceSection = () => {
           fontWeight={600}
           className=" primary-color align-self-start"
         >
-         {t('header.announcement')}
-        </Typography>  
+          {t('header.announcement')}
+        </Typography>
 
         <Box className=" w-full mb-4">
-          <CarouselElement>
-            {items.map((item, i) => (
-              <AnnounceCard
-                key={i}
-                {...item}
-                handleModal={handleModal}
-              />
-            ))}
-          </CarouselElement>
+          {loading ? (
+            <Stack alignItems={'center'}>
+              {' '}
+              <CircularProgress />
+            </Stack>
+          ) : (
+            <CarouselElement>
+              {data &&
+                data.length > 0 &&
+                data.map((item: any, i: number) => (
+                  <AnnounceCard
+                    key={i}
+                    item={item}
+                    handleShowDetails={handleShowDetails}
+                  />
+                ))}
+            </CarouselElement>
+          )}
         </Box>
       </div>
     </Container>

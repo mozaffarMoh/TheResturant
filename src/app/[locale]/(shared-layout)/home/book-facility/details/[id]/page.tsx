@@ -3,7 +3,6 @@ import { HeroSection } from '@/sections/home';
 import FacilityDetailsSection from '@/sections/book-facility/FacilityDetailsSection';
 import { useEffect } from 'react';
 import { domain, endPoints } from '@/base-api/endPoints';
-import useGet from '@/custom-hooks/useGet';
 import { useParams } from 'next/navigation';
 import Loading from '@/components/Loading/Loading';
 import { DefautImage1Large } from '@/constant/images';

@@ -1,21 +1,76 @@
 'use client';
 
-import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import Typography from '@mui/material/Typography';
-import announceImage from '../../../public/industry/announcments/announce.png';
-import Image from 'next/image';
-import { DialogContentText, Stack } from '@mui/material';
+import {
+  CircularProgress,
+  DialogContentText,
+  Stack,
+  useMediaQuery,
+} from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import CloseSVG from '../../../assets/icons/close';
+import { domain, endPoints } from '@/base-api/endPoints';
+import { DefautImage1Large } from '@/constant/images';
+import { useEffect } from 'react';
+import usePost from '@/custom-hooks/usePost';
 
 interface TermsModalProps {
   open: boolean;
   handleClose: () => void;
+  slug: string;
+  setSlug: any;
 }
-const AnnounceModal = ({ open = false, handleClose }: TermsModalProps) => {
+const AnnounceModal = ({
+  open = false,
+  handleClose,
+  slug,
+  setSlug,
+}: TermsModalProps) => {
+  const isScreen640 = useMediaQuery('(max-width:640px)');
+  const body = {
+    modelName: 'Item',
+    filters: {
+      slug: slug,
+    },
+    fields: ['slug', 'title', 'subTitle', 'description', 'media'],
+    relations: {
+      place: {
+        fields: ['name', 'slug'],
+      },
+      itemMetaData: {
+        relations: {
+          itemMetaKey: {
+            fields: ['name', 'slug'],
+          },
+        },
+        fields: ['value'],
+      },
+    },
+    add_fields: {
+      categories: 'first,name,category',
+    },
+  };
+  const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
+
+  useEffect(() => {
+    slug && getData();
+  }, [slug]);
+
+  let imageURL =
+    data[0] &&
+    data[0].media &&
+    data[0].media.length > 0 &&
+    data[0].media[0]?.url
+      ? domain + data[0].media[0]?.url
+      : DefautImage1Large;
+
+  const handleCloseModal = () => {
+    setSlug('');
+    handleClose();
+  };
   return (
     <Dialog
       onClose={handleClose}
@@ -28,48 +83,76 @@ const AnnounceModal = ({ open = false, handleClose }: TermsModalProps) => {
         width={'100%'}
       >
         <div
-          onClick={handleClose}
+          onClick={handleCloseModal}
           style={{ margin: '10px', cursor: 'pointer' }}
         >
           <CloseSVG />
         </div>
       </Stack>
-      <Stack
-        padding={2}
-        alignItems={'center'}
-      >
-        <Image
-          style={{ width: '100%', height: '200px', borderRadius: '20px' }}
-          src={announceImage}
-          alt="newsImage"
-        />
-        <br />
-        <DialogTitle>
-          <Typography
-            variant="h6"
-            fontFamily={'Nobile'}
-            color={primaryColor}
-            textTransform={'capitalize'}
-            fontWeight={600}
-          >
-            Keep your face always toward the sunshine - and shadows will fall
-            behind you.
-          </Typography>
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+      {loading ? (
+        <Stack
+          alignItems={'center'}
+          justifyContent={'center'}
+          sx={{
+            width: isScreen640 ? '300px' : '550px',
+            height: '400px',
+          }}
+        >
+          {' '}
+          <CircularProgress />
+        </Stack>
+      ) : (
+        <Stack
+          padding={2}
+          alignItems={'flex-start'}
+        >
+          <img
+            style={{
+              width: isScreen640 ? '100%' : '550px',
+              height: isScreen640 ? '200px' : '250px',
+              borderRadius: '20px',
+            }}
+            src={imageURL}
+            alt="newsImage"
+          />
+          <br />
+          <DialogTitle>
             <Typography
-              variant="body2"
-              fontFamily={'Jost'}
+              variant="h6"
+              fontFamily={'Nobile'}
+              color={primaryColor}
+              textTransform={'capitalize'}
+              fontWeight={600}
             >
-              Master Figma app to get a job in UI Design, User Interface, User
-              Experience design, Web Design & UX design.
-              <br /> April 06, 2020 <br />
-              <span style={{ color: 'red' }}>Art</span>
+              {data[0] && data[0]?.title}
             </Typography>
-          </DialogContentText>
-        </DialogContent>
-      </Stack>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              <Typography
+                variant="body2"
+                fontFamily={'Jost'}
+              >
+                {data[0] && data[0]?.subTitle}
+                <br />{' '}
+                {data[0] &&
+                  data[0]?.itemMetaData &&
+                  data[0]?.itemMetaData.length > 0 &&
+                  data[0]?.itemMetaData?.map((val: any) => {
+                    if (val?.itemMetaKey?.slug == 'date') {
+                      return val?.value;
+                    }
+                  })}
+                <br />
+                <span style={{ color: 'red' }}>
+                  {' '}
+                  {data[0] && data[0]?.category}
+                </span>
+              </Typography>
+            </DialogContentText>
+          </DialogContent>
+        </Stack>
+      )}
     </Dialog>
   );
 };
