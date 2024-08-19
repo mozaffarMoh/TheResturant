@@ -108,7 +108,7 @@ const JobOfferingSection = () => {
           {t('header.jobOffer')}
         </Typography>
 
-        <Stack
+      {/*   <Stack
           flexDirection={'row'}
           alignItems={'center'}
         >
@@ -155,7 +155,8 @@ const JobOfferingSection = () => {
               <MenuItem value={4}>Shared Space</MenuItem>
             </Select>
           </FormControl>
-        </Stack>
+        </Stack> */}
+        
       </Stack>
       {loading && filteredData.length == 0 ? (
         <Stack alignItems={'center'}>
