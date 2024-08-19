@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
   Box,
-  Button,
   Dialog,
   DialogContent,
   DialogTitle,
-  TextField,
   MenuItem,
   Typography,
   Select,
   FormControl,
   InputLabel,
-  Stack,
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {
@@ -29,7 +26,6 @@ import CustomAlert from '../alerts/CustomAlert';
 import { z } from 'zod';
 import { usePathname } from 'next/navigation';
 import { baseApi } from '@/base-api/baseApi';
-import { headers } from 'next/headers';
 
 interface ReservationModalProps {
   open: boolean;
@@ -40,10 +36,6 @@ interface ReservationModalProps {
 // Helper function to get the date one month from now
 const getMaxDate = (): Dayjs => {
   return dayjs()?.add(1, 'month');
-};
-
-const getFirstDate = (): Dayjs => {
-  return dayjs().add(1, 'day');
 };
 
 const getFormatDate = (date: any) => {
@@ -62,9 +54,11 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
   let isArabic = pathname.startsWith('/ar');
   const [fromTime, setFromTime] = useState(0);
   const [toTime, setToTime] = useState(0);
-  const [fromTimeBooked, setFromTimeBooked] = useState(fromTime);
-  const [toTimeBooked, setToTimeBooked] = useState(toTime);
+  const [timeBooked, setTimeBooked] = useState([
+    { from: fromTime, to: toTime },
+  ]);
   const [successMessage, setSuccessMessage]: any = useState('');
+  const [errorMessageReserve, setErrorMessageReserve]: any = useState('');
   const [minAttendees, setMinAttendees] = useState(0);
   const [maxAttendees, setMaxAttendees] = useState(0);
   const [attendees, setAttendees] = useState(0);
@@ -134,9 +128,37 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       hours: '',
       attendees: '',
     });
+
+    const timeReserved = time + hours;
+    let isBooked = false;
     try {
       schema.parse(dataReview);
-      handlePost();
+
+      if (timeReserved > 17) {
+        setErrorMessageReserve(t('messages.facility-exceed-hours'));
+      } else {
+        if (hours > 1) {
+          [...Array(Math.abs(timeReserved - time + 1))].forEach(
+            (_, index: number) => {
+              const currentTime = time + index;
+              const checkBooked = timeBooked.some((itemBook) => {
+                return (
+                  currentTime >= itemBook.from && currentTime <= itemBook.to
+                );
+              });
+              if (checkBooked == true) {
+                isBooked = checkBooked;
+              }
+            },
+          );
+        }
+
+        if (isBooked) {
+          setErrorMessageReserve(t('messages.facility-between-reserved-hours'));
+        } else {
+          handlePost();
+        }
+      }
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         const fieldErrors = error.errors.reduce((acc: any, err: any) => {
@@ -148,7 +170,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
     }
   };
 
-  /* This is for disabe friady and saturday from picker */
+  /* This is for disable friday and saturday from picker */
   const disableFridaysAndSaturdays = (date: any) => {
     const day = date.day();
     return day === 5 || day === 6;
@@ -177,8 +199,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       Authorization: `Bearer ${token}`,
     };
 
-    setFromTimeBooked(8);
-    setToTimeBooked(17);
+    setTimeBooked([{ from: fromTime, to: toTime }]);
     baseApi
       .post(endPoints.checkAvailability, bodyCheck, {
         headers: headers,
@@ -186,13 +207,23 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       .then((res: any) => {
         let booked = res.data?.data?.booked;
         if (booked && booked.length > 0) {
-          let from = booked[0]?.times[0]?.start_timeslot_time;
-          let to = booked[0]?.times[0]?.end_timeslot_time;
-          setFromTimeBooked(parseInt(from.split(':')[0], 10));
-          setToTimeBooked(parseInt(to.split(':')[0], 10) - 1);
+          const newArray: any = [];
+          booked[0].times.forEach((item: any) => {
+            let from = item?.start_timeslot_time;
+            let to = item?.end_timeslot_time;
+            newArray.push({
+              from: parseInt(from.split(':')[0], 10),
+              to: parseInt(to.split(':')[0], 10) - 1,
+            });
+          });
+          setTimeBooked(newArray);
         } else {
-          setFromTimeBooked(0);
-          setToTimeBooked(0);
+          setTimeBooked([
+            {
+              from: 0,
+              to: 0,
+            },
+          ]);
         }
       })
       .catch((err) => {
@@ -208,8 +239,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
     setDate(null);
     setTime(0);
     setHours(0);
-    setFromTimeBooked(fromTime);
-    setToTimeBooked(toTime);
+    setTimeBooked([{ from: fromTime, to: toTime }]);
     setAttendees(0);
   };
   const handleClose = () => {
@@ -263,8 +293,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
     }
   }, [facility]);
   useEffect(() => {
-    setFromTimeBooked(fromTime);
-    setToTimeBooked(toTime);
+    setTimeBooked([{ from: fromTime, to: toTime }]);
   }, [fromTime, toTime]);
 
   const selectProps = {
@@ -301,9 +330,9 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       {' '}
       {/* This alert when some fields are error from the server */}
       <CustomAlert
-        openAlert={errorMessage}
-        setOpenAlert={() => {}}
-        message={errorMessage}
+        openAlert={errorMessage || errorMessageReserve}
+        setOpenAlert={() => setErrorMessageReserve('')}
+        message={errorMessage || errorMessageReserve}
       />
       <CustomAlert
         openAlert={successMessage}
@@ -370,18 +399,24 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                 >
                   {toTime > 0 &&
                     fromTime >= 0 &&
-                    [...Array(Math.abs(toTime - fromTime + 1) - 1)].map(
-                      (_, index) =>
-                        (fromTime + index < fromTimeBooked ||
-                          fromTime + index > toTimeBooked) && (
+                    [...Array(Math.abs(toTime - fromTime))].map((_, index) => {
+                      const currentHour = fromTime + index;
+                      const isBooked = timeBooked.some((item) => {
+                        return (
+                          currentHour >= item.from && currentHour <= item.to
+                        );
+                      });
+                      return (
+                        !isBooked && (
                           <MenuItem
-                            key={index}
-                            value={fromTime + index}
+                            key={currentHour}
+                            value={currentHour}
                           >
-                            {`${fromTime + index < 10 ? '0' : ''}${fromTime + index}:00`}{' '}
+                            {`${currentHour < 10 ? '0' : ''}${currentHour}:00`}
                           </MenuItem>
-                        ),
-                    )}
+                        )
+                      );
+                    })}
                 </Select>
 
                 {errors.time && (
