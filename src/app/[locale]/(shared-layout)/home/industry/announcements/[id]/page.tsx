@@ -28,8 +28,6 @@ const JobOfferDetails: NextPage = () => {
   const isScreen600 = useMediaQuery('(max-width:600px)');
   const params = useParams();
   const pathname = usePathname();
-  let isArabic = pathname.startsWith('/ar');
-
   const body = {
     modelName: 'Item',
     filters: {
@@ -137,7 +135,10 @@ const JobOfferDetails: NextPage = () => {
                     data[0]?.itemMetaData[0]?.itemMetaKey?.name}
                 </Typography>
               </Stack>
-              <Stack padding={2} gap={2}>
+              <Stack
+                padding={2}
+                gap={2}
+              >
                 <Typography
                   variant="h6"
                   fontWeight={600}
@@ -193,11 +194,18 @@ const JobOfferDetails: NextPage = () => {
                   fontFamily={'Jost'}
                 >
                   {isMetaDataExist &&
+                    data[0]?.itemMetaData[1] &&
                     data[0]?.itemMetaData[1]?.value}
                 </Typography>
                 <Button
                   className="general-button-primary mt-1"
                   sx={{ width: '200px' }}
+                  href={
+                    isMetaDataExist &&
+                    data[0]?.itemMetaData[2] &&
+                    data[0]?.itemMetaData[2]?.value
+                  }
+                  target="_blank"
                 >
                   {t('buttons.apply-now')}
                 </Button>

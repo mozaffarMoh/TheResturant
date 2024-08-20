@@ -17,6 +17,7 @@ export const endPoints = {
     DynamicFilter: "/core/filter/",
     contactUsForm: '/form/tpf-contact-form',
     contactUsDetials: '/core/dynamicLookup/tpf-contact-details',
+    getSubmittedData: "/form/getSubmittedData/"
 }
 
 

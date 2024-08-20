@@ -2,32 +2,54 @@
 import type { NextPage } from 'next';
 import styles from './page.module.css';
 import GridFlex from '@mui/material/Unstable_Grid2';
-import {
-  Button,
-  Container,
-  Paper,
-  Stack,
-  styled,
-  Typography,
-} from '@mui/material';
+import { Button, Container, Stack, Typography } from '@mui/material';
 import mentorImage from '../../../../../../../public/mentors/mentor.png';
-import Image from 'next/image';
 import {
   FaceBookSVG,
   InstagramSVG,
   LinkedInSVG,
+  PersonSVG,
   TwitterSVG,
+  UsersSVG,
 } from '../../../../../../../assets/icons';
 import { primaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
+import useGet from '@/custom-hooks/useGet';
+import { domain, endPoints } from '@/base-api/endPoints';
+import { DefautImage2 } from '@/constant/images';
+import { useEffect } from 'react';
+import { useParams } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import Loading from '@/components/Loading/Loading';
 const MentorDetails: NextPage = () => {
   const t = useTranslations();
+  const params = useParams();
+  const [data, loading, getData] = useGet(
+    endPoints.getSubmittedData + params?.id,
+    true,
+  );
+  let imageURL =
+    data?.user &&
+    data?.user?.media &&
+    data?.user.media.length > 0 &&
+    data?.user?.media[0]?.url
+      ? domain + data?.user?.media[0]?.url
+      : DefautImage2;
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log(data);
+
   return (
     <Stack
       direction={'column'}
       alignItems={'center'}
       paddingBottom={10}
     >
+      {loading && <Loading />}
       <Container maxWidth="lg">
         <GridFlex
           container
@@ -36,19 +58,19 @@ const MentorDetails: NextPage = () => {
           alignItems="center"
           className="mt-4"
           flexDirection="column"
+          gap={2}
         >
           <Stack
             alignItems={'center'}
             bgcolor={'white'}
             borderRadius={'50%'}
-            padding={1}
+            width={150}
+            height={150}
           >
-            <Image
-              style={{ borderRadius: '50%' }}
-              width={150}
-              height={150}
-              src={mentorImage}
-              alt=""
+            <img
+              style={{ borderRadius: '50%', width: '100%', height: '100%' }}
+              src={imageURL}
+              alt="mentor-image"
             />
           </Stack>
           <Typography
@@ -56,14 +78,24 @@ const MentorDetails: NextPage = () => {
             className="general-title-v2 primary-color"
             fontFamily={'Montserrat'}
           >
-            Layla Ahmed
+            {data?.user?.name}
           </Typography>
-          <Typography
-            fontFamily={'Jost'}
-            className="sub-text-large "
+          <Stack
+            spacing={1}
+            textAlign={'center'}
           >
-            UI Designer
-          </Typography>
+            {data?.groups &&
+              data?.groups.map((item: any, i: number) => {
+                return (
+                  <Typography
+                    fontFamily={'Jost'}
+                    className="sub-text-large "
+                  >
+                    {item}
+                  </Typography>
+                );
+              })}
+          </Stack>
         </GridFlex>
 
         <Stack
@@ -71,18 +103,30 @@ const MentorDetails: NextPage = () => {
           justifyContent={'center'}
           width={'100%'}
         >
-          <div className={styles.socialIconContainer}>
-            <FaceBookSVG />
-          </div>
-          <div className={styles.socialIconContainer}>
-            <TwitterSVG />
-          </div>
-          <div className={styles.socialIconContainer}>
-            <InstagramSVG />
-          </div>
-          <div className={styles.socialIconContainer}>
-            <LinkedInSVG />
-          </div>
+          {data &&
+            data?.data &&
+            data?.data.length > 0 &&
+            data?.data.map((item: any, i: number) => {
+              if (item.key.includes('Link')) {
+                return (
+                  <Link
+                    href={item.value}
+                    target="_blank"
+                    className={styles.socialIconContainer}
+                  >
+                    {item.key.includes('LinkedIn') ? (
+                      <LinkedInSVG />
+                    ) : item.key.includes('Portofolio') ? (
+                      <FaceBookSVG />
+                    ) : item.key.includes('Social') ? (
+                      <TwitterSVG />
+                    ) : (
+                      <UsersSVG />
+                    )}
+                  </Link>
+                );
+              }
+            })}
         </Stack>
 
         <Stack spacing={5}>
@@ -92,24 +136,28 @@ const MentorDetails: NextPage = () => {
               fontWeight={600}
               color={primaryColor}
             >
-              Bio
+              {t('dialog.details')}
             </Typography>
-            <Typography
-              variant="body1"
-              color={'#77838F'}
-            >
-              Do you want to become a UI/UX designer but you don't know where to
-              start? This course will allow you to develop your user interface
-              design skills and you can add UI designer to your CV and start
-              getting clients for your skills.
-              <br />
-              <br />
-              Hi everyone. I'm Arash and I'm a UI/UX designer. In this course, I
-              will help you learn and master Figma app comprehensively from
-              scratch. Figma is an innovative and brilliant tool for User
-              Interface design. It's used by everyone from entrepreneurs and
-              start-ups to Apple, Airbnb, Facebook, etc.
-            </Typography>
+            {data &&
+              data?.data &&
+              data?.data.length > 0 &&
+              data?.data.map((item: any, i: number) => {
+                if (
+                  !item.key.includes('Link') &&
+                  !item.key.includes('Certifications') &&
+                  !item.key.includes('Interested')
+                ) {
+                  return (
+                    <Typography
+                      variant="body1"
+                      color={'#77838F'}
+                    >
+                      <span style={{ fontWeight: 800 }}>{item.key}</span> :{' '}
+                      {item.value}
+                    </Typography>
+                  );
+                }
+              })}
           </Stack>
           <Button
             variant="contained"

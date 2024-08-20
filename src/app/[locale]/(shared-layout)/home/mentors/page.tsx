@@ -9,35 +9,120 @@ import {
   Card,
   CardContent,
   CardMedia,
+  CircularProgress,
   Container,
   FormControl,
   Grid,
   InputLabel,
   MenuItem,
   Pagination,
+  PaginationItem,
   Select,
   Stack,
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { textSecondaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
+import useGet from '@/custom-hooks/useGet';
+import { domain, endPoints } from '@/base-api/endPoints';
+import usePost from '@/custom-hooks/usePost';
+import {
+  ArrowBackIosNewRounded,
+  ArrowForwardIosRounded,
+} from '@mui/icons-material';
+import { DefautImage2 } from '@/constant/images';
 
 const MentorsPage: NextPage = () => {
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const t = useTranslations();
-  const isScreen600 = useMediaQuery('(max-width:600px)');
-  const [profession, setProfession] = useState<Number>(0);
   const router = useRouter();
-  const professionHandleChange = (
-    event: React.ChangeEvent<{ value: Number }>,
-  ) => {
-    setProfession(event.target.value as Number);
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const isScreen600 = useMediaQuery('(max-width:600px)');
+  const [profession, setProfession] = useState('');
+  const [page, setPage] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  const filters: any = {
+    'user.roles.name': 'Mentor',
+    'form.slug': 'TPF-Register-Form',
+    ...(profession !== 'all' && { 'user.groups.slug': profession }),
   };
+  const bodyProfession = {
+    modelName: 'Group',
+    filters: {
+      'types.slug': 'user-groups',
+    },
+
+    fields: ['id', 'name', 'slug'],
+  };
+  const bodyMentors = {
+    modelName: 'FormSubmit',
+    fields: ['slug'],
+    relations: {
+      user: {
+        relations: {
+          groups: {
+            fields: ['name', 'slug'],
+          },
+        },
+        fields: ['name', 'media'],
+      },
+    },
+    'with-pagination': true,
+    limit: 8,
+    page: page,
+    filters,
+  };
+  const [
+    professionList,
+    loadingProfessionList,
+    getProfessionList,
+    successProfessionList,
+  ] = usePost(endPoints.DynamicFilter, bodyProfession);
+  const [
+    mentorsItems,
+    loadingMentorsItems,
+    getMentorsItems,
+    successMentorsItems,
+    ,
+    ,
+    ,
+    facilityItemsFullData,
+  ] = usePost(endPoints.DynamicFilter, bodyMentors);
+
+  useEffect(() => {
+    getProfessionList();
+  }, []);
+
+  useEffect(() => {
+    if (successProfessionList) {
+      setProfession('all');
+    }
+  }, [successProfessionList]);
+
+  useEffect(() => {
+    if (profession) {
+      page == 0 ? setPage(1) : getMentorsItems();
+    }
+  }, [profession]);
+
+  useEffect(() => {
+    page > 0 && getMentorsItems();
+  }, [page]);
+
+  useEffect(() => {
+    if (successMentorsItems) {
+      let totalNum = facilityItemsFullData?.meta?.total || 0;
+      const paginationCount = Math.ceil(totalNum / 8);
+      setTotal(paginationCount);
+    }
+  }, [successMentorsItems]);
 
   return (
     <Stack
@@ -76,109 +161,152 @@ const MentorsPage: NextPage = () => {
       </Container>
 
       <Container maxWidth="xl">
-        <Stack
-          alignItems={isScreen600 ? 'center' : 'flex-end'}
-          width={'94%'}
-          marginTop={5}
-        >
+        <Stack spacing={5}>
           <Stack
-            flexDirection={'row'}
-            alignItems={'center'}
+            alignItems={isScreen600 ? 'center' : 'flex-end'}
+            width={'94%'}
+            marginTop={5}
           >
-            <InputLabel
-              style={{ direction: 'rtl' }}
-              id="dropdown-profession"
-              sx={{
-                whiteSpace: 'nowrap',
-                overflow: 'visible',
-                textOverflow: 'clip',
-                width: 'auto',
-              }}
+            <Stack
+              flexDirection={'row'}
+              alignItems={'center'}
             >
-              {t('select.profession')}:&nbsp;&nbsp;
-            </InputLabel>
-            <FormControl
-              variant="outlined"
-              style={{ marginLeft: 5, minWidth: 150 }}
-            >
-              <Select
-                labelId="dropdown-profession"
-                value={profession}
-                onChange={professionHandleChange as any}
+              <InputLabel
+                id="dropdown-profession"
                 sx={{
-                  borderRadius: '1.5rem',
-                  height: '40px',
-                  '& .MuiSelect-select': {
-                    padding: '8px 14px',
-                  },
+                  whiteSpace: 'nowrap',
+                  overflow: 'visible',
+                  textOverflow: 'clip',
+                  width: 'auto',
                 }}
               >
-                <MenuItem
-                  value={0}
-                  selected
+                {t('select.profession')}:&nbsp;&nbsp;
+              </InputLabel>
+              {loadingProfessionList && (
+                <CircularProgress
+                  size={20}
+                  color="primary"
+                  sx={{ marginX: 1 }}
+                />
+              )}
+              <FormControl
+                variant="outlined"
+                style={{ marginLeft: 5, minWidth: 150 }}
+              >
+                <Select
+                  labelId="dropdown-profession"
+                  value={profession}
+                  onChange={(e: any) => setProfession(e.target.value)}
+                  sx={{
+                    borderRadius: '1.5rem',
+                    height: '40px',
+                    '& .MuiSelect-select': {
+                      padding: '8px 14px',
+                    },
+                  }}
                 >
-                  {t('select.all')}
-                </MenuItem>
-                <MenuItem value={1}>Meeting Room</MenuItem>
-                <MenuItem value={2}>Lecture Room</MenuItem>
-                <MenuItem value={3}>Team Phone Booth</MenuItem>
-                <MenuItem value={4}>Shared Space</MenuItem>
-              </Select>
-            </FormControl>
+                  <MenuItem value={'all'}>{t('select.all')}</MenuItem>
+                  {professionList &&
+                    professionList.map((item: any) => {
+                      return (
+                        <MenuItem
+                          key={item.id}
+                          value={item.slug}
+                        >
+                          {item.name}
+                        </MenuItem>
+                      );
+                    })}
+                </Select>
+              </FormControl>
+            </Stack>
+          </Stack>
+          {loadingMentorsItems ? (
+            <Stack width={"100%"} height={300} alignItems={"center"} justifyContent={"center"}><CircularProgress /></Stack>
+          ) : (
+            <Stack
+              margin={0}
+              direction={'row'}
+              flexWrap={'wrap'}
+              justifyContent={'center'}
+            >
+              {mentorsItems &&
+                mentorsItems.map((item: any, i: number) => {
+                  let imageURL =
+                    item?.user?.media.length > 0 && item?.user?.media[0]?.url
+                      ? domain + item?.user?.media[0]?.url
+                      : DefautImage2;
+                  return (
+                    <Card
+                      key={i}
+                      sx={{
+                        padding: '10px',
+                        margin: '10px',
+                        cursor: 'pointer',
+                        width: '250px',
+                      }}
+                      onClick={() =>
+                        router.push(`/${langCookie}/home/mentors/${item.slug}`)
+                      }
+                    >
+                      <img
+                        src={imageURL}
+                        style={{
+                          width: '100%',
+                          height: 250,
+                          borderRadius: '10px',
+                        }}
+                        alt={'mentor-image'}
+                      />
+                      <CardContent>
+                        <Typography
+                          gutterBottom
+                          variant="h6"
+                          fontFamily={'Jost'}
+                          fontWeight={600}
+                          color={'#2F2D51'}
+                        >
+                          {item?.user?.name}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                        >
+                          {item?.user?.groups[0]?.name}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+            </Stack>
+          )}
+          <Stack
+            alignItems={'center'}
+            paddingBottom={10}
+          >
+            <Pagination
+              onChange={(event, value) => setPage(value)}
+              page={page}
+              color="primary"
+              count={total}
+              siblingCount={2} // Number of siblings to show around the current page
+              renderItem={(item) => (
+                <PaginationItem
+                  {...item}
+                  slots={{
+                    previous: isArabic
+                      ? ArrowForwardIosRounded
+                      : ArrowBackIosNewRounded,
+                    next: isArabic
+                      ? ArrowBackIosNewRounded
+                      : ArrowForwardIosRounded,
+                  }}
+                />
+              )}
+            />
           </Stack>
         </Stack>
-        <Stack
-          margin={0}
-          direction={'row'}
-          flexWrap={'wrap'}
-          justifyContent={'center'}
-        >
-          {Array(9)
-            .fill('')
-            .map((_, i) => {
-              return (
-                <Card
-                  key={i}
-                  sx={{
-                    padding: '10px',
-                    margin: '10px',
-                    cursor: 'pointer',
-                    width: '250px',
-                  }}
-                  onClick={() => router.push(`/${langCookie}/home/mentors/id`)}
-                >
-                  <Image
-                    src={mentorImage}
-                    alt={''}
-                  />
-                  <CardContent>
-                    <Typography
-                      gutterBottom
-                      variant="h5"
-                      fontFamily={'Jost'}
-                      fontWeight={600}
-                      color={'#2F2D51'}
-                    >
-                      Kristen Pala
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                    >
-                      User Experience Design
-                    </Typography>
-                  </CardContent>
-                </Card>
-              );
-            })}
-        </Stack>
       </Container>
-      <Pagination
-        count={3}
-        color={'secondary'}
-        sx={{ margin: '50px 0px 50px 0px' }}
-        dir="ltr"
-      />
     </Stack>
   );
 };

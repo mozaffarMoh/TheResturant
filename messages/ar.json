@@ -203,13 +203,5 @@
         "success-reserve-facility": "تم الحجز بنجاح",
         "facility-exceed-hours": "يجب ألا تتجاوز الساعة 5 مساءً",
         "facility-between-reserved-hours": "لقد اخترت الساعات المحجوزة"
-    },
-    "tags": {
-        "Art": "فن",
-        "Exercise": "تمرين",
-        "Material Design": "تصميم المواد",
-        "Software Development": "تطوير البرمجيات",
-        "Music": "موسيقى",
-        "Photography": "تصوير فوتوغرافي"
     }
 }

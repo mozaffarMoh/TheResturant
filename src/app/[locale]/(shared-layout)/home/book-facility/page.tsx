@@ -56,7 +56,8 @@ const BookFacilityPage: NextPage = () => {
         relations: {
           itemMetaKey: {
             fields: ['id', 'name', 'slug', 'media'],
-          },time:{}
+          },
+          time: {},
         },
       },
       categories: {
@@ -198,6 +199,7 @@ const BookFacilityPage: NextPage = () => {
                 <CircularProgress
                   size={20}
                   color="primary"
+                  sx={{ marginX: 1, marginTop: 1 }}
                 />
               )}
             </InputLabel>
@@ -252,6 +254,7 @@ const BookFacilityPage: NextPage = () => {
                 <CircularProgress
                   size={20}
                   color="primary"
+                  sx={{ marginX: 1, marginTop: 1 }}
                 />
               )}
             </InputLabel>

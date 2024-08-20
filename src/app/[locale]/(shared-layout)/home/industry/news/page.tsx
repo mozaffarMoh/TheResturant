@@ -39,15 +39,17 @@ const News = () => {
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const isScreen900 = useMediaQuery('(max-width:900px)');
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+  const [category, setCategory] = useState('all');
   const [slug, setSlug] = useState('');
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  const [tags, setTags] = useState<Number>(0);
+  const filters: any = {
+    'itemType.slug': 'News',
+    ...(category !== 'all' && { 'categories.slug': category }),
+  };
   const body = {
     modelName: 'Item',
-    filters: {
-      'itemType.slug': 'News',
-    },
+    filters,
     fields: ['slug', 'title', 'subTitle', 'media'],
     add_fields: {
       categories: 'first,name,category',
@@ -56,23 +58,25 @@ const News = () => {
     limit: 3,
     page: page,
   };
+  const bodyCategory = {
+    modelName: 'Category',
+
+    filters: {
+      'groups.slug': 'news-categories',
+    },
+
+    fields: ['id', 'name', 'slug'],
+  };
 
   const [data, loading, getData, success, , , , fullData] = usePost(
     endPoints.DynamicFilter,
     body,
   );
 
-  const tagsItems = [
-    t('tags.Art'),
-    t('tags.Exercise'),
-    t('tags.Material Design'),
-    t('tags.Software Development'),
-    t('tags.Music'),
-    t('tags.Photography'),
-  ];
-  const tagsHandleChange = (event: React.ChangeEvent<{ value: Number }>) => {
-    setTags(event.target.value as Number);
-  };
+  const [categories, , getCategories] = usePost(
+    endPoints.DynamicFilter,
+    bodyCategory,
+  );
 
   const handleChange = (e: any, value: number) => {
     setPage(value);
@@ -84,8 +88,12 @@ const News = () => {
   };
 
   useEffect(() => {
+    getCategories();
+  }, []);
+
+  useEffect(() => {
     getData();
-  }, [page]);
+  }, [page, category]);
 
   useEffect(() => {
     if (success) {
@@ -235,17 +243,34 @@ const News = () => {
                   {t('select.tags')}
                 </Typography>
                 <Box padding={1}>
-                  {tagsItems.map((item: string) => {
-                    return (
-                      <Typography
-                        variant="body1"
-                        color={gray300}
-                        lineHeight={2}
-                      >
-                        {item}
-                      </Typography>
-                    );
-                  })}
+                  <Typography
+                    variant="body1"
+                    lineHeight={2}
+                    color={category == 'all' ? 'red' : gray300}
+                    sx={{
+                      '&:hover': { color: 'red', cursor: 'pointer' },
+                    }}
+                    onClick={() => setCategory('all')}
+                  >
+                    {t('select.all')}
+                  </Typography>
+                  {categories &&
+                    categories.map((item: any, i: number) => {
+                      return (
+                        <Typography
+                          key={i}
+                          variant="body1"
+                          lineHeight={2}
+                          color={item.slug == category ? 'red' : gray300}
+                          sx={{
+                            '&:hover': { color: 'red', cursor: 'pointer' },
+                          }}
+                          onClick={() => setCategory(item.slug)}
+                        >
+                          {item.name}
+                        </Typography>
+                      );
+                    })}
                 </Box>
               </Box>
             </Grid>
@@ -273,8 +298,8 @@ const News = () => {
               >
                 <Select
                   labelId="dropdown-tags"
-                  value={tags}
-                  onChange={tagsHandleChange as any}
+                  value={category}
+                  onChange={(e: any) => setCategory(e.target.value)}
                   sx={{
                     borderRadius: '1.5rem',
                     height: '40px',
@@ -283,40 +308,56 @@ const News = () => {
                     },
                   }}
                 >
-                  {tagsItems.map((item: string, i) => {
-                    return <MenuItem value={i}>{item}</MenuItem>;
-                  })}
+                  {' '}
+                  <MenuItem value={'all'}>
+                    <Typography color={category == 'all' ? 'red' : ''}>
+                      {t('select.all')}
+                    </Typography>
+                  </MenuItem>
+                  {categories &&
+                    categories.map((item: any, i: number) => {
+                      return (
+                        <MenuItem value={item.slug}>
+                          <Typography
+                            color={item.slug == category ? 'red' : ''}
+                          >
+                            {item?.name}
+                          </Typography>
+                        </MenuItem>
+                      );
+                    })}
                 </Select>
               </FormControl>{' '}
             </Stack>
           )}
         </Stack>
       </Container>
-      <Stack
-        alignItems={'center'}
-        paddingBottom={10}
-      >
-        <Pagination
-          onChange={handleChange}
-          page={page}
-          color="primary"
-          count={total}
-          siblingCount={2} // Number of siblings to show around the current page
-          renderItem={(item) => (
-            <PaginationItem
-              {...item}
-              slots={{
-                previous: isArabic
-                  ? ArrowForwardIosRounded
-                  : ArrowBackIosNewRounded,
-                next: isArabic
-                  ? ArrowBackIosNewRounded
-                  : ArrowForwardIosRounded,
-              }}
-            />
-          )}
-        />
-      </Stack>
+        <Stack
+          alignItems={'center'}
+          paddingBottom={10}
+          marginTop={6}
+        >
+          <Pagination
+            onChange={handleChange}
+            page={page}
+            color="primary"
+            count={total}
+            siblingCount={2} // Number of siblings to show around the current page
+            renderItem={(item) => (
+              <PaginationItem
+                {...item}
+                slots={{
+                  previous: isArabic
+                    ? ArrowForwardIosRounded
+                    : ArrowBackIosNewRounded,
+                  next: isArabic
+                    ? ArrowBackIosNewRounded
+                    : ArrowForwardIosRounded,
+                }}
+              />
+            )}
+          />
+        </Stack>
       <IndustryNewsModal
         open={isDetailsVisible}
         onClose={() => setIsDetailsVisible(false)}
