@@ -100,7 +100,8 @@
         "contact-us": "Contact Us",
         "hero1": " Welcome to The",
         "hero-span": "ThePlatform",
-        "hero2": "Your Platform for Launching Towards Technological Success!"
+        "hero2": "Your Platform for Launching Towards Technological Success!",
+        "learn-more": "Learn more"
     },
     "contact-us": {
         "title": "Contact Us",
@@ -203,6 +204,6 @@
         "send-message": "Message sent successfully",
         "success-reserve-facility": "Reservation Completed Successfully",
         "facility-exceed-hours": "You should not exceed 5 PM",
-        "facility-between-reserved-hours": "You have chosen reserved hours"    
+        "facility-between-reserved-hours": "You have chosen reserved hours"
     }
 }

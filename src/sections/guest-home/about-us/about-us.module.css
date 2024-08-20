@@ -14,8 +14,12 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+
   /* margin-top: 1.2rem; */
-  @media (max-width: 567px) {
-    height: 24rem;
+}
+
+@media (max-width: 567px) {
+  .rightContainer {
+    align-items: flex-start;
   }
 }

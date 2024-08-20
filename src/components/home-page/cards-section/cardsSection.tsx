@@ -1,5 +1,4 @@
 import {
-  Box,
   Card,
   CardActionArea,
   CardContent,
@@ -10,54 +9,22 @@ import {
 import styles from './cards-section.module.css';
 import Link from 'next/link';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import { heroCard1, heroCard2, heroCard3, heroCard4 } from '@/constant/images';
+import { DefautImage1 } from '@/constant/images';
 import Cookies from 'js-cookie';
+import { domain } from '@/base-api/endPoints';
+import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
-const CardsSection = () => {
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
-  const data = [
-    {
-      title: 'Coworking Spaces',
-      description:
-        ' Inspiring Work Environments Designed for Technological Innovation',
-      image: heroCard1,
-      link: '#',
-    },
-    {
-      title: 'Coworking Spaces',
-      description:
-        ' Inspiring Work Environments Designed for Technological Innovation',
-      image: heroCard2,
-
-      link: '#',
-    },
-    {
-      title: 'Coworking Spaces',
-      description:
-        ' Inspiring Work Environments Designed for Technological Innovation',
-      image: heroCard3,
-
-      link: '#',
-    },
-    {
-      title: 'Coworking Spaces',
-      description:
-        ' Inspiring Work Environments Designed for Technological Innovation',
-      image: heroCard4,
-
-      link: '#',
-    },
-  ];
+const CardsSection = ({ data }: any) => {
+  const t = useTranslations();
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
 
   return (
     <Container className="mt-4 max-w-md-65">
       <div className="sm-flex-col-col-center-center ">
-        <div className="text-align-center">
-          <p className="text-reg-high  capital-letters ">
-            At The ThePlatform, We are dedicated to helping you excel in the
-            world of technology. Our services are specifically designed to meet
-            your needs
-          </p>
+        <div className="text-align-center mt-4">
+          <p className="text-reg-high  capital-letters ">{data?.value}</p>
         </div>
         <div className="mt-4 w-full">
           <Grid
@@ -66,40 +33,54 @@ const CardsSection = () => {
             rowGap={4}
             style={{ width: '100%' }}
           >
-            {data &&
-              data.map((item, idx) => (
-                <Grid
-                  item
-                  xs={12}
-                  md={6}
-                  key={idx}
-                >
-                  <Card sx={{ borderRadius: '18px' }}>
-                    <CardActionArea>
-                      <CardMedia
-                        component="img"
-                        image={item.image}
-                        alt="green iguana"
-                        className={styles.cardsImgStyle}
-                      />
-                      <div className={styles.backStyle} />
-                      <CardContent className={styles.cardContentStyle}>
-                        <h2 className={styles.cardTitle}>{item.title}</h2>
-                        <p className="sub-text-larges opacity-85 fw-500 line-h-1-2 letter-spacing-2 text-white-new max-w-75 ">
-                          {item.description}
-                        </p>
-                        <br />
-                        <Link
-                          href={`/${langCookie}/${item.link}`}
-                          className={styles.cardLink}
-                        >
-                          Learn more <ArrowRightAltIcon />
-                        </Link>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
-              ))}
+            {data?.children &&
+              data?.children.map((item: any, idx: number) => {
+                let imageURL =
+                  item.media && item.media.length > 0 && item.media[0]?.url
+                    ? domain + item?.media[0]?.url
+                    : DefautImage1;
+
+                if (item?.slug !== 'partners') {
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      md={6}
+                      key={idx}
+                    >
+                      <Card sx={{ borderRadius: '18px' }}>
+                        <CardActionArea>
+                          <CardMedia
+                            component="img"
+                            image={imageURL}
+                            alt="green iguana"
+                            className={styles.cardsImgStyle}
+                          />
+                          <div className={styles.backStyle} />
+                          <CardContent className={styles.cardContentStyle}>
+                            <h2 className={styles.cardTitle}>{item?.key}</h2>
+                            <p className="sub-text-larges opacity-85 fw-500 line-h-1-2 letter-spacing-2 text-white-new max-w-75 ">
+                              {item?.value}
+                            </p>
+                            <br />
+                            <Link
+                              href={`/#home`}
+                              className={styles.cardLink}
+                            >
+                              {t('guest-home.learn-more')}{' '}
+                              <ArrowRightAltIcon
+                                style={{
+                                  transform: isArabic ? 'rotate(180deg)' : '',
+                                }}
+                              />
+                            </Link>
+                          </CardContent>
+                        </CardActionArea>
+                      </Card>
+                    </Grid>
+                  );
+                }
+              })}
           </Grid>
         </div>
       </div>

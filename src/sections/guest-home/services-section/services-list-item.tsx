@@ -7,11 +7,13 @@ import { servicesSectionImage } from '@/constant/images';
 interface IProps {
   title: string;
   content: string;
-  direction: boolean;
-  bgColor: string;
+  index: number;
+  imageURL: any;
 }
 
-const ServicesListItem = ({ title, content, direction, bgColor }: IProps) => {
+const ServicesListItem = ({ title, content, index, imageURL }: IProps) => {
+  const isIndexEven = index % 2 == 0;
+
   return (
     <div
       className="mt-2 w-full md-padding-start-1 "
@@ -19,14 +21,14 @@ const ServicesListItem = ({ title, content, direction, bgColor }: IProps) => {
         width: '95vw',
         paddingTop: '1.8rem',
         paddingBottom: '1.5rem',
-        backgroundColor: direction ? bgColor : generalBgColor,
+        backgroundColor: !isIndexEven ? primaryColor : generalBgColor,
         borderBottomLeftRadius: '100px',
       }}
     >
       <Grid
         container
         gap={4}
-        direction={direction ? 'row' : 'row-reverse'}
+        direction={!isIndexEven ? 'row' : 'row-reverse'}
       >
         <Grid
           item
@@ -40,9 +42,10 @@ const ServicesListItem = ({ title, content, direction, bgColor }: IProps) => {
           className={styles.rightContainer}
         >
           <Image
+            style={{ borderRadius: 20 }}
             width={400}
             height={400}
-            src={servicesSectionImage}
+            src={imageURL}
             alt="about us Section"
             className={styles.serviceImageStyle}
           />
@@ -54,12 +57,12 @@ const ServicesListItem = ({ title, content, direction, bgColor }: IProps) => {
           className={styles.leftContainer}
         >
           <p
-            className={`text-xlarge-title-secondary p-0 m-0 ${direction ? '' : 'fc-primary'}`}
+            className={`text-xlarge-title-secondary p-0 m-0 ${!isIndexEven ? '' : 'fc-primary'}`}
           >
             {title}
           </p>
           <p
-            className={`max-w-90 line-h-2 mt-2 ${direction ? 'text-white-new' : ''}`}
+            className={`max-w-90 line-h-2 mt-2 ${!isIndexEven ? 'text-white-new' : ''}`}
           >
             {content}
           </p>
