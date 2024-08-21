@@ -2,7 +2,6 @@ import { ListItemText, MenuItem } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import styles from './header.module.css';
 import Link from 'next/link';
-import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 
 interface IProps {
@@ -41,7 +40,7 @@ const NormalMenuList = ({ indexKey, href, title }: IProps) => {
   return (
     <MenuItem
       key={indexKey}
-      className={`${styles.menuListItem} ${isActive && styles.active}`}
+      className={`${styles.menuListItem} ${isActive && styles.active}  ${styles.menuListMargin}`}
     >
       <Link
         href={href}

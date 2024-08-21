@@ -27,23 +27,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0;
+  padding: 0 !important;
 
+}
+
+.menuListMargin {
+  margin-inline: 0.5rem !important;
 }
 
 .menuListItem {
   cursor: pointer;
-  padding: 0;
-  margin-inline: 0.5rem;
+  color: white !important;
+  padding: 0 !important;
   border: none;
-  color: white;
   text-transform: capitalize !important;
   transition: all .2s ease;
 }
 
 .menuListItem:hover {
   border-top: .5px solid #eb6b2a;
-  color: #eb6b2a;
+  color: #eb6b2a !important;
 }
 
 .active {
@@ -102,8 +105,8 @@
 }
 
 .langMenuButton {
-  color: white;
-  padding: 0;
+  color: white !important;
+  padding: 0 !important;
   font-weight: 400;
 }
 
@@ -122,10 +125,10 @@
 
 .authButton {
   background-color: transparent;
-  color: white;
-  border-radius: 20px;
-  border: 1px solid white;
-  width: 90px;
+  color: white !important;
+  border-radius: 20px !important;
+  border: 1px solid white !important;
+  width: 90px !important;
 }
 
 .authButton:hover {
@@ -156,12 +159,29 @@
 /* -------- menuListDrawer --- */
 
 .drawerActive {
-  border-left: 3px solid #eb6b2a;
-  color: #eb6b2a;
+  border-left: 3px solid #eb6b2a !important;
+  color: #eb6b2a !important;
 }
+
 
 .menuItemDrawer {
   margin-bottom: 20px;
+
+  @media (max-width:600px) {
+    margin: 0px !important;
+  }
+
+  .menuListItem {
+    color: black !important;
+  }
+
+  .menuListItem:hover {
+    color: #eb6b2a !important;
+  }
+
+  .active {
+    color: #eb6b2a !important;
+  }
 }
 
 .authDrawerDivButton {
@@ -176,6 +196,10 @@
 
   &:not(:last-child) {
     margin-bottom: 20px;
+  }
+
+  &:hover {
+    background-color: #eb6b2acc !important;
   }
 }
 

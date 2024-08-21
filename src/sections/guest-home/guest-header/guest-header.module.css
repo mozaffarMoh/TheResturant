@@ -51,23 +51,23 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0;
+  padding: 0 !important;
 }
 
 .menuListItem {
-  color: white;
-  padding: 0;
+  color: white !important; 
+  padding: 0 !important;
   transition: all .3s ease;
 }
 
 .menuListItem:hover {
   border-top: 1px solid #eb6b2a;
-  color: #eb6b2a;
+  color: #eb6b2a  !important;
 }
 
 .active {
   border-top: 1px solid #eb6b2a;
-  color: #eb6b2a;
+  color: #eb6b2a!important;
 }
 
 /* ---------------- */
@@ -77,8 +77,8 @@
 }
 
 .langMenuButton {
-  color: white;
-  padding: 0;
+  color: white !important;
+  padding: 0 !important;
 
 }
 
@@ -95,9 +95,9 @@
 
 .authButton {
   background-color: transparent;
-  color: white;
-  border-radius: 14px;
-  border: 1px solid white;
+  color: white !important;
+  border-radius: 14px !important;
+  border: 1px solid white !important;
   font-size: 12px;
   width: 115px;
   height: 40px;
@@ -105,8 +105,8 @@
 }
 
 .authButton:hover {
-  background-color: white;
-  color: #173e62;
+  background-color: white !important;
+  color: #173e62 !important;
 }
 
 /* --- drawer --- */

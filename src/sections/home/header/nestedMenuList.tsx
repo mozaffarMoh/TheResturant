@@ -26,6 +26,7 @@ const NestedMenuList = ({
   const [isActive, setIsActive] = useState(false);
   let isArabic = pathname.startsWith('/ar');
   const isScreen1100 = useMediaQuery('(max-width:1100px)');
+  const isScreen991 = useMediaQuery('(max-width:991px)');
   const checkActive = () =>
     links.some((link: any) => pathname.includes(link.path));
 
@@ -47,7 +48,7 @@ const NestedMenuList = ({
     <>
       <Button
         onClick={handleClick}
-        className={`${styles.menuListItem} ${isActive && styles.active}`}
+        className={`${styles.menuListItem} ${isActive && styles.active}  ${!isScreen991 ? styles.menuListMargin : ''}`}
         style={{
           fontSize: '16px',
           margin: isScreen1100 ? '0px 18px' : '3px 5px 0px 5px',
