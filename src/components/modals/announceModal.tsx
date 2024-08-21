@@ -149,7 +149,7 @@ const AnnounceModal = ({
                     }
                   })}
                 <br />
-                <span style={{ color: 'red' }}>
+                <span style={{ color: '#EB6B2A' }}>
                   {' '}
                   {data[0] && data[0]?.category}
                 </span>

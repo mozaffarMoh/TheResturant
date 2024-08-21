@@ -1,90 +1,93 @@
 'use client';
-import EventCard from '@/components/cards/home-section/EventCard';
-import {
-  eventBgImage,
-  mentorImage1,
-  mentorImage2,
-  mentorImage3,
-  mentorImage4,
-  mentorImage5,
-  mentorImage6,
-} from '@/constant/images';
-import { Avatar, Container, Grid, Paper } from '@mui/material';
+import { Container } from '@mui/material';
 import MentorListItem from './mentorListItem';
-import { generalBgColor } from '@/constant/color';
-import Head from 'next/head';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useTranslations } from 'next-intl';
+import usePost from '@/custom-hooks/usePost';
+import { endPoints } from '@/base-api/endPoints';
+import { useEffect } from 'react';
 
 const MentorsSection = () => {
   const t = useTranslations();
+  const bodyMentors = {
+    modelName: 'FormSubmit',
+    fields: ['slug'],
+    relations: {
+      user: {
+        relations: {
+          groups: {
+            fields: ['name', 'slug'],
+          },
+        },
+        fields: ['name', 'media'],
+      },
+    },
+    'with-pagination': false,
+    limit: 10,
+    page: 1,
+    filters: {
+      'user.roles.name': 'Mentor',
+      'form.slug': 'TPF-Register-Form',
+    },
+  };
+  const [mentorsItems, , getMentorsItems] = usePost(
+    endPoints.DynamicFilter,
+    bodyMentors,
+  );
+
   const settings = {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 4,
+    slidesToShow: Math.min(5, mentorsItems.length),
+    slidesToScroll: Math.min(4, mentorsItems.length),
     initialSlide: 0,
 
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 5,
-          slidesToScroll: 3,
-          infinite: true,
+          slidesToShow: Math.min(4, mentorsItems.length),
+          slidesToScroll: Math.min(3, mentorsItems.length),
+          infinite: mentorsItems.length > 4, // Loop if more than 4 items
           dots: true,
         },
       },
       {
         breakpoint: 900,
         settings: {
-          slidesToShow: 4,
-          slidesToScroll: 4,
-          initialSlide: 2,
+          slidesToShow: Math.min(3, mentorsItems.length),
+          slidesToScroll: Math.min(3, mentorsItems.length),
+          initialSlide: 1,
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          initialSlide: 2,
+          slidesToShow: Math.min(2, mentorsItems.length),
+          slidesToScroll: Math.min(2, mentorsItems.length),
           arrows: false,
+          dots: true,
         },
       },
       {
         breakpoint: 375,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
           arrows: false,
-          // dots: false,
+          dots: true,
         },
       },
     ],
   };
-  const items = [
-    { id: 0, name: 'Avatar 1', image: mentorImage1, position: 'Developer' },
-    { id: 1, name: 'Avatar 2', image: mentorImage2, position: 'Developer' },
-    { id: 2, name: 'Avatar 2', image: mentorImage6, position: 'Developer' },
-    { id: 3, name: 'Avatar 6', image: mentorImage3, position: 'Developer' },
-    { id: 4, name: 'Avatar 7', image: mentorImage4, position: 'Developer' },
 
-    { id: 3, name: 'Avatar 6', image: mentorImage3, position: 'Developer' },
-    { id: 4, name: 'Avatar 7', image: mentorImage4, position: 'Developer' },
-    { id: 5, name: 'Avatar 8', image: mentorImage5, position: 'Developer' },
-    { id: 1, name: 'Avatar 2', image: mentorImage2, position: 'Developer' },
-    { id: 2, name: 'Avatar 2', image: mentorImage6, position: 'Developer' },
+  useEffect(() => {
+    getMentorsItems();
+  }, []);
 
-    { id: 7, name: 'Avatar 1', image: mentorImage1, position: 'Developer' },
-    { id: 8, name: 'Avatar 2', image: mentorImage2, position: 'Developer' },
-    { id: 9, name: 'Avatar 2', image: mentorImage6, position: 'Developer' },
-    { id: 10, name: 'Avatar 6', image: mentorImage3, position: 'Developer' },
-    { id: 11, name: 'Avatar 7', image: mentorImage4, position: 'Developer' },
-  ];
   return (
     <Container
       className="mt-4 bg-white  "
@@ -94,12 +97,13 @@ const MentorsSection = () => {
         <p className="general-title primary-color ">{t('header.mentors')}</p>
         <div className=" w-full mb-4 ">
           <Slider {...settings}>
-            {items.map((item, i) => (
-              <MentorListItem
-                key={i}
-                item={item}
-              />
-            ))}
+            {mentorsItems &&
+              mentorsItems.map((item: any, i: number) => (
+                <MentorListItem
+                  key={i}
+                  item={item}
+                />
+              ))}
           </Slider>
         </div>
       </div>

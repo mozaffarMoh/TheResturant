@@ -2,17 +2,13 @@
 import type { NextPage } from 'next';
 import Link from '@mui/material/Link';
 import GridFlex from '@mui/material/Unstable_Grid2';
-import mentorImage from '../../../../../../public/mentors/mentor.png';
 import {
-  Box,
   Breadcrumbs,
   Card,
   CardContent,
-  CardMedia,
   CircularProgress,
   Container,
   FormControl,
-  Grid,
   InputLabel,
   MenuItem,
   Pagination,
@@ -23,12 +19,10 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { textSecondaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
-import useGet from '@/custom-hooks/useGet';
 import { domain, endPoints } from '@/base-api/endPoints';
 import usePost from '@/custom-hooks/usePost';
 import {

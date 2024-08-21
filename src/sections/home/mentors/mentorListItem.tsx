@@ -1,22 +1,25 @@
-import { Avatar, Grid, Paper } from '@mui/material';
+import { domain } from '@/base-api/endPoints';
+import { DefautImage2 } from '@/constant/images';
+import { Avatar } from '@mui/material';
 
-interface IProps {
-  item: { id: number; name: string; image: string; position: string };
-}
-
-export default function MentorListItem({ item }: IProps) {
+export default function MentorListItem({ item }: any) {
+  let imageURL =
+    item?.user?.media?.length > 0 && item?.user?.media[0]?.url
+      ? domain + item?.user?.media[0]?.url
+      : DefautImage2;
+  const ProfessionName = item?.user?.groups?.[0]?.name || '';
   return (
     <div
       key={item.id}
       className="sm-flex-col-col-center-center mb-2 "
     >
       <Avatar
-        alt={item.name}
-        src={item.image}
+        alt={'Avatar'}
+        src={imageURL}
         sx={{ width: 100, height: 100 }}
       />
-      <div className="text-reg-high">{item.name}</div>
-      <div className="text-reg-fw500 line-h-0">{item.position}</div>
+      <div className="text-reg-high">{item?.user?.name}</div>
+      <div className="text-reg-fw500 line-h-0">{ProfessionName}</div>
     </div>
   );
 }

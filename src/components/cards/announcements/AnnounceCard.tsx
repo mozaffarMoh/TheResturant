@@ -70,8 +70,13 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
                       fontSize: '11px',
                       height: '23px',
                       background: '#EB6B2A',
+                      boxShadow: 'none',
+                      '&:hover': {
+                        background: '#EB6B2A',
+                        cursor: 'default',
+                        boxShadow: 'none',
+                      },
                     }}
-                    color="error"
                   >
                     {item?.category}
                   </Button>

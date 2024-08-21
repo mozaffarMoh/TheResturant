@@ -77,7 +77,7 @@ const NestedMenuList = ({
             href={item.path}
             style={{
               textDecoration: 'none',
-              color: isListActive(item.path) ? 'red' : 'inherit',
+              color: isListActive(item.path) ? '#EB6B2A' : 'inherit',
             }}
           >
             <MenuItem

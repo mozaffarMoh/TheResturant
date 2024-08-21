@@ -112,7 +112,7 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
               >
                 {data?.subTitle}
                 <br /> {data[0] && data[0]?.created_at} <br />
-                <span style={{ color: 'red' }}>
+                <span style={{ color: '#EB6B2A' }}>
                   {' '}
                   {data[0] && data[0]?.category}
                 </span>
@@ -138,7 +138,7 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
                     __html: data[0] && data[0]?.description,
                   }}
                 />
-                <span style={{ color: 'red' }}>
+                <span style={{ color: '#EB6B2A' }}>
                   {' '}
                   {data[0] && data[0]?.category}
                 </span>

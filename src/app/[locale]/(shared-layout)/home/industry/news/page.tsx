@@ -246,9 +246,9 @@ const News = () => {
                   <Typography
                     variant="body1"
                     lineHeight={2}
-                    color={category == 'all' ? 'red' : gray300}
+                    color={category == 'all' ? '#EB6B2A' : gray300}
                     sx={{
-                      '&:hover': { color: 'red', cursor: 'pointer' },
+                      '&:hover': { color: '#EB6B2A', cursor: 'pointer' },
                     }}
                     onClick={() => setCategory('all')}
                   >
@@ -261,9 +261,9 @@ const News = () => {
                           key={i}
                           variant="body1"
                           lineHeight={2}
-                          color={item.slug == category ? 'red' : gray300}
+                          color={item.slug == category ? '#EB6B2A' : gray300}
                           sx={{
-                            '&:hover': { color: 'red', cursor: 'pointer' },
+                            '&:hover': { color: '#EB6B2A', cursor: 'pointer' },
                           }}
                           onClick={() => setCategory(item.slug)}
                         >
@@ -310,7 +310,7 @@ const News = () => {
                 >
                   {' '}
                   <MenuItem value={'all'}>
-                    <Typography color={category == 'all' ? 'red' : ''}>
+                    <Typography color={category == 'all' ? '#EB6B2A' : ''}>
                       {t('select.all')}
                     </Typography>
                   </MenuItem>
@@ -319,7 +319,7 @@ const News = () => {
                       return (
                         <MenuItem value={item.slug}>
                           <Typography
-                            color={item.slug == category ? 'red' : ''}
+                            color={item.slug == category ? '#EB6B2A' : ''}
                           >
                             {item?.name}
                           </Typography>
