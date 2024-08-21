@@ -98,9 +98,10 @@
   color: white;
   border-radius: 14px;
   border: 1px solid white;
-  font-size: 13px;
+  font-size: 12px;
   width: 115px;
   height: 40px;
+  padding: 2px;
 }
 
 .authButton:hover {

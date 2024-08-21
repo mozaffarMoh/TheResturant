@@ -2,10 +2,12 @@
 import { domain } from '@/base-api/endPoints';
 import styles from './hero.module.css';
 import { Container } from '@mui/material';
-import { useTranslations } from 'next-intl';
 import { DefautImage1Large } from '@/constant/images';
+import { usePathname } from 'next/navigation';
 
 const HeroSection = ({ data }: any) => {
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   let imageURL =
     data && data.media && data.media.length > 0 && data.media[0]?.url
       ? domain + data?.media[0]?.url
@@ -16,18 +18,23 @@ const HeroSection = ({ data }: any) => {
     <div
       className={styles.home}
       style={{
-        backgroundImage: `url('${imageURL}'),linear-gradient(to right, #3f485eff,#3f485eff)`,
+        backgroundImage: `url('${imageURL}')`,
       }}
       id="home"
     >
-      <div className={styles.heroTitle}>
+      {' '}
+      <div className={styles.heroBrightness} />
+      <div
+        className={styles.heroTitle}
+        style={{ left: !isArabic ? '8%' : '', right: isArabic ? '8%' : '' }}
+      >
         <Container>
           <p className={styles.welcomeToTheTheplatformYou}>
             {words.map((word: string, index: number) =>
               index === 3 ? (
                 <span
                   key={index}
-                  style={{ color: 'red' }}
+                  style={{ color: '#EB6B2A' }}
                 >
                   {word}{' '}
                 </span>

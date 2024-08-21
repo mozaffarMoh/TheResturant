@@ -25,6 +25,7 @@ import { domain, endPoints } from '@/base-api/endPoints';
 import useGet from '@/custom-hooks/useGet';
 import { useEffect } from 'react';
 import { metadataIcons } from '@/constant/metadataIcons';
+import { usePathname } from 'next/navigation';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiPaper-root': {
@@ -54,6 +55,8 @@ const EventDetailsModal = ({
 }: TermsModalProps) => {
   const t = useTranslations();
   const isScreen600 = useMediaQuery('(max-width:600px)');
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const [data, loading, getData] = useGet(
     endPoints.showSingleItem + slug,
     true,
@@ -92,7 +95,7 @@ const EventDetailsModal = ({
       >
         <CloseIcon />
       </IconButton>
-      <DialogContent>
+      <DialogContent style={{ direction: 'ltr' }}>
         <Box
           className=" position-relative  "
           height={340}
@@ -128,6 +131,7 @@ const EventDetailsModal = ({
             alignItems={'center'}
             justifyContent={'center'}
             paddingY={2}
+            sx={{ direction: isArabic ? 'rtl' : 'ltr' }}
           >
             {data?.metadata &&
               data?.metadata.map((item: any, i: number) => {
@@ -243,8 +247,8 @@ const EventDetailsModal = ({
           onClick={handleClose}
           className="w-90 "
           sx={{
-            borderRadius : '50px',
-            color:'white',
+            borderRadius: '50px',
+            color: 'white',
             background: '#3f485e',
             '&:hover': {
               backgroundColor: '#eb6b2a',

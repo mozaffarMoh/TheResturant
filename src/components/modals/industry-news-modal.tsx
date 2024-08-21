@@ -10,11 +10,11 @@ import {
 } from '@mui/material';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { primaryColor } from '@/constant/color';
-import Image from 'next/image';
 import CloseSVG from '../../../assets/icons/close';
 import { DefautImage1Large } from '@/constant/images';
 import { domain, endPoints } from '@/base-api/endPoints';
 import usePost from '@/custom-hooks/usePost';
+import { usePathname } from 'next/navigation';
 
 interface IndustryNewsModalProps {
   open: boolean;
@@ -37,6 +37,8 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
       categories: 'first,name,category',
     },
   };
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const isScreen640 = useMediaQuery('(max-width:640px)');
   const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
   let imageURL =
@@ -59,7 +61,7 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
   return (
     <Dialog
       open={open}
-      sx={{ borderRadius: '50px' }}
+      sx={{ borderRadius: '50px', direction: 'ltr' }}
     >
       <Stack
         direction={'row'}
@@ -89,6 +91,7 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
         <Stack
           padding={5}
           alignItems={'flex-start'}
+          sx={{ direction: isArabic ? 'rtl' : 'ltr' }}
         >
           <DialogTitle>
             <Typography

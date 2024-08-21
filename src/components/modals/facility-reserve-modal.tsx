@@ -326,6 +326,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       fullWidth
       maxWidth="sm"
       className="facility-reserve-modal"
+      sx={{ direction: 'ltr' }}
     >
       {' '}
       {/* This alert when some fields are error from the server */}
@@ -343,7 +344,12 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       <DialogTitle style={{ textAlign: 'center' }}>
         {t('dialog.book-facility')}
       </DialogTitle>
-      <DialogContent sx={{ display: 'flex', flexDirection: 'column' }}>
+      <DialogContent
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <form
           style={{ width: '100%' }}
           onSubmit={handleReserve}
@@ -355,7 +361,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
             alignItems="center"
             justifyContent="center"
             gap={2}
-            sx={{ padding: 3 }}
+            sx={{ padding: 3, direction: isArabic ? 'rtl' : 'ltr' }}
           >
             <Box
               display={'flex'}

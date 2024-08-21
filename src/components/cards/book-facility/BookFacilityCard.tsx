@@ -37,7 +37,8 @@ export default function BookFacilityCard({
       sx={{
         borderRadius: '1.5rem',
         cursor: 'pointer',
-        width: isScreen650 ? 300 : 550,
+        width: isScreen650 ? 320 : 400,
+        height: isScreen650 ? '100%' : 420,
       }}
       onClick={() => push(`/${langCookie}/home/book-facility/details/${slug}`)}
     >
@@ -117,7 +118,7 @@ export default function BookFacilityCard({
                   )
                 );
               })}
-          {/*   <Grid
+            {/*   <Grid
               item
               display={'flex'}
               justifyContent={'start'}

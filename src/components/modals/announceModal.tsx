@@ -16,6 +16,7 @@ import { domain, endPoints } from '@/base-api/endPoints';
 import { DefautImage1Large } from '@/constant/images';
 import { useEffect } from 'react';
 import usePost from '@/custom-hooks/usePost';
+import { usePathname } from 'next/navigation';
 
 interface TermsModalProps {
   open: boolean;
@@ -29,6 +30,8 @@ const AnnounceModal = ({
   slug,
   setSlug,
 }: TermsModalProps) => {
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const isScreen640 = useMediaQuery('(max-width:640px)');
   const body = {
     modelName: 'Item',
@@ -76,6 +79,7 @@ const AnnounceModal = ({
       onClose={handleClose}
       aria-labelledby="customized-dialog-title"
       open={open}
+      sx={{ direction: 'ltr', overflowX: 'hidden' }}
     >
       <Stack
         direction={'row'}
@@ -105,6 +109,7 @@ const AnnounceModal = ({
         <Stack
           padding={2}
           alignItems={'flex-start'}
+          sx={{ direction: isArabic ? 'rtl' : 'ltr' }}
         >
           <img
             style={{

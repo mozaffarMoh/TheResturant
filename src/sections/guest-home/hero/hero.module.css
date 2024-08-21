@@ -2,12 +2,26 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center;
-  background-blend-mode: overlay;
   position: relative;
   top: 120px;
+  height: 580px;
+}
+
+.heroBrightness {
+  background: linear-gradient(to right, #444c5fff, #444c5f61);
+  filter: brightness(0.5);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
 }
 
 .heroTitle {
+  position: absolute;
+  z-index: 3;
+  top: 0%;
   padding: 12rem 0;
 }
 
@@ -36,6 +50,10 @@
     padding: 10rem 0;
   }
 
+  .home {
+    height: 400px;
+  }
+
   .welcomeToTheTheplatformYou {
     font-size: 1.8rem;
     width: 35rem;
@@ -58,6 +76,10 @@
 @media screen and (max-width: 576px) {
   .heroTitle {
     padding: 6rem 0;
+  }
+
+  .home {
+    height: 300px;
   }
 
   .welcomeToTheTheplatformYou {

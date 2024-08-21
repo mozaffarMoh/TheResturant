@@ -10,21 +10,23 @@ const FacilityListingSection = ({ facilityItems }: any) => {
       <Grid
         container
         paddingTop={5}
-        spacing={5}
+        spacing={2}
         sx={{ width: '100%' }}
-        direction={'column'}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
+        direction={'row'}
+        flexWrap={'wrap'}
+        justifyContent={'center'}
+        alignItems={'center'}
       >
         {facilityItems.map((item: any) => (
           <Grid
             item
             key={item.id}
             xs={12}
-            sm={6}
-            md={4}
+            sm={12}
+            md={6}
             lg={4}
+            display={'flex'}
+            justifyContent={'center'}
           >
             <BookFacilityCard
               slug={item.slug}

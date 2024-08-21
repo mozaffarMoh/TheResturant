@@ -73,7 +73,7 @@ const BookFacilityPage: NextPage = () => {
       },
     },
     'with-pagination': true,
-    limit: 3,
+    limit: 9,
     page: page,
     filters,
   };
@@ -123,7 +123,7 @@ const BookFacilityPage: NextPage = () => {
   useEffect(() => {
     if (successFacilityItems) {
       let totalNum = facilityItemsFullData?.meta?.total || 0;
-      const paginationCount = Math.ceil(totalNum / 3);
+      const paginationCount = Math.ceil(totalNum / 9);
       setTotal(paginationCount);
     }
   }, [successFacilityItems]);
