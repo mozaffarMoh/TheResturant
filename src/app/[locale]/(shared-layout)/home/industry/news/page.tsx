@@ -332,32 +332,39 @@ const News = () => {
           )}
         </Stack>
       </Container>
-        <Stack
-          alignItems={'center'}
-          paddingBottom={10}
-          marginTop={6}
-        >
-          <Pagination
-            onChange={handleChange}
-            page={page}
-            color="primary"
-            count={total}
-            siblingCount={2} // Number of siblings to show around the current page
-            renderItem={(item) => (
-              <PaginationItem
-                {...item}
-                slots={{
-                  previous: isArabic
-                    ? ArrowForwardIosRounded
-                    : ArrowBackIosNewRounded,
-                  next: isArabic
-                    ? ArrowBackIosNewRounded
-                    : ArrowForwardIosRounded,
-                }}
-              />
-            )}
-          />
-        </Stack>
+      <Stack
+        alignItems={'center'}
+        paddingBottom={10}
+        marginTop={6}
+      >
+        <Pagination
+          onChange={handleChange}
+          page={page}
+          count={total}
+          siblingCount={2} // Number of siblings to show around the current page
+          renderItem={(item) => (
+            <PaginationItem
+              {...item}
+              sx={{
+                color: '#3F485E',
+                '&.Mui-selected': {
+                  backgroundColor: '#3F485E',
+                  color: '#fff',
+                  '&:hover': { backgroundColor: '#3F485EDD' },
+                },
+              }}
+              slots={{
+                previous: isArabic
+                  ? ArrowForwardIosRounded
+                  : ArrowBackIosNewRounded,
+                next: isArabic
+                  ? ArrowBackIosNewRounded
+                  : ArrowForwardIosRounded,
+              }}
+            />
+          )}
+        />
+      </Stack>
       <IndustryNewsModal
         open={isDetailsVisible}
         onClose={() => setIsDetailsVisible(false)}

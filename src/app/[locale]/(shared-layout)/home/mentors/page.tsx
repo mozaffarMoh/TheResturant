@@ -216,7 +216,14 @@ const MentorsPage: NextPage = () => {
             </Stack>
           </Stack>
           {loadingMentorsItems ? (
-            <Stack width={"100%"} height={300} alignItems={"center"} justifyContent={"center"}><CircularProgress /></Stack>
+            <Stack
+              width={'100%'}
+              height={300}
+              alignItems={'center'}
+              justifyContent={'center'}
+            >
+              <CircularProgress />
+            </Stack>
           ) : (
             <Stack
               margin={0}
@@ -281,12 +288,19 @@ const MentorsPage: NextPage = () => {
             <Pagination
               onChange={(event, value) => setPage(value)}
               page={page}
-              color="primary"
               count={total}
               siblingCount={2} // Number of siblings to show around the current page
               renderItem={(item) => (
                 <PaginationItem
                   {...item}
+                  sx={{
+                    color: '#3F485E',
+                    '&.Mui-selected': {
+                      backgroundColor: '#3F485E',
+                      color: '#fff',
+                      '&:hover': { backgroundColor: '#3F485EDD' },
+                    },
+                  }}
                   slots={{
                     previous: isArabic
                       ? ArrowForwardIosRounded

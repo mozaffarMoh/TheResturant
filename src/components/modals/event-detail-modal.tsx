@@ -1,5 +1,4 @@
 'use client';
-
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -7,7 +6,6 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-import Image from 'next/image';
 import { DefautImage1 } from '@/constant/images';
 import {
   Box,
@@ -95,24 +93,34 @@ const EventDetailsModal = ({
       >
         <CloseIcon />
       </IconButton>
-      <DialogContent style={{ direction: 'ltr' }}>
+      <DialogContent
+        style={{
+          direction: 'ltr',
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         <Box
           className=" position-relative  "
-          height={340}
-          marginBottom={3}
+          width={'90%'}
+          height={320}
+          marginBottom={2}
         >
-          <Image
+          <img
             src={imageURL}
-            fill
-            style={{ borderRadius: '20px' }}
+            width={'100%'}
+            height={'100%'}
+            style={{ borderRadius: '10px' }}
             alt="event details page"
           />
         </Box>
         {loading ? (
           <Stack
-            width={'100%'}
+            width={'90%'}
             height={100}
-            borderRadius={5}
+            borderRadius={3}
             justifyContent={'center'}
             alignItems={'center'}
             bgcolor={'white'}
@@ -123,13 +131,13 @@ const EventDetailsModal = ({
         ) : (
           <Grid
             container
-            width={'100%'}
+            width={'90%'}
             height={!isScreen600 ? 250 : ''}
             bgcolor={'white'}
-            borderRadius={5}
+            borderRadius={3}
             display={'flex'}
-            alignItems={'center'}
-            justifyContent={'center'}
+            alignItems={'flex-start'}
+            justifyContent={'flex-start'}
             paddingY={2}
             sx={{ direction: isArabic ? 'rtl' : 'ltr' }}
           >

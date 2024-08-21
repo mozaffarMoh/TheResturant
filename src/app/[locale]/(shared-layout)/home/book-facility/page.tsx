@@ -311,12 +311,19 @@ const BookFacilityPage: NextPage = () => {
         <Pagination
           onChange={handleChange}
           page={page}
-          color="primary"
           count={total}
           siblingCount={2} // Number of siblings to show around the current page
           renderItem={(item) => (
             <PaginationItem
               {...item}
+              sx={{
+                color: '#3F485E',
+                '&.Mui-selected': {
+                  backgroundColor: '#3F485E',
+                  color: '#fff',
+                  '&:hover': { backgroundColor: '#3F485EDD' },
+                },
+              }}
               slots={{
                 previous: isArabic
                   ? ArrowForwardIosRounded
