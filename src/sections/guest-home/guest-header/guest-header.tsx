@@ -104,12 +104,6 @@ const GuestHeader = () => {
           >
             <div>
               <img
-                src="/bank.png"
-                alt="bank"
-              />
-            </div>
-            <div>
-              <img
                 src="/entrepreneurship.png"
                 alt="entrepreneurship"
               />

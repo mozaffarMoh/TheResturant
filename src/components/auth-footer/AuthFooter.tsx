@@ -79,8 +79,8 @@ const AuthFooter = () => {
           <div>
             <div>
               <p className="text-reg fc-light-white">
-                MinisterOffice@modee.gov.jo <br />
-                0096265805700
+                YTJInfo@modee.gov.jo <br />
+                0776317207
               </p>
             </div>
           </div>

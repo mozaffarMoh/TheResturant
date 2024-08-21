@@ -231,8 +231,8 @@ const Footer = () => {
                   <p className="text-white-new fw500 p-0 "> Modee</p>
 
                   <p className="text-reg fc-light-white p-0">
-                    MinisterOffice@modee.gov.jo <br />
-                    0096265805700
+                    YTJInfo@modee.gov.jo <br />
+                    0776317207
                   </p>
                 </div>
               </Grid>
