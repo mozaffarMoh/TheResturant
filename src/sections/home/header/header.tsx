@@ -12,10 +12,11 @@ import {
   Typography,
   Stack,
   Select,
+  useMediaQuery,
 } from '@mui/material';
 import styles from './header.module.css';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LanguageIcon from '@mui/icons-material/Language';
 import MenuIcon from '@mui/icons-material/Menu';
 import NormalMenuList from './normalMenuList';
@@ -27,6 +28,7 @@ const Header = () => {
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const t = useTranslations();
   const router = useRouter();
+  const isScreen991 = useMediaQuery('(max-width:991px)');
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
 
@@ -131,6 +133,14 @@ const Header = () => {
     Cookies.remove('token');
     router.push(`/${langCookie}/sign-in`);
   };
+
+  useEffect(() => {
+    !isScreen991 && setMenuOpen(false);
+  }, [isScreen991]);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <div>
@@ -291,14 +301,14 @@ const Header = () => {
               >
                 <div>
                   <Button
-                    onClick={toggleDrawer(true)}
+                    onClick={() => setMenuOpen(true)}
                     className={styles.hamburgerButtonMenu}
                   >
                     <MenuIcon className={styles.hamburgerMenu} />
                   </Button>
                   <Drawer
                     open={menuOpen}
-                    onClose={toggleDrawer(false)}
+                    onClose={() => setMenuOpen(false)}
                     anchor={isArabic ? 'right' : 'left'}
                   >
                     <Box

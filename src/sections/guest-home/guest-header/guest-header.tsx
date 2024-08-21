@@ -11,10 +11,11 @@ import {
   Box,
   Stack,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import styles from './guest-header.module.css';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useRouter } from 'next/navigation';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -25,6 +26,7 @@ import Cookies from 'js-cookie';
 const GuestHeader = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const isScreen991 = useMediaQuery('(max-width:991px)');
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   let isArabic = pathname.startsWith('/ar');
   const [activeValue, setActiveValue] = useState('');
@@ -87,6 +89,10 @@ const GuestHeader = () => {
     setActiveValue(value);
     setMenuOpen(false);
   };
+
+  useEffect(() => {
+    !isScreen991 && setMenuOpen(false);
+  }, [isScreen991]);
 
   return (
     <div
