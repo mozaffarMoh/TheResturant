@@ -6,51 +6,35 @@ import './workshop-card-v2.css';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { domain } from '@/base-api/endPoints';
 import { DefautImage1 } from '@/constant/images';
+import { Stack } from '@mui/material';
 
-export default function WorkShopCardV2({ title, media, metadata, place }: any) {
+export default function WorkShopCardV2({ key, title, subTitle, media }: any) {
   let imageURL =
     media && media.length > 0 && media[0]?.url
       ? domain + media[0]?.url
       : DefautImage1;
   return (
     <Card
+      key={key}
       variant="outlined"
       sx={{
-        width: 320,
+        width: 280,
         paddingTop: '1rem',
         borderRadius: '1.1rem',
         margin: '0.2rem',
       }}
-      className="workshop-v2-repo"
     >
-      <CardOverflow className="md-workshop-media">
+      <Stack>
         <img
           src={imageURL}
           loading="lazy"
-          alt="workshop image card"
-          className="md-workshop-media-image pt-1 pb-1"
-          style={{ height: 200 }}
+          alt="news-card-image"
+          style={{ width: '100%', height: 200, borderRadius: '10px' }}
         />
-      </CardOverflow>
+      </Stack>
       <CardContent>
-        <div className="sm-flex-row-col-425  align-center-425 gap1 ">
-          <span className="text-reg-fw500 opacity-80">
-            <PlaceSVG />
-            {place.name}
-          </span>
-          {metadata.map(
-            (item: any) =>
-              item.slug == 'time' && (
-                <span
-                  key={item?.id}
-                  className="text-reg-fw500 opacity-80"
-                >
-                  <ClockSVG /> {item.value}
-                </span>
-              ),
-          )}
-        </div>
-        <p className="text-med-fw700 max-subtile-80 ">{title}</p>
+        <span className=" opacity-80">{title}</span>
+        <p className="text-med-fw700 max-subtile-80 ">{subTitle}</p>
       </CardContent>
     </Card>
   );

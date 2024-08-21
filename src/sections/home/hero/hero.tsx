@@ -1,34 +1,43 @@
 'use client';
-
 import styles from './hero.module.css';
 import { Container } from '@mui/material';
-import { homeHeroImage } from '@/constant/images';
-import { domain } from '@/base-api/endPoints';
+import { DefautImage1Large, homeHeroImage } from '@/constant/images';
+import { domain, endPoints } from '@/base-api/endPoints';
+import { usePathname } from 'next/navigation';
 
 interface IProps {
   bannerImage?: string;
   noText?: boolean;
+  data?: any;
 }
-const HeroSection = ({
-  bannerImage = homeHeroImage,
-  noText = false,
-}: IProps) => {
+const HeroSection = ({ bannerImage = '', noText = false, data }: IProps) => {
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
+
+  let imageURL =
+    data && data?.children?.[0]?.media?.[0]?.url
+      ? domain + data?.children?.[0]?.media?.[0]?.url
+      : DefautImage1Large;
+
+  let title = data && data?.children?.[0]?.key;
+  let subTitle = data && data?.children?.[0]?.value;
 
   return (
     <div
-      className={styles.home}
-      style={{ backgroundImage: `url(${bannerImage})` }}
+      className={`${styles.home} ${data && styles.homeLarge} `}
+      style={{
+        backgroundImage: `url(${data ? imageURL : bannerImage})`,
+      }}
     >
-      <div className={styles.heroTitle}>
+      {data && <div className={styles.heroBrightness} />}
+      <div
+        className={styles.heroTitle}
+        style={{ left: !isArabic ? '8%' : '', right: isArabic ? '8%' : '' }}
+      >
         {noText ? null : (
           <Container maxWidth="lg">
-            <p className="general-title text-white-new max-w-md-65">
-              Learn From Anywhere
-            </p>
-            <p className={styles.SubTitle}>
-              Technology is brining a massive wave of evolution on learning
-              things on different ways.
-            </p>
+            <p className="general-title text-white-new ">{title}</p>
+            <p className={styles.SubTitle}>{subTitle}</p>
           </Container>
         )}
       </div>

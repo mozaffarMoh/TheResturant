@@ -29,18 +29,38 @@ export const typeSchema = (inputs: any, t: any) => {
           }, { message: t('validation.ageRange') });
         break;
 
-      case 'linkedin-profile-link':
+      case 'website-link':
+        validation = z.string().url({ message: t('validation.validUrl') });
+        break;
+
+      case 'linkedin-link':
         validation = z.string()
-          .url({ message: t('validation.validLinkedInUrl') })
+          .url({ message: t('validation.validUrl') })
           .regex(/^https:\/\/(www\.)?linkedin\.com\/.*$/, { message: t('validation.linkedinUrl') });
         break;
 
-      case 'websiteportofolio-link':
-        validation = z.string().url({ message: t('validation.validWebsiteUrl') });
+      case 'facebook-link':
+        validation = z.string()
+          .url({ message: t('validation.validUrl') })
+          .regex(/^https:\/\/(www\.)?facebook\.com\/.*$/, { message: t('validation.facebookUrl') });
         break;
 
-      case 'social-media-links':
-        validation = z.string().url({ message: t('validation.validSocialMediaUrl') });
+      case 'youtube-link':
+        validation = z.string()
+          .url({ message: t('validation.validUrl') })
+          .regex(/^https:\/\/(www\.)?youtube\.com\/.*$/, { message: t('validation.youtubeUrl') });
+        break;
+
+      case 'twitter-link':
+        validation = z.string()
+          .url({ message: t('validation.validUrl') })
+          .regex(/^https:\/\/(www\.)?twitter\.com\/.*$/, { message: t('validation.twitterUrl') });
+        break;
+
+      case 'instagram-link':
+        validation = z.string()
+          .url({ message: t('validation.validUrl') })
+          .regex(/^https:\/\/(www\.)?instagram\.com\/.*$/, { message: t('validation.instagramUrl') });
         break;
 
       case 'educational-qualification':

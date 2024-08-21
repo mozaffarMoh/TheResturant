@@ -3,16 +3,34 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-
   position: relative;
+  height: 400px;
+}
+
+.homeLarge {
+  height: 580px;
+}
+
+.heroBrightness {
+  background: linear-gradient(45deg, #444c5fff, #444c5f61);
+  filter: brightness(0.5);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
 }
 
 .heroTitle {
-  padding: 12rem 0;
+  position: absolute;
+  z-index: 3;
+  top: 0%;
+  padding: 10rem 0;
 }
 
 .SubTitle {
-  max-width: 40%;
+  max-width: 60%;
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.6rem;
   margin-left: 0.3rem;
@@ -30,9 +48,14 @@
     padding: 10rem 0;
   }
 
+  .home {
+    height: 400px;
+  }
+
   .Title {
     max-width: 60%;
   }
+
   .SubTitle {
     max-width: 60%;
   }
@@ -53,10 +76,15 @@
     padding: 6rem 0;
   }
 
+  .home {
+    height: 300px;
+  }
+
   .Title {
     max-width: 80%;
     line-height: 2.2rem;
   }
+
   .SubTitle {
     max-width: 80%;
   }

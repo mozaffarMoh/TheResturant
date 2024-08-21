@@ -19,6 +19,7 @@ export const endPoints = {
     contactUsDetials: '/core/dynamicLookup/tpf-contact-details',
     getSubmittedData: "/form/getSubmittedData/",
     ladningPage: '/core/dynamicLookup/tpf-landing-page',
+    homePage: '/core/dynamicLookup/tpf-home-page',
 }
 
 

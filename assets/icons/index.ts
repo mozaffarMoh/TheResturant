@@ -28,8 +28,13 @@ import DateSVG from './date';
 import JordanSVG from './jordan';
 import Phone18SVG from './phone18';
 import OpenEyeSVG from './open-eye';
+import WebsiteSVG from './website';
+import YoutubeSVG from './youtube';
+
 
 export {
+  YoutubeSVG,
+  WebsiteSVG,
   OpenEyeSVG,
   JordanSVG,
   Phone18SVG,

@@ -1,28 +1,41 @@
 'use client';
-import { Button, Container, Grid } from '@mui/material';
+import { Button, Container, Grid, Stack } from '@mui/material';
 import styles from './work-shops.module.css';
 import { primaryColor } from '@/constant/color';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import WorkShopCardV1 from '@/components/cards/home-section/WorkShopCardV1';
 import WorkShopCardV2 from '@/components/cards/home-section/WorkShopCardV2';
 import { useTranslations } from 'next-intl';
-import useGet from '@/custom-hooks/useGet';
 import { endPoints } from '@/base-api/endPoints';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { usePathname, useRouter } from 'next/navigation';
+import usePost from '@/custom-hooks/usePost';
 
 const WorkShopsSection = () => {
   const t = useTranslations();
-  const [data, loading, getData] = useGet(endPoints.getWorkshop);
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const router = useRouter();
+  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
+
+  const body = {
+    modelName: 'Item',
+    filters: { 'itemType.slug': 'News' },
+    fields: ['slug', 'title', 'subTitle', 'media'],
+    add_fields: {
+      categories: 'first,name,category',
+    },
+    'with-pagination': false,
+  };
+
+  const [data, , getData] = usePost(endPoints.DynamicFilter, body);
 
   useEffect(() => {
     getData();
   }, []);
+
+  console.log(data);
 
   return (
     <section
@@ -41,11 +54,10 @@ const WorkShopsSection = () => {
               style={{ marginLeft: '10px', marginRight: '10px' }}
             >
               <div className="general-title  text-white-new">
-                {t('header.workshops')}
+                {t('header.news')}
               </div>
-              <div className="mt-2 lg-flex-row-col-1300">
-                {/* cards horizontal cards  section */}
-                <div className={styles.workShopCardsContainer}>
+              {/* cards horizontal cards  section */}
+              {/*                 <div className={styles.workShopCardsContainer}>
                   <div className={styles.leftCardsContainer}>
                     <div className="sm-flex-col-col-center-center gap1">
                       {data &&
@@ -63,37 +75,35 @@ const WorkShopsSection = () => {
                             ),
                         )}
                     </div>
-                  </div>
+                  </div> */}
 
-                  {/* cards Vertical cards  section */}
-                  {data && data.length > 0 && (
-                    <div className={styles.rightCardsContainer}>
-                      <div>
-                        <div className="sm-flex-row-col-center-center">
-                          <WorkShopCardV2
-                            title={data[0]?.title}
-                            media={data[0]?.media}
-                            metadata={data[0]?.metadata}
-                            place={data[0]?.place}
-                          />
-                        </div>
-                      </div>
-                      {data[1]?.title && (
+              {/* cards Vertical cards  section */}
+              <Stack
+                direction={'row'}
+                justifyContent={'space-evenly'}
+                flexWrap={'wrap'}
+                marginTop={5}
+              >
+                {data &&
+                  data.length > 0 &&
+                  data.map((item: any, i: number) => {
+                    return (
+                      <div className={styles.rightCardsContainer}>
                         <div>
                           <div className="sm-flex-row-col-center-center">
                             <WorkShopCardV2
-                              title={data[1]?.title}
-                              media={data[1]?.media}
-                              metadata={data[1]?.metadata}
-                              place={data[1]?.place}
+                              key={i}
+                              title={item?.title}
+                              subTitle={item?.subTitle}
+                              media={item?.media}
                             />
                           </div>
                         </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
+                      </div>
+                    );
+                  })}
+              </Stack>
+
               <div className="mt-2 sm-flex-row-row-center-end  m-inline-end-2">
                 <Button
                   variant="outlined"
@@ -108,9 +118,7 @@ const WorkShopsSection = () => {
                     },
                   }}
                   onClick={() =>
-                    router.push(
-                      `/${langCookie}/home/events-workshops#workshops`,
-                    )
+                    router.push(`/${langCookie}/home/industry/news`)
                   }
                   endIcon={isArabic ? <ArrowLeft /> : <ArrowRight />}
                 >

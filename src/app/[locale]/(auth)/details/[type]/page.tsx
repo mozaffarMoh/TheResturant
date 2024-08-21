@@ -204,6 +204,8 @@ const UserDetailsPage: NextPage = () => {
     handlePostForOTP();
   };
 
+  //console.log(typeDetails);
+  
   return formData ? (
     <div className={styles.signInContainer}>
       {/* Success Modal when user Success register */}

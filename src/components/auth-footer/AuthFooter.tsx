@@ -75,7 +75,7 @@ const AuthFooter = () => {
       {/* Orange box */}
       <div className="sm-flex-row-row-center-center">
         <div className={styles.modeInfo}>
-          <p className="text-med-fw600 text-white-new"> Modee</p>
+          <p className="text-med-fw600 text-white-new">YTJ</p>
           <div>
             <div>
               <p className="text-reg fc-light-white">

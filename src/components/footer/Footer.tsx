@@ -228,7 +228,7 @@ const Footer = () => {
                 gap={0}
               >
                 <div className={styles.modeInfo}>
-                  <p className="text-white-new fw500 p-0 "> Modee</p>
+                  <p className="text-white-new fw500 p-0 ">YTJ</p>
 
                   <p className="text-reg fc-light-white p-0">
                     YTJInfo@modee.gov.jo <br />

@@ -3,14 +3,14 @@ import type { NextPage } from 'next';
 import styles from './page.module.css';
 import GridFlex from '@mui/material/Unstable_Grid2';
 import { Button, Container, Stack, Typography } from '@mui/material';
-import mentorImage from '../../../../../../../public/mentors/mentor.png';
 import {
   FaceBookSVG,
   InstagramSVG,
   LinkedInSVG,
-  PersonSVG,
   TwitterSVG,
   UsersSVG,
+  WebsiteSVG,
+  YoutubeSVG,
 } from '../../../../../../../assets/icons';
 import { primaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
@@ -19,7 +19,6 @@ import { domain, endPoints } from '@/base-api/endPoints';
 import { DefautImage2 } from '@/constant/images';
 import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import Loading from '@/components/Loading/Loading';
 const MentorDetails: NextPage = () => {
@@ -40,8 +39,6 @@ const MentorDetails: NextPage = () => {
   useEffect(() => {
     getData();
   }, []);
-
-  console.log(data);
 
   return (
     <Stack
@@ -107,7 +104,7 @@ const MentorDetails: NextPage = () => {
             data?.data &&
             data?.data.length > 0 &&
             data?.data.map((item: any, i: number) => {
-              if (item.key.includes('Link')) {
+              if (item.key.includes('link')) {
                 return (
                   <Link
                     href={item.value}
@@ -116,10 +113,16 @@ const MentorDetails: NextPage = () => {
                   >
                     {item.key.includes('LinkedIn') ? (
                       <LinkedInSVG />
-                    ) : item.key.includes('Portofolio') ? (
+                    ) : item.key.includes('facebook') ? (
                       <FaceBookSVG />
-                    ) : item.key.includes('Social') ? (
+                    ) : item.key.includes('twitter') ? (
                       <TwitterSVG />
+                    ) : item.key.includes('Website') ? (
+                      <WebsiteSVG />
+                    ) : item.key.includes('youtube') ? (
+                      <YoutubeSVG />
+                    ) : item.key.includes('instagram') ? (
+                      <InstagramSVG />
                     ) : (
                       <UsersSVG />
                     )}
@@ -143,7 +146,7 @@ const MentorDetails: NextPage = () => {
               data?.data.length > 0 &&
               data?.data.map((item: any, i: number) => {
                 if (
-                  !item.key.includes('Link') &&
+                  !item.key.includes('link') &&
                   !item.key.includes('Certifications') &&
                   !item.key.includes('Interested')
                 ) {
