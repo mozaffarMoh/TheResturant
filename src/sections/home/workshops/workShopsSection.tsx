@@ -35,7 +35,7 @@ const WorkShopsSection = () => {
     getData();
   }, []);
 
-  console.log(data);
+//  console.log(data);
 
   return (
     <section
@@ -87,20 +87,22 @@ const WorkShopsSection = () => {
                 {data &&
                   data.length > 0 &&
                   data.map((item: any, i: number) => {
-                    return (
-                      <div className={styles.rightCardsContainer}>
-                        <div>
-                          <div className="sm-flex-row-col-center-center">
-                            <WorkShopCardV2
-                              key={i}
-                              title={item?.title}
-                              subTitle={item?.subTitle}
-                              media={item?.media}
-                            />
+                    if (i < 3) {
+                      return (
+                        <div className={styles.rightCardsContainer}>
+                          <div>
+                            <div className="sm-flex-row-col-center-center">
+                              <WorkShopCardV2
+                                key={i}
+                                title={item?.title}
+                                subTitle={item?.subTitle}
+                                media={item?.media}
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
+                      );
+                    }
                   })}
               </Stack>
 
