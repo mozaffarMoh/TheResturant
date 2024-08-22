@@ -6,9 +6,18 @@ import './workshop-card-v2.css';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { domain } from '@/base-api/endPoints';
 import { DefautImage1 } from '@/constant/images';
-import { Stack } from '@mui/material';
+import { Button, Stack } from '@mui/material';
+import { usePathname } from 'next/navigation';
 
-export default function WorkShopCardV2({ key, title, subTitle, media }: any) {
+export default function WorkShopCardV2({
+  key,
+  title,
+  subTitle,
+  media,
+  category,
+}: any) {
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   let imageURL =
     media && media.length > 0 && media[0]?.url
       ? domain + media[0]?.url
@@ -18,19 +27,40 @@ export default function WorkShopCardV2({ key, title, subTitle, media }: any) {
       key={key}
       variant="outlined"
       sx={{
-        width: 280,
-        paddingTop: '1rem',
+        width: 300,
         borderRadius: '1.1rem',
-        margin: '0.2rem',
+        padding: 1,
       }}
+      style={{ margin: '0px' }}
     >
-      <Stack>
+      <Stack position={'relative'}>
         <img
           src={imageURL}
           loading="lazy"
           alt="news-card-image"
-          style={{ width: '100%', height: 200, borderRadius: '10px' }}
+          style={{ width: '100%', height: 250, borderRadius: '15px' }}
         />
+        <Button
+          variant="contained"
+          sx={{
+            borderRadius: '50px',
+            position: 'absolute',
+            bottom: 10,
+            left: !isArabic ? 10 : '',
+            right: isArabic ? 10 : '',
+            fontSize: '11px',
+            height: '23px',
+            background: '#EB6B2A',
+            boxShadow: 'none',
+            '&:hover': {
+              background: '#EB6B2A',
+              cursor: 'default',
+              boxShadow: 'none',
+            },
+          }}
+        >
+          {category}
+        </Button>
       </Stack>
       <CardContent>
         <span className=" opacity-80">{title}</span>

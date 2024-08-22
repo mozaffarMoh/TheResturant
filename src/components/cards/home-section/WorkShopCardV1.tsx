@@ -2,18 +2,23 @@ import * as React from 'react';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
-import {  Paper } from '@mui/material';
+import { Paper } from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import './workshop-card-v1.css';
 
-export default function WorkShopCardV1({ key, title, metadata, place }: any) {
+export default function WorkShopCardV1({
+  key,
+  title,
+  subTitle,
+  category,
+}: any) {
   const [day, setDay] = React.useState('');
   const [month, setMonth] = React.useState('');
   const [time, setTime] = React.useState('');
-
+  /* 
   React.useEffect(() => {
-    if (metadata.length > 0) {
+    if (metadata?.length > 0) {
       metadata.forEach((item: any) => {
         if (item.slug == 'date') {
           setDay(item.value.split('-')[2]);
@@ -28,7 +33,7 @@ export default function WorkShopCardV1({ key, title, metadata, place }: any) {
         }
       });
     }
-  }, [metadata]);
+  }, [metadata]); */
 
   return (
     <Card
@@ -36,7 +41,7 @@ export default function WorkShopCardV1({ key, title, metadata, place }: any) {
       orientation="horizontal"
       variant="outlined"
       sx={{
-        width: 'auto',
+        width: '300px',
         paddingInline: '2rem',
         borderRadius: '1.1rem',
         gap: 3,
@@ -58,19 +63,14 @@ export default function WorkShopCardV1({ key, title, metadata, place }: any) {
           }}
           className="md-workshop-media-paper"
         >
-          <div>{day}</div>
-          <div>{month}</div>
+          <div>{day}14</div>
+          <div>{month}Aug</div>
         </Paper>
       </CardOverflow>
       <CardContent className="sm-flex-col-reverse">
         <p className="text-reg-card-v1 fw600 p-px-4">{title}</p>
         <div className="sm-flex-row-col-425  align-center-425 gap1 ">
-          <span className="text-xs opacity-80">
-            <PlaceSVG /> {place.name}
-          </span>
-          <span className="text-xs opacity-80">
-            <ClockSVG /> {time}
-          </span>
+          <span className="text-xs opacity-80">{subTitle}</span>
         </div>
       </CardContent>
     </Card>

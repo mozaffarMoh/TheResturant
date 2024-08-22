@@ -18,7 +18,7 @@ const PublicHomePage: NextPage = () => {
   const [data, loading, getData] = useGet(endPoints.ladningPage);
   const [heroData, setHeroData] = useState({});
   const [cardsData, setCardsData] = useState({});
-  const [videoData, setVideoData] = useState({});
+  const [partnersData, setPartnersData]: any = useState({});
   const [aboutData, setAboutData] = useState({});
   const [servicesData, setServicesData] = useState({});
 
@@ -31,22 +31,22 @@ const PublicHomePage: NextPage = () => {
       data?.children.forEach((item: any) => {
         item.slug == 'welcome' && setHeroData(item);
         item.slug == 'four-boxes' && setCardsData(item);
-        item.slug == 'explanatory-video' && setVideoData(item);
         item.slug == 'about-us' && setAboutData(item);
         item.slug == 'services' && setServicesData(item);
+        item.slug == 'partners' && setPartnersData(item);
       });
     }
   }, [data]);
- 
+
   return (
     <>
       {loading && <Loading />}
       <GuestHeader />
       <HeroSection data={heroData} />
-      <CardsSection data={cardsData}/>
+      <CardsSection data={cardsData} />
       <AboutUsSection data={aboutData} />
-      <ServicesSection data={servicesData}/>
-      <PartnerSection data={cardsData}/>
+      <ServicesSection data={servicesData} />
+      <PartnerSection data={partnersData} />
       <ContactUsSection />
       <AuthFooter />
     </>

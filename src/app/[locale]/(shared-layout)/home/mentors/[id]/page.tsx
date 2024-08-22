@@ -78,6 +78,7 @@ const MentorDetails: NextPage = () => {
             {data?.user?.name}
           </Typography>
           <Stack
+            direction={'row'}
             spacing={1}
             textAlign={'center'}
           >
@@ -88,7 +89,7 @@ const MentorDetails: NextPage = () => {
                     fontFamily={'Jost'}
                     className="sub-text-large "
                   >
-                    {item}
+                    {i > 0 && ','} {item}
                   </Typography>
                 );
               })}

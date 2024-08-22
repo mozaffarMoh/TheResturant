@@ -1,5 +1,5 @@
 'use client';
-import { Button, Container, Grid, Stack } from '@mui/material';
+import { Button, Container, Stack } from '@mui/material';
 import styles from './work-shops.module.css';
 import { primaryColor } from '@/constant/color';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
@@ -35,7 +35,7 @@ const WorkShopsSection = () => {
     getData();
   }, []);
 
-//  console.log(data);
+  console.log(data);
 
   return (
     <section
@@ -56,54 +56,55 @@ const WorkShopsSection = () => {
               <div className="general-title  text-white-new">
                 {t('header.news')}
               </div>
-              {/* cards horizontal cards  section */}
-              {/*                 <div className={styles.workShopCardsContainer}>
-                  <div className={styles.leftCardsContainer}>
-                    <div className="sm-flex-col-col-center-center gap1">
-                      {data &&
-                        data.length > 1 &&
-                        data.map(
-                          (item: any, i: number) =>
-                            i > 1 &&
-                            i < 5 && (
-                              <WorkShopCardV1
-                                key={i}
-                                title={item.title}
-                                metadata={item.metadata}
-                                place={item.place}
-                              />
-                            ),
-                        )}
-                    </div>
-                  </div> */}
-
-              {/* cards Vertical cards  section */}
               <Stack
                 direction={'row'}
                 justifyContent={'space-evenly'}
-                flexWrap={'wrap'}
-                marginTop={5}
+                flexWrap={'wrap-reverse'}
+                marginTop={10}
+                gap={5}
               >
-                {data &&
-                  data.length > 0 &&
-                  data.map((item: any, i: number) => {
-                    if (i < 3) {
-                      return (
-                        <div className={styles.rightCardsContainer}>
-                          <div>
-                            <div className="sm-flex-row-col-center-center">
-                              <WorkShopCardV2
-                                key={i}
-                                title={item?.title}
-                                subTitle={item?.subTitle}
-                                media={item?.media}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    }
-                  })}
+                {/* cards horizontal cards  section */}
+                <Stack
+                  justifyContent={'space-between'}
+                  gap={3}
+                >
+                  {data &&
+                    data.length > 0 &&
+                    data.map((item: any, i: number) => (
+                      // i > 1 &&
+                      // i <div 5 && (
+                      <WorkShopCardV1
+                        key={i}
+                        title={item?.title}
+                        subTitle={item?.subTitle}
+                        category={item?.category}
+                      />
+                    ))}
+                </Stack>{' '}
+                {/* cards Vertical cards  section */}
+                <Stack
+                  direction={'row'}
+                  justifyContent={'space-evenly'}
+                  flexWrap={'wrap'}
+                  spacing={2}
+                  gap={3}
+                >
+                  {data &&
+                    data.length > 0 &&
+                    data.map((item: any, i: number) => {
+                      if (i < 2) {
+                        return (
+                          <WorkShopCardV2
+                            key={i}
+                            title={item?.title}
+                            subTitle={item?.subTitle}
+                            media={item?.media}
+                            category={item?.category}
+                          />
+                        );
+                      }
+                    })}
+                </Stack>
               </Stack>
 
               <div className="mt-2 sm-flex-row-row-center-end  m-inline-end-2">
