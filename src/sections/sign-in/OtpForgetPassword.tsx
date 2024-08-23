@@ -48,7 +48,7 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
     if (otp.length == 5) {
       handleCheckOTP();
     } else {
-      setErrorMessageOTP(t('messages-full-otp'));
+      setErrorMessageOTP(t('messages.full-otp'));
     }
   };
 

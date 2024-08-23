@@ -15,6 +15,7 @@ import { DefautImage1Large } from '@/constant/images';
 import { domain, endPoints } from '@/base-api/endPoints';
 import usePost from '@/custom-hooks/usePost';
 import { usePathname } from 'next/navigation';
+import CardSkeletonVertical from '../skeleton/cardSkeletonVertical';
 
 interface IndustryNewsModalProps {
   open: boolean;
@@ -82,10 +83,10 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
           sx={{
             width: isScreen640 ? '300px' : '550px',
             height: '400px',
+            overflowX: 'hidden',
           }}
         >
-          {' '}
-          <CircularProgress />
+          <CardSkeletonVertical fullFlex="center" />
         </Stack>
       ) : (
         <Stack

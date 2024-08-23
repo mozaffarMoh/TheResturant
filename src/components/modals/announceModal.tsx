@@ -17,6 +17,7 @@ import { DefautImage1Large } from '@/constant/images';
 import { useEffect } from 'react';
 import usePost from '@/custom-hooks/usePost';
 import { usePathname } from 'next/navigation';
+import CardSkeletonVertical from '../skeleton/cardSkeletonVertical';
 
 interface TermsModalProps {
   open: boolean;
@@ -100,10 +101,13 @@ const AnnounceModal = ({
           sx={{
             width: isScreen640 ? '300px' : '550px',
             height: '400px',
+            overflowX: 'hidden',
           }}
         >
-          {' '}
-          <CircularProgress />
+          <CardSkeletonVertical
+            fullFlex="center"
+            width="100%"
+          />
         </Stack>
       ) : (
         <Stack

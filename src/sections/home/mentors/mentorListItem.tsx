@@ -4,7 +4,7 @@ import { Avatar } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
-export default function MentorListItem({ item }: any) {
+export default function MentorListItem({ item, key }: any) {
   const router = useRouter();
   const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   let imageURL =
@@ -15,6 +15,7 @@ export default function MentorListItem({ item }: any) {
 
   return (
     <div
+      key={key}
       className="sm-flex-col-col-center-center mb-2 "
       onClick={() => router.push(`/${langCookie}/home/mentors/${item.slug}`)}
       style={{ cursor: 'pointer' }}

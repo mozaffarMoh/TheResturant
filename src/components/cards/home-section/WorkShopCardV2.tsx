@@ -3,10 +3,10 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
 import './workshop-card-v2.css';
-import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
+import { ClockSVG, DateSVG, PlaceSVG } from '../../../../assets/icons';
 import { domain } from '@/base-api/endPoints';
 import { DefautImage1 } from '@/constant/images';
-import { Button, Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { usePathname } from 'next/navigation';
 
 export default function WorkShopCardV2({
@@ -15,6 +15,7 @@ export default function WorkShopCardV2({
   subTitle,
   media,
   category,
+  date,
 }: any) {
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
@@ -63,8 +64,11 @@ export default function WorkShopCardV2({
         </Button>
       </Stack>
       <CardContent>
-        <span className=" opacity-80">{title}</span>
-        <p className="text-med-fw700 max-subtile-80 ">{subTitle}</p>
+        <Stack direction={"row"} gap={1}>
+          <DateSVG />
+           <Typography fontSize={13}className=" opacity-80"> {date}</Typography>
+        </Stack>
+        <p className="text-med-fw700 max-subtile-80 ">{title}</p>
       </CardContent>
     </Card>
   );

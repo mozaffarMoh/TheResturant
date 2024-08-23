@@ -24,6 +24,7 @@ import useGet from '@/custom-hooks/useGet';
 import { useEffect } from 'react';
 import { metadataIcons } from '@/constant/metadataIcons';
 import { usePathname } from 'next/navigation';
+import CustomSkeleton from '../skeleton/CustomSkeleton';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiPaper-root': {
@@ -102,143 +103,174 @@ const EventDetailsModal = ({
           alignItems: 'center',
         }}
       >
-        <Box
-          className=" position-relative  "
-          width={'90%'}
-          height={320}
-          marginBottom={2}
-        >
-          <img
-            src={imageURL}
-            width={'100%'}
-            height={'100%'}
-            style={{ borderRadius: '10px' }}
-            alt="event details page"
-          />
-        </Box>
         {loading ? (
           <Stack
-            width={'90%'}
-            height={100}
-            borderRadius={3}
-            justifyContent={'center'}
+            gap={2}
             alignItems={'center'}
-            bgcolor={'white'}
+            width={'100%'}
           >
             {' '}
-            <CircularProgress />
-          </Stack>
-        ) : (
-          <Grid
-            container
-            width={'90%'}
-            height={!isScreen600 ? 250 : ''}
-            bgcolor={'white'}
-            borderRadius={3}
-            display={'flex'}
-            alignItems={'flex-start'}
-            justifyContent={'flex-start'}
-            paddingY={2}
-            sx={{ direction: isArabic ? 'rtl' : 'ltr' }}
-          >
-            {data?.metadata &&
-              data?.metadata.map((item: any, i: number) => {
-                let SvgIcon = metadataIcons(item.slug);
+            <Stack>
+              <CustomSkeleton
+                variant="rectangle"
+                width={isScreen600 ? '250px' : '500px'}
+                height="250px"
+                bgcolor="grey.400"
+                borderRadius="20px"
+              />{' '}
+            </Stack>
+            {Array(3)
+              .fill(0)
+              .map((_, i: number) => {
                 return (
-                  <Grid
-                    item
+                  <Stack
                     key={i}
-                    xs={12}
-                    sm={6}
-                    display={'flex'}
-                    justifyContent={'flex-start'}
-                    alignItems={'center'}
-                    height={50}
-                    gap={2}
-                    paddingX={1.5}
-                    paddingY={3}
+                    direction={'row'}
+                    justifyContent={'space-evenly'}
+                    width={'100%'}
                   >
-                    <Stack
-                      direction={'row'}
-                      justifyContent={'flex-start'}
-                      alignItems={'center'}
-                      gap={2}
-                      width={'60%'}
-                    >
-                      <Stack
-                        sx={{ width: '10px', height: '50px' }}
-                        justifyContent={'center'}
-                      >
-                        {SvgIcon && <SvgIcon />}
-                      </Stack>
-
-                      <Typography
-                        fontWeight={600}
-                        fontSize={13}
-                        color={primaryColor}
-                      >
-                        {item.name}
-                      </Typography>
-                    </Stack>
-                    <Stack
-                      width={'40%'}
-                      height={70}
-                      justifyContent={'center'}
-                    >
-                      <Typography
-                        fontSize={13}
-                        color={gray100}
-                      >
-                        {item.value}
-                      </Typography>
-                    </Stack>
-                  </Grid>
+                    <CustomSkeleton
+                      width={isScreen600 ? '100px' : '200px'}
+                      bgcolor="grey.400"
+                    />
+                    <CustomSkeleton
+                      width={isScreen600 ? '100px' : '200px'}
+                      bgcolor="grey.400"
+                    />
+                  </Stack>
                 );
               })}
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              display={'flex'}
-              justifyContent={'space-between'}
-              alignItems={'center'}
-              height={50}
-              paddingX={1.5}
-              paddingY={3}
+          </Stack>
+        ) : (
+          <Stack
+            width={'100%'}
+            alignItems={'center'}
+          >
+            <Box
+              className=" position-relative  "
+              width={'90%'}
+              height={320}
+              marginBottom={2}
             >
-              <Stack
-                direction={'row'}
-                justifyContent={'flex-start'}
-                alignItems={'center'}
-                gap={1}
+              <img
+                src={imageURL}
                 width={'100%'}
+                height={'100%'}
+                style={{ borderRadius: '10px' }}
+                alt="event details page"
+              />
+            </Box>
+            <Grid
+              container
+              width={'90%'}
+              height={!isScreen600 ? 250 : ''}
+              bgcolor={'white'}
+              borderRadius={3}
+              display={'flex'}
+              alignItems={'flex-start'}
+              justifyContent={'flex-start'}
+              paddingY={2}
+              sx={{ direction: isArabic ? 'rtl' : 'ltr' }}
+            >
+              {data?.metadata &&
+                data?.metadata.map((item: any, i: number) => {
+                  let SvgIcon = metadataIcons(item.slug);
+                  return (
+                    <Grid
+                      item
+                      key={i}
+                      xs={12}
+                      sm={6}
+                      display={'flex'}
+                      justifyContent={'flex-start'}
+                      alignItems={'center'}
+                      height={50}
+                      gap={2}
+                      paddingX={1.5}
+                      paddingY={3}
+                    >
+                      <Stack
+                        direction={'row'}
+                        justifyContent={'flex-start'}
+                        alignItems={'center'}
+                        gap={2}
+                        width={'60%'}
+                      >
+                        <Stack
+                          sx={{ width: '10px', height: '50px' }}
+                          justifyContent={'center'}
+                        >
+                          {SvgIcon && <SvgIcon />}
+                        </Stack>
+
+                        <Typography
+                          fontWeight={600}
+                          fontSize={13}
+                          color={primaryColor}
+                        >
+                          {item.name}
+                        </Typography>
+                      </Stack>
+                      <Stack
+                        width={'40%'}
+                        height={70}
+                        justifyContent={'center'}
+                      >
+                        <Typography
+                          fontSize={13}
+                          color={gray100}
+                        >
+                          {item.value}
+                        </Typography>
+                      </Stack>
+                    </Grid>
+                  );
+                })}
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                display={'flex'}
+                justifyContent={'space-between'}
+                alignItems={'center'}
+                height={50}
+                paddingX={1.5}
+                paddingY={3}
               >
-                <Stack justifyContent={'center'}>
-                  <PlaceSVG />
+                <Stack
+                  direction={'row'}
+                  justifyContent={'flex-start'}
+                  alignItems={'center'}
+                  gap={1}
+                  width={'100%'}
+                >
+                  <Stack justifyContent={'center'}>
+                    <PlaceSVG />
+                  </Stack>
+                  <Typography
+                    fontWeight={600}
+                    fontSize={13}
+                    color={primaryColor}
+                  >
+                    {t('dialog.location')}
+                  </Typography>
                 </Stack>
-                <Typography
-                  fontWeight={600}
-                  fontSize={13}
-                  color={primaryColor}
+                <Stack
+                  width={'60%'}
+                  height={70}
+                  justifyContent={'center'}
+                  alignItems={'flex-start'}
                 >
-                  {t('dialog.location')}
-                </Typography>
-              </Stack>
-              <Stack
-                width={'60%'}
-                height={70}
-                justifyContent={'center'}
-                alignItems={'flex-start'}
-              >
-                <Typography
-                  fontSize={13}
-                  color={gray100}
-                >
-                  {data?.place && data?.place?.name}
-                </Typography>
-              </Stack>
+                  <Typography
+                    fontSize={13}
+                    color={gray100}
+                  >
+                    {data?.place && data?.place?.name}
+                  </Typography>
+                </Stack>
+              </Grid>
             </Grid>
-          </Grid>
+          </Stack>
         )}
 
         <div dangerouslySetInnerHTML={{ __html: data?.description }} />

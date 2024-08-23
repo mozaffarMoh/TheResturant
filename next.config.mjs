@@ -5,7 +5,14 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['theplatform.merwas.app'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'theplatform.merwas.app',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
 

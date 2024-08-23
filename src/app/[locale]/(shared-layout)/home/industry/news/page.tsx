@@ -31,6 +31,7 @@ import {
 } from '@mui/icons-material';
 import { usePathname } from 'next/navigation';
 import { DefautImage1 } from '@/constant/images';
+import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 
 const News = () => {
   const t = useTranslations();
@@ -73,7 +74,7 @@ const News = () => {
     body,
   );
 
-  const [categories, , getCategories] = usePost(
+  const [categories, loadingCategories, getCategories] = usePost(
     endPoints.DynamicFilter,
     bodyCategory,
   );
@@ -157,71 +158,96 @@ const News = () => {
             flexDirection={'column'}
             className="news-items"
           >
-            {loading && (
-              <Stack
-                height={700}
-                justifyContent={'center'}
-                alignItems={'center'}
-              >
-                <CircularProgress />
-              </Stack>
-            )}
-            {data &&
-              !loading &&
-              data.map((item: any) => {
-                let imageURL =
-                  item.media.length > 0 && item.media[0]?.url
-                    ? domain + item.media[0]?.url
-                    : DefautImage1;
-                return (
-                  <Stack
-                    className="news-item"
-                    justifyContent={'flex-start'}
-                    direction={'row'}
-                    onClick={() => handleShowItem(item?.slug)}
-                    sx={{
-                      '&:hover': {
-                        cursor: 'pointer',
-                      },
-                    }}
-                  >
-                    <img
-                      src={imageURL}
-                      alt="NewsImage"
-                      className="news-image"
-                    />
-
+            {loading
+              ? Array(2)
+                  .fill(0)
+                  .map((_, i: number) => {
+                    return (
+                      <Stack
+                        key={i}
+                        gap={2}
+                        paddingBottom={10}
+                        direction={'row'}
+                        flexWrap={'wrap'}
+                        justifyContent={'space-evenly'}
+                        width={'100%'}
+                      >
+                        {' '}
+                        <Stack>
+                          <CustomSkeleton
+                            variant="rectangle"
+                            width="300px"
+                            height="200px"
+                            borderRadius="20px"
+                          />{' '}
+                        </Stack>
+                        <Stack
+                          width={'50%'}
+                          key={i}
+                          alignItems={'flex-start'}
+                        >
+                          <CustomSkeleton width="150px" />
+                          <CustomSkeleton width="250px" />
+                          <CustomSkeleton width="300px" />
+                        </Stack>
+                      </Stack>
+                    );
+                  })
+              : data &&
+                data.map((item: any) => {
+                  let imageURL =
+                    item.media.length > 0 && item.media[0]?.url
+                      ? domain + item.media[0]?.url
+                      : DefautImage1;
+                  return (
                     <Stack
+                      className="news-item"
                       justifyContent={'flex-start'}
-                      className="news-details-text"
-                      margin={2}
+                      direction={'row'}
+                      onClick={() => handleShowItem(item?.slug)}
+                      sx={{
+                        '&:hover': {
+                          cursor: 'pointer',
+                        },
+                      }}
                     >
-                      <Typography
-                        variant="h6"
-                        color={primaryColor}
-                        fontFamily={'Jost'}
-                        fontWeight={'500'}
+                      <img
+                        src={imageURL}
+                        alt="NewsImage"
+                        className="news-image"
+                      />
+
+                      <Stack
+                        justifyContent={'flex-start'}
+                        className="news-details-text"
+                        margin={2}
                       >
-                        {item.title}
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        color={primaryColor}
-                        fontFamily={'Jost'}
-                        fontWeight={'400'}
-                      >
-                        {item.subTitle}
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        color={textSecondaryColor}
-                      >
-                        {item.category}
-                      </Typography>
+                        <Typography
+                          variant="h6"
+                          color={primaryColor}
+                          fontFamily={'Jost'}
+                          fontWeight={'500'}
+                        >
+                          {item.title}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          color={primaryColor}
+                          fontFamily={'Jost'}
+                          fontWeight={'400'}
+                        >
+                          {item.subTitle}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          color={textSecondaryColor}
+                        >
+                          {item.category}
+                        </Typography>
+                      </Stack>
                     </Stack>
-                  </Stack>
-                );
-              })}
+                  );
+                })}
           </Grid>
           {!isScreen900 ? (
             <Grid
@@ -243,34 +269,55 @@ const News = () => {
                   {t('select.tags')}
                 </Typography>
                 <Box padding={1}>
-                  <Typography
-                    variant="body1"
-                    lineHeight={2}
-                    color={category == 'all' ? '#EB6B2A' : gray300}
-                    sx={{
-                      '&:hover': { color: '#EB6B2A', cursor: 'pointer' },
-                    }}
-                    onClick={() => setCategory('all')}
-                  >
-                    {t('select.all')}
-                  </Typography>
-                  {categories &&
-                    categories.map((item: any, i: number) => {
-                      return (
-                        <Typography
-                          key={i}
-                          variant="body1"
-                          lineHeight={2}
-                          color={item.slug == category ? '#EB6B2A' : gray300}
-                          sx={{
-                            '&:hover': { color: '#EB6B2A', cursor: 'pointer' },
-                          }}
-                          onClick={() => setCategory(item.slug)}
-                        >
-                          {item.name}
-                        </Typography>
-                      );
-                    })}
+                  {loadingCategories ? (
+                    Array(2)
+                      .fill(0)
+                      .map((_, i: number) => {
+                        return (
+                          <Stack key={i}>
+                            <CustomSkeleton width="80px" />
+                            <CustomSkeleton width="140px" />
+                            <CustomSkeleton width="90px" />
+                          </Stack>
+                        );
+                      })
+                  ) : (
+                    <div>
+                      <Typography
+                        variant="body1"
+                        lineHeight={2}
+                        color={category == 'all' ? '#EB6B2A' : gray300}
+                        sx={{
+                          '&:hover': { color: '#EB6B2A', cursor: 'pointer' },
+                        }}
+                        onClick={() => setCategory('all')}
+                      >
+                        {t('select.all')}
+                      </Typography>
+                      {categories &&
+                        categories.map((item: any, i: number) => {
+                          return (
+                            <Typography
+                              key={i}
+                              variant="body1"
+                              lineHeight={2}
+                              color={
+                                item.slug == category ? '#EB6B2A' : gray300
+                              }
+                              sx={{
+                                '&:hover': {
+                                  color: '#EB6B2A',
+                                  cursor: 'pointer',
+                                },
+                              }}
+                              onClick={() => setCategory(item.slug)}
+                            >
+                              {item.name}
+                            </Typography>
+                          );
+                        })}
+                    </div>
+                  )}
                 </Box>
               </Box>
             </Grid>

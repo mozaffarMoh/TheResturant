@@ -11,13 +11,14 @@ import ContactUsSection from '@/sections/guest-home/contact-us/contactUsSection'
 import GuestHeader from '@/sections/guest-home/guest-header/guest-header';
 import useGet from '@/custom-hooks/useGet';
 import { endPoints } from '@/base-api/endPoints';
-import Loading from '@/components/Loading/Loading';
 import { useEffect, useState } from 'react';
+import VideoSection from '@/components/home-page/VideoSection/VideoSection';
 
 const PublicHomePage: NextPage = () => {
   const [data, loading, getData] = useGet(endPoints.ladningPage);
   const [heroData, setHeroData] = useState({});
   const [cardsData, setCardsData] = useState({});
+  const [videoData, setVideoData]: any = useState({});
   const [partnersData, setPartnersData]: any = useState({});
   const [aboutData, setAboutData] = useState({});
   const [servicesData, setServicesData] = useState({});
@@ -31,6 +32,7 @@ const PublicHomePage: NextPage = () => {
       data?.children.forEach((item: any) => {
         item.slug == 'welcome' && setHeroData(item);
         item.slug == 'four-boxes' && setCardsData(item);
+        item.slug == 'explanatory-video' && setVideoData(item);
         item.slug == 'about-us' && setAboutData(item);
         item.slug == 'services' && setServicesData(item);
         item.slug == 'partners' && setPartnersData(item);
@@ -38,15 +40,37 @@ const PublicHomePage: NextPage = () => {
     }
   }, [data]);
 
+  //console.log(data);
+
   return (
     <>
-      {loading && <Loading />}
       <GuestHeader />
-      <HeroSection data={heroData} />
-      <CardsSection data={cardsData} />
-      <AboutUsSection data={aboutData} />
-      <ServicesSection data={servicesData} />
-      <PartnerSection data={partnersData} />
+      <HeroSection
+        data={heroData}
+        loading={loading}
+      />
+      <CardsSection
+        data={cardsData}
+        loading={loading}
+      />
+      {videoData?.value && (
+        <VideoSection
+          data={videoData}
+          loading={loading}
+        />
+      )}
+      <AboutUsSection
+        data={aboutData}
+        loading={loading}
+      />
+      <ServicesSection
+        data={servicesData}
+        loading={loading}
+      />
+      <PartnerSection
+        data={partnersData}
+        loading={loading}
+      />
       <ContactUsSection />
       <AuthFooter />
     </>

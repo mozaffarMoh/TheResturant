@@ -2,7 +2,6 @@
 import type { NextPage } from 'next';
 import {
   Box,
-  Button,
   CircularProgress,
   Grid,
   MenuItem,
@@ -30,12 +29,12 @@ import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
 import { endPoints } from '@/base-api/endPoints';
 import useGet from '@/custom-hooks/useGet';
-import Loading from '@/components/Loading/Loading';
 import CustomAlert from '@/components/alerts/CustomAlert';
 import { signupSchema } from './schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SignUpInput from '@/components/inputs/signUpInput';
+import { LoadingButton } from '@mui/lab';
 
 const SingUp: NextPage = () => {
   const t = useTranslations();
@@ -142,7 +141,11 @@ const SingUp: NextPage = () => {
       slug: 'governorate',
       type: 'select',
       fieldData: governorateArray,
-      startIcon: governorateLoading ? <CircularProgress size={18} /> : <LocationSVG />,
+      startIcon: governorateLoading ? (
+        <CircularProgress size={18} />
+      ) : (
+        <LocationSVG />
+      ),
     },
     {
       name: t('auth.terms'),
@@ -204,7 +207,6 @@ const SingUp: NextPage = () => {
 
   return (
     <div className={styles.signInContainer}>
-      {loading && <Loading />}
       <CustomAlert
         openAlert={errorMessage}
         setOpenAlert={() => {}}
@@ -287,7 +289,8 @@ const SingUp: NextPage = () => {
                   })}
                 </Stack>
                 <Stack alignItems={'flex-end'}>
-                  <Button
+                  <LoadingButton
+                    loading={loading}
                     variant="outlined"
                     type="submit"
                     sx={{
@@ -311,7 +314,7 @@ const SingUp: NextPage = () => {
                     }
                   >
                     {t('auth.next')}
-                  </Button>
+                  </LoadingButton>
                 </Stack>{' '}
               </form>
             </Box>

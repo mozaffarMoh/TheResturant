@@ -1,4 +1,4 @@
-import { Container, Grid, useMediaQuery } from '@mui/material';
+import { Container, Grid, Stack, useMediaQuery } from '@mui/material';
 import styles from './contact-us.module.css';
 import ContactUsSectionCard from '@/components/cards/contact-us-section/contactUsSectionCard';
 import ContactUsForm from './contact-us-form/contactUsForm';
@@ -6,11 +6,12 @@ import { useTranslations } from 'next-intl';
 import useGet from '@/custom-hooks/useGet';
 import { endPoints } from '@/base-api/endPoints';
 import { useEffect } from 'react';
+import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 
 const ContactUsSection = () => {
   const isScreen700 = useMediaQuery('(max-width:700px)');
   const t = useTranslations();
-  const [data, , getData] = useGet(endPoints.contactUsDetials);
+  const [data, loading, getData] = useGet(endPoints.contactUsDetials);
 
   useEffect(() => {
     getData();
@@ -62,22 +63,40 @@ const ContactUsSection = () => {
                 container
                 rowSpacing={5}
               >
-                {data &&
-                  data?.children &&
-                  data.children.map((item: any) => (
-                    <Grid
-                      key={item.id}
-                      item
-                      xs={12}
-                      md={5.5}
-                    >
-                      <ContactUsSectionCard
-                        title={item.value}
-                        content={item.children}
-                        media={item.media}
-                      />
-                    </Grid>
-                  ))}
+                {loading
+                  ? Array(4)
+                      .fill(0)
+                      .map((_, index: number) => (
+                        <Grid
+                          key={index}
+                          direction={'row'}
+                          item
+                          xs={12}
+                          sm={12}
+                          md={6}
+                        >
+                          <CustomSkeleton
+                            width={'200px'}
+                            height={'150px'}
+                          />
+                        </Grid>
+                      ))
+                  : data &&
+                    data?.children &&
+                    data.children.map((item: any) => (
+                      <Grid
+                        key={item.id}
+                        item
+                        xs={12}
+                        md={5.5}
+                      >
+                        <ContactUsSectionCard
+                          title={item.value}
+                          content={item.children}
+                          media={item.media}
+                        />
+                      </Grid>
+                    ))}
               </Grid>
             </Grid>
           </Grid>

@@ -1,5 +1,5 @@
 'use client';
-import { Container } from '@mui/material';
+import { Avatar, Container, Skeleton, Stack } from '@mui/material';
 import MentorListItem from './mentorListItem';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import usePost from '@/custom-hooks/usePost';
 import { endPoints } from '@/base-api/endPoints';
 import { useEffect } from 'react';
+import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 
 const MentorsSection = () => {
   const t = useTranslations();
@@ -32,7 +33,7 @@ const MentorsSection = () => {
       'form.slug': 'TPF-Register-Form',
     },
   };
-  const [mentorsItems, , getMentorsItems] = usePost(
+  const [mentorsItems, loading, getMentorsItems] = usePost(
     endPoints.DynamicFilter,
     bodyMentors,
   );
@@ -41,16 +42,16 @@ const MentorsSection = () => {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: Math.min(5, mentorsItems.length),
-    slidesToScroll: Math.min(4, mentorsItems.length),
+    slidesToShow: Math.min(5, mentorsItems.length || 0),
+    slidesToScroll: Math.min(4, mentorsItems.length || 0),
     initialSlide: 0,
 
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: Math.min(4, mentorsItems.length),
-          slidesToScroll: Math.min(3, mentorsItems.length),
+          slidesToShow: Math.min(4, mentorsItems.length || 0),
+          slidesToScroll: Math.min(3, mentorsItems.length || 0),
           infinite: mentorsItems.length > 4, // Loop if more than 4 items
           dots: true,
         },
@@ -58,16 +59,16 @@ const MentorsSection = () => {
       {
         breakpoint: 900,
         settings: {
-          slidesToShow: Math.min(3, mentorsItems.length),
-          slidesToScroll: Math.min(3, mentorsItems.length),
+          slidesToShow: Math.min(3, mentorsItems.length || 0),
+          slidesToScroll: Math.min(3, mentorsItems.length || 0),
           initialSlide: 1,
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: Math.min(2, mentorsItems.length),
-          slidesToScroll: Math.min(2, mentorsItems.length),
+          slidesToShow: Math.min(2, mentorsItems.length || 0),
+          slidesToScroll: Math.min(2, mentorsItems.length || 0),
           arrows: false,
           dots: true,
         },
@@ -98,6 +99,7 @@ const MentorsSection = () => {
         <div className=" w-full mb-4 ">
           <Slider {...settings}>
             {mentorsItems &&
+              mentorsItems?.length > 0 &&
               mentorsItems.map((item: any, i: number) => (
                 <MentorListItem
                   key={i}

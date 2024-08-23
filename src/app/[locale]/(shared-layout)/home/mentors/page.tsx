@@ -30,6 +30,7 @@ import {
   ArrowForwardIosRounded,
 } from '@mui/icons-material';
 import { DefautImage2 } from '@/constant/images';
+import CardSkeletonVertical from '@/components/skeleton/cardSkeletonVertical';
 
 const MentorsPage: NextPage = () => {
   const t = useTranslations();
@@ -215,14 +216,17 @@ const MentorsPage: NextPage = () => {
               </FormControl>
             </Stack>
           </Stack>
-          {loadingMentorsItems ? (
+          {loadingMentorsItems || loadingProfessionList ? (
             <Stack
-              width={'100%'}
-              height={300}
-              alignItems={'center'}
+              gap={2}
+              paddingY={10}
+              direction={'row'}
+              flexWrap={'wrap'}
               justifyContent={'center'}
             >
-              <CircularProgress />
+              <CardSkeletonVertical />
+              <CardSkeletonVertical />
+              <CardSkeletonVertical />
             </Stack>
           ) : (
             <Stack

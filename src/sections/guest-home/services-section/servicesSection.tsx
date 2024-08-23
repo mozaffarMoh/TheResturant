@@ -2,19 +2,42 @@ import { Container } from '@mui/material';
 import ServicesListItem from './services-list-item';
 import { DefautImage1 } from '@/constant/images';
 import { domain } from '@/base-api/endPoints';
+import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 
-const ServicesSection = ({ data }: any) => {
+const ServicesSection = ({ data, loading }: any) => {
   return (
     <Container
       className="mt-4 max-w-90 "
       id="services"
     >
       <div className="sm-flex-col-col-center-center ">
-        <div className="text-align-center">
-          <p className="text-xlarge-title">{data?.key}</p>
-          <p className="sub-text-larges opacity-75">{data?.value}</p>
-        </div>
-        {data?.children &&
+        {loading ? (
+          <div className="text-align-center">
+            <CustomSkeleton
+              width="150px"
+              height="40px"
+            />
+            <CustomSkeleton
+              width="300px"
+              height="40px"
+            />
+          </div>
+        ) : (
+          <div className="text-align-center">
+            <p className="text-xlarge-title">{data?.key}</p>
+            <p className="sub-text-larges opacity-75">{data?.value}</p>
+          </div>
+        )}
+
+        {loading ? (
+          <CustomSkeleton
+            width={'80%'}
+            height={'400px'} // Adjust the height based on card content
+            borderRadius={4}
+            variant="rectangular"
+          />
+        ) : (
+          data?.children &&
           data?.children.map((item: any, i: number) => {
             let imageURL = item?.media?.[0]?.url
               ? domain + item?.media[0]?.url
@@ -28,7 +51,8 @@ const ServicesSection = ({ data }: any) => {
                 imageURL={imageURL}
               />
             );
-          })}
+          })
+        )}
       </div>
     </Container>
   );

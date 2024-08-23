@@ -22,8 +22,6 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   const isArabic = locale === 'ar';
 
-  console.log('check arabic : ', isArabic);
-
   return (
     <html
       lang={locale}

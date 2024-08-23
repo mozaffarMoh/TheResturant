@@ -13,19 +13,21 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+  console.log(facility);
 
   return (
     <Container
       maxWidth="lg"
       className="mt-4  mb-4"
+      sx={{ height: !facility?.slug ? '200px' : '' }}
     >
-
       <FacilityReserveModal
         open={isModalOpen}
         onClose={handleCloseModal}
         facility={facility}
       />
-      {facility && (
+
+      {facility && facility?.slug && (
         <Grid
           container
           direction="row"

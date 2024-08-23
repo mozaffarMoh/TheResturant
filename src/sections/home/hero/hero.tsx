@@ -1,23 +1,30 @@
 'use client';
 import styles from './hero.module.css';
-import { Container } from '@mui/material';
+import { Container, Skeleton } from '@mui/material';
 import { DefautImage1Large, homeHeroImage } from '@/constant/images';
 import { domain, endPoints } from '@/base-api/endPoints';
 import { usePathname } from 'next/navigation';
+import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 
 interface IProps {
   bannerImage?: string;
   noText?: boolean;
   data?: any;
+  loading?: boolean;
 }
-const HeroSection = ({ bannerImage = '', noText = false, data }: IProps) => {
+const HeroSection = ({
+  bannerImage = '',
+  noText = false,
+  data,
+  loading,
+}: IProps) => {
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
 
   let imageURL =
     data && data?.children?.[0]?.media?.[0]?.url
       ? domain + data?.children?.[0]?.media?.[0]?.url
-      : DefautImage1Large;
+      : '';
 
   let title = data && data?.children?.[0]?.key;
   let subTitle = data && data?.children?.[0]?.value;
@@ -29,6 +36,14 @@ const HeroSection = ({ bannerImage = '', noText = false, data }: IProps) => {
         backgroundImage: `url(${data ? imageURL : bannerImage})`,
       }}
     >
+      {loading && (
+        <Skeleton
+          sx={{ height: '100%', bgcolor: 'grey.500' }}
+          width={'100%'}
+          animation="wave"
+          variant="rectangular"
+        />
+      )}
       {data && <div className={styles.heroBrightness} />}
       <div
         className={styles.heroTitle}
@@ -36,8 +51,29 @@ const HeroSection = ({ bannerImage = '', noText = false, data }: IProps) => {
       >
         {noText ? null : (
           <Container maxWidth="lg">
-            <p className="general-title text-white-new ">{title}</p>
-            <p className={styles.SubTitle}>{subTitle}</p>
+            {loading ? (
+              <div>
+                <p className="general-title text-white-new ">
+                  <CustomSkeleton
+                    bgcolor="grey.500"
+                    width="200px"
+                    height="40px"
+                  />
+                </p>
+                <p className={styles.SubTitle}>
+                  <CustomSkeleton
+                    bgcolor="grey.500"
+                    width="300px"
+                    height="40px"
+                  />
+                </p>
+              </div>
+            ) : (
+              <div>
+                <p className="general-title text-white-new ">{title}</p>
+                <p className={styles.SubTitle}>{subTitle}</p>
+              </div>
+            )}
           </Container>
         )}
       </div>

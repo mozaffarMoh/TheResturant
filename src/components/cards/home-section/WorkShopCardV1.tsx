@@ -2,38 +2,22 @@ import * as React from 'react';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
-import { Paper } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import './workshop-card-v1.css';
+import dayjs from 'dayjs';
 
 export default function WorkShopCardV1({
   key,
   title,
   subTitle,
   category,
+  date,
 }: any) {
-  const [day, setDay] = React.useState('');
-  const [month, setMonth] = React.useState('');
-  const [time, setTime] = React.useState('');
-  /* 
-  React.useEffect(() => {
-    if (metadata?.length > 0) {
-      metadata.forEach((item: any) => {
-        if (item.slug == 'date') {
-          setDay(item.value.split('-')[2]);
-          setMonth(
-            new Date(item.value.split('-')[1]).toLocaleDateString('en-GB', {
-              month: 'long',
-            }),
-          );
-        }
-        if (item.slug == 'time') {
-          setTime(item.value);
-        }
-      });
-    }
-  }, [metadata]); */
+  const dateFormat = dayjs(date);
+  const day = dateFormat.format('D');
+  const month = dateFormat.format('MMMM');
 
   return (
     <Card
@@ -63,15 +47,22 @@ export default function WorkShopCardV1({
           }}
           className="md-workshop-media-paper"
         >
-          <div>{day}14</div>
-          <div>{month}Aug</div>
+          <div>{day}</div>
+          <div>{month}</div>
         </Paper>
       </CardOverflow>
       <CardContent className="sm-flex-col-reverse">
-        <p className="text-reg-card-v1 fw600 p-px-4">{title}</p>
+        <p className="text-reg-card-v1 fw600 ">{title}</p>
         <div className="sm-flex-row-col-425  align-center-425 gap1 ">
           <span className="text-xs opacity-80">{subTitle}</span>
         </div>
+
+        <Typography
+          color={'#EB6B2A'}
+          fontSize={11}
+        >
+          {category}
+        </Typography>
       </CardContent>
     </Card>
   );

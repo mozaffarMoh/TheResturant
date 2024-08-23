@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 
 const HomePage: NextPage = () => {
   const t = useTranslations();
-  const [data, , getData] = useGet(endPoints.homePage);
+  const [data, loading, getData] = useGet(endPoints.homePage);
 
   useEffect(() => {
     getData();
@@ -19,7 +19,10 @@ const HomePage: NextPage = () => {
 
   return (
     <>
-      <HeroSection data={data} />
+      <HeroSection
+        data={data}
+        loading={loading}
+      />
       <EventsSection title={t('header.events')} />
       <WorkShopsSection />
       <MentorsSection />

@@ -1,6 +1,5 @@
 'use client';
 import { Button, Container, Stack } from '@mui/material';
-import styles from './work-shops.module.css';
 import { primaryColor } from '@/constant/color';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import WorkShopCardV1 from '@/components/cards/home-section/WorkShopCardV1';
@@ -11,6 +10,8 @@ import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { usePathname, useRouter } from 'next/navigation';
 import usePost from '@/custom-hooks/usePost';
+import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
+import CardSkeleton from '@/components/skeleton/cardSkeleton';
 
 const WorkShopsSection = () => {
   const t = useTranslations();
@@ -22,20 +23,18 @@ const WorkShopsSection = () => {
   const body = {
     modelName: 'Item',
     filters: { 'itemType.slug': 'News' },
-    fields: ['slug', 'title', 'subTitle', 'media'],
+    fields: ['slug', 'title', 'subTitle', 'media', 'created_at'],
     add_fields: {
       categories: 'first,name,category',
     },
     'with-pagination': false,
   };
 
-  const [data, , getData] = usePost(endPoints.DynamicFilter, body);
+  const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
 
   useEffect(() => {
     getData();
   }, []);
-
-  console.log(data);
 
   return (
     <section
@@ -68,18 +67,28 @@ const WorkShopsSection = () => {
                   justifyContent={'space-between'}
                   gap={3}
                 >
-                  {data &&
+                  {loading ? (
+                    <Stack gap={2}>
+                      <CardSkeleton />
+                      <CardSkeleton />
+                    </Stack>
+                  ) : (
+                    data &&
                     data.length > 0 &&
-                    data.map((item: any, i: number) => (
-                      // i > 1 &&
-                      // i <div 5 && (
-                      <WorkShopCardV1
-                        key={i}
-                        title={item?.title}
-                        subTitle={item?.subTitle}
-                        category={item?.category}
-                      />
-                    ))}
+                    data.map(
+                      (item: any, i: number) =>
+                        i > 1 &&
+                        i < 5 && (
+                          <WorkShopCardV1
+                            key={i}
+                            title={item?.title}
+                            subTitle={item?.subTitle}
+                            category={item?.category}
+                            date={item?.created_at}
+                          />
+                        ),
+                    )
+                  )}
                 </Stack>{' '}
                 {/* cards Vertical cards  section */}
                 <Stack
@@ -89,7 +98,17 @@ const WorkShopsSection = () => {
                   spacing={2}
                   gap={3}
                 >
-                  {data &&
+                  {loading ? (
+                    <Stack
+                      direction={'row'}
+                      alignItems={'center'}
+                      gap={2}
+                    >
+                      <CardSkeleton />
+                      <CardSkeleton />
+                    </Stack>
+                  ) : (
+                    data &&
                     data.length > 0 &&
                     data.map((item: any, i: number) => {
                       if (i < 2) {
@@ -100,10 +119,12 @@ const WorkShopsSection = () => {
                             subTitle={item?.subTitle}
                             media={item?.media}
                             category={item?.category}
+                            date={item?.created_at}
                           />
                         );
                       }
-                    })}
+                    })
+                  )}
                 </Stack>
               </Stack>
 

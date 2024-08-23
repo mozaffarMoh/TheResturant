@@ -66,13 +66,6 @@ const ServicesListItem = ({ title, content, index, imageURL }: IProps) => {
           >
             {content}
           </p>
-
-          <Grid
-            container
-            className="mt-2"
-            spacing={2}
-            rowSpacing={2}
-          ></Grid>
         </Grid>
       </Grid>
     </div>

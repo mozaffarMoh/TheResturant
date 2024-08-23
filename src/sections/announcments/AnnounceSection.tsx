@@ -2,11 +2,11 @@ import { endPoints } from '@/base-api/endPoints';
 import AnnounceCard from '@/components/cards/announcements/AnnounceCard';
 import CarouselElement from '@/components/carousel/CarouselElement';
 import AnnounceModal from '@/components/modals/announceModal';
+import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 import { primaryColor } from '@/constant/color';
 import usePost from '@/custom-hooks/usePost';
 import {
   Box,
-  CircularProgress,
   Container,
   Stack,
   Typography,
@@ -87,9 +87,32 @@ const AnnounceSection = () => {
 
         <Box className=" w-full mb-4">
           {loading ? (
-            <Stack alignItems={'center'}>
+            <Stack
+              gap={2}
+              paddingTop={10}
+              direction={'row'}
+              flexWrap={'wrap'}
+              justifyContent={'space-evenly'}
+              width={'100%'}
+            >
               {' '}
-              <CircularProgress />
+              <Stack>
+                <CustomSkeleton
+                  variant="rectangle"
+                  width="300px"
+                  height="200px"
+                  borderRadius="20px"
+                />{' '}
+              </Stack>
+              <Stack justifyContent={'center'}>
+                <CustomSkeleton width="150px" />
+                <CustomSkeleton width="250px" />
+                <CustomSkeleton width="300px" />
+                <CustomSkeleton
+                  width="150px"
+                  height="60px"
+                />
+              </Stack>
             </Stack>
           ) : (
             <CarouselElement>

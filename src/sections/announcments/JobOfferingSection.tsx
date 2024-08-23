@@ -22,6 +22,7 @@ import usePost from '@/custom-hooks/usePost';
 import { domain, endPoints } from '@/base-api/endPoints';
 import { DefautImage1, DefautImage2 } from '@/constant/images';
 import { LoadingButton } from '@mui/lab';
+import CardSkeletonVertical from '@/components/skeleton/cardSkeletonVertical';
 
 const JobOfferingSection = () => {
   const t = useTranslations();
@@ -108,7 +109,7 @@ const JobOfferingSection = () => {
           {t('header.jobOffer')}
         </Typography>
 
-      {/*   <Stack
+        {/*   <Stack
           flexDirection={'row'}
           alignItems={'center'}
         >
@@ -156,12 +157,17 @@ const JobOfferingSection = () => {
             </Select>
           </FormControl>
         </Stack> */}
-        
       </Stack>
-      {loading && filteredData.length == 0 ? (
-        <Stack alignItems={'center'}>
+      {loading ? (
+        <Stack
+          direction={'row'}
+          justifyContent={'space-evenly'}
+          flexWrap={'wrap'}
+        >
           {' '}
-          <CircularProgress />
+          <CardSkeletonVertical />
+          <CardSkeletonVertical />
+          <CardSkeletonVertical />
         </Stack>
       ) : (
         <Stack alignItems={'center'}>

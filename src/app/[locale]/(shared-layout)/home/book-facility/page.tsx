@@ -31,6 +31,7 @@ import {
 } from '@mui/icons-material';
 import { usePathname } from 'next/navigation';
 import usePost from '@/custom-hooks/usePost';
+import CardSkeleton from '@/components/skeleton/cardSkeleton';
 
 const BookFacilityPage: NextPage = () => {
   const t = useTranslations();
@@ -293,13 +294,17 @@ const BookFacilityPage: NextPage = () => {
       </Container>
       {/* Facility Listing Section */}
 
-      {loadingFacilityItems ? (
+      {loadingFacilityItems || loadingCitiesList || loadingFacilityList ? (
         <Stack
+          gap={2}
+          paddingY={10}
+          direction={'row'}
+          flexWrap={'wrap'}
           justifyContent={'center'}
-          alignItems={'center'}
-          height={300}
         >
-          <CircularProgress />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
         </Stack>
       ) : (
         <FacilityListingSection facilityItems={facilityItems} />

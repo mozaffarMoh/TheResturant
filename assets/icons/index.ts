@@ -30,9 +30,11 @@ import Phone18SVG from './phone18';
 import OpenEyeSVG from './open-eye';
 import WebsiteSVG from './website';
 import YoutubeSVG from './youtube';
+import PlaySVG from './play';
 
 
 export {
+  PlaySVG,
   YoutubeSVG,
   WebsiteSVG,
   OpenEyeSVG,
