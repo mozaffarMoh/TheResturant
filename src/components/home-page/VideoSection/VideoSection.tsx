@@ -28,7 +28,7 @@ const VideoSection = ({ data, loading }: any) => {
         <Stack
           alignItems={'center'}
           width={'100%'}
-          height={isScreen1100 ? '300px' : '100%'}
+          height={'300px'}
           position={'relative'}
         >
           {loading ? (
