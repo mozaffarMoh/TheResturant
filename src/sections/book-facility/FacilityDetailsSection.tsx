@@ -13,8 +13,6 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-  console.log(facility);
-
   return (
     <Container
       maxWidth="lg"
