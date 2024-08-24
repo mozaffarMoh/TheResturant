@@ -1,4 +1,11 @@
-
+.headerFullContainer {
+  width: 100%;
+  background-color: white;
+  z-index: 10;
+  position: sticky;
+  top: 0px;
+  left: 0px;
+}
 
 .headerContainer {
   background-color: #3f485e;

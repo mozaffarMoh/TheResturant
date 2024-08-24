@@ -93,15 +93,7 @@ const GuestHeader = () => {
   useEffect(() => {
     !isScreen991 && setMenuOpen(false);
   }, [isScreen991]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      window.scrollBy(0, -120);
-    };
-
-    handleScroll();
-  }, [pathname]);
-  console.log(pathname);
+  
   return (
     <div className={styles.headerGuestContainer}>
       <Box

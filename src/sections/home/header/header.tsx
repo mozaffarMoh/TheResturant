@@ -125,10 +125,6 @@ const Header = () => {
     setOpenIndustry(false);
   };
 
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setMenuOpen(newOpen);
-  };
-
   const handleLogout = () => {
     Cookies.remove('token');
     router.push(`/${langCurrent}/sign-in`);
@@ -143,7 +139,7 @@ const Header = () => {
   }, [pathname]);
 
   return (
-    <div>
+    <div className={styles.headerFullContainer}>
       {/* Top banner Partners */}
       <Container maxWidth="lg">
         <Grid
