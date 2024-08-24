@@ -17,7 +17,7 @@ const CloseSVG = () => (
       x2="16"
       y2="16"
       stroke="black"
-      stroke-width="1.5"
+      strokeWidth="1.5"
       strokeLinecap="round"
     />
     <line
@@ -26,7 +26,7 @@ const CloseSVG = () => (
       x2="16"
       y2="8"
       stroke="black"
-      stroke-width="1.5"
+      strokeWidth="1.5"
       strokeLinecap="round"
     />
   </svg>

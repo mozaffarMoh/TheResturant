@@ -1,11 +1,9 @@
 'use client';
 import { HeroSection } from '@/sections/home';
 import FacilityDetailsSection from '@/sections/book-facility/FacilityDetailsSection';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { domain, endPoints } from '@/base-api/endPoints';
 import { useParams } from 'next/navigation';
-import Loading from '@/components/Loading/Loading';
-import { DefautImage1Large } from '@/constant/images';
 import usePost from '@/custom-hooks/usePost';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 import { Stack } from '@mui/material';
@@ -47,7 +45,7 @@ const FacilityDetailsPage = () => {
     data[0].media.length > 0 &&
     data[0]?.media[0]?.url
       ? domain + data[0]?.media[0]?.url
-      : DefautImage1Large;
+      : '';
 
   useEffect(() => {
     getData();

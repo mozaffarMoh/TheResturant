@@ -4,7 +4,7 @@ import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
 import './book-facility-card.css';
 import { Grid, Typography, useMediaQuery } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { domain } from '@/base-api/endPoints';
 import { metadataIcons } from '@/constant/metadataIcons';
@@ -20,7 +20,8 @@ export default function BookFacilityCard({
   metadata,
   place,
 }: any) {
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const pathname = usePathname();
+  const langCurrent = pathname.slice(1, 3) || 'en';
   const { push } = useRouter();
   const isScreen650 = useMediaQuery('(max-width:650px)');
   let imageURL =
@@ -40,7 +41,7 @@ export default function BookFacilityCard({
         width: isScreen650 ? 320 : 400,
         height: isScreen650 ? '100%' : 420,
       }}
-      onClick={() => push(`/${langCookie}/home/book-facility/details/${slug}`)}
+      onClick={() => push(`/${langCurrent}/home/book-facility/details/${slug}`)}
     >
       <CardOverflow>
         <img

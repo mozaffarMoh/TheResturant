@@ -15,8 +15,6 @@ const VideoSection = ({ data, loading }: any) => {
     : DefautImage1;
   const words = (data?.value && data?.value?.split(' ')) || [];
 
-  console.log(data);
-
   return (
     <Container className="mt-4 max-w-md-65">
       <Stack
@@ -47,7 +45,7 @@ const VideoSection = ({ data, loading }: any) => {
               alt="about us Section"
             />
           )}
-          {!loading && (
+          {imageURL.includes(domain) && (
             <Stack
               position={'absolute'}
               top={'40%'}
@@ -61,7 +59,7 @@ const VideoSection = ({ data, loading }: any) => {
               <PlaySVG />
             </Stack>
           )}
-        </Stack>{' '}
+        </Stack>
         <Stack
           alignItems={'flex-start'}
           justifyContent={'center'}

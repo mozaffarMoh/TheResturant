@@ -16,9 +16,9 @@ import CardSkeleton from '@/components/skeleton/cardSkeleton';
 const WorkShopsSection = () => {
   const t = useTranslations();
   const router = useRouter();
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
+  const langCurrent = pathname.slice(1,3)|| 'en';
 
   const body = {
     modelName: 'Item',
@@ -142,7 +142,7 @@ const WorkShopsSection = () => {
                     },
                   }}
                   onClick={() =>
-                    router.push(`/${langCookie}/home/industry/news`)
+                    router.push(`/${langCurrent}/home/industry/news`)
                   }
                   endIcon={isArabic ? <ArrowLeft /> : <ArrowRight />}
                 >

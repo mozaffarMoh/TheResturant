@@ -37,7 +37,7 @@ const MentorsPage: NextPage = () => {
   const router = useRouter();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const langCurrent = pathname.slice(1,3)|| 'en';
   const isScreen600 = useMediaQuery('(max-width:600px)');
   const [profession, setProfession] = useState('');
   const [page, setPage] = useState(0);
@@ -138,7 +138,7 @@ const MentorsPage: NextPage = () => {
             <Link
               underline="hover"
               color="inherit"
-              href={`/${langCookie}/home`}
+              href={`/${langCurrent}/home`}
             >
               {t('header.home')}
             </Link>
@@ -251,7 +251,7 @@ const MentorsPage: NextPage = () => {
                         width: '250px',
                       }}
                       onClick={() =>
-                        router.push(`/${langCookie}/home/mentors/${item.slug}`)
+                        router.push(`/${langCurrent}/home/mentors/${item.slug}`)
                       }
                     >
                       <img

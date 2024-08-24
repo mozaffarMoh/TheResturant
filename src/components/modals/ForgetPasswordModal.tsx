@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
 import { MessageSVG } from '../../../assets/icons';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { z } from 'zod';
 import usePost from '@/custom-hooks/usePost';
 import { endPoints } from '@/base-api/endPoints';
@@ -36,7 +36,8 @@ export const emailSchema = (t: any) => {
 };
 
 const ForgetPasswordModal = ({ open, onClose }: TermsModalProps) => {
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const pathname = usePathname();
+  const langCurrent = pathname.slice(1, 3) || 'en';
   const router = useRouter();
   const t = useTranslations();
   const [email, setEmail] = useState('');
@@ -66,7 +67,7 @@ const ForgetPasswordModal = ({ open, onClose }: TermsModalProps) => {
 
   useEffect(() => {
     if (success) {
-      router.push(`/${langCookie}/verify-password`);
+      router.push(`/${langCurrent}/verify-password`);
     }
   }, [success]);
   return (

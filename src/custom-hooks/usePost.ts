@@ -1,12 +1,14 @@
 import { baseApi } from "@/base-api/baseApi";
 import { useState } from "react";
 import Cookies from 'js-cookie';
+import { usePathname } from "next/navigation";
 
 const usePost = (endPoint: string, body: any, authToken?: string): any => {
-    const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const pathname = usePathname();
+    const langCurrent = pathname.slice(1,3)|| 'en';
     const headers = {
         Accept: 'application/json',
-        Language: langCookie,
+        Language: langCurrent,
         Token: 'z9abe71334aea8236dwell811077c7cb768f7e816290f1',
         Authorization: authToken ? `Bearer ${authToken}` : ''
     };

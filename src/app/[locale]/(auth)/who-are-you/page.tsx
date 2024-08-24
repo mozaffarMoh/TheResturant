@@ -14,17 +14,17 @@ import { usePathname, useRouter } from 'next/navigation';
 
 const WhoAreYouPage: NextPage = () => {
   const router = useRouter();
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const formData: any = localStorage.getItem('formData');
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
+  const langCurrent = pathname.slice(1,3)|| 'en';
   const t = useTranslations();
   const [type, setType] = useState('');
   const [typesArray, setTypesArray] = useState([]);
 
   useEffect(() => {
     if (!formData) {
-      router.push(`/${langCookie}/sign-up`);
+      router.push(`/${langCurrent}/sign-up`);
     } else {
       let parsedTypes = JSON.parse(formData);
       setTypesArray(parsedTypes.inputs[0].input_options);
@@ -32,7 +32,7 @@ const WhoAreYouPage: NextPage = () => {
   }, [formData]);
 
   const handleChooseType = () => {
-    router.push(`/${langCookie}/details/${type}`);
+    router.push(`/${langCurrent}/details/${type}`);
     Cookies.set('userType', type);
   };
 
@@ -127,7 +127,7 @@ const WhoAreYouPage: NextPage = () => {
                     )
                   }
                   onClick={() => {
-                    router.push(`/${langCookie}/sign-up`);
+                    router.push(`/${langCurrent}/sign-up`);
                   }}
                 >
                   {t('who-are-you.back')}

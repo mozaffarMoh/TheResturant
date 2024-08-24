@@ -1,5 +1,6 @@
 import { Alert, Snackbar, SnackbarOrigin, Typography } from '@mui/material';
 import Cookies from 'js-cookie';
+import { usePathname } from 'next/navigation';
 
 interface IProps {
   openAlert: boolean;
@@ -15,8 +16,9 @@ const CustomAlert = ({
   type = 'error',
   position = { vertical: 'top', horizontal: 'right' },
 }: IProps) => {
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
-  const reverseDirection = langCookie == 'en' ? 'rtl' : 'ltr';
+  const pathname = usePathname();
+  const langCurrent = pathname.slice(1, 3) || 'en';
+  const reverseDirection = langCurrent == 'en' ? 'rtl' : 'ltr';
 
   return (
     <Snackbar

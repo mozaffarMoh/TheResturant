@@ -25,12 +25,13 @@ import { signinSchema } from './schema';
 import { z } from 'zod';
 import usePost from '@/custom-hooks/usePost';
 import { LoadingButton } from '@mui/lab';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import axios from 'axios';
 import ForgetPasswordModal from '@/components/modals/ForgetPasswordModal';
 
 const SignIn: NextPage = () => {
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const pathname = usePathname();
+  const langCurrent = pathname.slice(1, 3) || 'en';
   const t = useTranslations();
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -89,7 +90,7 @@ const SignIn: NextPage = () => {
         expires: new Date('9999-12-31T23:59:59'),
       });
       setTimeout(() => {
-        router.push(`/${langCookie}/home`);
+        router.push(`/${langCurrent}/home`);
       }, 2000);
     }
   }, [success]);
@@ -146,7 +147,7 @@ const SignIn: NextPage = () => {
                 <p className="text-med">{t('auth.signin-subtitle')}</p>
                 <p className="text-med mb-4">
                   <Link
-                    href={`/${langCookie}/sign-up`}
+                    href={`/${langCurrent}/sign-up`}
                     className="fw700 text-underline-none fc-black"
                   >
                     {t('auth.register-here')}

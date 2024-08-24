@@ -27,7 +27,7 @@ const GuestHeader = () => {
   const router = useRouter();
   const pathname = usePathname();
   const isScreen991 = useMediaQuery('(max-width:991px)');
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const langCurrent = pathname.slice(1,3)|| 'en';
   let isArabic = pathname.startsWith('/ar');
   const [activeValue, setActiveValue] = useState('');
   const isActive = (value: string) => value == activeValue;
@@ -160,7 +160,7 @@ const GuestHeader = () => {
                           className={`${styles.menuListItem} ${isActive(item.title) && styles.active}`}
                         >
                           <Link
-                            href={`/${langCookie}/${item.link}`}
+                            href={`/${langCurrent}/${item.link}`}
                             onClick={() => setActiveValue(item.title)}
                             style={{ all: 'inherit' }}
                           >
@@ -211,13 +211,13 @@ const GuestHeader = () => {
               >
                 <div className={styles.authDivButton}>
                   <Button
-                    onClick={() => router.push(`/${langCookie}/sign-up`)}
+                    onClick={() => router.push(`/${langCurrent}/sign-up`)}
                     className={styles.authButton}
                   >
                     {t('auth.signup-title')}
                   </Button>
                   <Button
-                    onClick={() => router.push(`/${langCookie}/sign-in`)}
+                    onClick={() => router.push(`/${langCurrent}/sign-in`)}
                     className={styles.authButton}
                   >
                     {t('auth.signin-title')}
@@ -308,13 +308,13 @@ const GuestHeader = () => {
                       </Stack>
                       <div className={styles.authDrawerDivButton}>
                         <Button
-                          onClick={() => router.push(`/${langCookie}/sign-up`)}
+                          onClick={() => router.push(`/${langCurrent}/sign-up`)}
                           className={styles.authDrawerButton}
                         >
                           {t('auth.signup-button')}
                         </Button>
                         <Button
-                          onClick={() => router.push(`/${langCookie}/sign-in`)}
+                          onClick={() => router.push(`/${langCurrent}/sign-in`)}
                           className={styles.authDrawerButton}
                         >
                           {t('auth.signin-button')}

@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
 import { ClosedEyeSVG, LockSVG, MessageSVG } from '../../../assets/icons';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { z } from 'zod';
 import InputV1 from '@/components/inputs/InputV1';
 import { passwordSchema } from './passwordSchema';
@@ -23,10 +23,11 @@ import { endPoints } from '@/base-api/endPoints';
 import usePost from '@/custom-hooks/usePost';
 
 const UpdatePassword = () => {
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const authToken = Cookies.get('verify-token');
   const router = useRouter();
   const t = useTranslations();
+  const pathname = usePathname();
+  const langCurrent = pathname.slice(1,3)|| 'en';
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState({ password: '', confirmPassword: '' });
@@ -58,7 +59,7 @@ const UpdatePassword = () => {
       Cookies.remove('verify-email');
       Cookies.remove('verify-token');
       setTimeout(() => {
-        router.push(`/${langCookie}/sign-in`);
+        router.push(`/${langCurrent}/sign-in`);
       }, 2000);
     }
   }, [success]);

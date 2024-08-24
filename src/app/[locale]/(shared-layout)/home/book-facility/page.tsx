@@ -35,9 +35,9 @@ import CardSkeleton from '@/components/skeleton/cardSkeleton';
 
 const BookFacilityPage: NextPage = () => {
   const t = useTranslations();
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
+  const langCurrent = pathname.slice(1,3)|| 'en';
   const [category, setCategory] = useState<string>('');
   const [location, setLocation] = useState<string>('');
   const [page, setPage] = useState(0);
@@ -153,7 +153,7 @@ const BookFacilityPage: NextPage = () => {
             <Link
               underline="hover"
               color="inherit"
-              href={`/${langCookie}/home`}
+              href={`/${langCurrent}/home`}
             >
               {t('header.home')}
             </Link>

@@ -25,7 +25,7 @@ const UserDetailsPage: NextPage = () => {
   const t = useTranslations();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const langCurrent = Cookies.get('NEXT_LOCALE') || 'en';
   const signupData: any = Cookies.get('signUpData') || '';
   const signupDataParsed = signupData ? JSON.parse(signupData) : null;
   const formData: any = localStorage.getItem('formData');
@@ -114,7 +114,7 @@ const UserDetailsPage: NextPage = () => {
   /* if continue extract typeDetail object from children array */
   useEffect(() => {
     if (!formData) {
-      router.push(`/${langCookie}/sign-up`);
+      router.push(`/${langCurrent}/sign-up`);
     } else {
       let formDataParsed: any = JSON.parse(formData);
       let typeIndex: number = 0;
@@ -166,7 +166,7 @@ const UserDetailsPage: NextPage = () => {
         expires: new Date('9999-12-31T23:59:59'),
       });
       await setTimeout(() => {
-        router.push(`/${langCookie}/home`);
+        router.push(`/${langCurrent}/home`);
         localStorage.removeItem('formData');
         Cookies.remove('signUpData');
         Cookies.remove('userType');
@@ -320,7 +320,7 @@ const UserDetailsPage: NextPage = () => {
                   justifyContent={'space-between'}
                   marginTop={4}
                 >
-                  <Link href={`/${langCookie}/who-are-you`}>
+                  <Link href={`/${langCurrent}/who-are-you`}>
                     <Button
                       variant="outlined"
                       sx={{

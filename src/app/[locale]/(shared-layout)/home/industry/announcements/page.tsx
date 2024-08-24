@@ -8,9 +8,11 @@ import JobOfferingSection from '@/sections/announcments/JobOfferingSection';
 import { textSecondaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
+import { usePathname } from 'next/navigation';
 const Announcments = () => {
   const t = useTranslations();
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const pathname = usePathname();
+  const langCurrent = pathname.slice(1,3)|| 'en';
 
   
   return (
@@ -36,7 +38,7 @@ const Announcments = () => {
             <Link
               underline="hover"
               color="inherit"
-              href={`/${langCookie}/home`}
+              href={`/${langCurrent}/home`}
             >
               {t('header.home')}
             </Link>

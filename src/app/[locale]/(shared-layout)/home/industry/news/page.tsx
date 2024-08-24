@@ -37,7 +37,7 @@ const News = () => {
   const t = useTranslations();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
+  const langCurrent = pathname.slice(1,3)|| 'en';
   const isScreen900 = useMediaQuery('(max-width:900px)');
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [category, setCategory] = useState('all');
@@ -125,7 +125,7 @@ const News = () => {
             <Link
               underline="hover"
               color="inherit"
-              href={`/${langCookie}/home`}
+              href={`/${langCurrent}/home`}
             >
               {t('header.home')}
             </Link>

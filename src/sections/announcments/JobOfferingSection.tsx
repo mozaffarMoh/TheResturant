@@ -26,9 +26,9 @@ import CardSkeletonVertical from '@/components/skeleton/cardSkeletonVertical';
 
 const JobOfferingSection = () => {
   const t = useTranslations();
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
+  const langCurrent = pathname.slice(1,3)|| 'en';
   const [sortItems, setSortItems] = useState<Number>(0);
   const router = useRouter();
   const [page, setPage] = useState(1);
@@ -203,7 +203,7 @@ const JobOfferingSection = () => {
                     }}
                     onClick={() =>
                       router.push(
-                        `/${langCookie}/home/industry/announcements/${item?.slug}`,
+                        `/${langCurrent}/home/industry/announcements/${item?.slug}`,
                       )
                     }
                   >

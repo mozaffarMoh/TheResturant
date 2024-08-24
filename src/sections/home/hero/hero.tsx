@@ -1,10 +1,11 @@
 'use client';
 import styles from './hero.module.css';
 import { Container, Skeleton } from '@mui/material';
-import { DefautImage1Large, homeHeroImage } from '@/constant/images';
+import { DefautImage1Large } from '@/constant/images';
 import { domain, endPoints } from '@/base-api/endPoints';
 import { usePathname } from 'next/navigation';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
+import { useEffect, useState } from 'react';
 
 interface IProps {
   bannerImage?: string;
@@ -19,6 +20,7 @@ const HeroSection = ({
   loading,
 }: IProps) => {
   const pathname = usePathname();
+  const [loadingStart, setLoadingStart] = useState<boolean>(true);
   let isArabic = pathname.startsWith('/ar');
 
   let imageURL =
@@ -29,14 +31,27 @@ const HeroSection = ({
   let title = data && data?.children?.[0]?.key;
   let subTitle = data && data?.children?.[0]?.value;
 
+  const checkBackgroundImage = () => {
+    if (data && imageURL) {
+      return imageURL;
+    } else if (bannerImage) {
+      return bannerImage;
+    } else {
+      return DefautImage1Large;
+    }
+  };
+
+  useEffect(() => {
+    loading && setLoadingStart(false);
+  }, [loading]);
   return (
     <div
       className={`${styles.home} ${data && styles.homeLarge} `}
       style={{
-        backgroundImage: `url(${data ? imageURL : bannerImage})`,
+        backgroundImage: `url(${checkBackgroundImage()})`,
       }}
     >
-      {loading && (
+      {(loading || loadingStart) && (
         <Skeleton
           sx={{ height: '100%', bgcolor: 'grey.500' }}
           width={'100%'}
@@ -53,20 +68,17 @@ const HeroSection = ({
           <Container maxWidth="lg">
             {loading ? (
               <div>
-                <p className="general-title text-white-new ">
-                  <CustomSkeleton
-                    bgcolor="grey.500"
-                    width="200px"
-                    height="40px"
-                  />
-                </p>
-                <p className={styles.SubTitle}>
-                  <CustomSkeleton
-                    bgcolor="grey.500"
-                    width="300px"
-                    height="40px"
-                  />
-                </p>
+                <CustomSkeleton
+                  bgcolor="grey.500"
+                  width="200px"
+                  height="40px"
+                />
+
+                <CustomSkeleton
+                  bgcolor="grey.500"
+                  width="300px"
+                  height="40px"
+                />
               </div>
             ) : (
               <div>

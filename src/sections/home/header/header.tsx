@@ -25,30 +25,30 @@ import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
 
 const Header = () => {
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const t = useTranslations();
   const router = useRouter();
   const isScreen991 = useMediaQuery('(max-width:991px)');
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
+  const langCurrent = pathname.slice(1, 3) || 'en';
 
   const menu = [
     {
       title: t('header.home'),
-      link: `/${langCookie}/home`,
+      link: `/${langCurrent}/home`,
     },
 
     {
       title: t('header.events-workshops'),
-      link: `/${langCookie}/home/events-workshops`,
+      link: `/${langCurrent}/home/events-workshops`,
     },
     {
       title: t('header.book-facility'),
-      link: `/${langCookie}/home/book-facility`,
+      link: `/${langCurrent}/home/book-facility`,
     },
     {
       title: t('header.mentors'),
-      link: `/${langCookie}/home/mentors`,
+      link: `/${langCurrent}/home/mentors`,
     },
     {
       title: t('header.industry'),
@@ -57,7 +57,7 @@ const Header = () => {
     },
     {
       title: t('header.contact-us'),
-      link: `/${langCookie}/contact-us`,
+      link: `/${langCurrent}/contact-us`,
     },
   ];
 
@@ -75,12 +75,12 @@ const Header = () => {
   const industryLinks = [
     {
       id: 0,
-      path: `/${langCookie}/home/industry/news`,
+      path: `/${langCurrent}/home/industry/news`,
       value: t('header.news'),
     },
     {
       id: 1,
-      path: `/${langCookie}/home/industry/announcements`,
+      path: `/${langCurrent}/home/industry/announcements`,
       value: t('header.announcements'),
     },
   ];
@@ -131,7 +131,7 @@ const Header = () => {
 
   const handleLogout = () => {
     Cookies.remove('token');
-    router.push(`/${langCookie}/sign-in`);
+    router.push(`/${langCurrent}/sign-in`);
   };
 
   useEffect(() => {
@@ -182,7 +182,7 @@ const Header = () => {
                 sm={10}
                 md={2}
                 sx={{ cursor: 'pointer' }}
-                onClick={() => router.push(`/${langCookie}/home`)}
+                onClick={() => router.push(`/${langCurrent}/home`)}
               >
                 <img
                   src="/logo_white.svg"
@@ -200,22 +200,22 @@ const Header = () => {
                   <MenuList className={styles.menuListStyle}>
                     <NormalMenuList
                       indexKey={0}
-                      href={`/${langCookie}/home`}
+                      href={`/${langCurrent}/home`}
                       title={t('header.home')}
                     />
                     <NormalMenuList
                       indexKey={1}
-                      href={`/${langCookie}/home/events-workshops`}
+                      href={`/${langCurrent}/home/events-workshops`}
                       title={t('header.events-workshops')}
                     />
                     <NormalMenuList
                       indexKey={2}
-                      href={`/${langCookie}/home/book-facility`}
+                      href={`/${langCurrent}/home/book-facility`}
                       title={t('header.book-facility')}
                     />
                     <NormalMenuList
                       indexKey={3}
-                      href={`/${langCookie}/home/mentors`}
+                      href={`/${langCurrent}/home/mentors`}
                       title={t('header.mentors')}
                     />
 
@@ -230,7 +230,7 @@ const Header = () => {
 
                     <NormalMenuList
                       indexKey={5}
-                      href={`/${langCookie}/contact-us`}
+                      href={`/${langCurrent}/contact-us`}
                       title={t('header.contact-us')}
                     />
                   </MenuList>

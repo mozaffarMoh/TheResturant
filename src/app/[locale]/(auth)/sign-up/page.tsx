@@ -40,11 +40,11 @@ const SingUp: NextPage = () => {
   const t = useTranslations();
   const router = useRouter();
   const isScreen500 = useMediaQuery('(max-width:500px)');
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
   const [showModal, setShowModal] = useState(false);
   const [governorateArray, setGovernorateArray] = useState([]);
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
+  const langCurrent = pathname.slice(1,3)|| 'en';
   const [fullFormData, setFullFormData] = useState([]);
   const [
     governorateData,
@@ -186,7 +186,7 @@ const SingUp: NextPage = () => {
   useEffect(() => {
     if (success) {
       localStorage.setItem('formData', JSON.stringify(data));
-      router.push(`/${langCookie}/who-are-you`);
+      router.push(`/${langCurrent}/who-are-you`);
     }
   }, [success]);
 
@@ -251,7 +251,7 @@ const SingUp: NextPage = () => {
                 <p className="text-med">{t('auth.signup-subtitle')}</p>
                 <p className="text-med ">
                   <Link
-                    href={`/${langCookie}/sign-in`}
+                    href={`/${langCurrent}/sign-in`}
                     className="fw700 text-underline-none fc-black"
                   >
                     {t('auth.login-here')}

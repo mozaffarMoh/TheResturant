@@ -8,12 +8,13 @@ import Link from '@mui/material/Link';
 import WorkShopsListingSection from '@/sections/events-workshops/workShopsListingSection';
 import { textSecondaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
-import Cookies from 'js-cookie';
+import { usePathname } from 'next/navigation';
 
 const EventsWorkShopsPage: NextPage = () => {
   const t = useTranslations();
-  const langCookie = Cookies.get('NEXT_LOCALE') || 'en';
-  
+  const pathname = usePathname();
+  const langCurrent = pathname.slice(1, 3) || 'en';
+
   return (
     <>
       <Container maxWidth="lg">
@@ -32,7 +33,7 @@ const EventsWorkShopsPage: NextPage = () => {
             <Link
               underline="hover"
               color="inherit"
-              href={`/${langCookie}/home`}
+              href={`/${langCurrent}/home`}
             >
               {t('header.home')}
             </Link>

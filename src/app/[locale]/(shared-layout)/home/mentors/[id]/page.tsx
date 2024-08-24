@@ -17,15 +17,16 @@ import { useTranslations } from 'next-intl';
 import useGet from '@/custom-hooks/useGet';
 import { domain, endPoints } from '@/base-api/endPoints';
 import { DefautImage2 } from '@/constant/images';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import Loading from '@/components/Loading/Loading';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 import CardSkeletonVertical from '@/components/skeleton/cardSkeletonVertical';
+
 const MentorDetails: NextPage = () => {
   const t = useTranslations();
   const params = useParams();
+  const [loadingStart, setLoadingStart] = useState<boolean>(true);
   const [data, loading, getData] = useGet(
     endPoints.getSubmittedData + params?.id,
     true,
@@ -42,6 +43,10 @@ const MentorDetails: NextPage = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    loading && setLoadingStart(false);
+  }, [loading]);
+
   return (
     <Stack
       direction={'column'}
@@ -49,7 +54,7 @@ const MentorDetails: NextPage = () => {
       paddingBottom={10}
     >
       <Container maxWidth="lg">
-        {loading ? (
+        {loading || loadingStart ? (
           <Stack
             paddingY={10}
             width={'100%'}
@@ -151,7 +156,7 @@ const MentorDetails: NextPage = () => {
           </div>
         )}
 
-        {loading ? (
+        {loading || loadingStart ? (
           <Stack>
             <CustomSkeleton width="150px" />
             <CustomSkeleton width="300px" />
