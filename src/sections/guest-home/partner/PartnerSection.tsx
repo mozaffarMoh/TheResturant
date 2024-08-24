@@ -10,6 +10,7 @@ const PartnerSection = ({ data, loading }: any) => {
       className="mt-4 bg-primary-color"
       maxWidth="xl"
       id="partners"
+      style={{ scrollMarginTop: '120px' }}
     >
       <div className="sm-flex-col-col-center-center">
         {loading ? (

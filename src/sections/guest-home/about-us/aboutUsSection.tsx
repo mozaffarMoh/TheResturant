@@ -15,6 +15,7 @@ const AboutUsSection = ({ data, loading }: any) => {
     <Container
       className="mt-4 max-w-90"
       id="about"
+      style={{ scrollMarginTop: '120px' }}
     >
       <div className="sm-flex-col-col-center-center">
         <div className="text-align-center">

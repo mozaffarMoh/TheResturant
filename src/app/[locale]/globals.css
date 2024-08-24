@@ -67,7 +67,6 @@ body {
 
 * {
   scroll-behavior: smooth;
-  scroll-padding-top: 120px;
 }
 
 .arabicFont {
@@ -75,6 +74,7 @@ body {
     font-family: 'Bahij TheSansArabic' !important;
   }
 }
+
 .englishFont {
   * {
     font-family: 'Jost' !important;

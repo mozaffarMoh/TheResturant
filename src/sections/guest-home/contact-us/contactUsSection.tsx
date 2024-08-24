@@ -21,6 +21,7 @@ const ContactUsSection = () => {
     <Container
       className="mt-4 max-w-90 mb-2 "
       id="contact"
+      style={{ scrollMarginTop: '120px' }}
     >
       <div className="sm-flex-col-col-center-center">
         <div className="text-align-center">

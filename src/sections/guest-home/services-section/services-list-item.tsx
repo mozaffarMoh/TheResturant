@@ -58,6 +58,7 @@ const ServicesListItem = ({ title, content, index, imageURL }: IProps) => {
         >
           <p
             className={`text-xlarge-title-secondary p-0 m-0 ${!isIndexEven ? '' : 'fc-primary'}`}
+            style={{ lineHeight: '50px' }}
           >
             {title}
           </p>

@@ -9,6 +9,7 @@ const ServicesSection = ({ data, loading }: any) => {
     <Container
       className="mt-4 max-w-90 "
       id="services"
+      style={{ scrollMarginTop: '120px' }}
     >
       <div className="sm-flex-col-col-center-center ">
         {loading ? (

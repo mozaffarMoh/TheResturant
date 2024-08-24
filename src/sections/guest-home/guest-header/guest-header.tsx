@@ -27,7 +27,7 @@ const GuestHeader = () => {
   const router = useRouter();
   const pathname = usePathname();
   const isScreen991 = useMediaQuery('(max-width:991px)');
-  const langCurrent = pathname.slice(1,3)|| 'en';
+  const langCurrent = pathname.slice(1, 3) || 'en';
   let isArabic = pathname.startsWith('/ar');
   const [activeValue, setActiveValue] = useState('');
   const isActive = (value: string) => value == activeValue;
@@ -94,11 +94,16 @@ const GuestHeader = () => {
     !isScreen991 && setMenuOpen(false);
   }, [isScreen991]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      window.scrollBy(0, -120);
+    };
+
+    handleScroll();
+  }, [pathname]);
+  console.log(pathname);
   return (
-    <div
-      className={styles.headerGuestContainer}
-      style={{ width: open ? '98.8%' : '100%' }}
-    >
+    <div className={styles.headerGuestContainer}>
       <Box
         width={'100%'}
         bgcolor={'white'}
