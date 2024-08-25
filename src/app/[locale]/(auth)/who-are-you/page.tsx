@@ -17,7 +17,7 @@ const WhoAreYouPage: NextPage = () => {
   const formData: any = localStorage.getItem('formData');
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1,3)|| 'en';
+  const langCurrent = pathname.slice(1, 3) || 'en';
   const t = useTranslations();
   const [type, setType] = useState('');
   const [typesArray, setTypesArray] = useState([]);
@@ -55,7 +55,7 @@ const WhoAreYouPage: NextPage = () => {
             className="sm-flex-row-row-center-center"
           >
             <Box className="main-box">
-              <div className="mb-1 sm-flex-row-row-center-center">
+              <div className="mb-1 sm-flex-row-row-center-center mt-2">
                 <img
                   src={loginBgImage}
                   alt="image"
@@ -70,7 +70,7 @@ const WhoAreYouPage: NextPage = () => {
                   </span>
                 </p>
               </div>
-              <div className="sm-flex-col-col-center-center">
+              <Box className="sm-flex-col-col-center-center">
                 <ToggleButtonGroup
                   orientation="vertical"
                   variant="plain"
@@ -100,7 +100,7 @@ const WhoAreYouPage: NextPage = () => {
                   })}
                 </ToggleButtonGroup>
                 <p className="fc-secondary"> {t('who-are-you.select')}</p>
-              </div>
+              </Box>
               <Stack
                 direction={'row'}
                 justifyContent={'space-between'}

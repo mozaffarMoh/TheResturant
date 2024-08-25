@@ -205,7 +205,7 @@ const UserDetailsPage: NextPage = () => {
   };
 
   //console.log(typeDetails);
-  
+
   return formData ? (
     <div className={styles.signInContainer}>
       {/* Success Modal when user Success register */}
@@ -263,12 +263,12 @@ const UserDetailsPage: NextPage = () => {
             className="sm-flex-row-row-center-center"
           >
             <Stack width={'70%'}>
-              <div className="mb-1 sm-flex-row-row-center-center">
+              <div className="mb-1 sm-flex-row-row-center-center mt-2">
                 <img
                   src={loginBgImage}
                   alt="image"
                 />
-              </div>{' '}
+              </div>
               <div className=" sm-flex-row-row-center-center">
                 {typeDetails?.name && (
                   <p className=" text-large-title m-1">

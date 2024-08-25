@@ -143,24 +143,28 @@ const MultiFilesField = ({
         {error && <FormHelperText>{error.message}</FormHelperText>}
       </Stack>
       <List>
-        {filesFormArray.map((file: File, index: number) => (
-          <ListItem
-            key={index}
-            dir="ltr"
-          >
-            <ListItemText
-              primary={file?.name}
-              sx={{ fontSize: '0.8rem' }}
-            />
-            <IconButton
-              edge="end"
-              aria-label="delete"
-              onClick={() => handleDelete(index)}
+        {filesFormArray.map((file: File, index: number) => {
+          const threeDots = file?.name?.length > 10 ? '...' : '';
+          let shortFileName = file?.name.slice(0, 15) + threeDots;
+          return (
+            <ListItem
+              key={index}
+              dir="ltr"
             >
-              <DeleteIcon />
-            </IconButton>
-          </ListItem>
-        ))}
+              <ListItemText
+                primary={shortFileName}
+                sx={{ fontSize: '0.8rem' }}
+              />
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={() => handleDelete(index)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </ListItem>
+          );
+        })}
       </List>
     </FormControl>
   );
