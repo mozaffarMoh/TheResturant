@@ -25,7 +25,7 @@ const ContactUsSection = () => {
     >
       <div className="sm-flex-col-col-center-center">
         <div className="text-align-center">
-          <p className="text-xlarge-title">{t('contact-us.title')}</p>
+          <p className="text-xlarge-title" style={{letterSpacing:'1px'}}>{t('contact-us.title')}</p>
           <p className="sub-text-larges opacity-75">
             {t('contact-us.contact-desc')}
           </p>
