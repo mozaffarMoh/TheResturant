@@ -129,28 +129,23 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       attendees: '',
     });
 
-    const timeReserved = time + hours;
+    const timeReserved = time + hours - 1;
     let isBooked = false;
     try {
       schema.parse(dataReview);
 
-      if (timeReserved > 17) {
+      if (timeReserved > 16) {
         setErrorMessageReserve(t('messages.facility-exceed-hours'));
       } else {
-        if (hours > 1) {
-          [...Array(Math.abs(timeReserved - time + 1))].forEach(
-            (_, index: number) => {
-              const currentTime = time + index;
-              const checkBooked = timeBooked.some((itemBook) => {
-                return (
-                  currentTime >= itemBook.from && currentTime <= itemBook.to
-                );
-              });
-              if (checkBooked == true) {
-                isBooked = checkBooked;
-              }
-            },
-          );
+        for (let i = time; i <= timeReserved; i++) {
+          const checkBooked = timeBooked.some((itemBook) => {
+            return i >= itemBook.from && i <= itemBook.to;
+          });
+
+          if (checkBooked) {
+            isBooked = true;
+            break;
+          }
         }
 
         if (isBooked) {
