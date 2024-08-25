@@ -129,37 +129,26 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       attendees: '',
     });
 
-    const timeReserved = time + hours - 1;
-    let isBooked = false;
     try {
       schema.parse(dataReview);
 
-      if (timeReserved > 16) {
+      const timeReserved = time + hours - 1;
+      if (timeReserved > 17) {
         setErrorMessageReserve(t('messages.facility-exceed-hours'));
       } else {
-        for (let i = time; i <= timeReserved; i++) {
-          const checkBooked = timeBooked.some((itemBook) => {
-            return i >= itemBook.from && i <= itemBook.to;
-          });
+        const isBooked = timeBooked.some(
+          ({ from, to }) => time <= to && timeReserved >= from,
+        );
 
-          if (checkBooked) {
-            isBooked = true;
-            break;
-          }
-        }
-
-        if (isBooked) {
-          setErrorMessageReserve(t('messages.facility-between-reserved-hours'));
-        } else {
-          handlePost();
-        }
+        isBooked
+          ? setErrorMessageReserve(
+              t('messages.facility-between-reserved-hours'),
+            )
+          : handlePost();
       }
     } catch (error: any) {
       if (error instanceof z.ZodError) {
-        const fieldErrors = error.errors.reduce((acc: any, err: any) => {
-          acc[err.path[0]] = err.message;
-          return acc;
-        }, {});
+        const fieldErrors: any = error.flatten()?.fieldErrors;
         setErrors(fieldErrors);
       }
     }
@@ -236,6 +225,11 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
     setHours(0);
     setTimeBooked([{ from: fromTime, to: toTime }]);
     setAttendees(0);
+    setErrors({
+      time: '',
+      hours: '',
+      attendees: '',
+    });
   };
   const handleClose = () => {
     handleReset();
