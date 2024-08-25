@@ -7,6 +7,7 @@ import { useRef, useState } from 'react';
 const VideoModal = ({ open = false, handleClose, videoURL }: any) => {
   //const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=0`;
   const isScreen630 = useMediaQuery('(max-width:630px)');
+  const isScreen400 = useMediaQuery('(max-width:400px)');
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef: any = useRef(null);
   const handlePlayVideo = () => {
@@ -40,9 +41,7 @@ const VideoModal = ({ open = false, handleClose, videoURL }: any) => {
         </div>
       </Stack>
       <Box
-        sx={{ overflow: 'hidden', padding: '20px' }}
-        width={isScreen630 ? 200 : 500}
-        height={isScreen630 ? 300 : 350}
+        sx={{ overflow: 'hidden', padding: '10px' }}
       >
         {/*     <iframe
           width="100%"
@@ -55,8 +54,6 @@ const VideoModal = ({ open = false, handleClose, videoURL }: any) => {
         ></iframe> */}
         <video
           ref={videoRef}
-          width={'100%'}
-          height={isScreen630 ? '200px' : '300px'}
           src={videoURL}
           controls
           onClick={handlePlayVideo}

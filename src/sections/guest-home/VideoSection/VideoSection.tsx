@@ -4,8 +4,9 @@ import { DefautImage1 } from '@/constant/images';
 import { primaryColor } from '@/constant/color';
 import { PlaySVG } from '../../../../assets/icons';
 import VideoModal from '@/components/modals/VideoModal';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
+import './VideoSection.css';
 
 const VideoSection = ({ data, loading }: any) => {
   const [openVideo, setOpenVideo] = useState(false);
