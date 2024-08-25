@@ -76,7 +76,7 @@ const HeroSection = ({
 
                 <CustomSkeleton
                   bgcolor="grey.500"
-                  width="300px"
+                  width="250px"
                   height="40px"
                 />
               </div>

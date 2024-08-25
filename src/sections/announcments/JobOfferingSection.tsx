@@ -212,7 +212,7 @@ const JobOfferingSection = () => {
                       alt={'jobOfferImage'}
                       style={{
                         width: '100%',
-                        height: '300px',
+                        height: '250px',
                         borderRadius: '20px',
                       }}
                     />

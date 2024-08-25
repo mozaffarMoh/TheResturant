@@ -6,7 +6,7 @@ import './workshop-card-v2.css';
 import { ClockSVG, DateSVG, PlaceSVG } from '../../../../assets/icons';
 import { domain } from '@/base-api/endPoints';
 import { DefautImage1 } from '@/constant/images';
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, Stack, Typography, useMediaQuery } from '@mui/material';
 import { usePathname } from 'next/navigation';
 
 export default function WorkShopCardV2({
@@ -17,6 +17,7 @@ export default function WorkShopCardV2({
   category,
   date,
 }: any) {
+  const isScreen400 = useMediaQuery('(max-width:400px)');
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   let imageURL =
@@ -28,7 +29,7 @@ export default function WorkShopCardV2({
       key={key}
       variant="outlined"
       sx={{
-        width: 300,
+        width: isScreen400 ? 250 : 320,
         borderRadius: '1.1rem',
         padding: 1,
       }}
@@ -64,9 +65,18 @@ export default function WorkShopCardV2({
         </Button>
       </Stack>
       <CardContent>
-        <Stack direction={"row"} gap={1}>
+        <Stack
+          direction={'row'}
+          gap={1}
+        >
           <DateSVG />
-           <Typography fontSize={13}className=" opacity-80"> {date}</Typography>
+          <Typography
+            fontSize={13}
+            className=" opacity-80"
+          >
+            {' '}
+            {date}
+          </Typography>
         </Stack>
         <p className="text-med-fw700 max-subtile-80 ">{title}</p>
       </CardContent>

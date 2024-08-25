@@ -22,15 +22,29 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 import CardSkeletonVertical from '@/components/skeleton/cardSkeletonVertical';
+import usePost from '@/custom-hooks/usePost';
+import { LoadingButton } from '@mui/lab';
+import Cookies from 'js-cookie';
+import CustomAlert from '@/components/alerts/CustomAlert';
 
 const MentorDetails: NextPage = () => {
   const t = useTranslations();
   const params = useParams();
+  const token = Cookies.get('token') || '';
   const [loadingStart, setLoadingStart] = useState<boolean>(true);
+  const [successMessage, setSuccessMessage] = useState<string>('');
   const [data, loading, getData] = useGet(
     endPoints.getSubmittedData + params?.id,
     true,
   );
+  const [, loadingRequset, handleRequest, successRequest, , errorMessage] =
+    usePost(
+      endPoints.requestMentor,
+      {
+        mentor_id: data?.user?.id,
+      },
+      token,
+    );
   let imageURL =
     data?.user &&
     data?.user?.media &&
@@ -47,12 +61,33 @@ const MentorDetails: NextPage = () => {
     loading && setLoadingStart(false);
   }, [loading]);
 
+  console.log(data);
+
+  useEffect(() => {
+    if (successRequest) {
+      setSuccessMessage(t('messages.request'));
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+    }
+  }, [successRequest]);
   return (
     <Stack
       direction={'column'}
       alignItems={'center'}
       paddingBottom={10}
     >
+      <CustomAlert
+        openAlert={errorMessage}
+        setOpenAlert={() => {}}
+        message={errorMessage}
+      />
+      <CustomAlert
+        openAlert={Boolean(successMessage)}
+        setOpenAlert={() => setSuccessMessage('')}
+        type="success"
+        message={successMessage}
+      />
       <Container maxWidth="lg">
         {loading || loadingStart ? (
           <Stack
@@ -202,7 +237,9 @@ const MentorDetails: NextPage = () => {
                   }
                 })}
             </Stack>
-            <Button
+            <LoadingButton
+              loading={loadingRequset}
+              onClick={handleRequest}
               variant="contained"
               color="inherit"
               className="general-button-primary mt-1"
@@ -214,7 +251,7 @@ const MentorDetails: NextPage = () => {
               }}
             >
               {t('buttons.request')}
-            </Button>
+            </LoadingButton>
           </Stack>
         )}
       </Container>

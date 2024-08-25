@@ -206,6 +206,7 @@
         "send-message": "Message sent successfully",
         "success-reserve-facility": "Reservation Completed Successfully",
         "facility-exceed-hours": "You should not exceed 5 PM",
-        "facility-between-reserved-hours": "You have chosen reserved hours"
+        "facility-between-reserved-hours": "You have chosen reserved hours",
+        "request": "Request has been sent successfully"
     }
 }

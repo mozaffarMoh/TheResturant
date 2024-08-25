@@ -37,7 +37,7 @@ const MentorsPage: NextPage = () => {
   const router = useRouter();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1,3)|| 'en';
+  const langCurrent = pathname.slice(1, 3) || 'en';
   const isScreen600 = useMediaQuery('(max-width:600px)');
   const [profession, setProfession] = useState('');
   const [page, setPage] = useState(0);
@@ -160,11 +160,11 @@ const MentorsPage: NextPage = () => {
           <Stack
             alignItems={isScreen600 ? 'center' : 'flex-end'}
             width={'94%'}
-            marginTop={5}
           >
             <Stack
               flexDirection={'row'}
               alignItems={'center'}
+              marginTop={7}
             >
               <InputLabel
                 id="dropdown-profession"

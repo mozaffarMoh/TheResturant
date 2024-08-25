@@ -7,7 +7,7 @@ import Divider from '@mui/joy/Divider';
 import Typography from '@mui/joy/Typography';
 import './workshop-card.css';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
-import { Button } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { domain } from '@/base-api/endPoints';
@@ -43,9 +43,8 @@ export default function WorkShopCard({
         borderRadius: '1.1rem',
         margin: '0.2rem',
       }}
-      className="workshop-repo"
     >
-      <CardOverflow className="md-workshop-media">
+      <CardOverflow>
         <img
           src={imageURL}
           loading="lazy"
@@ -59,23 +58,20 @@ export default function WorkShopCard({
           <br />
           <span className="text-xs  p-0">{subTitle}</span>
         </p>
-        <div
-          className="  align-center-425  "
-          dir="ltr"
-        >
-          <span className="text-xs opacity-80 m-1">
+        <Stack direction={"row"} gap={2} justifyContent={"flex-start"} dir="ltr">
+          <div className="text-xs opacity-80">
             <PlaceSVG />
             {place && place?.name}
-          </span>
-          <span className="text-xs opacity-80">
+          </div>
+          <div className="text-xs opacity-80">
             <ClockSVG />{' '}
             {metadata &&
               metadata.length > 0 &&
               metadata.map((item: any) => {
                 return item.slug == 'time' && item.value;
               })}
-          </span>
-        </div>
+          </div>
+        </Stack>
         <Button
           className="general-button-primary mt-1"
           onClick={() => push(`events-workshops/workshops/${slug}`)}

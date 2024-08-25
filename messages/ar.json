@@ -205,6 +205,7 @@
         "send-message": "تم إرسال الرسالة بنجاح",
         "success-reserve-facility": "تم الحجز بنجاح",
         "facility-exceed-hours": "يجب ألا تتجاوز الساعة 5 مساءً",
-        "facility-between-reserved-hours": "لقد اخترت الساعات المحجوزة"
+        "facility-between-reserved-hours": "لقد اخترت الساعات المحجوزة",
+        "request": "تم ارسال الطلب بنجاح"
     }
 }

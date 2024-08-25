@@ -20,6 +20,7 @@ export const endPoints = {
     getSubmittedData: "/form/getSubmittedData/",
     ladningPage: '/core/dynamicLookup/tpf-landing-page',
     homePage: '/core/dynamicLookup/tpf-home-page',
+    requestMentor: '/ecomm/requestMentorship/',
 }
 
 
