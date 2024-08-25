@@ -1,10 +1,11 @@
-import { Container } from '@mui/material';
+import { Container, useMediaQuery } from '@mui/material';
 import { DefautImage1 } from '@/constant/images';
 import PartnerSectionCard from '@/components/cards/partner-section/partnerSectionCard';
 import { domain } from '@/base-api/endPoints';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 
 const PartnerSection = ({ data, loading }: any) => {
+  const isScreen450 = useMediaQuery('(max-width:450px)');
   return (
     <Container
       className="mt-4 bg-primary-color"
@@ -42,8 +43,8 @@ const PartnerSection = ({ data, loading }: any) => {
                   <div key={index}>
                     <CustomSkeleton
                       bgcolor="white"
-                      width={'350px'}
-                      height={'400px'} // Adjust the height based on card content
+                      width={isScreen450 ? '280px' : '350px'}
+                      height={isScreen450 ? '300px' : '400px'}
                       borderRadius={4}
                       variant="rectangular"
                     />

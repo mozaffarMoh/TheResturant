@@ -41,6 +41,7 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const isScreen640 = useMediaQuery('(max-width:640px)');
+  const isScreen450 = useMediaQuery('(max-width:450px)');
   const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
   let imageURL =
     data[0] &&
@@ -81,12 +82,14 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
           alignItems={'center'}
           justifyContent={'center'}
           sx={{
-            width: isScreen640 ? '300px' : '550px',
+            width: isScreen640 ? '100%' : '550px',
             height: '400px',
             overflowX: 'hidden',
           }}
         >
-          <CardSkeletonVertical fullFlex="center" />
+          <Stack margin={2}>
+            <CardSkeletonVertical fullFlex="center" />
+          </Stack>
         </Stack>
       ) : (
         <Stack
@@ -121,7 +124,11 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
             </DialogContentText>
           </DialogContent>
           <img
-            style={{ width: '100%', height: '300px', borderRadius: '13px' }}
+            style={{
+              width: '100%',
+              height: isScreen450 ? '170px' : '300px',
+              borderRadius: '13px',
+            }}
             src={imageURL}
             alt="newsImage"
           />

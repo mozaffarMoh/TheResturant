@@ -99,7 +99,7 @@ const AnnounceModal = ({
           alignItems={'center'}
           justifyContent={'center'}
           sx={{
-            width: isScreen640 ? '300px' : '550px',
+            width: isScreen640 ? '100%' : '550px',
             height: '400px',
             overflowX: 'hidden',
           }}

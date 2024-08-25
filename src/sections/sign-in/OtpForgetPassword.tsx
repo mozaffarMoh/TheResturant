@@ -162,11 +162,12 @@ const OtpForgetPassword = ({ handleNextStep }: any) => {
         loading={loadingCheckOtp || loadingRequestOtp}
         variant="contained"
         style={{
-          marginTop: '16px',
+          margin: '16px 0px',
           background: '#3F485E',
           borderRadius: '20px',
           fontFamily: 'Poppins',
           height: '50px',
+          width: '80%',
         }}
         loadingIndicator={
           <CircularProgress

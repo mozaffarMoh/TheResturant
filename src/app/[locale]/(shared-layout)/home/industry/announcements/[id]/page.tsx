@@ -90,17 +90,19 @@ const JobOfferDetails: NextPage = () => {
             alt={'jobOfferImage'}
             style={{ width: '100%', height: isScreen600 ? '250px' : '400px' }}
           />
-          <Image
-            src={headBar}
-            alt={'headBar'}
-            style={{
-              position: 'absolute',
-              bottom: '0px',
-              left: '25%',
-              width: '50%',
-              height: '10px',
-            }}
-          />
+          {imageURL !== DefautImage1Large && (
+            <Image
+              src={headBar}
+              alt={'headBar'}
+              style={{
+                position: 'absolute',
+                bottom: '0px',
+                left: '25%',
+                width: '50%',
+                height: '10px',
+              }}
+            />
+          )}
         </Stack>
       )}
       <Container
@@ -122,7 +124,7 @@ const JobOfferDetails: NextPage = () => {
                 direction={'row'}
                 width={'300px'}
                 gap={2}
-                alignItems={"center"}
+                alignItems={'center'}
               >
                 <Skeleton
                   variant="circular"

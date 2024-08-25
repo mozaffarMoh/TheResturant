@@ -22,7 +22,6 @@ import { gray300, primaryColor, textSecondaryColor } from '@/constant/color';
 import IndustryNewsModal from '@/components/modals/industry-news-modal';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import Cookies from 'js-cookie';
 import { domain, endPoints } from '@/base-api/endPoints';
 import usePost from '@/custom-hooks/usePost';
 import {
@@ -37,8 +36,9 @@ const News = () => {
   const t = useTranslations();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1,3)|| 'en';
+  const langCurrent = pathname.slice(1, 3) || 'en';
   const isScreen900 = useMediaQuery('(max-width:900px)');
+  const isScreen450 = useMediaQuery('(max-width:450px)');
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [category, setCategory] = useState('all');
   const [slug, setSlug] = useState('');
@@ -182,7 +182,7 @@ const News = () => {
                           />{' '}
                         </Stack>
                         <Stack
-                          width={'50%'}
+                          width={!isScreen450 ? '50%' : '100%'}
                           key={i}
                           alignItems={'flex-start'}
                         >

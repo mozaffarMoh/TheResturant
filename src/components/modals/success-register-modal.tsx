@@ -117,7 +117,7 @@ const SuccessRegisterModal = ({
             numInputs={5}
             renderSeparator={<p style={{ width: '8px' }}>-</p>}
             inputStyle={{
-              width: !isScreen550 ? '60px' : '40px',
+              width: !isScreen550 ? '60px' : '35px',
               height: !isScreen550 ? '60px' : '40px',
               margin: !isScreen550 ? '0 8px' : '0 4px',
               fontSize: !isScreen550 ? '30px' : '22px',

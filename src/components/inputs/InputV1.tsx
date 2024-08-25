@@ -44,7 +44,7 @@ const InputV1 = ({
       className={`${styles.generalInput} ${isArabic && styles.passwordARdirection}`}
       sx={{
         '&.MuiInput-root': {
-          width: isScreen570 ? '100%' : '25rem',
+          width: isScreen570 ? '92%' : '25rem',
         },
 
         '--Input-focusedThickness': '0rem',

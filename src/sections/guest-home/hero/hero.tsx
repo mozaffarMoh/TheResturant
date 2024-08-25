@@ -1,12 +1,12 @@
 'use client';
 import { domain } from '@/base-api/endPoints';
 import styles from './hero.module.css';
-import { Container, Skeleton, Stack } from '@mui/material';
-import { DefautImage1Large } from '@/constant/images';
+import { Container, Skeleton, Stack, useMediaQuery } from '@mui/material';
 import { usePathname } from 'next/navigation';
 
 const HeroSection = ({ data, loading }: any) => {
   const pathname = usePathname();
+  const isScreen450 = useMediaQuery('(max-width:450px)');
   let isArabic = pathname.startsWith('/ar');
   let imageURL =
     data && data.media && data.media.length > 0 && data.media[0]?.url
@@ -37,21 +37,21 @@ const HeroSection = ({ data, loading }: any) => {
       >
         <Container>
           {loading ? (
-            <Stack width={'350px'}>
+            <Stack width={isScreen450 ? '230px' : '350px'}>
               <Skeleton
-                sx={{ bgcolor: 'grey.600' }}
+                sx={{ bgcolor: 'grey.500' }}
                 variant="text"
                 width="100%"
                 height="40px"
               />
               <Skeleton
-                sx={{ bgcolor: 'grey.600' }}
+                sx={{ bgcolor: 'grey.500' }}
                 variant="text"
                 width="80%"
                 height="40px"
               />
               <Skeleton
-                sx={{ bgcolor: 'grey.600' }}
+                sx={{ bgcolor: 'grey.500' }}
                 variant="text"
                 width="70%"
                 height="40px"

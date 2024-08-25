@@ -4,19 +4,34 @@ import { DefautImage1 } from '@/constant/images';
 import { primaryColor } from '@/constant/color';
 import { PlaySVG } from '../../../../assets/icons';
 import VideoModal from '@/components/modals/VideoModal';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 
 const VideoSection = ({ data, loading }: any) => {
   const [openVideo, setOpenVideo] = useState(false);
   const isScreen1100 = useMediaQuery('(max-width:1100px)');
-  let imageURL =
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef: any = useRef(null);
+
+  let mediaURL =
     data && data?.media?.['DynamicLookup/media']?.[0]?.url
       ? domain + data?.media?.['DynamicLookup/media']?.[0]?.url
       : DefautImage1;
   const words = (data?.value && data?.value?.split(' ')) || [];
-  console.log(data);
 
+  const handlePlayVideo = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause(); // Pause the video
+        setIsPlaying(false); // Update state to indicate the video is paused
+      } else {
+        videoRef.current.play(); // Play the video
+        setIsPlaying(true); // Update state to indicate the video is playing
+      }
+    }
+  };
+
+  
   return (
     <Container className="mt-4 max-w-md-65">
       <Stack
@@ -40,23 +55,25 @@ const VideoSection = ({ data, loading }: any) => {
               width="100%"
               height="300px"
             />
-          ) : imageURL.includes('mp4') ? (
+          ) : mediaURL.includes('mp4') ? (
             <video
+              ref={videoRef}
               width={'100%'}
               height="300px"
-              src={imageURL}
-              autoPlay={false}
-              controls
+              src={mediaURL}
+              controls={isPlaying} // Hide default controls
+              onClick={isPlaying ? handlePlayVideo : () => {}}
             />
           ) : (
             <img
               style={{ borderRadius: 20, width: '100%', height: '100%' }}
-              src={imageURL}
+              src={mediaURL}
               alt="about us Section"
             />
           )}
-          {imageURL.includes(domain) && (
+          {!isPlaying && (
             <Stack
+              onClick={handlePlayVideo}
               position={'absolute'}
               top={'40%'}
               left={'45%'}
@@ -64,7 +81,6 @@ const VideoSection = ({ data, loading }: any) => {
               padding={1}
               borderRadius={2}
               sx={{ cursor: 'pointer' }}
-              onClick={() => setOpenVideo(true)}
             >
               <PlaySVG />
             </Stack>

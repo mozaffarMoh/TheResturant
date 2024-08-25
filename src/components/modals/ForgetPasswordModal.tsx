@@ -100,6 +100,7 @@ const ForgetPasswordModal = ({ open, onClose }: TermsModalProps) => {
             <Typography
               color={'#999999'}
               fontFamily={'Poppins'}
+              marginX={2}
               marginBottom={1}
             >
               {' '}
@@ -117,6 +118,7 @@ const ForgetPasswordModal = ({ open, onClose }: TermsModalProps) => {
               <Typography
                 variant="caption"
                 color={'red'}
+                marginX={2}
               >
                 {error.email}
               </Typography>

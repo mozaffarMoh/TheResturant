@@ -66,7 +66,7 @@ const CardsSection = ({ data, loading }: any) => {
                         />
                         <CardContent className={styles.cardContentStyle}>
                           <CustomSkeleton width="150px" />
-                          <CustomSkeleton width="250px" />
+                          <CustomSkeleton width="220px" />
                           <CustomSkeleton width="100px" />
                         </CardContent>
                       </CardActionArea>

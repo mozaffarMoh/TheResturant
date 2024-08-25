@@ -10,13 +10,13 @@ import {
   Select,
   Stack,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import sortIcon from '../../../assets/icons/sort.png';
 import { primaryColor } from '@/constant/color';
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
 import { useTranslations } from 'next-intl';
 import usePost from '@/custom-hooks/usePost';
 import { domain, endPoints } from '@/base-api/endPoints';
@@ -28,7 +28,8 @@ const JobOfferingSection = () => {
   const t = useTranslations();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1,3)|| 'en';
+  const langCurrent = pathname.slice(1, 3) || 'en';
+  const isScreen450 = useMediaQuery('(max-width:450px)');
   const [sortItems, setSortItems] = useState<Number>(0);
   const router = useRouter();
   const [page, setPage] = useState(1);
@@ -195,7 +196,7 @@ const JobOfferingSection = () => {
                   <Card
                     key={i}
                     sx={{
-                      width: '340px',
+                      width: isScreen450 ? '250px' : '340px',
                       padding: '10px',
                       margin: '10px',
                       cursor: 'pointer',

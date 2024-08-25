@@ -7,7 +7,6 @@ import AnnounceSection from '@/sections/announcments/AnnounceSection';
 import JobOfferingSection from '@/sections/announcments/JobOfferingSection';
 import { textSecondaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
-import Cookies from 'js-cookie';
 import { usePathname } from 'next/navigation';
 const Announcments = () => {
   const t = useTranslations();

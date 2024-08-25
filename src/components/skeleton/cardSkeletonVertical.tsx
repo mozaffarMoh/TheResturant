@@ -23,7 +23,7 @@ const CardSkeletonVertical = ({
       ) : (
         <Skeleton
           variant="rectangular"
-          width={250}
+          width={240}
           height={200}
           sx={{ borderRadius: 4 }}
         />
