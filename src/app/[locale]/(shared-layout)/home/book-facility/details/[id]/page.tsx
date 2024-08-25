@@ -40,11 +40,8 @@ const FacilityDetailsPage = () => {
   const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
 
   let imageURL =
-    data &&
-    data.length > 0 &&
-    data[0].media.length > 0 &&
-    data[0]?.media[0]?.url
-      ? domain + data[0]?.media[0]?.url
+    data && data?.[0]?.media?.['Item/media']?.[0]?.url
+      ? domain + data?.[0]?.media?.['Item/media']?.[0]?.url
       : '';
 
   useEffect(() => {

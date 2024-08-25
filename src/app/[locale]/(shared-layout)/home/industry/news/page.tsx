@@ -195,10 +195,9 @@ const News = () => {
                   })
               : data &&
                 data.map((item: any) => {
-                  let imageURL =
-                    item.media.length > 0 && item.media[0]?.url
-                      ? domain + item.media[0]?.url
-                      : DefautImage1;
+                  let imageURL = item?.media?.['Item/media']?.[0]?.url
+                    ? domain + item?.media?.['Item/media']?.[0]?.url
+                    : DefautImage1;
                   return (
                     <Stack
                       className="news-item"

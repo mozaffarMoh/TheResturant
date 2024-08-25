@@ -133,7 +133,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       schema.parse(dataReview);
 
       const timeReserved = time + hours - 1;
-      if (timeReserved > 17) {
+      if (timeReserved > 16) {
         setErrorMessageReserve(t('messages.facility-exceed-hours'));
       } else {
         const isBooked = timeBooked.some(

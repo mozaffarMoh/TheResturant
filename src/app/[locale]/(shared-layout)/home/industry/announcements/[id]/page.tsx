@@ -56,18 +56,16 @@ const JobOfferDetails: NextPage = () => {
     data[0].itemMetaData.length > 0;
 
   let imageURL =
-    data &&
-    data.length > 0 &&
-    data[0].media.length > 0 &&
-    data[0]?.media[0]?.url
-      ? domain + data[0]?.media[0]?.url
+    data && data?.[0]?.media?.['Item/media']?.[0]?.url
+      ? domain + data?.[0]?.media?.['Item/media']?.[0]?.url
       : DefautImage1Large;
 
   let imageURLAvatart =
     isMetaDataExist &&
-    data[0]?.itemMetaData[0]?.media &&
-    data[0]?.itemMetaData[0]?.media.length > 0
-      ? domain + data[0]?.itemMetaData[0]?.media[0]?.url
+    data &&
+    data[0]?.itemMetaData?.[0]?.media?.['ItemMetaData/media']?.[0]?.url
+      ? domain +
+        data[0]?.itemMetaData?.[0]?.media?.['ItemMetaData/media']?.[0]?.url
       : DefautImage2;
 
   useEffect(() => {
