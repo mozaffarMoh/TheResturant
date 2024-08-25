@@ -63,7 +63,7 @@ const EventsSection = ({ title }: IProps) => {
             <Stack>
               <CustomSkeleton
                 variant="rectangle"
-                width="300px"
+                width="280px"
                 height="200px"
                 borderRadius="20px"
               />{' '}
@@ -71,7 +71,7 @@ const EventsSection = ({ title }: IProps) => {
             <Stack justifyContent={'center'}>
               <CustomSkeleton width="150px" />
               <CustomSkeleton width="250px" />
-              <CustomSkeleton width="300px" />
+              <CustomSkeleton width="280px" />
               <CustomSkeleton
                 width="150px"
                 height="60px"

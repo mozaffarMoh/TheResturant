@@ -1,21 +1,20 @@
 import * as React from 'react';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
-import CardOverflow from '@mui/joy/CardOverflow';
-import './workshop-card-v2.css';
-import { ClockSVG, DateSVG, PlaceSVG } from '../../../../assets/icons';
+import './news-card-v2.css';
+import { ClockSVG, DateSVG } from '../../../../assets/icons';
 import { domain } from '@/base-api/endPoints';
 import { DefautImage1 } from '@/constant/images';
 import { Button, Stack, Typography, useMediaQuery } from '@mui/material';
 import { usePathname } from 'next/navigation';
 
-export default function WorkShopCardV2({
+export default function NewsCardV2({
   key,
   title,
   subTitle,
   media,
   category,
-  date,
+  dateTime,
 }: any) {
   const isScreen400 = useMediaQuery('(max-width:400px)');
   const pathname = usePathname();
@@ -24,6 +23,9 @@ export default function WorkShopCardV2({
     media && media.length > 0 && media[0]?.url
       ? domain + media[0]?.url
       : DefautImage1;
+
+  const date = dateTime?.split(' ')[0];
+  const time = dateTime?.split(' ')[1];
   return (
     <Card
       key={key}
@@ -67,16 +69,34 @@ export default function WorkShopCardV2({
       <CardContent>
         <Stack
           direction={'row'}
-          gap={1}
+          gap={2}
         >
-          <DateSVG />
-          <Typography
-            fontSize={13}
-            className=" opacity-80"
+          <Stack
+            direction={'row'}
+            gap={1}
           >
-            {' '}
-            {date}
-          </Typography>
+            <DateSVG />
+            <Typography
+              fontSize={13}
+              className=" opacity-80"
+            >
+              {' '}
+              {date}
+            </Typography>
+          </Stack>{' '}
+          <Stack
+            direction={'row'}
+            gap={1}
+          >
+            <ClockSVG />
+            <Typography
+              fontSize={13}
+              className=" opacity-80"
+            >
+              {' '}
+              {time}
+            </Typography>
+          </Stack>
         </Stack>
         <p className="text-med-fw700 max-subtile-80 ">{title}</p>
       </CardContent>

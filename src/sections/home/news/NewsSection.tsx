@@ -2,23 +2,21 @@
 import { Button, Container, Stack } from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
-import WorkShopCardV1 from '@/components/cards/home-section/WorkShopCardV1';
-import WorkShopCardV2 from '@/components/cards/home-section/WorkShopCardV2';
 import { useTranslations } from 'next-intl';
 import { endPoints } from '@/base-api/endPoints';
 import { useEffect } from 'react';
-import Cookies from 'js-cookie';
 import { usePathname, useRouter } from 'next/navigation';
 import usePost from '@/custom-hooks/usePost';
-import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 import CardSkeleton from '@/components/skeleton/cardSkeleton';
+import NewsCardV1 from '@/components/cards/home-section/NewsCardV1';
+import NewsCardV2 from '@/components/cards/home-section/NewsCardV2';
 
-const WorkShopsSection = () => {
+const NewsSection = () => {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1,3)|| 'en';
+  const langCurrent = pathname.slice(1, 3) || 'en';
 
   const body = {
     modelName: 'Item',
@@ -79,7 +77,7 @@ const WorkShopsSection = () => {
                       (item: any, i: number) =>
                         i > 1 &&
                         i < 5 && (
-                          <WorkShopCardV1
+                          <NewsCardV1
                             key={i}
                             title={item?.title}
                             subTitle={item?.subTitle}
@@ -101,7 +99,8 @@ const WorkShopsSection = () => {
                   {loading ? (
                     <Stack
                       direction={'row'}
-                      alignItems={'center'}
+                      justifyContent={'center'}
+                      flexWrap={'wrap'}
                       gap={2}
                     >
                       <CardSkeleton />
@@ -113,13 +112,13 @@ const WorkShopsSection = () => {
                     data.map((item: any, i: number) => {
                       if (i < 2) {
                         return (
-                          <WorkShopCardV2
+                          <NewsCardV2
                             key={i}
                             title={item?.title}
                             subTitle={item?.subTitle}
                             media={item?.media}
                             category={item?.category}
-                            date={item?.created_at}
+                            dateTime={item?.created_at}
                           />
                         );
                       }
@@ -157,4 +156,4 @@ const WorkShopsSection = () => {
   );
 };
 
-export default WorkShopsSection;
+export default NewsSection;

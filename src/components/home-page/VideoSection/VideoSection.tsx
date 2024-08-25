@@ -10,10 +10,12 @@ import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 const VideoSection = ({ data, loading }: any) => {
   const [openVideo, setOpenVideo] = useState(false);
   const isScreen1100 = useMediaQuery('(max-width:1100px)');
-  let imageURL = data?.media?.[0]?.url
-    ? domain + data?.media[0]?.url
-    : DefautImage1;
+  let imageURL =
+    data && data?.media?.['DynamicLookup/media']?.[0]?.url
+      ? domain + data?.media?.['DynamicLookup/media']?.[0]?.url
+      : DefautImage1;
   const words = (data?.value && data?.value?.split(' ')) || [];
+  console.log(data);
 
   return (
     <Container className="mt-4 max-w-md-65">
@@ -37,6 +39,14 @@ const VideoSection = ({ data, loading }: any) => {
               bgcolor="grey.300"
               width="100%"
               height="300px"
+            />
+          ) : imageURL.includes('mp4') ? (
+            <video
+              width={'100%'}
+              height="300px"
+              src={imageURL}
+              autoPlay={false}
+              controls
             />
           ) : (
             <img

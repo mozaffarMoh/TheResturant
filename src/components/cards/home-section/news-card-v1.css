@@ -2,26 +2,26 @@
   display: flex;
 }
 @media (max-width: 900px) {
-  .md-workshop-media {
+  .md-news-media {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .md-workshop-media-paper {
+  .md-news-media-paper {
     width: 8rem;
     padding: 0.8rem;
   }
 }
 
 @media (max-width: 567px) {
-  .workshop-v1-repo {
+  .news-v1-repo {
     display: flex;
     flex-direction: column;
     width: auto;
     justify-content: center;
     align-items: center;
   }
-  .md-workshop-media-paper {
+  .md-news-media-paper {
     width: 5rem;
     padding: 0.8rem;
   }
@@ -30,7 +30,7 @@
   .sm-flex-col-reverse {
     flex-direction: column-reverse;
   }
-  .workshop-v1-repo {
+  .news-v1-repo {
     padding-inline: 1rem;
     width: 16rem;
   }

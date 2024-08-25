@@ -7,7 +7,7 @@ import Divider from '@mui/joy/Divider';
 import Typography from '@mui/joy/Typography';
 import './workshop-card.css';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
-import { Box, Button, Stack } from '@mui/material';
+import { Box, Button, Stack, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { domain } from '@/base-api/endPoints';
@@ -30,6 +30,7 @@ export default function WorkShopCard({
 }) {
   const { push } = useRouter();
   const t = useTranslations();
+  const isScreen400 = useMediaQuery('(max-width:400px)');
   let imageURL =
     media && media.length > 0 && media[0]?.url
       ? domain + media[0]?.url
@@ -38,18 +39,21 @@ export default function WorkShopCard({
     <Card
       variant="outlined"
       sx={{
-        width: 280,
+        width: isScreen400 ? 250 : 300,
         paddingTop: '1rem',
         borderRadius: '1.1rem',
         margin: '0.2rem',
       }}
     >
-      <CardOverflow>
+      <CardOverflow
+        sx={{ display: 'flex', justifyContent: 'center', padding: 2 }}
+      >
         <img
           src={imageURL}
+          width={'100%'}
+          height={200}
           loading="lazy"
           alt="workshop image card"
-          className="md-workshop-media-image pt-1 "
         />
       </CardOverflow>
       <CardContent>
@@ -58,7 +62,12 @@ export default function WorkShopCard({
           <br />
           <span className="text-xs  p-0">{subTitle}</span>
         </p>
-        <Stack direction={"row"} gap={2} justifyContent={"flex-start"} dir="ltr">
+        <Stack
+          direction={'row'}
+          gap={2}
+          justifyContent={'flex-start'}
+          dir="ltr"
+        >
           <div className="text-xs opacity-80">
             <PlaceSVG />
             {place && place?.name}

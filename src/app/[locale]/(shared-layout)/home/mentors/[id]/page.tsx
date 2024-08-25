@@ -202,7 +202,10 @@ const MentorDetails: NextPage = () => {
             <CustomSkeleton width="300px" />
           </Stack>
         ) : (
-          <Stack spacing={5}>
+          <Stack
+            spacing={5}
+            marginTop={6}
+          >
             <Stack spacing={2}>
               <Typography
                 variant="h5"

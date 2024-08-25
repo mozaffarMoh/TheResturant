@@ -4,8 +4,8 @@ import Cookies from 'js-cookie';
 import { usePathname } from "next/navigation";
 
 const usePost = (endPoint: string, body: any, authToken?: string): any => {
-  const pathname = usePathname();
-    const langCurrent = pathname.slice(1,3)|| 'en';
+    const pathname = usePathname();
+    const langCurrent = pathname.slice(1, 3) || 'en';
     const headers = {
         Accept: 'application/json',
         Language: langCurrent,
@@ -38,9 +38,10 @@ const usePost = (endPoint: string, body: any, authToken?: string): any => {
             })
             .catch((err: any) => {
                 setLoading(false);
-
+                setFullData(err.response?.data)
                 setErrorMessage(err.response?.data?.message)
                 setTimeout(() => {
+                    setFullData([])
                     setErrorMessage("")
                 }, 3000);
             })

@@ -35,6 +35,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SignUpInput from '@/components/inputs/signUpInput';
 import { LoadingButton } from '@mui/lab';
+import usePost from '@/custom-hooks/usePost';
 
 const SingUp: NextPage = () => {
   const t = useTranslations();
@@ -42,9 +43,10 @@ const SingUp: NextPage = () => {
   const isScreen500 = useMediaQuery('(max-width:500px)');
   const [showModal, setShowModal] = useState(false);
   const [governorateArray, setGovernorateArray] = useState([]);
+  const [email, setEmail] = useState('');
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1,3)|| 'en';
+  const langCurrent = pathname.slice(1, 3) || 'en';
   const [fullFormData, setFullFormData] = useState([]);
   const [
     governorateData,
@@ -165,6 +167,16 @@ const SingUp: NextPage = () => {
   const [data, loading, getData, success, , errorMessage] = useGet(
     endPoints.whoAreYou,
   );
+  const [
+    ,
+    loadingCheckEmail,
+    handleCheckEmail,
+    ,
+    ,
+    errorMessageCheckEmail,
+    ,
+    fullErrors,
+  ] = usePost(endPoints.createUser, { email });
 
   /* get the governorate data and store it in state array */
   useEffect(() => {
@@ -191,12 +203,23 @@ const SingUp: NextPage = () => {
   }, [success]);
 
   const onSubmit = () => {
-    getData();
-    Cookies.set('signUpData', JSON.stringify(fullFormData));
+    handleCheckEmail();
   };
+
+  useEffect(() => {
+    if (errorMessageCheckEmail) {
+      if (!fullErrors?.errors?.email) {
+        getData();
+        Cookies.set('signUpData', JSON.stringify(fullFormData));
+      }
+    }
+  }, [errorMessageCheckEmail]);
 
   /* Handle changing fields values */
   const handleChangeValue = (value: any, slug: string) => {
+    if (slug == 'email') {
+      setEmail(value);
+    }
     if (slug !== 'terms') {
       setFullFormData((prevObj): any => {
         let checkPhone = slug == 'phone' ? '+962' + value : value;
@@ -208,9 +231,9 @@ const SingUp: NextPage = () => {
   return (
     <div className={styles.signInContainer}>
       <CustomAlert
-        openAlert={errorMessage}
+        openAlert={errorMessage || fullErrors?.errors?.email}
         setOpenAlert={() => {}}
-        message={errorMessage}
+        message={errorMessage || fullErrors?.errors?.email}
       />
       {/* Terms Modal when check the terms and condition it appears  */}
       <TermsConditionsModal
@@ -290,7 +313,7 @@ const SingUp: NextPage = () => {
                 </Stack>
                 <Stack alignItems={'flex-end'}>
                   <LoadingButton
-                    loading={loading}
+                    loading={loadingCheckEmail || loading}
                     variant="outlined"
                     type="submit"
                     sx={{

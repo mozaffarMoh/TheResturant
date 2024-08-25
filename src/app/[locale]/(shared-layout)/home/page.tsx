@@ -2,8 +2,8 @@
 import type { NextPage } from 'next';
 import { HeroSection } from '@/sections/home';
 import EventsSection from '@/sections/home/events/eventsSection';
-import WorkShopsSection from '@/sections/home/workshops/workShopsSection';
 import MentorsSection from '@/sections/home/mentors/mentorsSection';
+import NewsSection from '@/sections/home/news/NewsSection';
 import { useTranslations } from 'next-intl';
 import { endPoints } from '@/base-api/endPoints';
 import useGet from '@/custom-hooks/useGet';
@@ -24,7 +24,7 @@ const HomePage: NextPage = () => {
         loading={loading}
       />
       <EventsSection title={t('header.events')} />
-      <WorkShopsSection />
+      <NewsSection />
       <MentorsSection />
     </>
   );

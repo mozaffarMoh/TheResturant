@@ -113,8 +113,8 @@ const EventDetailsModal = ({
             <Stack>
               <CustomSkeleton
                 variant="rectangle"
-                width={isScreen600 ? '250px' : '500px'}
-                height="250px"
+                width={isScreen600 ? '200px' : '500px'}
+                height={isScreen600 ? '180px' : '250px'}
                 bgcolor="grey.400"
                 borderRadius="20px"
               />{' '}
@@ -149,7 +149,7 @@ const EventDetailsModal = ({
             <Box
               className=" position-relative  "
               width={'90%'}
-              height={320}
+              height={isScreen600 ? 200 : 320}
               marginBottom={2}
             >
               <img

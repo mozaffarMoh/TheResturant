@@ -18,6 +18,7 @@ import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 const ContactUsForm = () => {
   const t = useTranslations();
   const isScreen900 = useMediaQuery('(max-width:900px)');
+  const isScreen500 = useMediaQuery('(max-width:500px)');
   const [fullFormData, setFullFormData]: any = useState([]);
   const [fullFormID, setFullFormID]: any = useState(0);
   const [data, fieldsLoading, getData] = useGet(endPoints.contactUsForm);
@@ -107,7 +108,7 @@ const ContactUsForm = () => {
               return (
                 <div key={index}>
                   <CustomSkeleton
-                    width="300px"
+                    width={isScreen500 ? '220px' : '350px'}
                     height="60px"
                   />
                 </div>

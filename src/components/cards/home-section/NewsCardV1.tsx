@@ -5,10 +5,10 @@ import CardOverflow from '@mui/joy/CardOverflow';
 import { Paper, Typography } from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
-import './workshop-card-v1.css';
+import './news-card-v1.css';
 import dayjs from 'dayjs';
 
-export default function WorkShopCardV1({
+export default function NewsCardV1({
   key,
   title,
   subTitle,
@@ -30,9 +30,9 @@ export default function WorkShopCardV1({
         borderRadius: '1.1rem',
         gap: 3,
       }}
-      className="workshop-v1-repo"
+      className="news-v1-repo"
     >
-      <CardOverflow className="md-workshop-media">
+      <CardOverflow className="md-news-media">
         <Paper
           sx={{
             width: '5rem',
@@ -45,7 +45,7 @@ export default function WorkShopCardV1({
             alignItems: 'center',
             color: 'white',
           }}
-          className="md-workshop-media-paper"
+          className="md-news-media-paper"
         >
           <div>{day}</div>
           <div>{month}</div>
