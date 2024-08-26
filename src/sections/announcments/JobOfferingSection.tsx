@@ -181,17 +181,15 @@ const JobOfferingSection = () => {
           >
             {filteredData.length > 0 &&
               filteredData.map((item: any, i: any) => {
-                let imageURL =
-                  item.media && item.media.length > 0 && item.media[0]?.url
-                    ? domain + item.media[0]?.url
-                    : DefautImage1;
-                let imageURLAvatart =
-                  item.itemMetaData &&
-                  item.itemMetaData.length > 0 &&
-                  item?.itemMetaData[0]?.media &&
-                  item?.itemMetaData[0]?.media.length > 0
-                    ? domain + item?.itemMetaData[0]?.media[0]?.url
-                    : DefautImage2;
+                let imageURL = item?.media?.['Item/media']?.[0]?.url
+                  ? domain + item?.media?.['Item/media']?.[0]?.url
+                  : DefautImage1;
+                let imageURLAvatar = item?.itemMetaData[0]?.media?.[
+                  'ItemMetaData/media'
+                ]?.[0]?.url
+                  ? domain +
+                    item?.itemMetaData[0]?.media?.['ItemMetaData/media']?.[0]?.url
+                  : DefautImage2;
 
                 return (
                   <Card
@@ -201,7 +199,6 @@ const JobOfferingSection = () => {
                       padding: '10px',
                       margin: '10px',
                       cursor: 'pointer',
-                      position: 'relative',
                     }}
                     onClick={() =>
                       router.push(
@@ -209,30 +206,31 @@ const JobOfferingSection = () => {
                       )
                     }
                   >
-                    <img
-                      src={imageURL}
-                      alt={'jobOfferImage'}
-                      style={{
-                        width: '100%',
-                        height: '250px',
-                        borderRadius: '20px',
-                      }}
-                    />
+                    <Stack position={'relative'}>
+                      <img
+                        src={imageURL}
+                        alt={'jobOfferImage'}
+                        style={{
+                          width: '100%',
+                          height: '250px',
+                          borderRadius: '20px',
+                        }}
+                      />
 
-                    <img
-                      src={imageURLAvatart}
-                      alt={'InstructorImage'}
-                      style={{
-                        position: 'absolute',
-                        width: '60px',
-                        height: '60px',
-                        borderRadius: '50%',
-                        right: `${!isArabic ? '20px' : ''}`,
-                        left: `${isArabic ? '20px' : ''}`,
-                        bottom: '100px',
-                      }}
-                    />
-
+                      <img
+                        src={imageURLAvatar}
+                        alt={'InstructorImage'}
+                        style={{
+                          position: 'absolute',
+                          width: '60px',
+                          height: '60px',
+                          borderRadius: '50%',
+                          right: `${!isArabic ? '20px' : ''}`,
+                          left: `${isArabic ? '20px' : ''}`,
+                          bottom: '-30px',
+                        }}
+                      />
+                    </Stack>
                     <CardContent>
                       <Typography
                         variant="body2"
