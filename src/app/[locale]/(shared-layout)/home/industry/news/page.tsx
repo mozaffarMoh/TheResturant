@@ -75,7 +75,7 @@ const News = () => {
     body,
   );
 
-  const [categories, loadingCategories, getCategories] = usePost(
+  const [categories, loadingCategories, getCategories,successCategories] = usePost(
     endPoints.DynamicFilter,
     bodyCategory,
   );
@@ -285,17 +285,19 @@ const News = () => {
                       })
                   ) : (
                     <div>
-                      <Typography
-                        variant="body1"
-                        lineHeight={2}
-                        color={category == 'all' ? '#EB6B2A' : gray300}
-                        sx={{
-                          '&:hover': { color: '#EB6B2A', cursor: 'pointer' },
-                        }}
-                        onClick={() => setCategory('all')}
-                      >
-                        {t('select.all')}
-                      </Typography>
+                      {successCategories && (
+                        <Typography
+                          variant="body1"
+                          lineHeight={2}
+                          color={category == 'all' ? '#EB6B2A' : gray300}
+                          sx={{
+                            '&:hover': { color: '#EB6B2A', cursor: 'pointer' },
+                          }}
+                          onClick={() => setCategory('all')}
+                        >
+                          {t('select.all')}
+                        </Typography>
+                      )}
                       {categories &&
                         categories.map((item: any, i: number) => {
                           return (

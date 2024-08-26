@@ -7,6 +7,7 @@ import { domain } from '@/base-api/endPoints';
 import { DefautImage1 } from '@/constant/images';
 import { Button, Stack, Typography, useMediaQuery } from '@mui/material';
 import { usePathname } from 'next/navigation';
+import dayjs from 'dayjs';
 
 export default function NewsCardV2({
   key,
@@ -24,7 +25,9 @@ export default function NewsCardV2({
       ? domain + media[0]?.url
       : DefautImage1;
 
-  const date = dateTime?.split(' ')[0];
+  const date = dateTime
+    ? dayjs(dateTime?.split(' ')?.[0]).format('MMMM DD, YYYY')
+    : '';
   const time = dateTime?.split(' ')[1];
   return (
     <Card

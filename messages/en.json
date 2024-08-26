@@ -208,6 +208,6 @@
         "facility-exceed-hours": "You should not exceed 5 PM",
         "facility-between-reserved-hours": "You have chosen reserved hours",
         "request": "Request has been sent successfully",
-        "no-data": "No data"
+        "no-data": "No Data"
     }
 }

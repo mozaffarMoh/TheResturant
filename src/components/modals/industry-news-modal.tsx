@@ -16,6 +16,7 @@ import { domain, endPoints } from '@/base-api/endPoints';
 import usePost from '@/custom-hooks/usePost';
 import { usePathname } from 'next/navigation';
 import CardSkeletonVertical from '../skeleton/cardSkeletonVertical';
+import dayjs from 'dayjs';
 
 interface IndustryNewsModalProps {
   open: boolean;
@@ -44,11 +45,8 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
   const isScreen450 = useMediaQuery('(max-width:450px)');
   const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
   let imageURL =
-    data[0] &&
-    data[0]?.media &&
-    data[0].media.length > 0 &&
-    data[0].media[0]?.url
-      ? domain + data[0].media[0]?.url
+    data && data?.[0]?.media?.['Item/media']?.[0]?.url
+      ? domain + data?.[0]?.media?.['Item/media']?.[0]?.url
       : DefautImage1Large;
 
   const handleClose = () => {
@@ -59,6 +57,12 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
   useEffect(() => {
     slug && getData();
   }, [slug]);
+
+  const dateTime = (data && data?.[0]?.created_at) || '';
+  const date = dateTime
+    ? dayjs(dateTime?.split(' ')?.[0]).format('MMMM DD, YYYY')
+    : '';
+  const time = dateTime?.split(' ')?.[1];
 
   return (
     <Dialog
@@ -93,7 +97,7 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
         </Stack>
       ) : (
         <Stack
-          padding={5}
+          paddingX={5}
           alignItems={'flex-start'}
           sx={{ direction: isArabic ? 'rtl' : 'ltr' }}
         >
@@ -113,14 +117,22 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
               <Typography
                 variant="body2"
                 fontFamily={'Jost'}
+                marginBottom={2}
               >
-                {data?.subTitle}
-                <br /> {data[0] && data[0]?.created_at} <br />
-                <span style={{ color: '#EB6B2A' }}>
-                  {' '}
-                  {data[0] && data[0]?.category}
-                </span>
+                {data && data?.[0]?.subTitle}
+              </Typography>{' '}
+              <Typography
+                variant="caption"
+                fontSize={12}
+                className=" opacity-80"
+              >
+                {date}
               </Typography>
+              <br />
+              <span style={{ color: '#EB6B2A' }}>
+                {' '}
+                {data[0] && data[0]?.category}
+              </span>
             </DialogContentText>
           </DialogContent>
           <img
@@ -136,22 +148,16 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
           <br />
 
           <DialogContent>
-            <DialogContentText>
-              <Typography
-                variant="body2"
-                fontFamily={'Jost'}
-              >
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: data[0] && data[0]?.description,
-                  }}
-                />
-                <span style={{ color: '#EB6B2A' }}>
-                  {' '}
-                  {data[0] && data[0]?.category}
-                </span>
-              </Typography>
-            </DialogContentText>
+            <Typography
+              variant="body2"
+              fontFamily={'Jost'}
+            >
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: data[0] && data[0]?.description,
+                }}
+              />{' '}
+            </Typography>
           </DialogContent>
         </Stack>
       )}
