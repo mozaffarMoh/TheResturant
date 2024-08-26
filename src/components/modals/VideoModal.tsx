@@ -6,8 +6,8 @@ import { useRef, useState } from 'react';
 
 const VideoModal = ({ open = false, handleClose, videoURL }: any) => {
   //const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=0`;
-  const isScreen630 = useMediaQuery('(max-width:630px)');
-  const isScreen400 = useMediaQuery('(max-width:400px)');
+  //const isScreen630 = useMediaQuery('(max-width:630px)');
+  const isScreen500 = useMediaQuery('(max-width:400px)');
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef: any = useRef(null);
   const handlePlayVideo = () => {
@@ -26,22 +26,21 @@ const VideoModal = ({ open = false, handleClose, videoURL }: any) => {
       onClose={handleClose}
       aria-labelledby="customized-dialog-title"
       open={open}
-      sx={{ direction: 'ltr', overflowX: 'hidden' }}
+      sx={{ overflowX: 'hidden' }}
     >
-      <Stack
-        direction={'row'}
-        justifyContent={'flex-end'}
-        width={'100%'}
+      <div
+        onClick={handleClose}
+        className="close-icon-video"
       >
-        <div
-          onClick={handleClose}
-          style={{ margin: '10px', cursor: 'pointer' }}
-        >
-          <CloseSVG />
-        </div>
-      </Stack>
+        <CloseSVG />
+      </div>
+
       <Box
-        sx={{ overflow: 'hidden', padding: '10px' }}
+        sx={{
+          overflow: 'hidden',
+          background: 'black',
+          height: isScreen500 ? 310 : 480,
+        }}
       >
         {/*     <iframe
           width="100%"

@@ -7,12 +7,23 @@ import Cookies from 'js-cookie';
 export default function MentorListItem({ item, key }: any) {
   const router = useRouter();
   const pathname = usePathname();
-  const langCurrent = pathname.slice(1,3)|| 'en';
+  const langCurrent = pathname.slice(1, 3) || 'en';
   let imageURL =
     item?.user?.media?.length > 0 && item?.user?.media[0]?.url
       ? domain + item?.user?.media[0]?.url
       : DefautImage2;
-  const ProfessionName = item?.user?.groups?.[0]?.name || '';
+
+  let professions = item?.user?.groups
+    ? item?.user?.groups.map((item: any, i: number) => {
+        let comma = i > 0 ? ', ' : '';
+        return comma + item?.name;
+      })
+    : [];
+
+  let professionsList =
+    professions?.join('').length < 25
+      ? professions
+      : professions.join('').slice(0, 25) + '...';
 
   return (
     <div
@@ -27,7 +38,7 @@ export default function MentorListItem({ item, key }: any) {
         sx={{ width: 100, height: 100 }}
       />
       <div className="text-reg-high">{item?.user?.name}</div>
-      <div className="text-reg-fw500 line-h-0">{ProfessionName}</div>
+      <div className="text-reg-fw500 line-h-0">{professionsList}</div>
     </div>
   );
 }

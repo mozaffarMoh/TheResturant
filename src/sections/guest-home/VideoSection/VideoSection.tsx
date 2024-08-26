@@ -61,7 +61,7 @@ const VideoSection = ({ data, loading }: any) => {
               top={'40%'}
               left={'45%'}
               bgcolor={'white'}
-              padding={1}
+              padding={1} 
               borderRadius={2}
               sx={{ cursor: 'pointer' }}
             >

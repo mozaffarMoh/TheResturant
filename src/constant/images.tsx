@@ -28,6 +28,7 @@ export const successCheckMark = '/green-check.png';
 export const DefautImage1 = '/DefautImage1.png';
 export const DefautImage1Large = '/DefautImage1Large.png';
 export const DefautImage2 = '/DefautImage2.webp';
+export const DefautIcon = '/DefautIcon.png';
 
 export const heroCard1 = '/hero-card1.png';
 export const heroCard2 = '/hero-card2.png';

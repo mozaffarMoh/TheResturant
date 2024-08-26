@@ -243,6 +243,13 @@ const MentorsPage: NextPage = () => {
                     item?.user?.media.length > 0 && item?.user?.media[0]?.url
                       ? domain + item?.user?.media[0]?.url
                       : DefautImage2;
+                  let professions =
+                    item?.user?.groups &&
+                    item?.user?.groups.map((item: any, i: number) => {
+                      let comma = i > 0 ? ', ' : '';
+                      return comma + item?.name;
+                    });
+
                   return (
                     <Card
                       key={i}
@@ -279,7 +286,7 @@ const MentorsPage: NextPage = () => {
                           variant="body2"
                           color="text.secondary"
                         >
-                          {item?.user?.groups[0]?.name}
+                          {professions}
                         </Typography>
                       </CardContent>
                     </Card>

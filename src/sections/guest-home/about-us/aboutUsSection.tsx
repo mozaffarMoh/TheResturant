@@ -1,6 +1,7 @@
 import { Container, Grid } from '@mui/material';
 import styles from './about-us.module.css';
 import { DefautImage1 } from '@/constant/images';
+import { DefautIcon } from '@/constant/images';
 import AboutUsSectionCard from '@/components/cards/about-us-section/aboutUsSectionCard';
 import { domain } from '@/base-api/endPoints';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
@@ -102,9 +103,9 @@ const AboutUsSection = ({ data, loading }: any) => {
                 ) : (
                   data?.children &&
                   data?.children.map((item: any) => {
-                    let iconURL = item?.media?.[0]?.url
-                      ? domain + item?.media[0]?.url
-                      : DefautImage1;
+                    let iconURL = item?.media?.['DynamicLookup/media']?.[0]?.url
+                      ? domain + item?.media?.['DynamicLookup/media']?.[0]?.url
+                      : DefautIcon;
 
                     if (item?.slug !== 'main-section') {
                       return (
