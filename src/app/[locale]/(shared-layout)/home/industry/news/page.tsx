@@ -31,6 +31,7 @@ import {
 import { usePathname } from 'next/navigation';
 import { DefautImage1 } from '@/constant/images';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
+import NoData from '@/components/NoData/NoData';
 
 const News = () => {
   const t = useTranslations();
@@ -158,6 +159,7 @@ const News = () => {
             flexDirection={'column'}
             className="news-items"
           >
+            {data?.length == 0 && success && <NoData />}
             {loading
               ? Array(2)
                   .fill(0)
@@ -254,6 +256,7 @@ const News = () => {
               lg={3}
               sm={4}
               className="news-tags"
+              marginBottom={2}
             >
               <Box
                 border={`1px solid #E7E7EC`}
@@ -353,6 +356,17 @@ const News = () => {
                       padding: '8px 14px',
                     },
                   }}
+                  renderValue={(selected: string) => {
+                    const displayValue =
+                      selected.length > 10
+                        ? `${selected.slice(0, 10)}...`
+                        : selected;
+                    return (
+                      <Typography textTransform={'capitalize'}>
+                        {displayValue}
+                      </Typography>
+                    );
+                  }}
                 >
                   {' '}
                   <MenuItem value={'all'}>
@@ -378,39 +392,42 @@ const News = () => {
           )}
         </Stack>
       </Container>
-      <Stack
-        alignItems={'center'}
-        paddingBottom={10}
-        marginTop={6}
-      >
-        <Pagination
-          onChange={handleChange}
-          page={page}
-          count={total}
-          siblingCount={2} // Number of siblings to show around the current page
-          renderItem={(item) => (
-            <PaginationItem
-              {...item}
-              sx={{
-                color: '#3F485E',
-                '&.Mui-selected': {
-                  backgroundColor: '#3F485E',
-                  color: '#fff',
-                  '&:hover': { backgroundColor: '#3F485EDD' },
-                },
-              }}
-              slots={{
-                previous: isArabic
-                  ? ArrowForwardIosRounded
-                  : ArrowBackIosNewRounded,
-                next: isArabic
-                  ? ArrowBackIosNewRounded
-                  : ArrowForwardIosRounded,
-              }}
-            />
-          )}
-        />
-      </Stack>
+      {data?.length > 0 && (
+        <Stack
+          alignItems={'center'}
+          paddingBottom={10}
+          marginTop={6}
+        >
+          <Pagination
+            onChange={handleChange}
+            page={page}
+            count={total}
+            siblingCount={2} // Number of siblings to show around the current page
+            renderItem={(item) => (
+              <PaginationItem
+                {...item}
+                sx={{
+                  color: '#3F485E',
+                  '&.Mui-selected': {
+                    backgroundColor: '#3F485E',
+                    color: '#fff',
+                    '&:hover': { backgroundColor: '#3F485EDD' },
+                  },
+                }}
+                slots={{
+                  previous: isArabic
+                    ? ArrowForwardIosRounded
+                    : ArrowBackIosNewRounded,
+                  next: isArabic
+                    ? ArrowBackIosNewRounded
+                    : ArrowForwardIosRounded,
+                }}
+              />
+            )}
+          />
+        </Stack>
+      )}
+
       <IndustryNewsModal
         open={isDetailsVisible}
         onClose={() => setIsDetailsVisible(false)}

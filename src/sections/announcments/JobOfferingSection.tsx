@@ -23,6 +23,7 @@ import { domain, endPoints } from '@/base-api/endPoints';
 import { DefautImage1, DefautImage2 } from '@/constant/images';
 import { LoadingButton } from '@mui/lab';
 import CardSkeletonVertical from '@/components/skeleton/cardSkeletonVertical';
+import NoData from '@/components/NoData/NoData';
 
 const JobOfferingSection = () => {
   const t = useTranslations();
@@ -159,7 +160,7 @@ const JobOfferingSection = () => {
           </FormControl>
         </Stack> */}
       </Stack>
-      {loading ? (
+      {loading && filteredData.length == 0 ? (
         <Stack
           direction={'row'}
           justifyContent={'space-evenly'}
@@ -259,7 +260,8 @@ const JobOfferingSection = () => {
                     </CardContent>
                   </Card>
                 );
-              })}{' '}
+              })}
+            {filteredData?.length == 0 && success && <NoData />}
           </Stack>
           {filteredData.length < total && (
             <LoadingButton

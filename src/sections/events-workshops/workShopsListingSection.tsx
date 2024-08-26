@@ -6,10 +6,11 @@ import useGet from '@/custom-hooks/useGet';
 import { endPoints } from '@/base-api/endPoints';
 import { useEffect } from 'react';
 import CardSkeleton from '@/components/skeleton/cardSkeleton';
+import NoData from '@/components/NoData/NoData';
 
 const WorkShopsListingSection = () => {
   const t = useTranslations();
-  const [data, loading, getData] = useGet(endPoints.getWorkshop);
+  const [data, loading, getData, success] = useGet(endPoints.getWorkshop);
 
   useEffect(() => {
     getData();
@@ -30,6 +31,7 @@ const WorkShopsListingSection = () => {
           alignItems="center"
           paddingY={5}
         >
+          {data?.length == 0 && success && <NoData />}
           {loading ? (
             <Stack
               gap={2}

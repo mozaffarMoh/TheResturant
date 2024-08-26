@@ -31,6 +31,7 @@ import {
 } from '@mui/icons-material';
 import { DefautImage2 } from '@/constant/images';
 import CardSkeletonVertical from '@/components/skeleton/cardSkeletonVertical';
+import NoData from '@/components/NoData/NoData';
 
 const MentorsPage: NextPage = () => {
   const t = useTranslations();
@@ -235,6 +236,7 @@ const MentorsPage: NextPage = () => {
               flexWrap={'wrap'}
               justifyContent={'center'}
             >
+              {mentorsItems?.length == 0 && successMentorsItems && <NoData />}
               {mentorsItems &&
                 mentorsItems.map((item: any, i: number) => {
                   let imageURL =
@@ -285,38 +287,40 @@ const MentorsPage: NextPage = () => {
                 })}
             </Stack>
           )}
-          <Stack
-            alignItems={'center'}
-            paddingBottom={10}
-          >
-            <Pagination
-              onChange={(event, value) => setPage(value)}
-              page={page}
-              count={total}
-              siblingCount={2} // Number of siblings to show around the current page
-              renderItem={(item) => (
-                <PaginationItem
-                  {...item}
-                  sx={{
-                    color: '#3F485E',
-                    '&.Mui-selected': {
-                      backgroundColor: '#3F485E',
-                      color: '#fff',
-                      '&:hover': { backgroundColor: '#3F485EDD' },
-                    },
-                  }}
-                  slots={{
-                    previous: isArabic
-                      ? ArrowForwardIosRounded
-                      : ArrowBackIosNewRounded,
-                    next: isArabic
-                      ? ArrowBackIosNewRounded
-                      : ArrowForwardIosRounded,
-                  }}
-                />
-              )}
-            />
-          </Stack>
+          {mentorsItems.length > 0 && (
+            <Stack
+              alignItems={'center'}
+              paddingBottom={10}
+            >
+              <Pagination
+                onChange={(event, value) => setPage(value)}
+                page={page}
+                count={total}
+                siblingCount={2} // Number of siblings to show around the current page
+                renderItem={(item) => (
+                  <PaginationItem
+                    {...item}
+                    sx={{
+                      color: '#3F485E',
+                      '&.Mui-selected': {
+                        backgroundColor: '#3F485E',
+                        color: '#fff',
+                        '&:hover': { backgroundColor: '#3F485EDD' },
+                      },
+                    }}
+                    slots={{
+                      previous: isArabic
+                        ? ArrowForwardIosRounded
+                        : ArrowBackIosNewRounded,
+                      next: isArabic
+                        ? ArrowBackIosNewRounded
+                        : ArrowForwardIosRounded,
+                    }}
+                  />
+                )}
+              />
+            </Stack>
+          )}
         </Stack>
       </Container>
     </Stack>

@@ -16,6 +16,7 @@ import {
   Typography,
   Pagination,
   PaginationItem,
+  useMediaQuery,
 } from '@mui/material';
 import Link from '@mui/material/Link';
 import FacilityListingSection from '@/sections/book-facility/FacilityListingSection';
@@ -32,12 +33,14 @@ import {
 import { usePathname } from 'next/navigation';
 import usePost from '@/custom-hooks/usePost';
 import CardSkeleton from '@/components/skeleton/cardSkeleton';
+import NoData from '@/components/NoData/NoData';
 
 const BookFacilityPage: NextPage = () => {
   const t = useTranslations();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1,3)|| 'en';
+  const isScreen565 = useMediaQuery('(max-width:565px)');
+  const langCurrent = pathname.slice(1, 3) || 'en';
   const [category, setCategory] = useState<string>('');
   const [location, setLocation] = useState<string>('');
   const [page, setPage] = useState(0);
@@ -182,9 +185,11 @@ const BookFacilityPage: NextPage = () => {
             sm: 3,
           }}
         >
-          <Box
-            display="flex"
-            alignItems="center"
+          <Stack
+            direction={'row'}
+            justifyContent={'flex-start'}
+            alignItems={'center'}
+            width={isScreen565 ? '100%' : 'auto'}
           >
             <InputLabel
               id="dropdown-category"
@@ -192,7 +197,7 @@ const BookFacilityPage: NextPage = () => {
                 whiteSpace: 'nowrap',
                 overflow: 'visible',
                 textOverflow: 'clip',
-                width: 'auto',
+                width: loadingFacilityList ? ' 120px' : '80px',
               }}
             >
               {t('select.category')} :&nbsp;&nbsp;
@@ -206,7 +211,7 @@ const BookFacilityPage: NextPage = () => {
             </InputLabel>
             <FormControl
               variant="outlined"
-              style={{ marginLeft: 5, minWidth: 150 }}
+              style={{ minWidth: 150 }}
             >
               {' '}
               <Select
@@ -235,11 +240,13 @@ const BookFacilityPage: NextPage = () => {
                 })}
               </Select>
             </FormControl>
-          </Box>
+          </Stack>
 
-          <Box
-            display="flex"
-            alignItems="center"
+          <Stack
+            direction={'row'}
+            justifyContent={'flex-start'}
+            alignItems={'center'}
+            width={isScreen565 ? '100%' : 'auto'}
           >
             <InputLabel
               id="dropdown-location"
@@ -247,7 +254,7 @@ const BookFacilityPage: NextPage = () => {
                 whiteSpace: 'nowrap',
                 overflow: 'visible',
                 textOverflow: 'clip',
-                width: 'auto',
+                width: loadingCitiesList ? ' 120px' : '80px',
               }}
             >
               {t('select.location')} :&nbsp;&nbsp;
@@ -261,7 +268,7 @@ const BookFacilityPage: NextPage = () => {
             </InputLabel>
             <FormControl
               variant="outlined"
-              style={{ marginLeft: 5, minWidth: 150 }}
+              style={{ minWidth: 150 }}
             >
               <Select
                 labelId="dropdown-location"
@@ -289,11 +296,11 @@ const BookFacilityPage: NextPage = () => {
                   })}
               </Select>
             </FormControl>
-          </Box>
+          </Stack>
         </Grid>
       </Container>
       {/* Facility Listing Section */}
-
+      {facilityItems?.length == 0 && successFacilityItems && <NoData />}
       {loadingFacilityItems || loadingCitiesList || loadingFacilityList ? (
         <Stack
           gap={2}
@@ -309,38 +316,40 @@ const BookFacilityPage: NextPage = () => {
       ) : (
         <FacilityListingSection facilityItems={facilityItems} />
       )}
-      <Stack
-        alignItems={'center'}
-        paddingBottom={10}
-      >
-        <Pagination
-          onChange={handleChange}
-          page={page}
-          count={total}
-          siblingCount={2} // Number of siblings to show around the current page
-          renderItem={(item) => (
-            <PaginationItem
-              {...item}
-              sx={{
-                color: '#3F485E',
-                '&.Mui-selected': {
-                  backgroundColor: '#3F485E',
-                  color: '#fff',
-                  '&:hover': { backgroundColor: '#3F485EDD' },
-                },
-              }}
-              slots={{
-                previous: isArabic
-                  ? ArrowForwardIosRounded
-                  : ArrowBackIosNewRounded,
-                next: isArabic
-                  ? ArrowBackIosNewRounded
-                  : ArrowForwardIosRounded,
-              }}
-            />
-          )}
-        />
-      </Stack>
+      {facilityItems?.length > 0 && (
+        <Stack
+          alignItems={'center'}
+          paddingBottom={10}
+        >
+          <Pagination
+            onChange={handleChange}
+            page={page}
+            count={total}
+            siblingCount={2} // Number of siblings to show around the current page
+            renderItem={(item) => (
+              <PaginationItem
+                {...item}
+                sx={{
+                  color: '#3F485E',
+                  '&.Mui-selected': {
+                    backgroundColor: '#3F485E',
+                    color: '#fff',
+                    '&:hover': { backgroundColor: '#3F485EDD' },
+                  },
+                }}
+                slots={{
+                  previous: isArabic
+                    ? ArrowForwardIosRounded
+                    : ArrowBackIosNewRounded,
+                  next: isArabic
+                    ? ArrowBackIosNewRounded
+                    : ArrowForwardIosRounded,
+                }}
+              />
+            )}
+          />
+        </Stack>
+      )}
     </>
   );
 };

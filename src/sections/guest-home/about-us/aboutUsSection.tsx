@@ -7,9 +7,10 @@ import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 
 const AboutUsSection = ({ data, loading }: any) => {
   const words = (data?.children && data?.children[0]?.value?.split(' ')) || [];
-  let imageURL = data?.children?.[0]?.media?.[0]?.url
-    ? domain + data?.children[0]?.media[0]?.url
-    : DefautImage1;
+  let imageURL =
+    data && data?.children?.[0]?.media?.['DynamicLookup/media']?.[0]?.url
+      ? domain + data?.children?.[0]?.media?.['DynamicLookup/media']?.[0]?.url
+      : DefautImage1;
 
   return (
     <Container
@@ -140,11 +141,7 @@ const AboutUsSection = ({ data, loading }: any) => {
                 />
               ) : (
                 <img
-                  style={{
-                    width: '100%',
-                    height: '500px',
-                    borderRadius: '20px',
-                  }}
+                  className={styles.aboutImage}
                   src={imageURL}
                   alt="about us Section"
                 />
