@@ -7,7 +7,14 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { DefautImage1 } from '@/constant/images';
-import { Box, CircularProgress, DialogActions, Grid, Stack, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  DialogActions,
+  Grid,
+  Stack,
+  useMediaQuery,
+} from '@mui/material';
 import { gray100, primaryColor } from '@/constant/color';
 import { PlaceSVG } from '../../../assets/icons';
 import { useTranslations } from 'next-intl';
@@ -58,13 +65,13 @@ const EventDetailsModal = ({
   const [itemId, setItemId] = useState('');
   const [quantity, setQuantity] = useState(0);
   let isArabic = pathname.startsWith('/ar');
-  const [data, loading, getData] = useGet(
+  const [data, loading, getData, success] = useGet(
     endPoints.showSingleItem + slug,
     true,
   );
 
   let body = {
-    order_type: 'workshop',
+    order_type: 'event',
     items: [{ item_id: itemId }],
   };
 
@@ -73,7 +80,7 @@ const EventDetailsModal = ({
     loadingReserve,
     handleReserve,
     successReserve,
-    ,
+    successStatus,
     errorMessageReserve,
   ] = usePost(endPoints.createOrder, body, token);
 
@@ -311,14 +318,14 @@ const EventDetailsModal = ({
                 </Stack>
               </Grid>
             </Grid>
+            <Stack
+              width={'90%'}
+              marginTop={3}
+            >
+              <div dangerouslySetInnerHTML={{ __html: data?.description }} />
+            </Stack>
           </Stack>
         )}
-        <Stack
-          width={'90%'}
-          marginTop={3}
-        >
-          <div dangerouslySetInnerHTML={{ __html: data?.description }} />
-        </Stack>
       </DialogContent>
       <DialogActions
         sx={{
@@ -327,30 +334,32 @@ const EventDetailsModal = ({
           alignItems: 'center',
         }}
       >
-        <LoadingButton
-          autoFocus
-          loading={loadingReserve}
-          className={`${quantity ? '' : 'general-button-secondary'} mt-1 w-90`}
-          disabled={quantity ? false : true}
-          onClick={quantity ? handleReserve : () => {}}
-          sx={{
-            borderRadius: '15px',
-            color: 'white',
-            background: '#3f485e',
-            '&:hover': {
-              backgroundColor: '#ffffff',
-              color: '#3f485e',
-            },
-          }}
-          loadingIndicator={
-            <CircularProgress
-              color="warning"
-              size={18}
-            />
-          }
-        >
-          {t('buttons.book-now')}
-        </LoadingButton>
+        {success && (
+          <LoadingButton
+            autoFocus
+            loading={loadingReserve}
+            className={`${quantity && !successStatus ? '' : 'general-button-secondary'} mt-1 w-90`}
+            disabled={quantity && !successStatus ? false : true}
+            onClick={quantity && !successStatus ? handleReserve : () => {}}
+            sx={{
+              borderRadius: '15px',
+              color: 'white',
+              background: '#3f485e',
+              '&:hover': {
+                backgroundColor: '#ffffff',
+                color: '#3f485e',
+              },
+            }}
+            loadingIndicator={
+              <CircularProgress
+                color="warning"
+                size={18}
+              />
+            }
+          >
+            {t('buttons.book-now')}
+          </LoadingButton>
+        )}
       </DialogActions>
     </BootstrapDialog>
   );
