@@ -18,9 +18,10 @@
   /* margin-top: 1.2rem; */
 }
 
-@media (max-width: 567px) {
+@media (max-width: 900px) {
   .rightContainer {
     align-items: flex-start;
+    min-height: auto;
   }
 }
 

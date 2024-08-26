@@ -7,10 +7,8 @@ import useGet from '@/custom-hooks/useGet';
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { domain, endPoints } from '@/base-api/endPoints';
-import Loading from '@/components/Loading/Loading';
 import { DefautImage1Large } from '@/constant/images';
 import { Stack } from '@mui/material';
-import CardSkeleton from '@/components/skeleton/cardSkeleton';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 
 const HomePage: NextPage = () => {
@@ -19,6 +17,7 @@ const HomePage: NextPage = () => {
     endPoints.showSingleItem + params?.id,
     true,
   );
+
   let imageURL =
     data && data?.media?.['Item/media']?.[0]?.url
       ? domain + data?.media?.['Item/media']?.[0]?.url

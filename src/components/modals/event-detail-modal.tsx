@@ -7,24 +7,19 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { DefautImage1 } from '@/constant/images';
-import {
-  Box,
-  Button,
-  CircularProgress,
-  DialogActions,
-  Grid,
-  Stack,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, CircularProgress, DialogActions, Grid, Stack, useMediaQuery } from '@mui/material';
 import { gray100, primaryColor } from '@/constant/color';
 import { PlaceSVG } from '../../../assets/icons';
 import { useTranslations } from 'next-intl';
 import { domain, endPoints } from '@/base-api/endPoints';
 import useGet from '@/custom-hooks/useGet';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { metadataIcons } from '@/constant/metadataIcons';
 import { usePathname } from 'next/navigation';
 import CustomSkeleton from '../skeleton/CustomSkeleton';
+import usePost from '@/custom-hooks/usePost';
+import Cookies from 'js-cookie';
+import { LoadingButton } from '@mui/lab';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiPaper-root': {
@@ -46,28 +41,73 @@ interface TermsModalProps {
   open: boolean;
   handleClose: () => void;
   slug: string;
+  setSuccessMessageReserve: any;
+  setErrorMessageReserve: any;
 }
 const EventDetailsModal = ({
   open = false,
   handleClose,
   slug,
+  setSuccessMessageReserve,
+  setErrorMessageReserve,
 }: TermsModalProps) => {
   const t = useTranslations();
+  const token = Cookies.get('token') || '';
   const isScreen600 = useMediaQuery('(max-width:600px)');
   const pathname = usePathname();
+  const [itemId, setItemId] = useState('');
+  const [quantity, setQuantity] = useState(0);
   let isArabic = pathname.startsWith('/ar');
   const [data, loading, getData] = useGet(
     endPoints.showSingleItem + slug,
     true,
   );
+
+  let body = {
+    order_type: 'workshop',
+    items: [{ item_id: itemId }],
+  };
+
+  const [
+    ,
+    loadingReserve,
+    handleReserve,
+    successReserve,
+    ,
+    errorMessageReserve,
+  ] = usePost(endPoints.createOrder, body, token);
+
   let imageURL =
     data?.media && data.media.length > 0 && data?.media[0]?.url
       ? domain + data?.media[0]?.url
       : DefautImage1;
 
   useEffect(() => {
+    if (data) {
+      setItemId(data?.id);
+      setQuantity(data?.quantity);
+    }
+  }, [data]);
+
+  useEffect(() => {
     slug && getData();
   }, [slug]);
+
+  useEffect(() => {
+    if (successReserve) {
+      setSuccessMessageReserve(t('messages.success-reserve-facility'));
+      setTimeout(() => {
+        setSuccessMessageReserve('');
+        handleClose();
+      }, 2000);
+    }
+  }, [successReserve]);
+
+  useEffect(() => {
+    setErrorMessageReserve(errorMessageReserve);
+  }, [errorMessageReserve]);
+
+  console.log('quantity is : ', quantity);
 
   return (
     <BootstrapDialog
@@ -75,6 +115,7 @@ const EventDetailsModal = ({
       aria-labelledby="customized-dialog-title"
       open={open}
     >
+      {' '}
       <DialogTitle
         sx={{ m: 0 }}
         className="sm-flex-col-col-center-center"
@@ -272,8 +313,12 @@ const EventDetailsModal = ({
             </Grid>
           </Stack>
         )}
-
-        <div dangerouslySetInnerHTML={{ __html: data?.description }} />
+        <Stack
+          width={'90%'}
+          marginTop={3}
+        >
+          <div dangerouslySetInnerHTML={{ __html: data?.description }} />
+        </Stack>
       </DialogContent>
       <DialogActions
         sx={{
@@ -282,21 +327,30 @@ const EventDetailsModal = ({
           alignItems: 'center',
         }}
       >
-        <Button
+        <LoadingButton
           autoFocus
-          onClick={handleClose}
-          className="w-90 "
+          loading={loadingReserve}
+          className={`${quantity ? '' : 'general-button-secondary'} mt-1 w-90`}
+          disabled={quantity ? false : true}
+          onClick={quantity ? handleReserve : () => {}}
           sx={{
-            borderRadius: '50px',
+            borderRadius: '15px',
             color: 'white',
             background: '#3f485e',
             '&:hover': {
-              backgroundColor: '#eb6b2a',
+              backgroundColor: '#ffffff',
+              color: '#3f485e',
             },
           }}
+          loadingIndicator={
+            <CircularProgress
+              color="warning"
+              size={18}
+            />
+          }
         >
           {t('buttons.book-now')}
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </BootstrapDialog>
   );

@@ -1,11 +1,48 @@
 import CustomAlert from '@/components/alerts/CustomAlert';
 import DetailsWorkShopCard from '@/components/cards/events-workshops/DetailsWorkShopCard';
 import { Container, Grid, useMediaQuery } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import usePost from '@/custom-hooks/usePost';
+import { useTranslations } from 'next-intl';
+import Cookies from 'js-cookie';
+import { endPoints } from '@/base-api/endPoints';
 
 const WorkShopDetailsSection = ({ detailsData }: any) => {
-  const [openAlert, setOpenAlert] = useState(false);
   const matches = useMediaQuery('(max-width:1024px)');
+  const t = useTranslations();
+  const token = Cookies.get('token') || '';
+  const [itemId, setItemId] = useState('');
+  const [quantity, setQuantity] = useState(0);
+  const [successMessage, setSuccessMessage]: any = useState('');
+  let body = {
+    order_type: 'workshop',
+    items: [{ item_id: itemId }],
+  };
+
+  const [
+    ,
+    loadingReserve,
+    handleReserve,
+    successReserve,
+    ,
+    errorMessageReserve,
+  ] = usePost(endPoints.createOrder, body, token);
+
+  useEffect(() => {
+    if (detailsData) {
+      setItemId(detailsData?.id);
+      setQuantity(detailsData?.quantity);
+    }
+  }, [detailsData]);
+
+  useEffect(() => {
+    if (successReserve) {
+      setSuccessMessage(t('messages.success-reserve-facility'));
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 2000);
+    }
+  }, [successReserve]);
 
   return (
     <Container
@@ -13,14 +50,19 @@ const WorkShopDetailsSection = ({ detailsData }: any) => {
       className="mt-4  mb-4"
     >
       <CustomAlert
-        openAlert={openAlert}
-        setOpenAlert={setOpenAlert}
-        message={'You Successfully Book a Workshop '}
-        type={'success'}
-        position={{ vertical: 'bottom', horizontal: 'right' }}
+        openAlert={errorMessageReserve}
+        setOpenAlert={() => {}}
+        message={errorMessageReserve}
+      />
+      <CustomAlert
+        openAlert={successMessage}
+        setOpenAlert={() => setSuccessMessage('')}
+        type="success"
+        message={successMessage}
       />
       <Grid
         container
+        spacing={5}
         sx={{ flexDirection: matches ? 'column-reverse' : '' }}
       >
         <Grid
@@ -43,7 +85,9 @@ const WorkShopDetailsSection = ({ detailsData }: any) => {
           <DetailsWorkShopCard
             location={detailsData?.place && detailsData?.place?.name}
             metadata={detailsData?.metadata && detailsData?.metadata}
-            onClick={setOpenAlert}
+            loading={loadingReserve}
+            onClick={handleReserve}
+            quantity={quantity}
           />
         </Grid>
       </Grid>

@@ -1,23 +1,28 @@
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Divider from '@mui/joy/Divider';
-
 import './detail-workshop-card.css';
-import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
-import { Box, Button, Stack } from '@mui/material';
+import { PlaceSVG } from '../../../../assets/icons';
+import { Box, Button, CircularProgress, Stack } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { metadataIcons } from '@/constant/metadataIcons';
+import { LoadingButton } from '@mui/lab';
 
 export default function DetailsWorkShopCard({
   location,
   metadata,
+  loading,
   onClick,
+  quantity,
 }: {
   location: string;
   metadata: any;
+  loading: boolean;
   onClick: any;
+  quantity: number;
 }) {
   const t = useTranslations();
+
   return (
     <Card
       variant="outlined"
@@ -63,12 +68,20 @@ export default function DetailsWorkShopCard({
             );
           })}
 
-          <Button
-            className="general-button-primary mt-1"
-            onClick={onClick}
+          <LoadingButton
+            loading={loading}
+            className={`${quantity ? 'general-button-primary' : 'disabled-button'} mt-1`}
+            disabled={quantity ? false : true}
+            onClick={quantity ? onClick : () => {}}
+            loadingIndicator={
+              <CircularProgress
+                color="warning"
+                size={18}
+              />
+            }
           >
             {t('buttons.book-now')}
-          </Button>
+          </LoadingButton>
         </CardContent>
       )}
     </Card>

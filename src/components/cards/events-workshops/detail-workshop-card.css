@@ -1,0 +1,7 @@
+.disabled-button {
+    background-color: var(--secondary-color);
+    border-radius: 1.1rem;
+    color: var(--white-text);
+    height: 2.2rem;
+    text-transform: none;
+}

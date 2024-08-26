@@ -1,4 +1,5 @@
 import { endPoints } from '@/base-api/endPoints';
+import CustomAlert from '@/components/alerts/CustomAlert';
 import EventCard from '@/components/cards/home-section/EventCard';
 import CarouselElement from '@/components/carousel/CarouselElement';
 import EventDetailsModal from '@/components/modals/event-detail-modal';
@@ -15,6 +16,8 @@ interface IProps {
 const EventsSection = ({ title }: IProps) => {
   const [showModal, setShowModal] = useState(false);
   const [currentSlug, serCurrentSlug] = useState('');
+  const [successMessageReserve, setSuccessMessageReserve]: any = useState('');
+  const [errorMessageReserve, setErrorMessageReserve]: any = useState('');
   const [data, loading, getData] = useGet(endPoints.getEvents);
 
   useEffect(() => {
@@ -40,13 +43,26 @@ const EventsSection = ({ title }: IProps) => {
       className="mt-4 "
       maxWidth="lg"
     >
+      {' '}
+      <CustomAlert
+        openAlert={errorMessageReserve}
+        setOpenAlert={() => {}}
+        message={errorMessageReserve}
+      />
+      <CustomAlert
+        openAlert={Boolean(successMessageReserve)}
+        setOpenAlert={() => setSuccessMessageReserve('')}
+        type="success"
+        message={successMessageReserve}
+      />
       {/* Event Detail Modal when check the terms and condition it appears  */}
       <EventDetailsModal
         open={showModal}
         handleClose={handleCloseModal}
         slug={currentSlug}
+        setSuccessMessageReserve={setSuccessMessageReserve}
+        setErrorMessageReserve={setErrorMessageReserve}
       />
-
       <div className="sm-flex-col-col-center-center">
         <p className="general-title primary-color align-self-start">{title}</p>
 
