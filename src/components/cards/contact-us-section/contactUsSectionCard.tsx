@@ -1,6 +1,6 @@
 'use client';
 import { domain } from '@/base-api/endPoints';
-import { DefautImage1 } from '@/constant/images';
+import { DefautIcon } from '@/constant/images';
 import { Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 import styles from '../../../sections/guest-home/contact-us/contact-us.module.css';
 import { usePathname } from 'next/navigation';
@@ -18,9 +18,9 @@ const ContactUsSectionCard = ({ title, content, media }: IProps) => {
   const isScreen500 = useMediaQuery('(max-width:500px)');
 
   let imageURL =
-    media && media.length > 0 && media[0]?.url
-      ? domain + media[0]?.url
-      : DefautImage1;
+    media && media?.['DynamicLookup/media']?.[0]?.url
+      ? domain + media?.['DynamicLookup/media']?.[0]?.url
+      : DefautIcon;
 
   return (
     <Grid
