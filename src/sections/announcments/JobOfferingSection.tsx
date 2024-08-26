@@ -184,18 +184,19 @@ const JobOfferingSection = () => {
                 let imageURL = item?.media?.['Item/media']?.[0]?.url
                   ? domain + item?.media?.['Item/media']?.[0]?.url
                   : DefautImage1;
-                let imageURLAvatar = item?.itemMetaData[0]?.media?.[
+                let imageURLAvatar = item?.itemMetaData?.[0]?.media?.[
                   'ItemMetaData/media'
                 ]?.[0]?.url
                   ? domain +
-                    item?.itemMetaData[0]?.media?.['ItemMetaData/media']?.[0]?.url
+                    item?.itemMetaData[0]?.media?.['ItemMetaData/media']?.[0]
+                      ?.url
                   : DefautImage2;
 
                 return (
                   <Card
                     key={i}
                     sx={{
-                      width: isScreen450 ? '250px' : '340px',
+                      width: isScreen450 ? '290px' : '340px',
                       padding: '10px',
                       margin: '10px',
                       cursor: 'pointer',
