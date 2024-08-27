@@ -209,7 +209,7 @@
         "facility-between-reserved-hours": "You have chosen reserved hours",
         "request": "Request has been sent successfully",
         "no-data": "No Data",
-        "quantity":"You cannot reserve because the quantity is full"
-
+        "quantity": "You cannot reserve because the quantity is full",
+        "subscribe": "Subscription Successful"
     }
 }

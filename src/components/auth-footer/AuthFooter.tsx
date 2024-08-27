@@ -1,5 +1,5 @@
 import styles from './auth-footer.module.css';
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { Input } from '@mui/joy';
 import JoyButton from '@mui/joy/Button';
 import { gray100, gray200 } from '@/constant/color';
@@ -10,18 +10,58 @@ import {
   TwitterSVG,
 } from '../../../assets/icons';
 import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
+import usePost from '@/custom-hooks/usePost';
+import { endPoints } from '@/base-api/endPoints';
+import CustomAlert from '../alerts/CustomAlert';
+
 const AuthFooter = () => {
   const t = useTranslations();
+  const [email, setEmail] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
+
+  const [, loading, handlePost, success, , errorMessage] = usePost(
+    endPoints.subscribe,
+    { email },
+  );
+
+  const handleSubscribe = (e: any) => {
+    e.preventDefault();
+    handlePost();
+  };
+
+  useEffect(() => {
+    if (success) {
+      setSuccessMessage(t('messages.subscribe'));
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 2000);
+    }
+  }, [success]);
+
   return (
     <Box
       component="footer"
       className={styles.footer}
     >
+      {' '}
+      <CustomAlert
+        openAlert={errorMessage}
+        setOpenAlert={() => {}}
+        message={errorMessage}
+      />
+      <CustomAlert
+        openAlert={Boolean(successMessage)}
+        setOpenAlert={() => setSuccessMessage('')}
+        type="success"
+        message={successMessage}
+      />
       <p className="text-large-title text-white-new  mt-2">
         {t('footer.title')}
       </p>
       <p className="text-med-fw400 fc-light-white">{t('footer.subtitle')}</p>
-      <div
+      <form
+        onSubmit={handleSubscribe}
         className={styles.subscribeForm}
         dir="ltr"
       >
@@ -32,6 +72,7 @@ const AuthFooter = () => {
             width: '32rem',
             marginTop: '2rem',
           }}
+          onChange={(e: any) => setEmail(e.target.value)}
           placeholder="mail@mui.com"
           type="email"
           required
@@ -50,11 +91,18 @@ const AuthFooter = () => {
                 },
               }}
             >
-              {t('footer.subscribe')}
+              {loading ? (
+                <CircularProgress
+                  size={20}
+                  color="inherit"
+                />
+              ) : (
+                t('footer.subscribe')
+              )}
             </JoyButton>
           }
         />
-      </div>
+      </form>
       {/* Social Media Icons */}
       <div className="sm-flex-row-row-center-center">
         <div className="sm-flex-row-row-center-center gap05  w-50">

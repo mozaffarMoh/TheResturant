@@ -9,6 +9,7 @@ import {
   Button,
   MenuItem,
   Menu,
+  CircularProgress,
 } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 
@@ -23,19 +24,32 @@ import {
 } from '../../../assets/icons';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { KeyboardArrowDown } from '@mui/icons-material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import usePost from '@/custom-hooks/usePost';
+import { endPoints } from '@/base-api/endPoints';
+import CustomAlert from '../alerts/CustomAlert';
 
 const Footer = () => {
   const t = useTranslations();
   const router = useRouter();
+  const token = Cookies.get('token') || '';
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [email, setEmail] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
+
+  const [, loading, handlePost, success, , errorMessage] = usePost(
+    endPoints.subscribe,
+    { email },
+    token,
+  );
+
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: 'transparent',
     ...theme.typography.body2,
@@ -63,17 +77,45 @@ const Footer = () => {
     router.push(newPathname);
     handleClose();
   };
+
+  const handleSubscribe = (e: any) => {
+    e.preventDefault();
+    handlePost();
+  };
+
+  useEffect(() => {
+    if (success) {
+      setSuccessMessage(t('messages.subscribe'));
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 2000);
+    }
+  }, [success]);
+
   return (
     <Box
       component="footer"
       className={styles.footer}
     >
+      {' '}
+      <CustomAlert
+        openAlert={errorMessage}
+        setOpenAlert={() => {}}
+        message={errorMessage}
+      />
+      <CustomAlert
+        openAlert={Boolean(successMessage)}
+        setOpenAlert={() => setSuccessMessage('')}
+        type="success"
+        message={successMessage}
+      />
       <Container maxWidth="lg">
         <p className="text-large-title text-white-new  mt-2">
           {t('footer.title')}
         </p>
         <p className="text-med-fw400 fc-light-white">{t('footer.subtitle')}</p>
-        <div
+        <form
+          onSubmit={handleSubscribe}
           className={styles.subscribeForm}
           dir="ltr"
         >
@@ -85,6 +127,7 @@ const Footer = () => {
               marginTop: '2rem',
             }}
             placeholder="mail@mui.com"
+            onChange={(e: any) => setEmail(e.target.value)}
             type="email"
             required
             endDecorator={
@@ -102,11 +145,18 @@ const Footer = () => {
                   },
                 }}
               >
-                {t('footer.subscribe')}
+                {loading ? (
+                  <CircularProgress
+                    size={20}
+                    color="inherit"
+                  />
+                ) : (
+                  t('footer.subscribe')
+                )}
               </JoyButton>
             }
           />
-        </div>
+        </form>
         <Divider
           sx={{
             backgroundColor: 'rgb(255,255,255,0.2)',

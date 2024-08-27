@@ -21,6 +21,7 @@ export const endPoints = {
     ladningPage: '/core/dynamicLookup/tpf-landing-page',
     homePage: '/core/dynamicLookup/tpf-home-page',
     requestMentor: '/ecomm/requestMentorship/',
+    subscribe: '/core/newsletter-email'
 }
 
 
