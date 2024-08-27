@@ -9,12 +9,15 @@ import {
   InstagramSVG,
   LinkedInSVG,
   TwitterSVG,
+  WebsiteSVG,
 } from '../../../assets/icons';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import usePost from '@/custom-hooks/usePost';
 import { endPoints } from '@/base-api/endPoints';
 import CustomAlert from '../alerts/CustomAlert';
+import Link from 'next/link';
+import useGet from '@/custom-hooks/useGet';
 
 const AuthFooter = () => {
   const t = useTranslations();
@@ -25,6 +28,26 @@ const AuthFooter = () => {
     endPoints.subscribe,
     { email },
   );
+  const [socialMediaData, , getSocial] = useGet(endPoints.socialMedia);
+
+  useEffect(() => {
+    getSocial();
+  }, []);
+
+  const getSocialSVG = (slug: string) => {
+    switch (slug) {
+      case 'facebook':
+        return <FaceBookSVG />;
+      case 'instagram':
+        return <InstagramSVG />;
+      case 'linkedin':
+        return <LinkedInSVG />;
+      case 'twitter':
+        return <TwitterSVG />;
+      default:
+        return <WebsiteSVG />;
+    }
+  };
 
   const handleSubscribe = (e: any) => {
     e.preventDefault();
@@ -107,18 +130,25 @@ const AuthFooter = () => {
       {/* Social Media Icons */}
       <div className="sm-flex-row-row-center-center">
         <div className="sm-flex-row-row-center-center gap05  w-50">
-          <div className={styles.socialIconContainer}>
-            <FaceBookSVG />
-          </div>
-          <div className={styles.socialIconContainer}>
-            <TwitterSVG />
-          </div>
-          <div className={styles.socialIconContainer}>
-            <InstagramSVG />
-          </div>
-          <div className={styles.socialIconContainer}>
-            <LinkedInSVG />
-          </div>
+          {socialMediaData?.children &&
+            socialMediaData?.children.map((item: any) => {
+              return (
+                <Link
+                  key={item?.id}
+                  href={item?.value}
+                  target="_blank"
+                  className={styles.socialIconContainer}
+                >
+                  <div
+                    style={{
+                      margin: item?.slug == 'x' ? '5px 0px 0px 4px' : '',
+                    }}
+                  >
+                    {getSocialSVG(item?.slug)}
+                  </div>
+                </Link>
+              );
+            })}
         </div>
       </div>
       {/* Orange box */}

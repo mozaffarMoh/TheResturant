@@ -66,6 +66,9 @@ const MentorDetails: NextPage = () => {
       }, 3000);
     }
   }, [successRequest]);
+
+  console.log(data);
+  
   return (
     <Stack
       direction={'column'}

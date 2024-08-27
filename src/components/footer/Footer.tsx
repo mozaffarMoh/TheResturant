@@ -2,7 +2,6 @@
 import styles from './footer.module.css';
 import {
   Box,
-  Typography,
   Paper,
   Container,
   Divider,
@@ -12,7 +11,6 @@ import {
   CircularProgress,
 } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
-
 import { Input } from '@mui/joy';
 import JoyButton from '@mui/joy/Button';
 import { gray100, gray200 } from '@/constant/color';
@@ -21,17 +19,20 @@ import {
   InstagramSVG,
   LinkedInSVG,
   TwitterSVG,
+  WebsiteSVG,
 } from '../../../assets/icons';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
-import { KeyboardArrowDown } from '@mui/icons-material';
+import { KeyboardArrowDown, X } from '@mui/icons-material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import usePost from '@/custom-hooks/usePost';
 import { endPoints } from '@/base-api/endPoints';
 import CustomAlert from '../alerts/CustomAlert';
+import useGet from '@/custom-hooks/useGet';
+import Link from 'next/link';
 
 const Footer = () => {
   const t = useTranslations();
@@ -50,6 +51,29 @@ const Footer = () => {
     token,
   );
 
+  const [socialMediaData, , getSocial] = useGet(endPoints.socialMedia);
+  const [contactUSData, , getContact] = useGet(endPoints.contactUsFooter);
+
+  useEffect(() => {
+    getSocial();
+    getContact();
+  }, []);
+
+  const getSocialSVG = (slug: string) => {
+    switch (slug) {
+      case 'facebook':
+        return <FaceBookSVG />;
+      case 'instagram':
+        return <InstagramSVG />;
+      case 'linkedin':
+        return <LinkedInSVG />;
+      case 'twitter':
+        return <TwitterSVG />;
+      default:
+        return <WebsiteSVG />;
+    }
+  };
+
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: 'transparent',
     ...theme.typography.body2,
@@ -58,6 +82,7 @@ const Footer = () => {
     color: 'white',
     boxShadow: 'none',
   }));
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen(true);
@@ -194,26 +219,43 @@ const Footer = () => {
                       width={140}
                     />
                     <Box aria-labelledby="category-a">
-                      <p className="text-wrap">2301 AMMAN . JORDAN, WI 53711</p>
-                      <p className="opacity-80 text-wrap">123 456 7890</p>
-                      <p className="opacity-80 text-wrap">
-                        support@ThePlatform.com
-                      </p>
+                      {contactUSData?.children &&
+                        contactUSData?.children.map((item: any) => {
+                          return (
+                            <p
+                              key={item?.id}
+                              className={`${item?.slug !== 'address-1' ? 'opacity-80' : ''} text-wrap `}
+                            >
+                              {item?.value}
+                            </p>
+                          );
+                        })}
+
                       {/* Social Media Icons */}
 
                       <div className="sm-flex-row-row-center-center gap05  w-full">
-                        <div className={styles.socialIconContainer}>
-                          <FaceBookSVG />
-                        </div>
-                        <div className={styles.socialIconContainer}>
-                          <TwitterSVG />
-                        </div>
-                        <div className={styles.socialIconContainer}>
-                          <InstagramSVG />
-                        </div>
-                        <div className={styles.socialIconContainer}>
-                          <LinkedInSVG />
-                        </div>
+                        {socialMediaData?.children &&
+                          socialMediaData?.children.map((item: any) => {
+                            return (
+                              <Link
+                                key={item?.id}
+                                href={item?.value}
+                                target="_blank"
+                                className={styles.socialIconContainer}
+                              >
+                                <div
+                                  style={{
+                                    margin:
+                                      item?.slug == 'x'
+                                        ? '5px 0px 0px 4px'
+                                        : '',
+                                  }}
+                                >
+                                  {getSocialSVG(item?.slug)}
+                                </div>
+                              </Link>
+                            );
+                          })}
                       </div>
                     </Box>
                   </Item>

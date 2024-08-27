@@ -17,6 +17,8 @@ export const endPoints = {
     DynamicFilter: "/core/filter/",
     contactUsForm: '/form/tpf-contact-form',
     contactUsDetials: '/core/dynamicLookup/tpf-contact-details',
+    socialMedia: '/core/dynamicLookup/tpf-social-media/',
+    contactUsFooter: '/core/dynamicLookup/tpf-contact-us/',
     getSubmittedData: "/form/getSubmittedData/",
     ladningPage: '/core/dynamicLookup/tpf-landing-page',
     homePage: '/core/dynamicLookup/tpf-home-page',

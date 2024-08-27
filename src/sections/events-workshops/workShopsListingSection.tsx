@@ -1,7 +1,4 @@
-import {
-  Container,
-  Stack,
-} from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import GridFlex from '@mui/material/Unstable_Grid2';
 import WorkShopCard from '@/components/cards/events-workshops/WorkShopCard';
 import { useTranslations } from 'next-intl';
@@ -71,7 +68,6 @@ const WorkShopsListingSection = () => {
     }
   }, [success]);
 
-
   return (
     <Container
       maxWidth="lg"
@@ -87,7 +83,6 @@ const WorkShopsListingSection = () => {
           paddingY={5}
           gap={2}
         >
-          {data?.length == 0 && success && <NoData />}
           {loading && filteredData.length == 0 ? (
             <Stack
               gap={2}
