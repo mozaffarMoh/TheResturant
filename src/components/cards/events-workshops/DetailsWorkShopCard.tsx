@@ -27,7 +27,7 @@ export default function DetailsWorkShopCard({
 
   const handleSubmit = () => {
     if (quantity > 0) {
-      onClick;
+      onClick();
     } else {
       setErrorMessage(t('messages.quantity'));
     }
