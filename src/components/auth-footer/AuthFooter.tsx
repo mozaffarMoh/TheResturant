@@ -1,3 +1,4 @@
+'use client';
 import styles from './auth-footer.module.css';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { Input } from '@mui/joy';
