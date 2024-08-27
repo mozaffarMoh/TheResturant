@@ -11,6 +11,7 @@ import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { useTranslations } from 'next-intl';
 import { domain } from '@/base-api/endPoints';
 import { DefautImage1 } from '@/constant/images';
+import { primaryColor } from '@/constant/color';
 
 const EventCard = ({
   title,
@@ -105,7 +106,12 @@ const EventCard = ({
               >
                 <Button
                   variant="outlined"
-                  sx={{ borderRadius: '50px', paddingInline: '2rem' }}
+                  style={{
+                    borderRadius: '50px',
+                    paddingInline: '2rem',
+                    color: primaryColor,
+                    borderColor: primaryColor,
+                  }}
                   onClick={handleModal}
                 >
                   {t('buttons.view')}

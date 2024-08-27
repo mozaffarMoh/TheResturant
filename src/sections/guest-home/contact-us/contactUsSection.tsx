@@ -25,7 +25,12 @@ const ContactUsSection = () => {
     >
       <div className="sm-flex-col-col-center-center">
         <div className="text-align-center">
-          <p className="text-xlarge-title" style={{letterSpacing:'1px'}}>{t('contact-us.title')}</p>
+          <p
+            className="text-xlarge-title"
+            style={{ letterSpacing: '1px' }}
+          >
+            {t('contact-us.title')}
+          </p>
           <p className="sub-text-larges opacity-75">
             {t('contact-us.contact-desc')}
           </p>
@@ -104,7 +109,7 @@ const ContactUsSection = () => {
         </div>
         <Container>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387194.07372680923!2d-74.31001987831878!3d40.69701731549496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sro!4v1722500622223!5m2!1sen!2sro"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3386110.948587354!2d35.8183518570429!3d31.953949159351097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151b5f8346c73f03%3A0xfbcf14eb1fe6b4fe!2sAmman%2C%20Jordan!5e0!3m2!1sen!2sjo!4v1722500622223!5m2!1sen!2sjo"
             width="100%"
             height={isScreen700 ? '300' : '450'}
             style={{ border: 0, marginTop: '30px' }}

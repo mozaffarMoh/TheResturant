@@ -53,8 +53,8 @@ const PartnerSection = ({ data, loading }: any) => {
             : data &&
               data?.children &&
               data?.children.map((item: any) => {
-                let imageURL = item?.media?.[0]?.url
-                  ? domain + item?.media[0]?.url
+                let imageURL = item?.media?.image?.[0]?.url
+                  ? domain + item?.media?.image?.[0]?.url
                   : DefautImage1;
                 return (
                   <PartnerSectionCard

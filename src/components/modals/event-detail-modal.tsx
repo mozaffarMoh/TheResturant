@@ -15,7 +15,7 @@ import {
   Stack,
   useMediaQuery,
 } from '@mui/material';
-import { gray100, primaryColor } from '@/constant/color';
+import { gray100, primaryColor, secondaryColor } from '@/constant/color';
 import { PlaceSVG } from '../../../assets/icons';
 import { useTranslations } from 'next-intl';
 import { domain, endPoints } from '@/base-api/endPoints';
@@ -114,15 +114,12 @@ const EventDetailsModal = ({
     setErrorMessageReserve(errorMessageReserve);
   }, [errorMessageReserve]);
 
-  console.log('quantity is : ', quantity);
-
   return (
     <BootstrapDialog
       onClose={handleClose}
       aria-labelledby="customized-dialog-title"
       open={open}
     >
-      {' '}
       <DialogTitle
         sx={{ m: 0 }}
         className="sm-flex-col-col-center-center"
@@ -338,16 +335,14 @@ const EventDetailsModal = ({
           <LoadingButton
             autoFocus
             loading={loadingReserve}
-            className={`${quantity && !successStatus ? '' : 'general-button-secondary'} mt-1 w-90`}
-            disabled={quantity && !successStatus ? false : true}
+            className="mt-1 w-90"
             onClick={quantity && !successStatus ? handleReserve : () => {}}
             sx={{
               borderRadius: '15px',
               color: 'white',
               background: '#3f485e',
               '&:hover': {
-                backgroundColor: '#ffffff',
-                color: '#3f485e',
+                backgroundColor: secondaryColor,
               },
             }}
             loadingIndicator={
