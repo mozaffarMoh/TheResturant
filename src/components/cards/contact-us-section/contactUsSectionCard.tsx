@@ -18,8 +18,8 @@ const ContactUsSectionCard = ({ title, content, media }: IProps) => {
   const isScreen500 = useMediaQuery('(max-width:500px)');
 
   let imageURL =
-    media && media?.['DynamicLookup/media']?.[0]?.url
-      ? domain + media?.['DynamicLookup/media']?.[0]?.url
+    media && media?.image?.[0]?.url
+      ? domain + media?.image?.[0]?.url
       : DefautIcon;
 
   return (

@@ -2,15 +2,14 @@ import { domain } from '@/base-api/endPoints';
 import { DefautImage2 } from '@/constant/images';
 import { Avatar } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
 
 export default function MentorListItem({ item, key }: any) {
   const router = useRouter();
   const pathname = usePathname();
   const langCurrent = pathname.slice(1, 3) || 'en';
   let imageURL =
-    item?.user?.media?.length > 0 && item?.user?.media[0]?.url
-      ? domain + item?.user?.media[0]?.url
+    item && item?.user?.media?.image?.[0]?.url
+      ? domain + item?.user?.media?.image?.[0]?.url
       : DefautImage2;
 
   let professions = item?.user?.groups

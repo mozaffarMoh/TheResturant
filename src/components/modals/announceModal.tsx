@@ -64,11 +64,8 @@ const AnnounceModal = ({
   }, [slug]);
 
   let imageURL =
-    data[0] &&
-    data[0].media &&
-    data[0].media.length > 0 &&
-    data[0].media[0]?.url
-      ? domain + data[0].media[0]?.url
+    data && data?.[0]?.media?.main_image?.[0]?.url
+      ? domain + data?.[0]?.media?.main_image?.[0]?.url
       : DefautImage1Large;
 
   const handleCloseModal = () => {

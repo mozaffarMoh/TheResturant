@@ -19,8 +19,8 @@ const HomePage: NextPage = () => {
   );
 
   let imageURL =
-    data && data?.media?.['Item/media']?.[0]?.url
-      ? domain + data?.media?.['Item/media']?.[0]?.url
+    data && data?.media?.main_image?.[0]?.url
+      ? domain + data?.media?.main_image?.[0]?.url
       : DefautImage1Large;
 
   useEffect(() => {

@@ -181,15 +181,13 @@ const JobOfferingSection = () => {
           >
             {filteredData.length > 0 &&
               filteredData.map((item: any, i: any) => {
-                let imageURL = item?.media?.['Item/media']?.[0]?.url
-                  ? domain + item?.media?.['Item/media']?.[0]?.url
+                let imageURL = item?.media?.main_image?.[0]?.url
+                  ? domain + item?.media?.main_image?.[0]?.url
                   : DefautImage1;
-                let imageURLAvatar = item?.itemMetaData?.[0]?.media?.[
-                  'ItemMetaData/media'
-                ]?.[0]?.url
-                  ? domain +
-                    item?.itemMetaData[0]?.media?.['ItemMetaData/media']?.[0]
-                      ?.url
+
+                let imageURLAvatar = item?.itemMetaData?.[0]?.media?.image?.[0]
+                  ?.url
+                  ? domain + item?.itemMetaData?.[0]?.media?.image?.[0]?.url
                   : DefautImage2;
 
                 return (

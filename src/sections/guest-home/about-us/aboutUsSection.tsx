@@ -9,8 +9,8 @@ import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 const AboutUsSection = ({ data, loading }: any) => {
   const words = (data?.children && data?.children[0]?.value?.split(' ')) || [];
   let imageURL =
-    data && data?.children?.[0]?.media?.['DynamicLookup/media']?.[0]?.url
-      ? domain + data?.children?.[0]?.media?.['DynamicLookup/media']?.[0]?.url
+    data && data?.children?.[0]?.media?.image?.[0]?.url
+      ? domain + data?.children?.[0]?.media?.image?.[0]?.url
       : DefautImage1;
 
   return (
@@ -103,8 +103,8 @@ const AboutUsSection = ({ data, loading }: any) => {
                 ) : (
                   data?.children &&
                   data?.children.map((item: any) => {
-                    let iconURL = item?.media?.['DynamicLookup/media']?.[0]?.url
-                      ? domain + item?.media?.['DynamicLookup/media']?.[0]?.url
+                    let iconURL = item?.media?.image?.[0]?.url
+                      ? domain + item?.media?.image?.[0]?.url
                       : DefautIcon;
 
                     if (item?.slug !== 'main-section') {

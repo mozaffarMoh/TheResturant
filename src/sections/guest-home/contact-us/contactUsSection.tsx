@@ -97,9 +97,9 @@ const ContactUsSection = () => {
                         md={5.5}
                       >
                         <ContactUsSectionCard
-                          title={item.value}
-                          content={item.children}
-                          media={item.media}
+                          title={item?.value}
+                          content={item?.children}
+                          media={item?.media}
                         />
                       </Grid>
                     ))}

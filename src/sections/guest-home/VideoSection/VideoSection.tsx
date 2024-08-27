@@ -13,8 +13,8 @@ const VideoSection = ({ data, loading }: any) => {
   const isScreen1100 = useMediaQuery('(max-width:1100px)');
 
   let mediaURL =
-    data && data?.media?.['DynamicLookup/media']?.[0]?.url
-      ? domain + data?.media?.['DynamicLookup/media']?.[0]?.url
+    data && data?.media?.video?.[0]?.url
+      ? domain + data?.media?.video?.[0]?.url
       : DefautImage1;
   const words = (data?.value && data?.value?.split(' ')) || [];
 

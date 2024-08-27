@@ -9,9 +9,7 @@ const HeroSection = ({ data, loading }: any) => {
   const isScreen450 = useMediaQuery('(max-width:450px)');
   let isArabic = pathname.startsWith('/ar');
   let imageURL =
-    data && data.media && data.media.length > 0 && data.media[0]?.url
-      ? domain + data?.media[0]?.url
-      : '';
+    data && data?.media?.image?.[0]?.url ? domain + data?.media?.image?.[0]?.url: '';
 
   const words = data?.value?.split(' ') || [];
   return (

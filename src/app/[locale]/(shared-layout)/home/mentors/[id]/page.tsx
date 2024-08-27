@@ -46,11 +46,8 @@ const MentorDetails: NextPage = () => {
       token,
     );
   let imageURL =
-    data?.user &&
-    data?.user?.media &&
-    data?.user.media.length > 0 &&
-    data?.user?.media[0]?.url
-      ? domain + data?.user?.media[0]?.url
+    data && data?.user?.media?.image?.[0]?.url
+      ? domain + data?.user?.media?.image?.[0]?.url
       : DefautImage2;
 
   useEffect(() => {

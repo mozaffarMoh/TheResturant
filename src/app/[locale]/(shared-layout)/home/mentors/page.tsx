@@ -240,8 +240,8 @@ const MentorsPage: NextPage = () => {
               {mentorsItems &&
                 mentorsItems.map((item: any, i: number) => {
                   let imageURL =
-                    item?.user?.media.length > 0 && item?.user?.media[0]?.url
-                      ? domain + item?.user?.media[0]?.url
+                    item && item?.user?.media?.image?.[0]?.url
+                      ? domain + item?.user?.media?.image?.[0]?.url
                       : DefautImage2;
                   let professions =
                     item?.user?.groups &&

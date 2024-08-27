@@ -74,10 +74,9 @@ const CardsSection = ({ data, loading }: any) => {
                   </Grid>
                 ))
               : data?.children?.map((item: any, idx: number) => {
-                  const imageURL =
-                    item.media && item.media.length > 0 && item.media[0]?.url
-                      ? domain + item?.media[0]?.url
-                      : DefautImage1;
+                  const imageURL = item?.media?.image?.[0]?.url
+                    ? domain + item?.media?.image?.[0]?.url
+                    : DefautImage1;
 
                   if (item?.slug !== 'partners') {
                     return (

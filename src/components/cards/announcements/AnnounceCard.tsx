@@ -15,8 +15,8 @@ import { domain } from '@/base-api/endPoints';
 const AnnounceCard = ({ item, handleShowDetails }: any) => {
   const t = useTranslations();
   let imageURL =
-    item.media && item.media.length > 0 && item.media[0]?.url
-      ? domain + item.media[0]?.url
+    item && item?.media?.main_image?.[0]?.url
+      ? domain + item?.media?.main_image?.[0]?.url
       : DefautImage1;
   return (
     <Paper

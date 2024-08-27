@@ -40,8 +40,8 @@ const ServicesSection = ({ data, loading }: any) => {
         ) : (
           data?.children &&
           data?.children.map((item: any, i: number) => {
-            let imageURL = item?.media?.[0]?.url
-              ? domain + item?.media[0]?.url
+            let imageURL = item?.media?.image?.[0]?.url
+              ? domain + item?.media?.image?.[0]?.url
               : DefautImage1;
             return (
               <ServicesListItem

@@ -30,8 +30,8 @@ const EventCard = ({
 }) => {
   const t = useTranslations();
   let imageURL =
-    media && media.length > 0 && media[0]?.url
-      ? domain + media[0]?.url
+    media && media?.main_image?.[0]?.url
+      ? domain + media?.main_image?.[0]?.url
       : DefautImage1;
   return (
     <Paper className="event-card-paper">

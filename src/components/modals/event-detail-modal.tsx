@@ -85,8 +85,8 @@ const EventDetailsModal = ({
   ] = usePost(endPoints.createOrder, body, token);
 
   let imageURL =
-    data?.media && data.media.length > 0 && data?.media[0]?.url
-      ? domain + data?.media[0]?.url
+    data?.media && data.media?.main_image?.[0]?.url
+      ? domain + data?.media?.main_image?.[0]?.url
       : DefautImage1;
 
   useEffect(() => {

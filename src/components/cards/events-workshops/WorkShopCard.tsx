@@ -32,8 +32,8 @@ export default function WorkShopCard({
   const t = useTranslations();
   const isScreen400 = useMediaQuery('(max-width:400px)');
   let imageURL =
-    media && media.length > 0 && media[0]?.url
-      ? domain + media[0]?.url
+    media && media?.main_image?.[0]?.url
+      ? domain + media?.main_image?.[0]?.url
       : DefautImage1;
   return (
     <Card

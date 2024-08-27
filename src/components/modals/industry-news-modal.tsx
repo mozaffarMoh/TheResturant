@@ -45,8 +45,8 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
   const isScreen450 = useMediaQuery('(max-width:450px)');
   const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
   let imageURL =
-    data && data?.[0]?.media?.['Item/media']?.[0]?.url
-      ? domain + data?.[0]?.media?.['Item/media']?.[0]?.url
+    data && data?.[0]?.media?.main_image?.[0]?.url
+      ? domain + data?.[0]?.media?.main_image?.[0]?.url
       : DefautImage1Large;
 
   const handleClose = () => {

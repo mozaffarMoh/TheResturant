@@ -25,8 +25,8 @@ export default function BookFacilityCard({
   const { push } = useRouter();
   const isScreen650 = useMediaQuery('(max-width:650px)');
   let imageURL =
-    media && media.length > 0 && media[0]?.url
-      ? domain + media[0]?.url
+    media && media?.main_image?.[0]?.url
+      ? domain + media?.main_image?.[0]?.url
       : DefautImage1;
   let categoryName =
     categories && categories.length > 0 && categories[0]?.name

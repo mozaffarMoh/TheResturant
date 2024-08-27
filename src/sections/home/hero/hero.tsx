@@ -24,8 +24,8 @@ const HeroSection = ({
   let isArabic = pathname.startsWith('/ar');
 
   let imageURL =
-    data && data?.children?.[0]?.media?.[0]?.url
-      ? domain + data?.children?.[0]?.media?.[0]?.url
+    data && data?.children?.[0]?.media?.image?.[0]?.url
+      ? domain + data?.children?.[0]?.media?.image?.[0]?.url
       : '';
 
   let title = data && data?.children?.[0]?.key;
