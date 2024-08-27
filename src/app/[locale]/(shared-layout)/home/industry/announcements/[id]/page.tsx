@@ -62,7 +62,7 @@ const JobOfferDetails: NextPage = () => {
 
   let imageURLAvatart =
     isMetaDataExist &&
-    data &&
+    data && 
     data?.[0]?.itemMetaData?.[0]?.media?.image?.[0]?.url
       ? domain + data?.[0]?.itemMetaData?.[0]?.media?.image?.[0]?.url
       : DefautImage2;
