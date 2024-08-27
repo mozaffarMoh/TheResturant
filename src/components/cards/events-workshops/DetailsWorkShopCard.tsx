@@ -10,19 +10,28 @@ import { LoadingButton } from '@mui/lab';
 
 export default function DetailsWorkShopCard({
   location,
-  metadata,
+  itemMetaData,
   loading,
   onClick,
   quantity,
+  setErrorMessage,
 }: {
   location: string;
-  metadata: any;
+  itemMetaData: any;
   loading: boolean;
   onClick: any;
   quantity: number;
+  setErrorMessage: any;
 }) {
   const t = useTranslations();
 
+  const handleSubmit = () => {
+    if (quantity > 0) {
+      onClick;
+    } else {
+      setErrorMessage(t('messages.quantity'));
+    }
+  };
   return (
     <Card
       variant="outlined"
@@ -33,7 +42,7 @@ export default function DetailsWorkShopCard({
         margin: '0.2rem',
       }}
     >
-      {metadata && (
+      {itemMetaData && (
         <CardContent>
           <p className="text-med-fw700  p-0 ">{t('dialog.details')}</p>
 
@@ -44,8 +53,8 @@ export default function DetailsWorkShopCard({
             <p>{location}</p>
           </div>
 
-          {metadata.map((item: any) => {
-            let SvgIcon = metadataIcons(item.slug);
+          {itemMetaData.map((item: any) => {
+            let SvgIcon = metadataIcons(item?.itemMetaKey?.slug);
             return (
               <Box key={item.id}>
                 <Divider
@@ -60,7 +69,7 @@ export default function DetailsWorkShopCard({
                     direction={'row'}
                     gap={1}
                   >
-                    {SvgIcon && <SvgIcon />} {item.name}
+                    {SvgIcon && <SvgIcon />} {item?.itemMetaKey?.name}
                   </Stack>
                   <p>{item.value}</p>
                 </div>
@@ -70,9 +79,8 @@ export default function DetailsWorkShopCard({
 
           <LoadingButton
             loading={loading}
-            className={`${quantity ? 'general-button-primary' : 'disabled-button'} mt-1`}
-            disabled={quantity ? false : true}
-            onClick={quantity ? onClick : () => {}}
+            className={'general-button-primary mt-1'}
+            onClick={handleSubmit}
             loadingIndicator={
               <CircularProgress
                 color="warning"

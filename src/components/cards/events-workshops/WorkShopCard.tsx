@@ -1,13 +1,10 @@
 import * as React from 'react';
-import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
-import Divider from '@mui/joy/Divider';
-import Typography from '@mui/joy/Typography';
 import './workshop-card.css';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
-import { Box, Button, Stack, useMediaQuery } from '@mui/material';
+import { Button, Stack, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { domain } from '@/base-api/endPoints';
@@ -18,14 +15,14 @@ export default function WorkShopCard({
   subTitle,
   media,
   slug,
-  metadata,
+  itemMetaData,
   place,
 }: {
   title: string;
   subTitle: string;
   media: any;
   slug: string;
-  metadata: any;
+  itemMetaData: any;
   place: any;
 }) {
   const { push } = useRouter();
@@ -74,10 +71,10 @@ export default function WorkShopCard({
           </div>
           <div className="text-xs opacity-80">
             <ClockSVG />{' '}
-            {metadata &&
-              metadata.length > 0 &&
-              metadata.map((item: any) => {
-                return item.slug == 'time' && item.value;
+            {itemMetaData &&
+              itemMetaData.length > 0 &&
+              itemMetaData.map((item: any) => {
+                return item?.itemMetaKey?.slug == 'time' && item.value;
               })}
           </div>
         </Stack>

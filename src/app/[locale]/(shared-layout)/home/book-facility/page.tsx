@@ -88,8 +88,10 @@ const BookFacilityPage: NextPage = () => {
     getFacilityList,
     successFacilityList,
   ] = useGet(endPoints.getFacilityList);
+
   const [citiesList, loadingCitiesList, getCitiesList, successCitiesList] =
     useGet(endPoints.getCitiesList + 'Amman');
+
   const [
     facilityItems,
     loadingFacilityItems,

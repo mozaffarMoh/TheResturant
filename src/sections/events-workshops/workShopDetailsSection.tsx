@@ -14,6 +14,7 @@ const WorkShopDetailsSection = ({ detailsData }: any) => {
   const [itemId, setItemId] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [successMessage, setSuccessMessage]: any = useState('');
+  const [errorMessage, setErrorMessage]: any = useState('');
   let body = {
     order_type: 'workshop',
     items: [{ item_id: itemId }],
@@ -50,9 +51,9 @@ const WorkShopDetailsSection = ({ detailsData }: any) => {
       className="mt-4  mb-4"
     >
       <CustomAlert
-        openAlert={errorMessageReserve}
-        setOpenAlert={() => {}}
-        message={errorMessageReserve}
+        openAlert={errorMessageReserve || errorMessage}
+        setOpenAlert={() => setErrorMessage('')}
+        message={errorMessageReserve || errorMessage}
       />
       <CustomAlert
         openAlert={successMessage}
@@ -84,10 +85,13 @@ const WorkShopDetailsSection = ({ detailsData }: any) => {
         >
           <DetailsWorkShopCard
             location={detailsData?.place && detailsData?.place?.name}
-            metadata={detailsData?.metadata && detailsData?.metadata}
+            itemMetaData={
+              detailsData?.itemMetaData && detailsData?.itemMetaData
+            }
             loading={loadingReserve}
             onClick={handleReserve}
             quantity={quantity}
+            setErrorMessage={setErrorMessage}
           />
         </Grid>
       </Grid>

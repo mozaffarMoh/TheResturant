@@ -18,14 +18,14 @@ const EventCard = ({
   subTitle,
   media,
   place,
-  metadata,
+  itemMetaData,
   handleModal,
 }: {
   title: string;
   subTitle: string;
   place: any;
   media: any;
-  metadata: any;
+  itemMetaData: any;
   handleModal: any;
 }) => {
   const t = useTranslations();
@@ -88,9 +88,9 @@ const EventCard = ({
                     style={{ marginInline: '0.4rem' }}
                     className="text-med-fw400  opacity-80"
                   >
-                    {metadata &&
-                      metadata.map((item: any) => {
-                        return item.slug == 'time' && item.value;
+                    {itemMetaData &&
+                      itemMetaData.map((item: any) => {
+                        return item?.itemMetaKey?.slug == 'time' && item.value;
                       })}
                   </span>
                 </div>

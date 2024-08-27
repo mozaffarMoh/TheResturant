@@ -3,24 +3,48 @@
 import type { NextPage } from 'next';
 import { HeroSection } from '@/sections/home';
 import WorkShopDetailsSection from '@/sections/events-workshops/workShopDetailsSection';
-import useGet from '@/custom-hooks/useGet';
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { domain, endPoints } from '@/base-api/endPoints';
 import { DefautImage1Large } from '@/constant/images';
 import { Stack } from '@mui/material';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
+import usePost from '@/custom-hooks/usePost';
+import Cookies from 'js-cookie';
 
 const HomePage: NextPage = () => {
   const params = useParams();
-  const [data, loading, getData] = useGet(
-    endPoints.showSingleItem + params?.id,
-    true,
+  const token = Cookies.get('token') || '';
+  const body = {
+    modelName: 'Item',
+    filters: {
+      slug: params?.id,
+    },
+    fields: ['id', 'slug', 'description', 'quantity', 'media'],
+    relations: {
+      place: {
+        fields: ['name', 'slug'],
+      },
+      itemMetaData: {
+        fields: ['value'],
+        relations: {
+          itemMetaKey: {
+            fields: ['name', 'slug'],
+          },
+        },
+      },
+    },
+  };
+
+  const [data, loading, getData] = usePost(
+    endPoints.DynamicFilter,
+    body,
+    token,
   );
 
   let imageURL =
-    data && data?.media?.main_image?.[0]?.url
-      ? domain + data?.media?.main_image?.[0]?.url
+    data && data?.[0]?.media?.main_image?.[0]?.url
+      ? domain + data?.[0]?.media?.main_image?.[0]?.url
       : DefautImage1Large;
 
   useEffect(() => {
@@ -63,7 +87,7 @@ const HomePage: NextPage = () => {
           </Stack>
         </Stack>
       ) : (
-        <WorkShopDetailsSection detailsData={data} />
+        <WorkShopDetailsSection detailsData={data && data?.[0]} />
       )}
     </>
   );

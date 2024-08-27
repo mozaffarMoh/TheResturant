@@ -11,6 +11,7 @@ import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { useTranslations } from 'next-intl';
 import { DefautImage1 } from '@/constant/images';
 import { domain } from '@/base-api/endPoints';
+import { primaryColor } from '@/constant/color';
 
 const AnnounceCard = ({ item, handleShowDetails }: any) => {
   const t = useTranslations();
@@ -120,7 +121,12 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
               >
                 <Button
                   variant="outlined"
-                  sx={{ borderRadius: '50px', paddingInline: '2rem' }}
+                  style={{
+                    borderRadius: '50px',
+                    paddingInline: '2rem',
+                    color: primaryColor,
+                    borderColor: primaryColor,
+                  }}
                   onClick={() => handleShowDetails(item?.slug)}
                 >
                   {t('buttons.view')}

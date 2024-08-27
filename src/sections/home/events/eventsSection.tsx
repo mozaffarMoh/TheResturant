@@ -3,10 +3,9 @@ import CustomAlert from '@/components/alerts/CustomAlert';
 import EventCard from '@/components/cards/home-section/EventCard';
 import CarouselElement from '@/components/carousel/CarouselElement';
 import EventDetailsModal from '@/components/modals/event-detail-modal';
-import CardSkeleton from '@/components/skeleton/cardSkeleton';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
-import useGet from '@/custom-hooks/useGet';
-import { CircularProgress, Container, Stack } from '@mui/material';
+import usePost from '@/custom-hooks/usePost';
+import { Container, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 interface IProps {
@@ -18,7 +17,31 @@ const EventsSection = ({ title }: IProps) => {
   const [currentSlug, serCurrentSlug] = useState('');
   const [successMessageReserve, setSuccessMessageReserve]: any = useState('');
   const [errorMessageReserve, setErrorMessageReserve]: any = useState('');
-  const [data, loading, getData] = useGet(endPoints.getEvents);
+
+  const body = {
+    modelName: 'Item',
+    filters: {
+      'itemType.slug': 'event',
+    },
+    fields: ['id', 'title', 'subTitle', 'slug', 'media'],
+    relations: {
+      place: {
+        fields: ['name', 'slug'],
+      },
+      itemMetaData: {
+        fields: ['value'],
+        relations: {
+          itemMetaKey: {
+            fields: ['name', 'slug'],
+          },
+        },
+      },
+    },
+    'with-pagination': false,
+    limit: 10,
+    page: 1,
+  };
+  const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
 
   useEffect(() => {
     getData();
@@ -46,7 +69,7 @@ const EventsSection = ({ title }: IProps) => {
       {' '}
       <CustomAlert
         openAlert={errorMessageReserve}
-        setOpenAlert={() => {}}
+        setOpenAlert={() => setErrorMessageReserve('')}
         message={errorMessageReserve}
       />
       <CustomAlert

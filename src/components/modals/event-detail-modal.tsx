@@ -65,12 +65,34 @@ const EventDetailsModal = ({
   const [itemId, setItemId] = useState('');
   const [quantity, setQuantity] = useState(0);
   let isArabic = pathname.startsWith('/ar');
-  const [data, loading, getData, success] = useGet(
-    endPoints.showSingleItem + slug,
-    true,
+
+  const body = {
+    modelName: 'Item',
+    filters: {
+      slug: slug,
+    },
+    fields: ['id', 'slug', 'description', 'quantity', 'media'],
+    relations: {
+      place: {
+        fields: ['name', 'slug'],
+      },
+      itemMetaData: {
+        fields: ['value'],
+        relations: {
+          itemMetaKey: {
+            fields: ['name', 'slug'],
+          },
+        },
+      },
+    },
+  };
+  const [data, loading, getData, success] = usePost(
+    endPoints.DynamicFilter,
+    body,
+    token,
   );
 
-  let body = {
+  let bodyReserve = {
     order_type: 'event',
     items: [{ item_id: itemId }],
   };
@@ -82,17 +104,21 @@ const EventDetailsModal = ({
     successReserve,
     successStatus,
     errorMessageReserve,
-  ] = usePost(endPoints.createOrder, body, token);
+  ] = usePost(endPoints.createOrder, bodyReserve, token);
 
   let imageURL =
-    data?.media && data.media?.main_image?.[0]?.url
-      ? domain + data?.media?.main_image?.[0]?.url
+    data && data?.[0]?.media?.main_image?.[0]?.url
+      ? domain + data?.[0]?.media?.main_image?.[0]?.url
       : DefautImage1;
 
   useEffect(() => {
+    slug && getData();
+  }, []);
+
+  useEffect(() => {
     if (data) {
-      setItemId(data?.id);
-      setQuantity(data?.quantity);
+      setItemId(data?.[0]?.id);
+      setQuantity(data?.[0]?.quantity);
     }
   }, [data]);
 
@@ -114,6 +140,13 @@ const EventDetailsModal = ({
     setErrorMessageReserve(errorMessageReserve);
   }, [errorMessageReserve]);
 
+  const submitReserve = () => {
+    if (quantity > 0) {
+      handleReserve();
+    } else {
+      setErrorMessageReserve(t('messages.quantity'));
+    }
+  };
   return (
     <BootstrapDialog
       onClose={handleClose}
@@ -217,9 +250,9 @@ const EventDetailsModal = ({
               paddingY={2}
               sx={{ direction: isArabic ? 'rtl' : 'ltr' }}
             >
-              {data?.metadata &&
-                data?.metadata.map((item: any, i: number) => {
-                  let SvgIcon = metadataIcons(item.slug);
+              {data?.[0]?.itemMetaData &&
+                data[0].itemMetaData.map((item: any, i: number) => {
+                  let SvgIcon = metadataIcons(item?.itemMetaKey?.slug);
                   return (
                     <Grid
                       item
@@ -253,7 +286,7 @@ const EventDetailsModal = ({
                           fontSize={13}
                           color={primaryColor}
                         >
-                          {item.name}
+                          {item?.itemMetaKey?.name}
                         </Typography>
                       </Stack>
                       <Stack
@@ -310,7 +343,7 @@ const EventDetailsModal = ({
                     fontSize={13}
                     color={gray100}
                   >
-                    {data?.place && data?.place?.name}
+                    {data && data?.[0]?.place?.name}
                   </Typography>
                 </Stack>
               </Grid>
@@ -336,7 +369,7 @@ const EventDetailsModal = ({
             autoFocus
             loading={loadingReserve}
             className="mt-1 w-90"
-            onClick={quantity && !successStatus ? handleReserve : () => {}}
+            onClick={submitReserve}
             sx={{
               borderRadius: '15px',
               color: 'white',

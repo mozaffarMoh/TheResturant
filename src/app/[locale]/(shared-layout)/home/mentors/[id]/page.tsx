@@ -58,8 +58,6 @@ const MentorDetails: NextPage = () => {
     loading && setLoadingStart(false);
   }, [loading]);
 
-  console.log(data);
-
   useEffect(() => {
     if (successRequest) {
       setSuccessMessage(t('messages.request'));
