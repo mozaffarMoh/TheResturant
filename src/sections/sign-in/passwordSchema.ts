@@ -1,7 +1,7 @@
 'use client'
 import { z } from "zod";
 
-export const passwordSchema = (t: any, withOldPassword: any) => {
+export const passwordSchema = (t: any, withOldPassword: boolean) => {
   return z.object({
     ...(withOldPassword && {
       oldPassword: z

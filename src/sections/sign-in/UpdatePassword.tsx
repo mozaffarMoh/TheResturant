@@ -22,20 +22,15 @@ import CustomAlert from '@/components/alerts/CustomAlert';
 import { endPoints } from '@/base-api/endPoints';
 import usePost from '@/custom-hooks/usePost';
 
-const UpdatePassword = ({ withOldPassword }: any) => {
+const UpdatePassword = () => {
   const authToken = Cookies.get('verify-token');
   const router = useRouter();
   const t = useTranslations();
   const pathname = usePathname();
   const langCurrent = pathname.slice(1, 3) || 'en';
   const [password, setPassword] = useState('');
-  const [oldPassword, setOldPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState({
-    oldPassword: '',
-    password: '',
-    confirmPassword: '',
-  });
+  const [error, setError] = useState({ password: '', confirmPassword: '' });
   const [, loading, handleCreateNewPassword, success, , errorMessage] = usePost(
     endPoints.updatePassword,
     { password, password_confirmation: confirmPassword },
@@ -43,11 +38,11 @@ const UpdatePassword = ({ withOldPassword }: any) => {
   );
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    setError({ oldPassword: '', password: '', confirmPassword: '' });
+    setError({ password: '', confirmPassword: '' });
 
     try {
-      passwordSchema(t,withOldPassword).parse({ oldPassword, password, confirmPassword });
-      !withOldPassword && handleCreateNewPassword();
+      passwordSchema(t, false).parse({ password, confirmPassword });
+      handleCreateNewPassword();
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         const fieldErrors = error.errors.reduce((acc: any, err: any) => {
@@ -68,16 +63,8 @@ const UpdatePassword = ({ withOldPassword }: any) => {
       }, 2000);
     }
   }, [success]);
-  console.log(error);
 
   const fieldsArray = [
-    {
-      title: t('auth.old-password-title'),
-      placeholder: t('auth.old-password-placeholder'),
-      value: oldPassword,
-      setValue: setOldPassword,
-      error: error.oldPassword,
-    },
     {
       title: t('auth.new-password-title'),
       placeholder: t('auth.password-placeholder'),
@@ -92,7 +79,7 @@ const UpdatePassword = ({ withOldPassword }: any) => {
       setValue: setConfirmPassword,
       error: error.confirmPassword,
     },
-  ].filter(Boolean);
+  ];
 
   return (
     <Stack>
