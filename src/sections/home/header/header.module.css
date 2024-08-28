@@ -217,8 +217,10 @@
 .headerTopDivContainer {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 20px;
   justify-content: flex-end;
+  background-color: white;
+  min-height: 50px;
 }
 
 @media (max-width: 1100px) {

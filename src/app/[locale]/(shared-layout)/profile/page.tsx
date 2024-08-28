@@ -10,6 +10,7 @@ import {
   Stack,
   TextField,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -30,6 +31,7 @@ import useGet from '@/custom-hooks/useGet';
 const Profile = () => {
   const t = useTranslations();
   const token = Cookies.get('token') || '';
+  const isScreen500 = useMediaQuery('(max-width:500px)');
   const [fullFormData, setFullFormData]: any = useState({});
   const [formDataImage, setFormDataImage] = useState<FormData | null>(null);
   const [successMessage, setSuccessMessage] = useState<string>('');
@@ -219,8 +221,8 @@ const Profile = () => {
           alignItems={'center'}
         >
           <img
-            width={100}
-            height={100}
+            width={isScreen500 ? 60 : 100}
+            height={isScreen500 ? 60 : 100}
             style={{ borderRadius: '50%' }}
             src={avatarImage}
             alt="avatar"

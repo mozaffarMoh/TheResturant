@@ -176,7 +176,8 @@
         "reset-password": "Reset Password",
         "verify": "Verify",
         "reserve": "Reserve",
-        "upload-files": "Upload Files"
+        "upload-files": "Upload Files",
+        "cancel": "Cancel"
     },
     "dialog": {
         "how-to-apply": "How to Apply",
@@ -216,7 +217,8 @@
         "quantity": "You cannot reserve because the quantity is full",
         "subscribe": "Subscription Successful",
         "upload-image": "Updating image has been successful",
-        "update-profile" : "Profile information has been updated successfully"
+        "update-profile": "Profile information has been updated successfully",
+        "logout": "Are you sure you want to logout ?"
     },
     "profile": {
         "title": "Profile Detilas",

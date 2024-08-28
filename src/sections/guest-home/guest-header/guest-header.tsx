@@ -22,8 +22,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
+import { domain } from '@/base-api/endPoints';
 
-const GuestHeader = () => {
+const GuestHeader = ({ partnersData }: any) => {
   const router = useRouter();
   const pathname = usePathname();
   const isScreen991 = useMediaQuery('(max-width:991px)');
@@ -35,6 +36,7 @@ const GuestHeader = () => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [partnersLogos, setPartnersLogos]: any = useState([]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -93,7 +95,25 @@ const GuestHeader = () => {
   useEffect(() => {
     !isScreen991 && setMenuOpen(false);
   }, [isScreen991]);
+
+  useEffect(() => {
+    if (partnersData && partnersData.children) {
+      const imageUrls = partnersData.children.map((item: any) => {
+        return item?.media?.image?.[0]?.url
+          ? domain + item?.media?.image?.[0]?.url
+          : '';
+      });
+
+      setPartnersLogos(imageUrls);
+    }
+  }, [partnersData]);
   
+  useEffect(() => {
+    if (partnersLogos.length > 0) {
+      Cookies.set('partnersLogos', partnersLogos);
+    }
+  }, [partnersLogos]);
+
   return (
     <div className={styles.headerGuestContainer}>
       <Box
@@ -105,18 +125,21 @@ const GuestHeader = () => {
             container
             className={styles.headerTopDivContainer}
           >
-            <div>
-              <img
-                src="/entrepreneurship.png"
-                alt="entrepreneurship"
-              />
-            </div>
-            <div>
-              <img
-                src="/youth.png"
-                alt="youth"
-              />
-            </div>
+            {partnersData &&
+              partnersData?.children &&
+              partnersData?.children.map((item: any) => {
+                let imageURL = item?.media?.image?.[0]?.url
+                  ? domain + item?.media?.image?.[0]?.url
+                  : '';
+
+                return (
+                  <img
+                    src={imageURL}
+                    width={60}
+                    height={50}
+                  />
+                );
+              })}
           </Grid>
         </Container>
       </Box>

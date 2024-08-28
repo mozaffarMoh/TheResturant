@@ -44,7 +44,7 @@ const PublicHomePage: NextPage = () => {
 
   return (
     <>
-      <GuestHeader />
+      <GuestHeader partnersData={partnersData} />
       <HeroSection
         data={heroData}
         loading={loading}

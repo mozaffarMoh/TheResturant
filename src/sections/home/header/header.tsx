@@ -25,6 +25,7 @@ import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
 import { avatarImage } from '@/constant/images';
 import { ArrowDropDownIcon } from '@mui/x-date-pickers';
+import ConfirmationModal from '@/components/modals/ConfirmationModal';
 
 const Header = () => {
   const t = useTranslations();
@@ -64,12 +65,14 @@ const Header = () => {
   ];
 
   const isActive = (path: string) => pathname == path;
+  const [partnersLogos, setPartnersLogos] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
   const [openIndustry, setOpenIndustry] = useState(false);
+  const [openLogoutModal, setOpenLogoutModal] = useState(false);
   const [anchorElIndustry, setAnchorElIndustry] = useState<null | HTMLElement>(
     null,
   );
@@ -136,10 +139,23 @@ const Header = () => {
     !isScreen991 && setMenuOpen(false);
   }, [isScreen991]);
 
+  const handleShowConfirmation = () => {
+    setOpenLogoutModal(true);
+    handleClose2();
+  };
+
   useEffect(() => {
     setMenuOpen(false);
     handleClose2();
   }, [pathname]);
+
+  // Fetch logos from cookies or API once the component is mounted
+  useEffect(() => {
+    const logosFromCookies = Cookies.get('partnersLogos');
+    if (logosFromCookies) {
+      setPartnersLogos(logosFromCookies.split(','));
+    }
+  }, []);
 
   return (
     <div className={styles.headerFullContainer}>
@@ -149,18 +165,16 @@ const Header = () => {
           container
           className={styles.headerTopDivContainer}
         >
-          <div>
-            <img
-              src="/entrepreneurship.png"
-              alt="entrepreneurship"
-            />
-          </div>
-          <div>
-            <img
-              src="/youth.png"
-              alt="youth"
-            />
-          </div>
+          {partnersLogos &&
+            partnersLogos.map((item) => {
+              return (
+                <img
+                  width={60}
+                  height={50}
+                  src={item}
+                />
+              );
+            })}
         </Grid>
       </Container>
       {/* End of Top Banner Partners */}
@@ -169,6 +183,12 @@ const Header = () => {
           className="pt-1 "
           maxWidth="lg"
         >
+          <ConfirmationModal
+            open={openLogoutModal}
+            handleCancel={() => setOpenLogoutModal(false)}
+            handleConfirm={handleLogout}
+            message={t('messages.logout')}
+          />
           <div className={styles.headerDiv}>
             <Grid
               container
@@ -276,7 +296,7 @@ const Header = () => {
                         <img
                           width={40}
                           height={40}
-                          style={{borderRadius:'50%'}}
+                          style={{ borderRadius: '50%' }}
                           src={avatarImage}
                           alt="avatar"
                         />
@@ -300,7 +320,7 @@ const Header = () => {
                         >
                           {t('header.change-password')}
                         </MenuItem>
-                        <MenuItem onClick={handleLogout}>
+                        <MenuItem onClick={handleShowConfirmation}>
                           {t('header.logout')}
                         </MenuItem>
                       </Menu>
@@ -422,7 +442,7 @@ const Header = () => {
                             <img
                               width={40}
                               height={40}
-                              style={{borderRadius:'50%'}}
+                              style={{ borderRadius: '50%' }}
                               src={avatarImage}
                               alt="avatar"
                             />
@@ -448,7 +468,7 @@ const Header = () => {
                             >
                               {t('header.change-password')}
                             </MenuItem>
-                            <MenuItem onClick={handleLogout}>
+                            <MenuItem onClick={handleShowConfirmation}>
                               {t('header.logout')}
                             </MenuItem>
                           </Menu>

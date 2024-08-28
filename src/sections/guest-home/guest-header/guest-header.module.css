@@ -160,6 +160,8 @@
 .headerTopDivContainer {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 20px;
   justify-content: flex-end;
+  min-height: 50px;
+  background-color: white;
 }
