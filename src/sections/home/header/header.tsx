@@ -23,7 +23,7 @@ import NormalMenuList from './normalMenuList';
 import NestedMenuList from './nestedMenuList';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
-import { dummyAvatarImage } from '@/constant/images';
+import { avatarImage } from '@/constant/images';
 import { ArrowDropDownIcon } from '@mui/x-date-pickers';
 
 const Header = () => {
@@ -274,10 +274,10 @@ const Header = () => {
                     >
                       <IconButton onClick={handleClick2}>
                         <img
-                          width={50}
-                          height={50}
+                          width={40}
+                          height={40}
                           style={{borderRadius:'50%'}}
-                          src={dummyAvatarImage}
+                          src={avatarImage}
                           alt="avatar"
                         />
                         <ArrowDropDownIcon sx={{ color: 'white' }} />
@@ -420,10 +420,10 @@ const Header = () => {
                             onClick={handleClick2}
                           >
                             <img
-                              width={50}
-                              height={50}
+                              width={40}
+                              height={40}
                               style={{borderRadius:'50%'}}
-                              src={dummyAvatarImage}
+                              src={avatarImage}
                               alt="avatar"
                             />
                             <ArrowDropDownIcon />

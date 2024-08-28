@@ -214,5 +214,9 @@
         "no-data": "No Data",
         "quantity": "You cannot reserve because the quantity is full",
         "subscribe": "Subscription Successful"
+    },
+    "profile": {
+        "title": "Profile Detilas",
+        "save": "Save"
     }
 }

@@ -13,9 +13,11 @@ import {
 } from '@mui/material';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { dummyAvatarImage } from '@/constant/images';
+import { avatarImage } from '@/constant/images';
+import { useTranslations } from 'next-intl';
 
 const Profile = () => {
+  const t = useTranslations();
   const fieldsArray = [
     { title: 'Email Address', placeholder: 'info@adminc.om', type: 'text' },
     { title: 'Email Address', placeholder: 'info@adminc.om', type: 'select' },
@@ -33,7 +35,7 @@ const Profile = () => {
           variant="h6"
           fontWeight={800}
         >
-          Profile Details
+          {t('profile.title')}
         </Typography>
 
         <Divider sx={{ bgcolor: 'grey.200', width: '100%' }} />
@@ -48,7 +50,7 @@ const Profile = () => {
             width={100}
             height={100}
             style={{ borderRadius: '50%' }}
-            src={dummyAvatarImage}
+            src={avatarImage}
             alt="avatar"
           />
           <IconButton
@@ -118,7 +120,7 @@ const Profile = () => {
               '&:hover': { background: primaryColor },
             }}
           >
-            Save <CallMadeIcon />
+            {t('profile.save')} <CallMadeIcon />
           </Button>
         </Stack>
       </Stack>
