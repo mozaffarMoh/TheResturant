@@ -23,7 +23,10 @@ export const endPoints = {
     ladningPage: '/core/dynamicLookup/tpf-landing-page',
     homePage: '/core/dynamicLookup/tpf-home-page',
     requestMentor: '/ecomm/requestMentorship/',
-    subscribe: '/core/newsletter-email'
+    subscribe: '/core/newsletter-email',
+    updateProfile: '/update-user/',
+    changePassword: '/change-password/',
+    uploadProfileImage: '/update-image/'
 }
 
 

@@ -106,7 +106,7 @@ const SignIn: NextPage = () => {
         openAlert={success}
         setOpenAlert={() => {}}
         type="success"
-        message="Login process has been completed successfully"
+        message={t('messages.login')}
       />
 
       <ForgetPasswordModal

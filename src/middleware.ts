@@ -38,7 +38,9 @@ export async function middleware(req: NextRequest) {
     if (
       url.pathname == `/${localeCookies}` ||
       url.pathname.includes('/home') ||
-      url.pathname.includes('/contact-us')
+      url.pathname.includes('/contact-us') || 
+      url.pathname.includes('/profile') ||
+      url.pathname.includes('/change-password')
     ) {
       url.pathname = `/${localeCookies}/guest-home`;
       return NextResponse.redirect(url);

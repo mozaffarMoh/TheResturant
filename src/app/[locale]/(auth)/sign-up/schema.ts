@@ -54,6 +54,10 @@ export const signupSchema = (inputs: any, t: any) => {
                 validation = z.string().min(1, { message: t('validation.required') });
                 break;
 
+            case 'place_id':
+                validation = z.number().min(1, { message: t('validation.required') });
+                break;
+
             case 'terms':
                 validation = z.boolean().refine((val) => val === true, {
                     message: t('validation.terms'),

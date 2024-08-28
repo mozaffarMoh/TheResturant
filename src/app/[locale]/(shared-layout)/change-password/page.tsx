@@ -1,5 +1,7 @@
 'use client';
+import { endPoints } from '@/base-api/endPoints';
 import { primaryColor } from '@/constant/color';
+import usePost from '@/custom-hooks/usePost';
 import { passwordSchema } from '@/sections/sign-in/passwordSchema';
 import { LoadingButton } from '@mui/lab';
 import {
@@ -11,12 +13,15 @@ import {
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
+import Cookies from 'js-cookie';
+import CustomAlert from '@/components/alerts/CustomAlert';
 
 const ChangePassword = () => {
   const router = useRouter();
   const t = useTranslations();
+  const token = Cookies.get('token') || '';
   const pathname = usePathname();
   const isScreen700 = useMediaQuery('(max-width:700px)');
   const langCurrent = pathname.slice(1, 3) || 'en';
@@ -24,6 +29,16 @@ const ChangePassword = () => {
   const [password, setPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [, loading, handleChangePassword, success, , errorMessage] = usePost(
+    endPoints.changePassword,
+    {
+      old_password: oldPassword,
+      password: password,
+      password_confirmation: confirmPassword,
+    },
+    token,
+  );
   const [error, setError] = useState({
     oldPassword: '',
     password: '',
@@ -63,7 +78,7 @@ const ChangePassword = () => {
         password,
         confirmPassword,
       });
-      console.log('success');
+      handleChangePassword();
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         const fieldErrors = error.errors.reduce((acc: any, err: any) => {
@@ -74,6 +89,19 @@ const ChangePassword = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (success) {
+      setSuccessMessage(t('messages.password-update'));
+      setPassword('');
+      setOldPassword('');
+      setConfirmPassword('');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+    }
+  }, [success]);
+
   return (
     <Stack
       alignItems={'center'}
@@ -81,10 +109,22 @@ const ChangePassword = () => {
       gap={3}
     >
       {' '}
+      <CustomAlert
+        openAlert={errorMessage}
+        setOpenAlert={() => {}}
+        message={errorMessage}
+      />
+      <CustomAlert
+        openAlert={Boolean(successMessage)}
+        setOpenAlert={() => setSuccessMessage('')}
+        type="success"
+        message={successMessage}
+      />{' '}
       <Typography
         fontWeight={600}
         variant="h5"
         color={primaryColor}
+        marginX={2}
       >
         {t('header.change-password')}
       </Typography>
@@ -107,6 +147,7 @@ const ChangePassword = () => {
                 label={item.placeholder}
                 error={!!item.error}
                 helperText={item.error}
+                value={item.value}
                 onChange={(e) => item.setValue(e.target.value)}
                 InputLabelProps={{
                   sx: {
@@ -135,7 +176,7 @@ const ChangePassword = () => {
         })}
         <LoadingButton
           onClick={handleSubmit}
-          loading={false}
+          loading={loading}
           variant="contained"
           style={{
             marginTop: '16px',

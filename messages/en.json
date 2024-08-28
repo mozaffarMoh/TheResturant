@@ -202,6 +202,7 @@
     },
     "messages": {
         "loading": "Loading.. Please wait",
+        "login": "Login process has been completed successfully",
         "otp-sent": "We have sent an OTP as SMS to your Email. Please enter the OTP in the box below",
         "success-create-user": "Process has been completed successfully , Welcome",
         "full-otp": "You should enter full OTP",
@@ -213,10 +214,13 @@
         "request": "Request has been sent successfully",
         "no-data": "No Data",
         "quantity": "You cannot reserve because the quantity is full",
-        "subscribe": "Subscription Successful"
+        "subscribe": "Subscription Successful",
+        "upload-image": "Updating image has been successful",
+        "update-profile" : "Profile information has been updated successfully"
     },
     "profile": {
         "title": "Profile Detilas",
-        "save": "Save"
+        "save": "Save",
+        "upload-image": "Upload Image"
     }
 }
