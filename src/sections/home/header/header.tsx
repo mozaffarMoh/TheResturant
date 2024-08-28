@@ -3,7 +3,6 @@ import {
   Button,
   Container,
   Grid,
-  ListItemText,
   MenuItem,
   MenuList,
   Menu,
@@ -13,6 +12,7 @@ import {
   Stack,
   Select,
   useMediaQuery,
+  IconButton,
 } from '@mui/material';
 import styles from './header.module.css';
 import { usePathname, useRouter } from 'next/navigation';
@@ -23,6 +23,8 @@ import NormalMenuList from './normalMenuList';
 import NestedMenuList from './nestedMenuList';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
+import { dummyAvatarImage } from '@/constant/images';
+import { ArrowDropDownIcon } from '@mui/x-date-pickers';
 
 const Header = () => {
   const t = useTranslations();
@@ -136,6 +138,7 @@ const Header = () => {
 
   useEffect(() => {
     setMenuOpen(false);
+    handleClose2();
   }, [pathname]);
 
   return (
@@ -265,24 +268,43 @@ const Header = () => {
                   </div>
 
                   <div className={styles.langButton}>
-                    <Button
-                      id="basic-button2"
-                      onClick={handleClick2}
-                      className={styles.langMenuButton}
-                      sx={{ textTransform: 'none !Important' }}
+                    <Stack
+                      direction="row"
+                      alignItems="center"
                     >
-                      {t('header.my-account')}
-                    </Button>
-                    <Menu
-                      id="basic-menu2"
-                      anchorEl={anchorEl2}
-                      open={open2}
-                      onClose={handleClose2}
-                    >
-                      <MenuItem onClick={handleLogout}>
-                        {t('header.logout')}
-                      </MenuItem>
-                    </Menu>
+                      <IconButton onClick={handleClick2}>
+                        <img
+                          width={50}
+                          height={50}
+                          style={{borderRadius:'50%'}}
+                          src={dummyAvatarImage}
+                          alt="avatar"
+                        />
+                        <ArrowDropDownIcon sx={{ color: 'white' }} />
+                      </IconButton>
+                      <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl2}
+                        open={open2}
+                        onClose={handleClose2}
+                      >
+                        <MenuItem
+                          onClick={() => router.push(`/${langCurrent}/profile`)}
+                        >
+                          {t('header.my-account')}
+                        </MenuItem>{' '}
+                        <MenuItem
+                          onClick={() =>
+                            router.push(`/${langCurrent}/change-password`)
+                          }
+                        >
+                          {t('header.change-password')}
+                        </MenuItem>
+                        <MenuItem onClick={handleLogout}>
+                          {t('header.logout')}
+                        </MenuItem>
+                      </Menu>
+                    </Stack>
                   </div>
                 </div>
               </Grid>
@@ -384,12 +406,53 @@ const Header = () => {
                         </Menu>
                       </Stack>
                       <div className={styles.authDrawerDivButton}>
-                        <Button
-                          onClick={handleLogout}
-                          className={styles.authDrawerButton}
+                        <Stack
+                          direction="row"
+                          alignItems="center"
                         >
-                          {t('header.logout')}
-                        </Button>
+                          <IconButton
+                            sx={{
+                              width: '90%',
+                              justifyContent: 'flex-start',
+                              '&:hover': { borderRadius: '0px' },
+                              marginLeft: 1,
+                            }}
+                            onClick={handleClick2}
+                          >
+                            <img
+                              width={50}
+                              height={50}
+                              style={{borderRadius:'50%'}}
+                              src={dummyAvatarImage}
+                              alt="avatar"
+                            />
+                            <ArrowDropDownIcon />
+                          </IconButton>
+                          <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl2}
+                            open={open2}
+                            onClose={handleClose2}
+                          >
+                            <MenuItem
+                              onClick={() =>
+                                router.push(`/${langCurrent}/profile`)
+                              }
+                            >
+                              {t('header.my-account')}
+                            </MenuItem>{' '}
+                            <MenuItem
+                              onClick={() =>
+                                router.push(`/${langCurrent}/change-password`)
+                              }
+                            >
+                              {t('header.change-password')}
+                            </MenuItem>
+                            <MenuItem onClick={handleLogout}>
+                              {t('header.logout')}
+                            </MenuItem>
+                          </Menu>
+                        </Stack>
                       </div>
                     </Box>
                   </Drawer>

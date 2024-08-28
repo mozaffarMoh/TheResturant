@@ -30,7 +30,9 @@
         "forget-password": "نسيت كلمة المرور؟",
         "remember-me": "تذكرني",
         "terms": "الشروط والأحكام وسياسة الخصوصية",
-        "next": "التالي"
+        "next": "التالي",
+        "old-password-title": "كلمة المرور القديمة ",
+        "old-password-placeholder": "أدخل كلمة المرور القديمة"
     },
     "verify-password": {
         "enter-email": "أدخل بريدك الإلكتروني",
@@ -139,6 +141,7 @@
         "announcement": "الإعلانات",
         "jobOffer": "العرض الوظيفي ",
         "my-account": "حسابي",
+        "change-password": "تغيير كلمة المرور",
         "logout": "تسجيل الخروج"
     },
     "footer": {

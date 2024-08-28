@@ -35,7 +35,7 @@ export const heroCard2 = '/hero-card2.png';
 export const heroCard3 = '/hero-card3.png';
 export const heroCard4 = '/hero-card4.png';
 
-export const dummyAvatarImage = '/avatar.png';
+export const dummyAvatarImage = '/mentors/mentor.png';
 
 export const partnerImage1 = '/partner/partner1.png';
 export const partnerImage2 = '/partner/partner2.png';

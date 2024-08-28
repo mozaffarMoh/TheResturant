@@ -27,6 +27,8 @@
         "password-placeholder": "Enter Your Password",
         "password-confirm-title": "Confirm Password",
         "password-confirm-placeholder": "Confirm Your Password",
+        "old-password-title": "Old Password",
+        "old-password-placeholder": "Enter Old Password",
         "forget-password": "Forget Password ?",
         "remember-me": "Remember Me",
         "terms": "Terms condition and privacy policy",
@@ -140,6 +142,7 @@
         "announcement": "Announcement",
         "jobOffer": "Job Offering",
         "my-account": "My Account",
+        "change-password": "Change Password",
         "logout": "Logout"
     },
     "footer": {
