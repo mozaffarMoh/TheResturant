@@ -209,7 +209,7 @@ const UserDetailsPage: NextPage = () => {
   return formData ? (
     <div className={styles.signInContainer}>
       <head>
-        <title>The Platform | User Details</title>
+        <title>{t('metadata.user_details')}</title>
         <meta
           name="description"
           content="Welcome to the User Details page of The Platform Website"

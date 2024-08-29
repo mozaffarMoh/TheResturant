@@ -11,9 +11,11 @@ import { Stack } from '@mui/material';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 import usePost from '@/custom-hooks/usePost';
 import Cookies from 'js-cookie';
+import { useTranslations } from 'next-intl';
 
 const HomePage: NextPage = () => {
   const params = useParams();
+  const t = useTranslations();
   const token = Cookies.get('token') || '';
   const [isClientSide, setIsClientSide] = useState(false);
   const body = {
@@ -57,7 +59,7 @@ const HomePage: NextPage = () => {
     <>
       {isClientSide && (
         <head>
-          <title>The Platform | Workshop Details</title>
+          <title>{t('metadata.workshop_details')}</title>
           <meta
             name="description"
             content="Welcome to the Workshop details page of The Platform Website"

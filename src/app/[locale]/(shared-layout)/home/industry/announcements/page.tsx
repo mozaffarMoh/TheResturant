@@ -28,7 +28,7 @@ const Announcments = () => {
       {' '}
       {isClientSide && (
         <head>
-          <title>The Platform | Announcements</title>
+          <title>{t('metadata.announcements')}</title>
           <meta
             name="description"
             content="Welcome to the Announcements page of The Platform Website"

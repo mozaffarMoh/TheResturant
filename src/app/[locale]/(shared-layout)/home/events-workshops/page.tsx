@@ -25,7 +25,7 @@ const EventsWorkShopsPage: NextPage = () => {
     <>
       {isClientSide && (
         <head>
-          <title>The Platform | Events-Workshop</title>
+          <title>{t('metadata.events')}</title>
           <meta
             name="description"
             content="Welcome to the Events and Workshops page of The Platform Website"

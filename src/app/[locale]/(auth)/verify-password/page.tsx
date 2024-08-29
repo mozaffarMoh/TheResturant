@@ -21,7 +21,7 @@ const SignIn: NextPage = () => {
     <div className={styles.signInContainer}>
       {isClientSide && (
         <head>
-          <title>The Platform | Verify-Password</title>
+          <title>{t('metadata.verify_password')}</title>
           <meta
             name="description"
             content="Welcome to the Verify-Password page of The Platform Website"

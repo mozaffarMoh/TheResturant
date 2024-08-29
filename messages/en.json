@@ -231,5 +231,28 @@
         "description": "Description",
         "date": "Date",
         "time": "Time"
+    },
+    "metadata": {
+        "platform": "The Platform",
+        "home": "The Platform | Home",
+        "events": "The Platform | Event and Workshops",
+        "workshop_details": "The Platform | Workshop Details",
+        "book_facility": "The Platform | Book-Facility",
+        "facility_details": "The Platform | Book-facility Details",
+        "mentors": "The Platform | Mentors",
+        "mentor_details": "The Platform | Mentor Details",
+        "contact_us": "The Platform | Contact-US",
+        "news": "The Platform | News",
+        "announcements": "The Platform | Announcements",
+        "job_details": "The Platform | Job-Offering Details",
+        "my_account": "The Platform | My-Account",
+        "my_activity": "The Platform | My-Activity",
+        "change_password": "The Platform | Change-password",
+        "verify_password": "The Platform | Verify Password",
+        "guest_page": "The Platform | Guest Page",
+        "sign_in": "The Platform | Sign in",
+        "sign_up": "The Platform | Sign up",
+        "who_are_you": "The Platform | Who Are You",
+        "user_details": "The Platform | User Details"
     }
 }

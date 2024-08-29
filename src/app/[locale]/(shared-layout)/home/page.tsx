@@ -24,7 +24,7 @@ const HomePage: NextPage = () => {
     <>
       {isClientSide && (
         <head>
-          <title>The Platform | Home</title>
+          <title>{t('metadata.home')}</title>
           <meta
             name="description"
             content="Welcome to the Home page of The Platform Website."

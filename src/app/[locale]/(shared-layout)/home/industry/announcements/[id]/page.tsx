@@ -77,7 +77,7 @@ const JobOfferDetails: NextPage = () => {
     <>
       {isClientSide && (
         <head>
-          <title>The Platform | Job-Offering Details</title>
+          <title>{t('metadata.job_details')}</title>
           <meta
             name="description"
             content="Welcome to the Job-Offering Details page of The Platform Website"

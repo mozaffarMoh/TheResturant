@@ -114,7 +114,7 @@ const ChangePassword = () => {
       {' '}
       {isClientSide && (
         <head>
-          <title>The Platform | Change-Password</title>
+          <title>{t('metadata.change_password')}</title>
           <meta
             name="description"
             content="Welcome to the Change-Password page of The Platform Website"
@@ -134,7 +134,7 @@ const ChangePassword = () => {
       />{' '}
       <Typography
         fontWeight={600}
-        variant="h5"
+        variant="h4"
         color={primaryColor}
         marginX={2}
       >

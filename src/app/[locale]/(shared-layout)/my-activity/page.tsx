@@ -107,7 +107,7 @@ const MyActivity = () => {
       {' '}
       {isClientSide && (
         <head>
-          <title>The Platform | My-Activity</title>
+          <title>{t('metadata.my_activity')}</title>
           <meta
             name="description"
             content="Welcome to the My-Activity page of The Platform Website"

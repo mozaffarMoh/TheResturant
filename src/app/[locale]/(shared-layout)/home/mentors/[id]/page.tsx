@@ -77,7 +77,7 @@ const MentorDetails: NextPage = () => {
     >
       {isClientSide && (
         <head>
-          <title>The Platform | Mentor Details</title>
+          <title>{t('metadata.mentor_details')}</title>
           <meta
             name="description"
             content="Welcome to the Mentor Details page of The Platform Website"

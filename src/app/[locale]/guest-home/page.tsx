@@ -13,8 +13,10 @@ import { endPoints } from '@/base-api/endPoints';
 import { useEffect, useState } from 'react';
 import CardsSection from '@/sections/guest-home/cards-section/cardsSection';
 import VideoSection from '@/sections/guest-home/VideoSection/VideoSection';
+import { useTranslations } from 'next-intl';
 
 const PublicHomePage: NextPage = () => {
+  const t = useTranslations();
   const [data, loading, getData] = useGet(endPoints.ladningPage);
   const [heroData, setHeroData] = useState({});
   const [cardsData, setCardsData] = useState({});
@@ -46,7 +48,7 @@ const PublicHomePage: NextPage = () => {
     <>
       {isClientSide && (
         <head>
-          <title>The Platform | Guest-Page</title>
+          <title>{t('metadata.guest_page')}</title>
           <meta
             name="description"
             content="Welcome to the Guest-Page page of The Platform Website"

@@ -104,7 +104,7 @@ const SignIn: NextPage = () => {
     <div className={styles.signInContainer}>
       {isClientSide && (
         <head>
-          <title>The Platform | Sign-in</title>
+          <title>{t('metadata.sign_in')}</title>
           <meta
             name="description"
             content="Welcome to the Sign-in page of The Platform Website"

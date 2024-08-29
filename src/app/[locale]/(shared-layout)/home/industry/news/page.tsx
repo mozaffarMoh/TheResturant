@@ -114,7 +114,7 @@ const News = () => {
     >
       {isClientSide && (
         <head>
-          <title>The Platform | News</title>
+          <title>{t('metadata.news')}</title>
           <meta
             name="description"
             content="Welcome to the News page of The Platform Website"

@@ -235,7 +235,7 @@ const SingUp: NextPage = () => {
       {' '}
       {isClientSide && (
         <head>
-          <title>The Platform | Sign-up</title>
+          <title>{t('metadata.sign_up')}</title>
           <meta
             name="description"
             content="Welcome to the Sign-up page of The Platform Website"

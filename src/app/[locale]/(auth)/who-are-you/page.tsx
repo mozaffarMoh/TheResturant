@@ -39,7 +39,7 @@ const WhoAreYouPage: NextPage = () => {
   return formData ? (
     <div className={styles.signInContainer}>
       <head>
-        <title>The Platform | Who Are You</title>
+        <title>{t('metadata.who_are_you')}</title>
         <meta
           name="description"
           content="Welcome to the Who Are You page of The Platform Website"

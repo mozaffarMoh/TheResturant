@@ -185,6 +185,7 @@ const Profile = () => {
     if (successUpdateProfile) {
       setSuccessMessage(t('messages.update-profile'));
       Cookies.set('token', dataUpdateProfile?.token?.token);
+      getUserData();
     }
     setTimeout(() => {
       setSuccessMessage('');
@@ -213,30 +214,42 @@ const Profile = () => {
 
   useEffect(() => {
     if (userData?.slug) {
+      let phoneForRender = userData?.phone.startsWith('+962')
+        ? userData?.phone.slice(4)
+        : userData?.phone;
+      let phoneForSend = !userData?.phone.startsWith('+962')
+        ? '+962' + userData?.phone
+        : userData?.phone;
+
       setFullFormData({
         first_name: userData?.first_name,
         last_name: userData?.last_name,
         gender: userData?.gender,
-        phone: userData?.phone,
+        phone: phoneForSend,
         email: userData?.email,
-        place_id: userData?.place?.id,
+        place_id: null,
       });
 
       setValue('first_name', userData?.first_name);
       setValue('last_name', userData?.last_name);
       setValue('gender', userData?.gender);
-      setValue('phone', userData?.phone);
+      setValue('phone', phoneForRender);
       setValue('email', userData?.email);
       setValue('place_id', userData?.place?.id);
     }
   }, [userData, setValue]);
 
   const handleChangeValue = (value: any, slug: string) => {
+    const checkValue = () => {
+      if (Array.isArray(value)) return value?.[0];
+      else if (slug == 'phone') return '+962' + value;
+      else return value;
+    };
+
     setFullFormData((prevObject: any) => {
-      const newValue = Array.isArray(value) ? value[0] : value;
       return {
         ...prevObject,
-        [slug]: newValue,
+        [slug]: checkValue(),
       };
     });
   };
@@ -249,7 +262,7 @@ const Profile = () => {
     <Container maxWidth="lg">
       {isClientSide && (
         <head>
-          <title>The Platform | My-Profile</title>
+          <title>{t('metadata.my_account')}</title>
           <meta
             name="description"
             content="Welcome to the My-Profile page of The Platform Website"
@@ -359,7 +372,6 @@ const Profile = () => {
                       control={control}
                       required={false}
                       fieldData={item?.fieldData}
-                      value={fullFormData[item?.slug]}
                       startDecorator={item?.startDecorator}
                       onChange={(e: any) => handleChangeValue(e, item?.slug)}
                     />

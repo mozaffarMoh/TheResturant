@@ -7,9 +7,11 @@ import { useParams } from 'next/navigation';
 import usePost from '@/custom-hooks/usePost';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 import { Stack } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 const FacilityDetailsPage = () => {
   const params = useParams();
+  const t = useTranslations();
   const [isClientSide, setIsClientSide] = useState(false);
   const body = {
     modelName: 'Item',
@@ -53,7 +55,7 @@ const FacilityDetailsPage = () => {
     <>
       {isClientSide && (
         <head>
-          <title>The Platform | Book-Facility Details</title>
+          <title>{t('metadata.facility_details')}</title>
           <meta
             name="description"
             content="Welcome to the Book-Facility Details page of The Platform Website"

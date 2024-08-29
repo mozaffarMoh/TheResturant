@@ -129,7 +129,7 @@ const MentorsPage: NextPage = () => {
     >
       {isClientSide && (
         <head>
-          <title>The Platform | Mentors</title>
+          <title>{t('metadata.mentors')}</title>
           <meta
             name="description"
             content="Welcome to the Mentors page of The Platform Website"

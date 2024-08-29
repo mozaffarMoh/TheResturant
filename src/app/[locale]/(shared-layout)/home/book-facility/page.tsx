@@ -144,7 +144,7 @@ const BookFacilityPage: NextPage = () => {
     <>
       {isClientSide && (
         <head>
-          <title>The Platform | Book-Facility</title>
+          <title>{t('metadata.book_facility')}</title>
           <meta
             name="description"
             content="Welcome to the Book-Facility page of The Platform Website"
