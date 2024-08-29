@@ -9,13 +9,11 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import CallMadeIcon from '@mui/icons-material/CallMade';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { avatarImage } from '@/constant/images';
 import { useTranslations } from 'next-intl';
 import FormField from '@/components/mui-inputs/FormField';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { signupSchema } from '../../(auth)/sign-up/schema';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { domain, endPoints } from '@/base-api/endPoints';
 import usePost from '@/custom-hooks/usePost';
@@ -23,6 +21,7 @@ import Cookies from 'js-cookie';
 import CustomAlert from '@/components/alerts/CustomAlert';
 import { LoadingButton } from '@mui/lab';
 import useGet from '@/custom-hooks/useGet';
+import { ProfileSchema } from './schema';
 
 const Profile = () => {
   const t = useTranslations();
@@ -85,7 +84,7 @@ const Profile = () => {
     },
   ];
   const { handleSubmit, control, setValue } = useForm({
-    resolver: zodResolver(signupSchema(fieldsArray, t)),
+    resolver: zodResolver(ProfileSchema(fieldsArray, t)),
     defaultValues: {
       first_name: '',
       last_name: '',
@@ -253,13 +252,13 @@ const Profile = () => {
           alignItems={'center'}
         >
           <img
-            width={isScreen500 ? 60 : 100}
-            height={isScreen500 ? 60 : 100}
+            width={isScreen500 ? 80 : 100}
+            height={isScreen500 ? 80 : 100}
             style={{ borderRadius: '50%' }}
             src={imageURLUser}
             alt="avatar"
           />
-          <IconButton
+       {/*    <IconButton
             sx={{
               background: '#a8d2d7',
               height: 'fit-content',
@@ -268,7 +267,7 @@ const Profile = () => {
             }}
           >
             <DeleteOutlineIcon />
-          </IconButton>{' '}
+          </IconButton> */}
           <input
             type="file"
             onChange={handleUploadImage}
