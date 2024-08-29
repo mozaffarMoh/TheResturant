@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form';
-import { TextField as MuiTextField } from '@mui/material';
+import { InputAdornment, TextField as MuiTextField } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
@@ -13,6 +13,7 @@ interface TextFieldProps {
   onChange?: any;
   setFormData: any;
   key: string;
+  startDecorator?: any;
 }
 
 function TextField({
@@ -22,8 +23,8 @@ function TextField({
   className = 'text-field-style',
   onChange,
   value,
-  defaultValue = '',
   key,
+  startDecorator,
 }: TextFieldProps) {
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
@@ -46,18 +47,23 @@ function TextField({
               onChange(e.target.value); // Call the passed onChange function
             }
           }}
+          InputProps={{
+            startAdornment: startDecorator ? (
+              <InputAdornment position="start">{startDecorator}</InputAdornment>
+            ) : null,
+          }}
           label={label}
           error={!!fieldState.error}
           helperText={fieldState.error ? fieldState.error.message : ''}
-          onFocus={() => setIsFocused(true)} // Set focus state on focus
-          onBlur={() => setIsFocused(false)} // Reset focus state on blur
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           variant="outlined"
           rows={name == 'Text Area' ? 6 : 1}
           className={className}
           InputLabelProps={{
             shrink: Boolean(field.value || value || isFocused),
             sx: {
-              right: isArabic ? 25 : '',
+              right: isArabic ? 30 : '',
               left: isArabic ? 'auto' : '',
               transformOrigin: isArabic ? 'top right' : '',
               textAlign: isArabic ? 'right' : 'left',
@@ -74,6 +80,15 @@ function TextField({
             },
             '& .MuiOutlinedInput-notchedOutline legend': {
               textAlign: isArabic ? 'right' : 'left',
+            },
+            '& .MuiFormLabel-root': {
+              marginRight: startDecorator && isArabic ? 12 : '',
+              marginLeft: startDecorator && !isArabic ? 12 : '',
+              '&.MuiInputLabel-shrink': {
+                color: 'initial',
+                marginRight: 0,
+                marginLeft: 0,
+              },
             },
           }}
         />

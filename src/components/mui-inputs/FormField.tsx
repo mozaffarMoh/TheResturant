@@ -30,6 +30,7 @@ interface FormFieldProps {
   filesFormArray?: any;
   handleSetFilesFieldId?: any;
   setFilesFormArray?: any;
+  startDecorator?: any;
 }
 
 export default function FormField({
@@ -46,6 +47,7 @@ export default function FormField({
   filesFormArray,
   setFilesFormArray,
   handleSetFilesFieldId,
+  startDecorator,
   className = 'text-field-style',
 }: FormFieldProps) {
   const getIndexOfType = () => {
@@ -77,5 +79,6 @@ export default function FormField({
     filesFormArray,
     setFilesFormArray,
     handleSetFilesFieldId,
+    startDecorator,
   });
 }

@@ -71,6 +71,8 @@ const Header = () => {
       ? domain + userData?.media?.['User/media']?.[0]?.url
       : avatarImage;
 
+  const [partnersData, , setPartnersData] = useGet(endPoints.getPartners, true);
+
   const isActive = (path: string) => pathname == path;
   const [partnersLogos, setPartnersLogos] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
@@ -99,7 +101,20 @@ const Header = () => {
 
   useEffect(() => {
     getUserData();
+    setPartnersData();
   }, []);
+
+  useEffect(() => {
+    if (partnersData && partnersData?.children) {
+      const imageUrls = partnersData?.children.map((item: any) => {
+        return item?.media?.image?.[0]?.url
+          ? domain + item?.media?.image?.[0]?.url
+          : '';
+      });
+
+      setPartnersLogos(imageUrls);
+    }
+  }, [partnersData]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -161,14 +176,6 @@ const Header = () => {
     handleClose2();
   }, [pathname]);
 
-  // Fetch logos from cookies or API once the component is mounted
-  useEffect(() => {
-    const logosFromCookies = Cookies.get('partnersLogos');
-    if (logosFromCookies) {
-      setPartnersLogos(logosFromCookies.split(','));
-    }
-  }, []);
-
   return (
     <div className={styles.headerFullContainer}>
       {/* Top banner Partners */}
@@ -177,16 +184,16 @@ const Header = () => {
           container
           className={styles.headerTopDivContainer}
         >
-          {partnersLogos &&
-            partnersLogos.map((item) => {
-              return (
-                <img
-                  width={60}
-                  height={50}
-                  src={item}
-                />
-              );
-            })}
+          {partnersLogos.map((logo: string, i: number) => {
+            return (
+              <img
+                key={i}
+                src={logo}
+                width={60}
+                height={50}
+              />
+            );
+          })}
         </Grid>
       </Container>
       {/* End of Top Banner Partners */}
@@ -324,6 +331,13 @@ const Header = () => {
                           onClick={() => router.push(`/${langCurrent}/profile`)}
                         >
                           {t('header.my-account')}
+                        </MenuItem>{' '}
+                        <MenuItem
+                          onClick={() =>
+                            router.push(`/${langCurrent}/my-activity`)
+                          }
+                        >
+                          {t('header.my-activity')}
                         </MenuItem>{' '}
                         <MenuItem
                           onClick={() =>
@@ -472,6 +486,13 @@ const Header = () => {
                               }
                             >
                               {t('header.my-account')}
+                            </MenuItem>{' '}
+                            <MenuItem
+                              onClick={() =>
+                                router.push(`/${langCurrent}/my-activity`)
+                              }
+                            >
+                              {t('header.my-activity')}
                             </MenuItem>{' '}
                             <MenuItem
                               onClick={() =>

@@ -4,6 +4,8 @@ import {
   Container,
   Grid,
   IconButton,
+  MenuItem,
+  Select,
   Stack,
   Typography,
   useMediaQuery,
@@ -56,6 +58,31 @@ const Profile = () => {
       placeholder: t('auth.phone-placeholder'),
       slug: 'phone',
       type: 'text',
+      startDecorator: (
+        <Select
+          value="+962"
+          variant="standard"
+          sx={{
+            '&::before': { borderBottom: 'none' }, // Removes the line before interaction
+            '&::after': { borderBottom: 'none' }, // Removes the line after interaction
+            '&:hover:not(.Mui-disabled)::before': {
+              borderBottom: 'none', // Removes the line when hovering over the input
+            },
+          }}
+          style={{
+            direction: 'ltr',
+            unicodeBidi: 'bidi-override',
+            border: 'none',
+          }}
+        >
+          <MenuItem
+            value={'+962'}
+            style={{ direction: 'ltr', unicodeBidi: 'bidi-override' }}
+          >
+            +962
+          </MenuItem>
+        </Select>
+      ),
     },
     {
       name: t('auth.gender'),
@@ -243,8 +270,6 @@ const Profile = () => {
           </Typography>
         </Stack>
 
-        {/*  <Divider sx={{ bgcolor: 'grey.200', width: '100%' }} /> */}
-
         {/* Avatar section */}
         <Stack
           direction={'row'}
@@ -258,7 +283,7 @@ const Profile = () => {
             src={imageURLUser}
             alt="avatar"
           />
-       {/*    <IconButton
+          {/*    <IconButton
             sx={{
               background: '#a8d2d7',
               height: 'fit-content',
@@ -324,6 +349,7 @@ const Profile = () => {
                       required={false}
                       fieldData={item?.fieldData}
                       value={fullFormData[item?.slug]}
+                      startDecorator={item?.startDecorator}
                       onChange={(e: any) => handleChangeValue(e, item?.slug)}
                     />
                   </Stack>

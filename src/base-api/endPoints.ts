@@ -27,7 +27,8 @@ export const endPoints = {
     updateProfile: '/update-user/',
     changePassword: '/change-password/',
     uploadProfileImage: '/update-image/',
-    getUserInformation : '/get-current-user/'
+    getUserInformation: '/get-current-user/',
+    getPartners: "/core/dynamicLookup/partners"
 }
 
 

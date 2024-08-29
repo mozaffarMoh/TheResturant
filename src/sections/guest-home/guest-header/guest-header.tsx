@@ -97,8 +97,8 @@ const GuestHeader = ({ partnersData }: any) => {
   }, [isScreen991]);
 
   useEffect(() => {
-    if (partnersData && partnersData.children) {
-      const imageUrls = partnersData.children.map((item: any) => {
+    if (partnersData && partnersData?.children) {
+      const imageUrls = partnersData?.children.map((item: any) => {
         return item?.media?.image?.[0]?.url
           ? domain + item?.media?.image?.[0]?.url
           : '';
@@ -107,12 +107,6 @@ const GuestHeader = ({ partnersData }: any) => {
       setPartnersLogos(imageUrls);
     }
   }, [partnersData]);
-  
-  useEffect(() => {
-    if (partnersLogos.length > 0) {
-      Cookies.set('partnersLogos', partnersLogos);
-    }
-  }, [partnersLogos]);
 
   return (
     <div className={styles.headerGuestContainer}>
@@ -125,21 +119,16 @@ const GuestHeader = ({ partnersData }: any) => {
             container
             className={styles.headerTopDivContainer}
           >
-            {partnersData &&
-              partnersData?.children &&
-              partnersData?.children.map((item: any) => {
-                let imageURL = item?.media?.image?.[0]?.url
-                  ? domain + item?.media?.image?.[0]?.url
-                  : '';
-
-                return (
-                  <img
-                    src={imageURL}
-                    width={60}
-                    height={50}
-                  />
-                );
-              })}
+            {partnersLogos.map((logo: string, i: number) => {
+              return (
+                <img
+                  key={i}
+                  src={logo}
+                  width={60}
+                  height={50}
+                />
+              );
+            })}
           </Grid>
         </Container>
       </Box>

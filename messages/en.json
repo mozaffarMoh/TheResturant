@@ -141,9 +141,10 @@
         "announcements": "Announcements",
         "announcement": "Announcement",
         "jobOffer": "Job Offering",
-        "my-account": "My Account",
+        "my-account": "My Profile",
         "change-password": "Change Password",
-        "logout": "Logout"
+        "logout": "Logout",
+        "my-activity": "My Activity"
     },
     "footer": {
         "title": "Subscribe Our Newsletter",
@@ -224,5 +225,11 @@
         "title": "Profile Detilas",
         "save": "Save",
         "upload-image": "Upload Image"
+    },
+    "my-activity": {
+        "id": "ID",
+        "description": "Description",
+        "date": "Date",
+        "time": "Time"
     }
 }
