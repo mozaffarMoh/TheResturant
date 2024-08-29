@@ -17,7 +17,7 @@ export const ProfileSchema = (inputs: any, t: any) => {
                         z.null()
                     ])
                     .refine(value => value !== null, { message: t('validation.required') });
-                break;
+                break; 
 
             case 'last_name':
                 validation = z
