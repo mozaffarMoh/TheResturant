@@ -1,14 +1,10 @@
 'use client';
 import { primaryColor } from '@/constant/color';
 import {
-  Button,
   Container,
-  Divider,
   Grid,
   IconButton,
-  Select,
   Stack,
-  TextField,
   Typography,
   useMediaQuery,
 } from '@mui/material';
@@ -21,7 +17,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { signupSchema } from '../../(auth)/sign-up/schema';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { endPoints } from '@/base-api/endPoints';
+import { domain, endPoints } from '@/base-api/endPoints';
 import usePost from '@/custom-hooks/usePost';
 import Cookies from 'js-cookie';
 import CustomAlert from '@/components/alerts/CustomAlert';
@@ -88,12 +84,26 @@ const Profile = () => {
       fieldData: governorateArray,
     },
   ];
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, setValue } = useForm({
     resolver: zodResolver(signupSchema(fieldsArray, t)),
+    defaultValues: {
+      first_name: '',
+      last_name: '',
+      email: '',
+      phone: '',
+      gender: '',
+      place_id: '',
+    },
   });
 
   const [governorateData, , getGovernorateData, , , errorStatusGovernorate] =
     useGet(endPoints.getGovernorate);
+
+  const [userData, , getUserData] = useGet(endPoints.getUserInformation, true);
+  let imageURLUser =
+    userData && userData?.media?.['User/media']?.[0]?.url
+      ? domain + userData?.media?.['User/media']?.[0]?.url
+      : avatarImage;
 
   const [
     dataImage,
@@ -136,6 +146,7 @@ const Profile = () => {
     if (successImage) {
       setSuccessMessage(t('messages.upload-image'));
       Cookies.set('token', dataImage?.token?.token);
+      getUserData();
       setTimeout(() => {
         setSuccessMessage('');
       }, 3000);
@@ -156,6 +167,7 @@ const Profile = () => {
   /* get the governorate data and store it in state array */
   useEffect(() => {
     getGovernorateData();
+    getUserData();
   }, []);
 
   useEffect(() => {
@@ -170,6 +182,26 @@ const Profile = () => {
       setGovernorateArray(array);
     }
   }, [governorateData]);
+
+  useEffect(() => {
+    if (userData?.slug) {
+      setFullFormData({
+        first_name: userData?.first_name,
+        last_name: userData?.last_name,
+        gender: userData?.gender,
+        phone: userData?.phone,
+        email: userData?.email,
+        place_id: userData?.place?.id,
+      });
+
+      setValue('first_name', userData?.first_name);
+      setValue('last_name', userData?.last_name);
+      setValue('gender', userData?.gender);
+      setValue('phone', userData?.phone);
+      setValue('email', userData?.email);
+      setValue('place_id', userData?.place?.id);
+    }
+  }, [userData, setValue]);
 
   const handleChangeValue = (value: any, slug: string) => {
     setFullFormData((prevObject: any) => {
@@ -224,7 +256,7 @@ const Profile = () => {
             width={isScreen500 ? 60 : 100}
             height={isScreen500 ? 60 : 100}
             style={{ borderRadius: '50%' }}
-            src={avatarImage}
+            src={imageURLUser}
             alt="avatar"
           />
           <IconButton
@@ -292,6 +324,7 @@ const Profile = () => {
                       control={control}
                       required={false}
                       fieldData={item?.fieldData}
+                      value={fullFormData[item?.slug]}
                       onChange={(e: any) => handleChangeValue(e, item?.slug)}
                     />
                   </Stack>

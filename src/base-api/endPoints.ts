@@ -26,7 +26,8 @@ export const endPoints = {
     subscribe: '/core/newsletter-email',
     updateProfile: '/update-user/',
     changePassword: '/change-password/',
-    uploadProfileImage: '/update-image/'
+    uploadProfileImage: '/update-image/',
+    getUserInformation : '/get-current-user/'
 }
 
 

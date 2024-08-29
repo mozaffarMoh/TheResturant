@@ -33,6 +33,7 @@ function SelectTextField({
       name={name}
       control={control}
       render={({ field, fieldState }) => {
+        
         return (
           <MuiTextField
             {...field}
@@ -43,7 +44,8 @@ function SelectTextField({
             required={required}
             error={!!fieldState.error}
             helperText={fieldState.error ? fieldState.error.message : ''}
-            value={value}
+            defaultValue={value}
+            value={field.value}
             onChange={(e) => {
               // Update the onChange handler
               field.onChange(e);

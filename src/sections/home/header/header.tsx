@@ -26,6 +26,8 @@ import Cookies from 'js-cookie';
 import { avatarImage } from '@/constant/images';
 import { ArrowDropDownIcon } from '@mui/x-date-pickers';
 import ConfirmationModal from '@/components/modals/ConfirmationModal';
+import useGet from '@/custom-hooks/useGet';
+import { domain, endPoints } from '@/base-api/endPoints';
 
 const Header = () => {
   const t = useTranslations();
@@ -63,6 +65,11 @@ const Header = () => {
       link: `/${langCurrent}/contact-us`,
     },
   ];
+  const [userData, , getUserData] = useGet(endPoints.getUserInformation, true);
+  let imageURLUser =
+    userData && userData?.media?.['User/media']?.[0]?.url
+      ? domain + userData?.media?.['User/media']?.[0]?.url
+      : avatarImage;
 
   const isActive = (path: string) => pathname == path;
   const [partnersLogos, setPartnersLogos] = useState<string[]>([]);
@@ -89,6 +96,11 @@ const Header = () => {
       value: t('header.announcements'),
     },
   ];
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen(true);
@@ -297,7 +309,7 @@ const Header = () => {
                           width={40}
                           height={40}
                           style={{ borderRadius: '50%' }}
-                          src={avatarImage}
+                          src={imageURLUser}
                           alt="avatar"
                         />
                         <ArrowDropDownIcon sx={{ color: 'white' }} />
@@ -443,7 +455,7 @@ const Header = () => {
                               width={40}
                               height={40}
                               style={{ borderRadius: '50%' }}
-                              src={avatarImage}
+                              src={imageURLUser}
                               alt="avatar"
                             />
                             <ArrowDropDownIcon />

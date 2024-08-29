@@ -26,7 +26,8 @@ interface FormFieldProps {
   className?: string;
   onChange?: any;
   value?: any;
-  filesFormArray?:any;
+  defaultValue?: any;
+  filesFormArray?: any;
   handleSetFilesFieldId?: any;
   setFilesFormArray?: any;
 }
@@ -41,6 +42,7 @@ export default function FormField({
   required,
   onChange,
   value,
+  defaultValue,
   filesFormArray,
   setFilesFormArray,
   handleSetFilesFieldId,
@@ -66,6 +68,7 @@ export default function FormField({
     key,
     label,
     value,
+    defaultValue,
     fieldData,
     control,
     required,
