@@ -23,18 +23,67 @@ import {
   ArrowForwardIosRounded,
 } from '@mui/icons-material';
 import { usePathname } from 'next/navigation';
+import usePost from '@/custom-hooks/usePost';
 
 const MyActivity = () => {
   const t = useTranslations();
   const token = Cookies.get('token') || '';
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-
-  const [userData, , getUserData] = useGet(endPoints.getUserInformation, true);
+  const [page, setPage] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [isClientSide, setIsClientSide] = useState(false);
+  const filters: any = {
+    'itemType.slug': 'facility',
+  };
+  const body = {
+    modelName: 'Item',
+    fields: ['id', 'title', 'slug', 'description', 'price_start_from', 'media'],
+    relations: {
+      itemMetaData: {
+        fields: ['id', 'value'],
+        relations: {
+          itemMetaKey: {
+            fields: ['id', 'name', 'slug', 'media'],
+          },
+          time: {},
+        },
+      },
+      categories: {
+        fields: ['name'],
+      },
+      place: {
+        fields: ['name', 'slug'],
+        relations: {
+          parent: {
+            fields: ['name', 'slug'],
+          },
+        },
+      },
+    },
+    'with-pagination': true,
+    limit: 9,
+    page: page,
+    filters,
+  };
+  const [date, loading, getData, success, , , , fullData] = usePost(
+    endPoints.DynamicFilter,
+    body,
+    token,
+  );
 
   useEffect(() => {
-    getUserData();
+    getData();
+    setIsClientSide(true);
   }, []);
+
+  useEffect(() => {
+    if (success) {
+      let totalNum = fullData?.meta?.total || 0;
+      const paginationCount = Math.ceil(totalNum / 9);
+      setTotal(paginationCount);
+    }
+  }, [success]);
 
   const labels = [
     t('my-activity.id'),
@@ -55,6 +104,16 @@ const MyActivity = () => {
 
   return (
     <Container maxWidth="lg">
+      {' '}
+      {isClientSide && (
+        <head>
+          <title>The Platform | My-Activity</title>
+          <meta
+            name="description"
+            content="Welcome to the My-Activity page of The Platform Website"
+          />
+        </head>
+      )}{' '}
       <Stack
         paddingY={5}
         gap={7}
@@ -102,8 +161,8 @@ const MyActivity = () => {
           paddingBottom={10}
         >
           <Pagination
-            page={1}
-            count={2}
+            page={page}
+            count={total}
             siblingCount={2} // Number of siblings to show around the current page
             renderItem={(item) => (
               <PaginationItem

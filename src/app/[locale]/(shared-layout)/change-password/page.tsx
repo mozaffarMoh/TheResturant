@@ -30,6 +30,7 @@ const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [isClientSide, setIsClientSide] = useState(false);
   const [, loading, handleChangePassword, success, , errorMessage] = usePost(
     endPoints.changePassword,
     {
@@ -89,7 +90,9 @@ const ChangePassword = () => {
       }
     }
   };
-
+  useEffect(() => {
+    setIsClientSide(true);
+  }, []);
   useEffect(() => {
     if (success) {
       setSuccessMessage(t('messages.password-update'));
@@ -109,6 +112,15 @@ const ChangePassword = () => {
       gap={3}
     >
       {' '}
+      {isClientSide && (
+        <head>
+          <title>The Platform | Change-Password</title>
+          <meta
+            name="description"
+            content="Welcome to the Change-Password page of The Platform Website"
+          />
+        </head>
+      )}{' '}
       <CustomAlert
         openAlert={errorMessage}
         setOpenAlert={() => {}}

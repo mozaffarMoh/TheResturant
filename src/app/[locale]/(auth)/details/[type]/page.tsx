@@ -208,6 +208,13 @@ const UserDetailsPage: NextPage = () => {
 
   return formData ? (
     <div className={styles.signInContainer}>
+      <head>
+        <title>The Platform | User Details</title>
+        <meta
+          name="description"
+          content="Welcome to the User Details page of The Platform Website"
+        />
+      </head>
       {/* Success Modal when user Success register */}
       <SuccessRegisterModal
         open={showOTPModal}

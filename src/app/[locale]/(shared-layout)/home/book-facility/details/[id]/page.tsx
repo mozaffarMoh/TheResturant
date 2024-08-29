@@ -10,7 +10,7 @@ import { Stack } from '@mui/material';
 
 const FacilityDetailsPage = () => {
   const params = useParams();
-
+  const [isClientSide, setIsClientSide] = useState(false);
   const body = {
     modelName: 'Item',
     filters: {
@@ -46,10 +46,20 @@ const FacilityDetailsPage = () => {
 
   useEffect(() => {
     getData();
+    setIsClientSide(true);
   }, []);
 
   return (
     <>
+      {isClientSide && (
+        <head>
+          <title>The Platform | Book-Facility Details</title>
+          <meta
+            name="description"
+            content="Welcome to the Book-Facility Details page of The Platform Website"
+          />
+        </head>
+      )}
       <HeroSection
         bannerImage={imageURL}
         noText

@@ -33,6 +33,7 @@ const MentorDetails: NextPage = () => {
   const token = Cookies.get('token') || '';
   const [loadingStart, setLoadingStart] = useState<boolean>(true);
   const [successMessage, setSuccessMessage] = useState<string>('');
+  const [isClientSide, setIsClientSide] = useState(false);
   const [data, loading, getData] = useGet(
     endPoints.getSubmittedData + params?.id,
     true,
@@ -52,6 +53,7 @@ const MentorDetails: NextPage = () => {
 
   useEffect(() => {
     getData();
+    setIsClientSide(true);
   }, []);
 
   useEffect(() => {
@@ -67,14 +69,21 @@ const MentorDetails: NextPage = () => {
     }
   }, [successRequest]);
 
-  console.log(data);
-  
   return (
     <Stack
       direction={'column'}
       alignItems={'center'}
       paddingBottom={10}
     >
+      {isClientSide && (
+        <head>
+          <title>The Platform | Mentor Details</title>
+          <meta
+            name="description"
+            content="Welcome to the Mentor Details page of The Platform Website"
+          />
+        </head>
+      )}
       <CustomAlert
         openAlert={errorMessage}
         setOpenAlert={() => {}}

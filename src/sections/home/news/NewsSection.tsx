@@ -78,7 +78,7 @@ const NewsSection = () => {
                         i > 1 &&
                         i < 5 && (
                           <NewsCardV1
-                            key={i}
+                            id={i}
                             title={item?.title}
                             subTitle={item?.subTitle}
                             category={item?.category}

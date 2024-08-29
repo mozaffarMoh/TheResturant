@@ -33,6 +33,7 @@ const Profile = () => {
   const [formDataImage, setFormDataImage] = useState<FormData | null>(null);
   const [successMessage, setSuccessMessage] = useState<string>('');
   const [governorateArray, setGovernorateArray] = useState([]);
+  const [isClientSide, setIsClientSide] = useState(false);
 
   const fieldsArray = [
     {
@@ -194,6 +195,7 @@ const Profile = () => {
   useEffect(() => {
     getGovernorateData();
     getUserData();
+    setIsClientSide(true);
   }, []);
 
   useEffect(() => {
@@ -245,6 +247,15 @@ const Profile = () => {
 
   return (
     <Container maxWidth="lg">
+      {isClientSide && (
+        <head>
+          <title>The Platform | My-Profile</title>
+          <meta
+            name="description"
+            content="Welcome to the My-Profile page of The Platform Website"
+          />
+        </head>
+      )}
       <CustomAlert
         openAlert={errorMessageImage || errorMessageUpdateProfile}
         setOpenAlert={() => {}}

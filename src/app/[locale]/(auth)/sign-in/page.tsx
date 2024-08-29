@@ -41,6 +41,7 @@ const SignIn: NextPage = () => {
   const [isRememberMe, setIsRememberMe] = useState(false);
   const [showForgetPassword, setShowForgetPassword] = useState(false);
   const [errors, setErrors] = useState({ email: '', password: '' });
+  const [isClientSide, setIsClientSide] = useState(false);
   const body = { login: email, password, device_ip: deviceIp };
   const [data, loading, handleLoginPost, success, , errorMessage] = usePost(
     endPoints.login,
@@ -80,6 +81,10 @@ const SignIn: NextPage = () => {
     }
   };
 
+  useEffect(() => {
+    setIsClientSide(true);
+  }, []);
+
   /* success status */
   useEffect(() => {
     if (success) {
@@ -97,6 +102,15 @@ const SignIn: NextPage = () => {
 
   return (
     <div className={styles.signInContainer}>
+      {isClientSide && (
+        <head>
+          <title>The Platform | Sign-in</title>
+          <meta
+            name="description"
+            content="Welcome to the Sign-in page of The Platform Website"
+          />
+        </head>
+      )}
       <CustomAlert
         openAlert={errorMessage}
         setOpenAlert={() => {}}

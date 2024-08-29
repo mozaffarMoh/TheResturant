@@ -8,18 +8,33 @@ import JobOfferingSection from '@/sections/announcments/JobOfferingSection';
 import { textSecondaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 const Announcments = () => {
   const t = useTranslations();
   const pathname = usePathname();
-  const langCurrent = pathname.slice(1,3)|| 'en';
+  const langCurrent = pathname.slice(1, 3) || 'en';
+  const [isClientSide, setIsClientSide] = useState(false);
 
-  
+  useEffect(() => {
+    setIsClientSide(true);
+  }, []);
+
   return (
     <Grid
       container
       direction={'column'}
       alignItems={'center'}
     >
+      {' '}
+      {isClientSide && (
+        <head>
+          <title>The Platform | Announcements</title>
+          <meta
+            name="description"
+            content="Welcome to the Announcements page of The Platform Website"
+          />
+        </head>
+      )}
       <Container maxWidth="lg">
         <GridFlex
           container

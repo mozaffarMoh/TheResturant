@@ -20,7 +20,7 @@ import { useTranslations } from 'next-intl';
 import usePost from '@/custom-hooks/usePost';
 import { domain, endPoints } from '@/base-api/endPoints';
 import { DefautImage1Large, DefautImage2 } from '@/constant/images';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, usePathname } from 'next/navigation';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 
@@ -28,6 +28,7 @@ const JobOfferDetails: NextPage = () => {
   const t = useTranslations();
   const isScreen1024 = useMediaQuery('(max-width:1024px)');
   const isScreen600 = useMediaQuery('(max-width:600px)');
+  const [isClientSide, setIsClientSide] = useState(false);
   const params = useParams();
   const pathname = usePathname();
   const body = {
@@ -62,17 +63,27 @@ const JobOfferDetails: NextPage = () => {
 
   let imageURLAvatart =
     isMetaDataExist &&
-    data && 
+    data &&
     data?.[0]?.itemMetaData?.[0]?.media?.image?.[0]?.url
       ? domain + data?.[0]?.itemMetaData?.[0]?.media?.image?.[0]?.url
       : DefautImage2;
 
   useEffect(() => {
     getData();
+    setIsClientSide(true);
   }, []);
 
   return (
     <>
+      {isClientSide && (
+        <head>
+          <title>The Platform | Job-Offering Details</title>
+          <meta
+            name="description"
+            content="Welcome to the Job-Offering Details page of The Platform Website"
+          />
+        </head>
+      )}
       {loading ? (
         <Skeleton
           sx={{ height: '400px', bgcolor: 'grey.500' }}

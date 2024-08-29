@@ -48,6 +48,7 @@ const SingUp: NextPage = () => {
   let isArabic = pathname.startsWith('/ar');
   const langCurrent = pathname.slice(1, 3) || 'en';
   const [fullFormData, setFullFormData] = useState([]);
+  const [isClientSide, setIsClientSide] = useState(false);
   const [
     governorateData,
     governorateLoading,
@@ -181,6 +182,7 @@ const SingUp: NextPage = () => {
   /* get the governorate data and store it in state array */
   useEffect(() => {
     getGovernorateData();
+    setIsClientSide(true);
   }, []);
   useEffect(() => {
     if (errorStatusGovernorate) {
@@ -230,6 +232,16 @@ const SingUp: NextPage = () => {
 
   return (
     <div className={styles.signInContainer}>
+      {' '}
+      {isClientSide && (
+        <head>
+          <title>The Platform | Sign-up</title>
+          <meta
+            name="description"
+            content="Welcome to the Sign-up page of The Platform Website"
+          />
+        </head>
+      )}
       <CustomAlert
         openAlert={errorMessage || fullErrors?.errors?.email}
         setOpenAlert={() => {}}
@@ -240,7 +252,6 @@ const SingUp: NextPage = () => {
         open={showModal}
         handleClose={() => setShowModal(false)}
       />
-
       <div className="w-full ">
         <Grid
           container

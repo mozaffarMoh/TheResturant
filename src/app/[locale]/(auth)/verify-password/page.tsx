@@ -7,14 +7,27 @@ import styles from './page.module.css';
 import { useTranslations } from 'next-intl';
 import OtpForgetPassword from '@/sections/sign-in/OtpForgetPassword';
 import UpdatePassword from '@/sections/sign-in/UpdatePassword';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const SignIn: NextPage = () => {
   const t = useTranslations();
   const [isNextStep, setIsNextStep] = useState(false);
+  const [isClientSide, setIsClientSide] = useState(false);
 
+  useEffect(() => {
+    setIsClientSide(true);
+  }, []);
   return (
     <div className={styles.signInContainer}>
+      {isClientSide && (
+        <head>
+          <title>The Platform | Verify-Password</title>
+          <meta
+            name="description"
+            content="Welcome to the Verify-Password page of The Platform Website"
+          />
+        </head>
+      )}
       <div className="w-full ">
         <Grid
           container

@@ -43,6 +43,7 @@ const MentorsPage: NextPage = () => {
   const [profession, setProfession] = useState('');
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
+  const [isClientSide, setIsClientSide] = useState(false);
 
   const filters: any = {
     'user.roles.name': 'Mentor',
@@ -94,6 +95,7 @@ const MentorsPage: NextPage = () => {
 
   useEffect(() => {
     getProfessionList();
+    setIsClientSide(true);
   }, []);
 
   useEffect(() => {
@@ -125,6 +127,16 @@ const MentorsPage: NextPage = () => {
       direction={'column'}
       alignItems={'center'}
     >
+      {isClientSide && (
+        <head>
+          <title>The Platform | Mentors</title>
+          <meta
+            name="description"
+            content="Welcome to the Mentors page of The Platform Website"
+          />
+        </head>
+      )}
+
       <Container maxWidth="lg">
         <GridFlex
           container

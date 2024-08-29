@@ -43,6 +43,7 @@ const BookFacilityPage: NextPage = () => {
   const langCurrent = pathname.slice(1, 3) || 'en';
   const [category, setCategory] = useState<string>('');
   const [location, setLocation] = useState<string>('');
+  const [isClientSide, setIsClientSide] = useState(false);
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
   const filters: any = {
@@ -106,6 +107,7 @@ const BookFacilityPage: NextPage = () => {
   useEffect(() => {
     getFacilityList();
     getCitiesList();
+    setIsClientSide(true);
   }, []);
 
   useEffect(() => {
@@ -140,6 +142,15 @@ const BookFacilityPage: NextPage = () => {
 
   return (
     <>
+      {isClientSide && (
+        <head>
+          <title>The Platform | Book-Facility</title>
+          <meta
+            name="description"
+            content="Welcome to the Book-Facility page of The Platform Website"
+          />
+        </head>
+      )}
       {/* BreadCrumb Section */}
       <Container maxWidth="lg">
         <GridFlex

@@ -45,6 +45,7 @@ const News = () => {
   const [slug, setSlug] = useState('');
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [isClientSide, setIsClientSide] = useState(false);
   const filters: any = {
     'itemType.slug': 'News',
     ...(category !== 'all' && { 'categories.slug': category }),
@@ -75,10 +76,8 @@ const News = () => {
     body,
   );
 
-  const [categories, loadingCategories, getCategories,successCategories] = usePost(
-    endPoints.DynamicFilter,
-    bodyCategory,
-  );
+  const [categories, loadingCategories, getCategories, successCategories] =
+    usePost(endPoints.DynamicFilter, bodyCategory);
 
   const handleChange = (e: any, value: number) => {
     setPage(value);
@@ -91,6 +90,7 @@ const News = () => {
 
   useEffect(() => {
     getCategories();
+    setIsClientSide(true);
   }, []);
 
   useEffect(() => {
@@ -112,6 +112,15 @@ const News = () => {
       alignItems={'center'}
       className="news"
     >
+      {isClientSide && (
+        <head>
+          <title>The Platform | News</title>
+          <meta
+            name="description"
+            content="Welcome to the News page of The Platform Website"
+          />
+        </head>
+      )}
       <Container maxWidth="lg">
         <GridFlex
           container

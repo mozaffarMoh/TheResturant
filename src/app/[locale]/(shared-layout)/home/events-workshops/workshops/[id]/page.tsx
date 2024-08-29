@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 import { HeroSection } from '@/sections/home';
 import WorkShopDetailsSection from '@/sections/events-workshops/workShopDetailsSection';
 import { useParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { domain, endPoints } from '@/base-api/endPoints';
 import { DefautImage1Large } from '@/constant/images';
 import { Stack } from '@mui/material';
@@ -15,6 +15,7 @@ import Cookies from 'js-cookie';
 const HomePage: NextPage = () => {
   const params = useParams();
   const token = Cookies.get('token') || '';
+  const [isClientSide, setIsClientSide] = useState(false);
   const body = {
     modelName: 'Item',
     filters: {
@@ -49,10 +50,20 @@ const HomePage: NextPage = () => {
 
   useEffect(() => {
     getData();
+    setIsClientSide(true);
   }, []);
 
   return (
     <>
+      {isClientSide && (
+        <head>
+          <title>The Platform | Workshop Details</title>
+          <meta
+            name="description"
+            content="Welcome to the Workshop details page of The Platform Website"
+          />
+        </head>
+      )}
       <HeroSection
         bannerImage={imageURL}
         noText

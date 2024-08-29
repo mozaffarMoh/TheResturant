@@ -27,7 +27,7 @@ const WhoAreYouPage: NextPage = () => {
       router.push(`/${langCurrent}/sign-up`);
     } else {
       let parsedTypes = JSON.parse(formData);
-      setTypesArray(parsedTypes.inputs[0].input_options);
+      setTypesArray(parsedTypes?.inputs?.[0]?.input_options);
     }
   }, [formData]);
 
@@ -38,6 +38,14 @@ const WhoAreYouPage: NextPage = () => {
 
   return formData ? (
     <div className={styles.signInContainer}>
+      <head>
+        <title>The Platform | Who Are You</title>
+        <meta
+          name="description"
+          content="Welcome to the Who Are You page of The Platform Website"
+        />
+      </head>
+
       <div className="w-full ">
         <Grid
           container

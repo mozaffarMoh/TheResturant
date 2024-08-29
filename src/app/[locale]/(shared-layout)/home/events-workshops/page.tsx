@@ -9,14 +9,29 @@ import WorkShopsListingSection from '@/sections/events-workshops/workShopsListin
 import { textSecondaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const EventsWorkShopsPage: NextPage = () => {
   const t = useTranslations();
   const pathname = usePathname();
   const langCurrent = pathname.slice(1, 3) || 'en';
+  const [isClientSide, setIsClientSide] = useState(false);
+
+  useEffect(() => {
+    setIsClientSide(true);
+  },[])
 
   return (
     <>
+      {isClientSide && (
+        <head>
+          <title>The Platform | Events-Workshop</title>
+          <meta
+            name="description"
+            content="Welcome to the Events and Workshops page of The Platform Website"
+          />
+        </head>
+      )}
       <Container maxWidth="lg">
         <GridFlex
           container

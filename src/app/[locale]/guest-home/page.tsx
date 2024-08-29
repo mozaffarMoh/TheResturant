@@ -22,9 +22,11 @@ const PublicHomePage: NextPage = () => {
   const [partnersData, setPartnersData]: any = useState({});
   const [aboutData, setAboutData] = useState({});
   const [servicesData, setServicesData] = useState({});
+  const [isClientSide, setIsClientSide] = useState(false);
 
   useEffect(() => {
     getData();
+    setIsClientSide(true);
   }, []);
 
   useEffect(() => {
@@ -40,10 +42,17 @@ const PublicHomePage: NextPage = () => {
     }
   }, [data]);
 
-  //console.log(data);
-
   return (
     <>
+      {isClientSide && (
+        <head>
+          <title>The Platform | Guest-Page</title>
+          <meta
+            name="description"
+            content="Welcome to the Guest-Page page of The Platform Website"
+          />
+        </head>
+      )}
       <GuestHeader partnersData={partnersData} />
       <HeroSection
         data={heroData}

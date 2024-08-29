@@ -9,7 +9,7 @@ import './news-card-v1.css';
 import dayjs from 'dayjs';
 
 export default function NewsCardV1({
-  key,
+  id,
   title,
   subTitle,
   category,
@@ -21,7 +21,7 @@ export default function NewsCardV1({
 
   return (
     <Card
-      key={key}
+      key={id}
       orientation="horizontal"
       variant="outlined"
       sx={{
