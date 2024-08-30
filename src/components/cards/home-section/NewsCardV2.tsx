@@ -10,7 +10,6 @@ import { usePathname } from 'next/navigation';
 import dayjs from 'dayjs';
 
 export default function NewsCardV2({
-  key,
   title,
   subTitle,
   media,
@@ -28,10 +27,10 @@ export default function NewsCardV2({
   const date = dateTime
     ? dayjs(dateTime?.split(' ')?.[0]).format('MMMM DD, YYYY')
     : '';
-  const time = dateTime?.split(' ')[1];
+  const time = dateTime?.split(' ')?.[1];
+
   return (
     <Card
-      key={key}
       variant="outlined"
       sx={{
         width: isScreen400 ? 250 : 320,

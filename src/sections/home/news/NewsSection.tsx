@@ -78,7 +78,7 @@ const NewsSection = () => {
                         i > 1 &&
                         i < 5 && (
                           <NewsCardV1
-                            id={i}
+                            key={i}
                             title={item?.title}
                             subTitle={item?.subTitle}
                             category={item?.category}
@@ -87,7 +87,8 @@ const NewsSection = () => {
                         ),
                     )
                   )}
-                </Stack>{' '}
+                </Stack>
+
                 {/* cards Vertical cards  section */}
                 <Stack
                   direction={'row'}

@@ -8,20 +8,13 @@ import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import './news-card-v1.css';
 import dayjs from 'dayjs';
 
-export default function NewsCardV1({
-  id,
-  title,
-  subTitle,
-  category,
-  date,
-}: any) {
+export default function NewsCardV1({ title, subTitle, category, date }: any) {
   const dateFormat = dayjs(date);
   const day = dateFormat.format('D');
   const month = dateFormat.format('MMMM');
 
   return (
     <Card
-      key={id}
       orientation="horizontal"
       variant="outlined"
       sx={{
