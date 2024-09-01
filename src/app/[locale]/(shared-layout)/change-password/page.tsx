@@ -5,7 +5,9 @@ import usePost from '@/custom-hooks/usePost';
 import { passwordSchema } from '@/sections/sign-in/passwordSchema';
 import { LoadingButton } from '@mui/lab';
 import {
+  Box,
   CircularProgress,
+  InputAdornment,
   Stack,
   TextField,
   Typography,
@@ -17,6 +19,7 @@ import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import Cookies from 'js-cookie';
 import CustomAlert from '@/components/alerts/CustomAlert';
+import { ClosedEyeSVG, OpenEyeSVG } from '../../../../../assets/icons';
 
 const ChangePassword = () => {
   const router = useRouter();
@@ -25,6 +28,7 @@ const ChangePassword = () => {
   const pathname = usePathname();
   const isScreen700 = useMediaQuery('(max-width:700px)');
   const langCurrent = pathname.slice(1, 3) || 'en';
+  const [showPasswords, setShowPasswords] = useState([false, false, false]);
   let isArabic = pathname.startsWith('/ar');
   const [password, setPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');
@@ -105,6 +109,14 @@ const ChangePassword = () => {
     }
   }, [success]);
 
+  const handleShowPassword = (i: number) => {
+    setShowPasswords((prevArray: any) => {
+      const newArray = [...prevArray];
+      newArray[i] = !newArray[i];
+      return newArray;
+    });
+  };
+
   return (
     <Stack
       alignItems={'center'}
@@ -144,7 +156,7 @@ const ChangePassword = () => {
         width={isScreen700 ? '90%' : '50%'}
         gap={2}
       >
-        {fieldsArray.map((item) => {
+        {fieldsArray.map((item: any, i: number) => {
           return (
             <Stack gap={1}>
               <Typography
@@ -156,6 +168,7 @@ const ChangePassword = () => {
               </Typography>
               <TextField
                 fullWidth
+                type={showPasswords[i] ? 'text' : 'password'}
                 label={item.placeholder}
                 error={!!item.error}
                 helperText={item.error}
@@ -169,11 +182,32 @@ const ChangePassword = () => {
                     textAlign: isArabic ? 'right' : 'left',
                   },
                 }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment
+                      onClick={() => handleShowPassword(i)}
+                      position="start"
+                      sx={{ cursor: 'pointer' }}
+                    >
+                      {showPasswords[i] ? (
+                        <OpenEyeSVG />
+                      ) : (
+                        <Box marginTop={isArabic ? 1 : 0.5}>
+                          <ClosedEyeSVG />
+                        </Box>
+                      )}
+                    </InputAdornment>
+                  ),
+                }}
                 sx={{
                   '& .MuiInputBase-root': {
                     borderRadius: '50px',
-                    paddingLeft: '0.8rem',
-                    paddingRight: '0.8rem', // Ensure the text does not hit the border
+                    paddingLeft: isArabic ? '1.5rem' : '1rem',
+                    paddingRight: '1.5rem',
+                  },
+                  '& .MuiInputBase-input': {
+                    direction: 'ltr',
+                    textAlign: isArabic ? 'right' : 'left',
                   },
                   '& .MuiFormHelperText-root': {
                     textAlign: isArabic ? 'right' : 'left',

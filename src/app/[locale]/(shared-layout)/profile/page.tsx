@@ -172,7 +172,9 @@ const Profile = () => {
   useEffect(() => {
     if (successImage) {
       setSuccessMessage(t('messages.upload-image'));
-      Cookies.set('token', dataImage?.token?.token);
+      Cookies.set('token', dataImage?.token?.token, {
+        expires: new Date('9999-12-31T23:59:59'),
+      });
       getUserData();
       setTimeout(() => {
         setSuccessMessage('');
@@ -184,7 +186,9 @@ const Profile = () => {
   useEffect(() => {
     if (successUpdateProfile) {
       setSuccessMessage(t('messages.update-profile'));
-      Cookies.set('token', dataUpdateProfile?.token?.token);
+      Cookies.set('token', dataUpdateProfile?.token?.token, {
+        expires: new Date('9999-12-31T23:59:59'),
+      });
       getUserData();
     }
     setTimeout(() => {
@@ -227,7 +231,7 @@ const Profile = () => {
         gender: userData?.gender,
         phone: phoneForSend,
         email: userData?.email,
-        place_id: null,
+        place_id: userData?.place?.id,
       });
 
       setValue('first_name', userData?.first_name);
