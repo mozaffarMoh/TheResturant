@@ -4,6 +4,7 @@ import {
   Container,
   Pagination,
   PaginationItem,
+  Skeleton,
   Stack,
   Table,
   TableBody,
@@ -30,47 +31,35 @@ const MyActivity = () => {
   const token = Cookies.get('token') || '';
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [isClientSide, setIsClientSide] = useState(false);
-  const filters: any = {
-    'itemType.slug': 'facility',
-  };
+
   const body = {
-    modelName: 'Item',
-    fields: ['id', 'title', 'slug', 'description', 'price_start_from', 'media'],
+    modelName: 'Order',
+    filters: {
+      'user.id': 'm_auth_t_user_g',
+    },
+    fields: ['id', 'created_at'],
     relations: {
-      itemMetaData: {
-        fields: ['id', 'value'],
-        relations: {
-          itemMetaKey: {
-            fields: ['id', 'name', 'slug', 'media'],
-          },
-          time: {},
-        },
-      },
-      categories: {
+      orderType: {
         fields: ['name'],
-      },
-      place: {
-        fields: ['name', 'slug'],
-        relations: {
-          parent: {
-            fields: ['name', 'slug'],
-          },
-        },
       },
     },
     'with-pagination': true,
-    limit: 9,
+    limit: 15,
     page: page,
-    filters,
   };
-  const [date, loading, getData, success, , , , fullData] = usePost(
+
+  const [data, loading, getData, success, , , , fullData] = usePost(
     endPoints.DynamicFilter,
     body,
     token,
   );
+
+  const handleChange = (e: any, value: number) => {
+    setPage(value);
+  };
 
   useEffect(() => {
     getData();
@@ -80,10 +69,14 @@ const MyActivity = () => {
   useEffect(() => {
     if (success) {
       let totalNum = fullData?.meta?.total || 0;
-      const paginationCount = Math.ceil(totalNum / 9);
+      const paginationCount = Math.ceil(totalNum / 15);
       setTotal(paginationCount);
     }
   }, [success]);
+
+  useEffect(() => {
+    page > 1 && getData();
+  }, [page]);
 
   const labels = [
     t('my-activity.id'),
@@ -91,16 +84,6 @@ const MyActivity = () => {
     t('my-activity.date'),
     t('my-activity.time'),
   ];
-  const [activities, setActivities] = useState([
-    { id: 1, description: 'Logged in', date: '2023-08-28', time: '10:30 AM' },
-    {
-      id: 2,
-      description: 'Updated Profile',
-      date: '2023-08-29',
-      time: '02:45 PM',
-    },
-    { id: 3, description: 'Logged out', date: '2023-08-29', time: '05:00 PM' },
-  ]);
 
   return (
     <Container maxWidth="lg">
@@ -144,14 +127,44 @@ const MyActivity = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {activities.map((activity) => (
-                <TableRow key={activity.id}>
-                  <TableCell align="center">{activity.id}</TableCell>
-                  <TableCell align="center">{activity.description}</TableCell>
-                  <TableCell align="center">{activity.date}</TableCell>
-                  <TableCell align="center">{activity.time}</TableCell>
-                </TableRow>
-              ))}
+              {!loading
+                ? // Render Skeletons when loading
+                  Array.from(new Array(5)).map((_, index) => (
+                    <TableRow key={index}>
+                      <TableCell>
+                        <Skeleton variant="text" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton variant="text" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton variant="text" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton variant="text" />
+                      </TableCell>
+                    </TableRow>
+                  ))
+                : data &&
+                  data.map((activity: any) => {
+                    let date = activity?.created_at
+                      ? activity?.created_at?.split(' ')?.[0]
+                      : '';
+                    let time = activity?.created_at
+                      ? activity?.created_at?.split(' ')?.[1]
+                      : '';
+
+                    return (
+                      <TableRow key={activity.id}>
+                        <TableCell align="center">{activity?.id}</TableCell>
+                        <TableCell align="center">
+                          {activity?.orderType?.name}
+                        </TableCell>
+                        <TableCell align="center">{date}</TableCell>
+                        <TableCell align="center">{time}</TableCell>
+                      </TableRow>
+                    );
+                  })}
             </TableBody>
           </Table>
         </TableContainer>
@@ -163,6 +176,7 @@ const MyActivity = () => {
           <Pagination
             page={page}
             count={total}
+            onChange={handleChange}
             siblingCount={2} // Number of siblings to show around the current page
             renderItem={(item) => (
               <PaginationItem
