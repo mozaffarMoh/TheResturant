@@ -9,16 +9,12 @@ import { useEffect } from 'react';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 import { getSocialSVG } from '@/constant/getSocialSVG';
 import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 import { ShareSVG } from '../../../../assets/icons';
 
 const ContactUsSection = () => {
   const isScreen700 = useMediaQuery('(max-width:700px)');
   const isScreen500 = useMediaQuery('(max-width:500px)');
   const t = useTranslations();
-  const pathname = usePathname();
-  let isArabic = pathname.startsWith('/ar');
   const [data, loading, getData] = useGet(endPoints.contactUsDetials);
   const [socialMediaData, , getSocial] = useGet(endPoints.socialMedia);
 
@@ -27,15 +23,6 @@ const ContactUsSection = () => {
     getSocial();
   }, []);
   
-
-  const social = [
-    { slug: 'facebook', id: 1, value: 'https://www.google.com' },
-    { slug: 'instagram', id: 2, value: 'https://www.google.com' },
-    { slug: 'linkedin', id: 3, value: 'https://www.google.com' },
-    { slug: 'twitter', id: 4, value: 'https://www.google.com' },
-    { slug: 'website', id: 5, value: 'https://www.google.com' },
-  ];
-
   return (
     <Container
       className="mt-4 max-w-90 mb-2 "
@@ -156,7 +143,7 @@ const ContactUsSection = () => {
                             direction={'row'}
                             position={'relative'}
                             flexWrap={'wrap'}
-                            spacing={isScreen500 ? 1 : 2}
+                            spacing={isScreen500 ? 0 : 2}
                             gap={1}
                             marginX={5}
                           >

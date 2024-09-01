@@ -29,14 +29,17 @@
   -o-transition: all 0.4s ease;
   transition: all 0.4s ease;
   cursor: pointer;
+
   @media (max-width: 420px) {
     width: 2rem;
     height: 2rem;
   }
 }
+
 .socialIconContainer:hover {
   background-color: white;
 }
+
 .socialIconContainer:hover svg path {
   fill: #21325b !important;
 }
