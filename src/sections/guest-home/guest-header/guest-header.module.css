@@ -155,6 +155,10 @@
   }
 }
 
+.authDrawerButton:hover {
+  color: #173e62;
+}
+
 /* Top Section */
 
 .headerTopDivContainer {
