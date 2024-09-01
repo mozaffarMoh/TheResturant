@@ -31,7 +31,7 @@ const MyActivity = () => {
   const token = Cookies.get('token') || '';
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [isClientSide, setIsClientSide] = useState(false);
   const labels = [
@@ -77,12 +77,12 @@ const MyActivity = () => {
       let totalNum = fullData?.meta?.total || 0;
       const paginationCount = Math.ceil(totalNum / 15);
       setTotal(paginationCount);
-      page == 0 && setPage(1);
+      //page == 0 && setPage(1);
     }
   }, [success]);
 
   useEffect(() => {
-    page > 0 && getData();
+    total > 0 && getData();
   }, [page]);
 
   return (
