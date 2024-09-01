@@ -26,8 +26,7 @@ const ContactUsSection = () => {
     getData();
     getSocial();
   }, []);
-
-  console.log(data);
+  
 
   const social = [
     { slug: 'facebook', id: 1, value: 'https://www.google.com' },
