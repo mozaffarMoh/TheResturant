@@ -34,7 +34,13 @@ const MyActivity = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [isClientSide, setIsClientSide] = useState(false);
-
+  const labels = [
+    t('my-activity.id'),
+    t('my-activity.description'),
+    t('my-activity.date'),
+    t('my-activity.time'),
+  ];
+  
   const body = {
     modelName: 'Order',
     filters: {
@@ -78,13 +84,6 @@ const MyActivity = () => {
     page > 1 && getData();
   }, [page]);
 
-  const labels = [
-    t('my-activity.id'),
-    t('my-activity.description'),
-    t('my-activity.date'),
-    t('my-activity.time'),
-  ];
-
   return (
     <Container maxWidth="lg">
       {' '}
@@ -127,7 +126,7 @@ const MyActivity = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {!loading
+              {loading
                 ? // Render Skeletons when loading
                   Array.from(new Array(5)).map((_, index) => (
                     <TableRow key={index}>
