@@ -31,7 +31,7 @@ const MyActivity = () => {
   const token = Cookies.get('token') || '';
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
   const [isClientSide, setIsClientSide] = useState(false);
   const labels = [
@@ -40,7 +40,7 @@ const MyActivity = () => {
     t('my-activity.date'),
     t('my-activity.time'),
   ];
-  
+
   const body = {
     modelName: 'Order',
     filters: {
@@ -77,11 +77,12 @@ const MyActivity = () => {
       let totalNum = fullData?.meta?.total || 0;
       const paginationCount = Math.ceil(totalNum / 15);
       setTotal(paginationCount);
+      page == 0 && setPage(1);
     }
   }, [success]);
 
   useEffect(() => {
-    page > 1 && getData();
+    page > 0 && getData();
   }, [page]);
 
   return (
@@ -126,9 +127,9 @@ const MyActivity = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {loading
+              {loading && !success
                 ? // Render Skeletons when loading
-                  Array.from(new Array(5)).map((_, index) => (
+                  Array.from(new Array(15)).map((_, index) => (
                     <TableRow key={index}>
                       <TableCell>
                         <Skeleton variant="text" />

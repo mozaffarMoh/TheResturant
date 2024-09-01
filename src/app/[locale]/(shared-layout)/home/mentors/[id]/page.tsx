@@ -69,6 +69,7 @@ const MentorDetails: NextPage = () => {
     }
   }, [successRequest]);
 
+
   return (
     <Stack
       direction={'column'}
@@ -168,24 +169,24 @@ const MentorDetails: NextPage = () => {
                 data?.data &&
                 data?.data.length > 0 &&
                 data?.data.map((item: any, i: number) => {
-                  if (item.key.includes('link')) {
+                  if (item.slug.includes('link')) {
                     return (
                       <Link
                         href={item.value}
                         target="_blank"
                         className={styles.socialIconContainer}
                       >
-                        {item.key.includes('LinkedIn') ? (
+                        {item.slug.includes('linkedin') ? (
                           <LinkedInSVG />
-                        ) : item.key.includes('facebook') ? (
+                        ) : item.slug.includes('facebook') ? (
                           <FaceBookSVG />
-                        ) : item.key.includes('twitter') ? (
+                        ) : item.slug.includes('twitter') ? (
                           <TwitterSVG />
-                        ) : item.key.includes('Website') ? (
+                        ) : item.slug.includes('website') ? (
                           <WebsiteSVG />
-                        ) : item.key.includes('youtube') ? (
+                        ) : item.slug.includes('youtube') ? (
                           <YoutubeSVG />
-                        ) : item.key.includes('instagram') ? (
+                        ) : item.slug.includes('instagram') ? (
                           <InstagramSVG />
                         ) : (
                           <UsersSVG />
@@ -226,9 +227,9 @@ const MentorDetails: NextPage = () => {
                 data?.data.length > 0 &&
                 data?.data.map((item: any, i: number) => {
                   if (
-                    !item.key.includes('link') &&
-                    !item.key.includes('Certifications') &&
-                    !item.key.includes('Interested')
+                    !item.slug.includes('link') &&
+                    !item.slug.includes('certificatio') &&
+                    !item.slug.includes('interested')
                   ) {
                     return (
                       <Typography

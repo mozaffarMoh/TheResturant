@@ -1,16 +1,9 @@
 'use client';
 import styles from './auth-footer.module.css';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import { Input } from '@mui/joy';
 import JoyButton from '@mui/joy/Button';
 import { gray100, gray200 } from '@/constant/color';
-import {
-  FaceBookSVG,
-  InstagramSVG,
-  LinkedInSVG,
-  TwitterSVG,
-  WebsiteSVG,
-} from '../../../assets/icons';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import usePost from '@/custom-hooks/usePost';
@@ -18,6 +11,7 @@ import { endPoints } from '@/base-api/endPoints';
 import CustomAlert from '../alerts/CustomAlert';
 import Link from 'next/link';
 import useGet from '@/custom-hooks/useGet';
+import { getSocialSVG } from '@/constant/getSocialSVG';
 
 const AuthFooter = () => {
   const t = useTranslations();
@@ -33,21 +27,6 @@ const AuthFooter = () => {
   useEffect(() => {
     getSocial();
   }, []);
-
-  const getSocialSVG = (slug: string) => {
-    switch (slug) {
-      case 'facebook':
-        return <FaceBookSVG />;
-      case 'instagram':
-        return <InstagramSVG />;
-      case 'linkedin':
-        return <LinkedInSVG />;
-      case 'twitter':
-        return <TwitterSVG />;
-      default:
-        return <WebsiteSVG />;
-    }
-  };
 
   const handleSubscribe = (e: any) => {
     e.preventDefault();
@@ -132,6 +111,7 @@ const AuthFooter = () => {
         <div className="sm-flex-row-row-center-center gap05  w-50">
           {socialMediaData?.children &&
             socialMediaData?.children.map((item: any) => {
+              const SvgIcon = getSocialSVG(item?.slug);
               return (
                 <Link
                   key={item?.id}
@@ -144,7 +124,7 @@ const AuthFooter = () => {
                       margin: item?.slug == 'x' ? '5px 0px 0px 4px' : '',
                     }}
                   >
-                    {getSocialSVG(item?.slug)}
+                    {SvgIcon && <SvgIcon />}
                   </div>
                 </Link>
               );

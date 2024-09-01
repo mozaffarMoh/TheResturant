@@ -33,6 +33,7 @@ import { endPoints } from '@/base-api/endPoints';
 import CustomAlert from '../alerts/CustomAlert';
 import useGet from '@/custom-hooks/useGet';
 import Link from 'next/link';
+import { getSocialSVG } from '@/constant/getSocialSVG';
 
 const Footer = () => {
   const t = useTranslations();
@@ -58,21 +59,6 @@ const Footer = () => {
     getSocial();
     getContact();
   }, []);
-
-  const getSocialSVG = (slug: string) => {
-    switch (slug) {
-      case 'facebook':
-        return <FaceBookSVG />;
-      case 'instagram':
-        return <InstagramSVG />;
-      case 'linkedin':
-        return <LinkedInSVG />;
-      case 'twitter':
-        return <TwitterSVG />;
-      default:
-        return <WebsiteSVG />;
-    }
-  };
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: 'transparent',
@@ -236,6 +222,7 @@ const Footer = () => {
                       <div className="sm-flex-row-row-center-center gap05  w-full">
                         {socialMediaData?.children &&
                           socialMediaData?.children.map((item: any) => {
+                            const SvgIcon = getSocialSVG(item?.slug);
                             return (
                               <Link
                                 key={item?.id}
@@ -251,7 +238,7 @@ const Footer = () => {
                                         : '',
                                   }}
                                 >
-                                  {getSocialSVG(item?.slug)}
+                                  {SvgIcon && <SvgIcon />}
                                 </div>
                               </Link>
                             );

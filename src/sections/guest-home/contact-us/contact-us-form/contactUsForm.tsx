@@ -101,6 +101,7 @@ const ContactUsForm = () => {
         <Grid
           container
           direction={'column'}
+          marginTop={2}
         >
           {Array(4) // Adjust the number of skeletons as needed
             .fill(0)
@@ -132,8 +133,8 @@ const ContactUsForm = () => {
               paddingLeft={isArabic ? 5 : 0}
               padding={isScreen900 ? 0 : ''}
             >
-              {data?.children[0]?.inputs &&
-                data?.children[0]?.inputs.map((item: any, i: number) => {
+              {data?.children?.[0]?.inputs &&
+                data?.children?.[0]?.inputs.map((item: any, i: number) => {
                   return (
                     <Grid
                       key={item.id}
