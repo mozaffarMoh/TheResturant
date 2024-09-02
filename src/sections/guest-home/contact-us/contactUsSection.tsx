@@ -22,7 +22,7 @@ const ContactUsSection = () => {
     getData();
     getSocial();
   }, []);
-  
+
   return (
     <Container
       className="mt-4 max-w-90 mb-2 "

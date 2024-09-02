@@ -2,7 +2,7 @@ const WebsiteMedSVG = () => (
   <svg
     width="30"
     height="30"
-    viewBox="-3 -5 20 20"
+    viewBox="-2 -3 20 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
