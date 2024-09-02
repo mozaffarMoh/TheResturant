@@ -67,8 +67,8 @@ const Header = () => {
   ];
   const [userData, , getUserData] = useGet(endPoints.getUserInformation, true);
   let imageURLUser =
-    userData && userData?.media?.['User/media']?.[0]?.url
-      ? domain + userData?.media?.['User/media']?.[0]?.url
+    userData && userData?.media?.image?.[0]?.url
+      ? domain + userData?.media?.image?.[0]?.url
       : avatarImage;
 
   const [partnersData, , setPartnersData] = useGet(endPoints.getPartners, true);

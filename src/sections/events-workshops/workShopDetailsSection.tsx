@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import { endPoints } from '@/base-api/endPoints';
 
 const WorkShopDetailsSection = ({ detailsData }: any) => {
-  const matches = useMediaQuery('(max-width:1024px)');
+  const isScreen1200 = useMediaQuery('(max-width:1200px)');
   const t = useTranslations();
   const token = Cookies.get('token') || '';
   const [itemId, setItemId] = useState('');
@@ -63,8 +63,8 @@ const WorkShopDetailsSection = ({ detailsData }: any) => {
       />
       <Grid
         container
-        spacing={5}
-        sx={{ flexDirection: matches ? 'column-reverse' : '' }}
+        direction={isScreen1200 ? 'column-reverse' : 'row'}
+        gap={isScreen1200 ? 8 : 0}
       >
         <Grid
           item

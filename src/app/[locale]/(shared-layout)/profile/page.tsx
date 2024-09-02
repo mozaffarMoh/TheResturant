@@ -128,9 +128,11 @@ const Profile = () => {
 
   const [userData, , getUserData] = useGet(endPoints.getUserInformation, true);
   let imageURLUser =
-    userData && userData?.media?.['User/media']?.[0]?.url
-      ? domain + userData?.media?.['User/media']?.[0]?.url
+    userData && userData?.media?.image?.[0]?.url
+      ? domain + userData?.media?.image?.[0]?.url
       : avatarImage;
+
+      
 
   const [
     dataImage,
@@ -156,7 +158,8 @@ const Profile = () => {
     if (files) {
       const file = files[0];
       const newFormData = new FormData();
-      newFormData.append('image', file); // Assuming your backend expects 'image' as the key
+      newFormData.append('image', file);
+      newFormData.append('collection_type', 'image');
       setFormDataImage(newFormData);
     }
     e.target.value = '';

@@ -22,6 +22,7 @@ export default function CarouselElement({
           color: '#EB6B2A', // Color of active indicator
         },
       }}
+      navButtonsAlwaysInvisible={true}
       navButtonsWrapperProps={{
         // Move the buttons to the bottom. Unsetting top here to override default style.
         style: {
