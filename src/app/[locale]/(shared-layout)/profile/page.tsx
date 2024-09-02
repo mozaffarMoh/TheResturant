@@ -24,6 +24,7 @@ import CustomAlert from '@/components/alerts/CustomAlert';
 import { LoadingButton } from '@mui/lab';
 import useGet from '@/custom-hooks/useGet';
 import { ProfileSchema } from './schema';
+import { usePathname } from 'next/navigation';
 
 const Profile = () => {
   const t = useTranslations();
@@ -34,6 +35,8 @@ const Profile = () => {
   const [successMessage, setSuccessMessage] = useState<string>('');
   const [governorateArray, setGovernorateArray] = useState([]);
   const [isClientSide, setIsClientSide] = useState(false);
+  const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
 
   const fieldsArray = [
     {
@@ -131,8 +134,6 @@ const Profile = () => {
     userData && userData?.media?.image?.[0]?.url
       ? domain + userData?.media?.image?.[0]?.url
       : avatarImage;
-
-      
 
   const [
     dataImage,
@@ -401,7 +402,10 @@ const Profile = () => {
                 '&:hover': { background: primaryColor },
               }}
             >
-              {t('profile.save')} <CallMadeIcon />
+              {t('profile.save')}{' '}
+              <CallMadeIcon
+                sx={{ transform: isArabic ? 'rotate(-80deg)' : '', marginX:.5 }}
+              />
             </LoadingButton>
           </Stack>
         </form>

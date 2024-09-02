@@ -57,6 +57,7 @@ const SignIn: NextPage = () => {
           setDeviceIp(res.data.ip);
         })
         .catch(() => {
+           setDeviceIp('127.0.0.1');
           setRetryGettingIp(!retryGettingIp);
         });
     }
