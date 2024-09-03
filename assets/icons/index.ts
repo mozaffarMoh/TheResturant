@@ -14,11 +14,6 @@ import EditSVG from './edit';
 import LocationSVG from './location';
 import PhoneSVG from './phone';
 import ShareSVG from './share';
-import FaceBookMedSVG from './contact-us-icons/facebook';
-import XMedSVG from './contact-us-icons/x';
-import InstagramMedSVG from './contact-us-icons/instagrm';
-import SkypeMedSVG from './contact-us-icons/skype';
-import LinkedInMedSVG from './contact-us-icons/linkedin';
 import ClockSVG from './clock';
 import PlaceSVG from './place';
 import UsersSVG from './users';
@@ -59,11 +54,6 @@ export {
   TelescopeSVG,
   LampSVG,
   TargetArrowSVG,
-  FaceBookMedSVG,
-  XMedSVG,
-  InstagramMedSVG,
-  SkypeMedSVG,
-  LinkedInMedSVG,
   ClockSVG,
   PlaceSVG,
   UsersSVG,
