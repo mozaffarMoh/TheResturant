@@ -78,9 +78,11 @@ export default function BookFacilityCard({
             >
               {title}
             </Typography>
-            <Typography className="text-xs bc-secondary-color bf-category-text">
-              {categoryName}
-            </Typography>
+            {categoryName && (
+              <Typography className="text-xs bc-secondary-color bf-category-text">
+                {categoryName}
+              </Typography>
+            )}
           </Grid>
           <Grid
             item

@@ -46,27 +46,29 @@ export default function NewsCardV2({
           alt="news-card-image"
           style={{ width: '100%', height: 250, borderRadius: '15px' }}
         />
-        <Button
-          variant="contained"
-          sx={{
-            borderRadius: '50px',
-            position: 'absolute',
-            bottom: 10,
-            left: !isArabic ? 10 : '',
-            right: isArabic ? 10 : '',
-            fontSize: '11px',
-            height: '23px',
-            background: '#EB6B2A',
-            boxShadow: 'none',
-            '&:hover': {
+        {category && (
+          <Button
+            variant="contained"
+            sx={{
+              borderRadius: '50px',
+              position: 'absolute',
+              bottom: 10,
+              left: !isArabic ? 10 : '',
+              right: isArabic ? 10 : '',
+              fontSize: '11px',
+              height: '23px',
               background: '#EB6B2A',
-              cursor: 'default',
               boxShadow: 'none',
-            },
-          }}
-        >
-          {category}
-        </Button>
+              '&:hover': {
+                background: '#EB6B2A',
+                cursor: 'default',
+                boxShadow: 'none',
+              },
+            }}
+          >
+            {category}
+          </Button>
+        )}
       </Stack>
       <CardContent>
         <Stack

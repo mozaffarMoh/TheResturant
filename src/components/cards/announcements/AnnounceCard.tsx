@@ -63,24 +63,26 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
               <CardContent sx={{ flex: '1 0 auto' }}>
                 <p className="general-title-v2  primary-color  fw600">
                   {item?.title}
-                  <Button
-                    variant="contained"
-                    sx={{
-                      borderRadius: '50px',
-                      marginX: 2,
-                      fontSize: '11px',
-                      height: '23px',
-                      background: '#EB6B2A',
-                      boxShadow: 'none',
-                      '&:hover': {
+                  {item?.category && (
+                    <Button
+                      variant="contained"
+                      sx={{
+                        borderRadius: '50px',
+                        marginX: 2,
+                        fontSize: '11px',
+                        height: '23px',
                         background: '#EB6B2A',
-                        cursor: 'default',
                         boxShadow: 'none',
-                      },
-                    }}
-                  >
-                    {item?.category}
-                  </Button>
+                        '&:hover': {
+                          background: '#EB6B2A',
+                          cursor: 'default',
+                          boxShadow: 'none',
+                        },
+                      }}
+                    >
+                      {item?.category}
+                    </Button>
+                  )}
                 </p>
                 <p className="text-med-fw400 ">{item?.subTitle}</p>
               </CardContent>

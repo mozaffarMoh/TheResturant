@@ -63,14 +63,15 @@ const WorkShopDetailsSection = ({ detailsData }: any) => {
       />
       <Grid
         container
-        direction={isScreen1200 ? 'column-reverse' : 'row'}
+        direction={isScreen1200 ? 'column' : 'row'}
         gap={isScreen1200 ? 8 : 0}
+        justifyContent={'space-between'}
       >
         <Grid
           item
           xs={12}
           md={12}
-          lg={8}
+          lg={7}
         >
           <div dangerouslySetInnerHTML={{ __html: detailsData?.description }} />
         </Grid>
