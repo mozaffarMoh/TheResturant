@@ -2,14 +2,13 @@
 import type { NextPage } from 'next';
 import styles from './page.module.css';
 import GridFlex from '@mui/material/Unstable_Grid2';
-import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import { Container, Stack, Typography } from '@mui/material';
 import {
   FaceBookSVG,
   InstagramSVG,
   LinkedInSVG,
-  TwitterSVG,
-  UsersSVG,
   WebsiteSVG,
+  XSVG,
   YoutubeSVG,
 } from '../../../../../../../assets/icons';
 import { primaryColor } from '@/constant/color';
@@ -68,7 +67,6 @@ const MentorDetails: NextPage = () => {
       }, 3000);
     }
   }, [successRequest]);
-
 
   return (
     <Stack
@@ -181,7 +179,10 @@ const MentorDetails: NextPage = () => {
                         ) : item.slug.includes('facebook') ? (
                           <FaceBookSVG />
                         ) : item.slug.includes('twitter') ? (
-                          <TwitterSVG />
+                          <XSVG />
+                        ) : item.slug.startsWith('x') ||
+                          item.slug.startsWith('X') ? (
+                          <XSVG />
                         ) : item.slug.includes('website') ? (
                           <WebsiteSVG />
                         ) : item.slug.includes('youtube') ? (
@@ -189,7 +190,7 @@ const MentorDetails: NextPage = () => {
                         ) : item.slug.includes('instagram') ? (
                           <InstagramSVG />
                         ) : (
-                          <UsersSVG />
+                          <WebsiteSVG />
                         )}
                       </Link>
                     );

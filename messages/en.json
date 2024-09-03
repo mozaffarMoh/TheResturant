@@ -76,7 +76,7 @@
         "validUrl": "Please enter a valid URL",
         "linkedinUrl": "URL must be a LinkedIn profile link",
         "facebookUrl": "URL must be a Facebook profile link",
-        "twitterUrl": "URL must be a Twitter profile link",
+        "xUrl": "URL must be a X.com profile link",
         "instagramUrl": "URL must be a Instagram profile link",
         "youtubeUrl": "URL must be a Youtube profile link",
         "valueMin3": "Value should be minimum 3 characters",

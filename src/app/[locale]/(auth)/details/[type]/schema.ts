@@ -54,8 +54,14 @@ export const typeSchema = (inputs: any, t: any) => {
       case 'twitter-link':
         validation = z.string()
           .url({ message: t('validation.validUrl') })
-          .regex(/^https:\/\/(www\.)?twitter\.com\/.*$/, { message: t('validation.twitterUrl') });
+          .regex(/^https:\/\/(www\.)?x\.com\/.*$/, { message: t('validation.xUrl') });
         break;
+
+        case 'x-link':
+          validation = z.string()
+            .url({ message: t('validation.validUrl') })
+            .regex(/^https:\/\/(www\.)?x\.com\/.*$/, { message: t('validation.xUrl') });
+          break;
 
       case 'instagram-link':
         validation = z.string()

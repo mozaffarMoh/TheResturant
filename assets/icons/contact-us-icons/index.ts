@@ -1,5 +1,5 @@
 import FaceBookMedSVG from './facebook';
-import TwitterMedSVG from './twitter';
+import XMedSVG from './x';
 import InstagramMedSVG from './instagrm';
 import SkypeMedSVG from './skype';
 import LinkedInMedSVG from './linkedin';
@@ -8,7 +8,7 @@ import WebsiteMedSVG from './website';
 
 export {
   FaceBookMedSVG,
-  TwitterMedSVG,
+  XMedSVG,
   InstagramMedSVG,
   SkypeMedSVG,
   LinkedInMedSVG,

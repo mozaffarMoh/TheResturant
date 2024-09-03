@@ -1,7 +1,7 @@
 import FaceBookSVG from './facebook';
 import InstagramSVG from './instagrm';
 import LinkedInSVG from './linkedin';
-import TwitterSVG from './twitter';
+import XSVG from './x';
 import LockSVG from './lock';
 import MessageSVG from './message';
 import ClosedEyeSVG from './closed-eye';
@@ -15,7 +15,7 @@ import LocationSVG from './location';
 import PhoneSVG from './phone';
 import ShareSVG from './share';
 import FaceBookMedSVG from './contact-us-icons/facebook';
-import TwitterMedSVG from './contact-us-icons/twitter';
+import XMedSVG from './contact-us-icons/x';
 import InstagramMedSVG from './contact-us-icons/instagrm';
 import SkypeMedSVG from './contact-us-icons/skype';
 import LinkedInMedSVG from './contact-us-icons/linkedin';
@@ -51,7 +51,7 @@ export {
   FaceBookSVG,
   InstagramSVG,
   LinkedInSVG,
-  TwitterSVG,
+  XSVG,
   LockSVG,
   MessageSVG,
   ClosedEyeSVG,
@@ -60,7 +60,7 @@ export {
   LampSVG,
   TargetArrowSVG,
   FaceBookMedSVG,
-  TwitterMedSVG,
+  XMedSVG,
   InstagramMedSVG,
   SkypeMedSVG,
   LinkedInMedSVG,

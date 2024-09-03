@@ -32,11 +32,15 @@ export default function WorkShopCard({
     media && media?.main_image?.[0]?.url
       ? domain + media?.main_image?.[0]?.url
       : DefautImage1;
+
+  let subTitleSentence =
+    subTitle.length > 140 ? subTitle.slice(0, 140) + '...' : subTitle;
   return (
     <Card
       variant="outlined"
       sx={{
         width: isScreen400 ? 250 : 300,
+        minHeight: 400,
         paddingTop: '1rem',
         borderRadius: '1.1rem',
         margin: '0.2rem',
@@ -53,32 +57,41 @@ export default function WorkShopCard({
           alt="workshop image card"
         />
       </CardOverflow>
-      <CardContent>
-        <p className="text-med-fw700  p-0 ">
-          {title}
-          <br />
-          <span className="text-xs  p-0">{subTitle}</span>
-        </p>
-        <Stack
-          direction={'row'}
-          gap={2}
-          justifyContent={'flex-start'}
-          dir="ltr"
-        >
-          <div className="text-xs opacity-80">
-            <PlaceSVG />
-            {place && place?.name}
-          </div>
-          <div className="text-xs opacity-80">
-            <ClockSVG />{' '}
-            {itemMetaData &&
-              itemMetaData.length > 0 &&
-              itemMetaData.map((item: any) => {
-                return item?.itemMetaKey?.slug == 'time' && item.value;
-              })}
-          </div>
+      <CardContent
+        sx={{
+          justifyContent: 'space-between',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <Stack>
+          <p className="text-med-fw700  p-0 ">
+            {title}
+            <br />
+            <span className="text-xs  p-0">{subTitleSentence}</span>
+          </p>
+          <Stack
+            direction={'row'}
+            gap={2}
+            justifyContent={'flex-start'}
+            dir="ltr"
+          >
+            <div className="text-xs opacity-80">
+              <PlaceSVG />
+              {place && place?.name}
+            </div>
+            <div className="text-xs opacity-80">
+              <ClockSVG />{' '}
+              {itemMetaData &&
+                itemMetaData.length > 0 &&
+                itemMetaData.map((item: any) => {
+                  return item?.itemMetaKey?.slug == 'time' && item.value;
+                })}
+            </div>
+          </Stack>
         </Stack>
         <Button
+          sx={{ marginTop: 'auto' }}
           className="general-button-primary mt-1"
           onClick={() => push(`events-workshops/workshops/${slug}`)}
         >

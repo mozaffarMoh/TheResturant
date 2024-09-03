@@ -1,8 +1,8 @@
 const WebsiteSVG = () => (
   <svg
-    width="19"
-    height="15"
-    viewBox="0 0 19 15"
+    width="23"
+    height="23"
+    viewBox="-2 -3 18 18"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >

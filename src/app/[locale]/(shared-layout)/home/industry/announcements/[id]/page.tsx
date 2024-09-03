@@ -210,12 +210,11 @@ const JobOfferDetails: NextPage = () => {
                     variant="body1"
                     fontFamily={'Jost'}
                   >
-                    {data[0] && data[0]?.description}
-                    {/*    <div
-                    dangerouslySetInnerHTML={{
-                      __html: data[0] && data[0]?.description,
-                    }}
-                  /> */}
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: data?.[0] && data?.[0]?.description,
+                      }}
+                    />
                   </Typography>
                 </Stack>
               </Stack>
@@ -246,23 +245,23 @@ const JobOfferDetails: NextPage = () => {
                     fontFamily={'Montserrat'}
                   >
                     {isMetaDataExist &&
-                      data[0]?.itemMetaData[1]?.itemMetaKey?.name}
+                      data[0]?.itemMetaData?.[1]?.itemMetaKey?.name}
                   </Typography>
                   <Typography
                     variant="body1"
                     fontFamily={'Jost'}
                   >
                     {isMetaDataExist &&
-                      data[0]?.itemMetaData[1] &&
-                      data[0]?.itemMetaData[1]?.value}
+                      data?.[0]?.itemMetaData[1] &&
+                      data?.[0]?.itemMetaData[1]?.value}
                   </Typography>
                   <Button
                     className="general-button-primary mt-1"
                     sx={{ width: '200px' }}
                     href={
                       isMetaDataExist &&
-                      data[0]?.itemMetaData[2] &&
-                      data[0]?.itemMetaData[2]?.value
+                      data?.[0]?.itemMetaData?.[2] &&
+                      data?.[0]?.itemMetaData?.[2]?.value
                     }
                     target="_blank"
                   >
