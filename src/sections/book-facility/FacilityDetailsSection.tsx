@@ -41,7 +41,9 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
               textAlign: 'justify',
             }}
           >
-            <div dangerouslySetInnerHTML={{ __html: facility.description }} />
+            {facility?.description && (
+              <div dangerouslySetInnerHTML={{ __html: facility.description }} />
+            )}
           </Grid>
           <Grid
             item

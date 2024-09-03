@@ -73,7 +73,11 @@ const WorkShopDetailsSection = ({ detailsData }: any) => {
           md={12}
           lg={7}
         >
-          <div dangerouslySetInnerHTML={{ __html: detailsData?.description }} />
+          {detailsData?.description && (
+            <div
+              dangerouslySetInnerHTML={{ __html: detailsData?.description }}
+            />
+          )}
         </Grid>
         <Grid
           item

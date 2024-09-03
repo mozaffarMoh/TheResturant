@@ -1,7 +1,7 @@
 'use client';
 import type { NextPage } from 'next';
 import { Box, Button, Grid, Paper, Stack } from '@mui/material';
-import { loginBgImage } from '@/constant/images';
+import { logoImage, whoAreYouBgImage } from '@/constant/images';
 import styles from '../sign-in/page.module.css';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
@@ -65,7 +65,7 @@ const WhoAreYouPage: NextPage = () => {
             <Box className="main-box">
               <div className="mb-1 sm-flex-row-row-center-center mt-2">
                 <img
-                  src={loginBgImage}
+                  src={logoImage}
                   alt="image"
                 />
               </div>{' '}
@@ -177,7 +177,7 @@ const WhoAreYouPage: NextPage = () => {
             sm={4}
             md={6}
             sx={{
-              backgroundImage: 'url("/who-are-you-bg.png")',
+              backgroundImage: `url(${whoAreYouBgImage})`,
               backgroundColor: 'gray',
               backgroundSize: 'cover',
               backgroundPosition: 'center',

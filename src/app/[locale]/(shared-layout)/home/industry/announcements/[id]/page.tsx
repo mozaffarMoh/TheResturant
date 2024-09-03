@@ -1,8 +1,5 @@
 'use client';
-
 import type { NextPage } from 'next';
-import jobOfferImage from '../../../../../../../../public/industry/announcments/job-offer-background.png';
-import headBar from '../../../../../../../../public/industry/announcments/head.png';
 import Image from 'next/image';
 import {
   Box,
@@ -19,7 +16,7 @@ import {
 import { useTranslations } from 'next-intl';
 import usePost from '@/custom-hooks/usePost';
 import { domain, endPoints } from '@/base-api/endPoints';
-import { DefautImage1Large, DefautImage2 } from '@/constant/images';
+import { DefautImage1Large, DefautImage2, headBar } from '@/constant/images';
 import { useEffect, useState } from 'react';
 import { useParams, usePathname } from 'next/navigation';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
@@ -99,7 +96,7 @@ const JobOfferDetails: NextPage = () => {
             style={{ width: '100%', height: isScreen600 ? '250px' : '400px' }}
           />
           {imageURL !== DefautImage1Large && (
-            <Image
+            <img
               src={headBar}
               alt={'headBar'}
               style={{
@@ -210,11 +207,13 @@ const JobOfferDetails: NextPage = () => {
                     variant="body1"
                     fontFamily={'Jost'}
                   >
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: data?.[0] && data?.[0]?.description,
-                      }}
-                    />
+                    {data?.[0] && (
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: data?.[0]?.description,
+                        }}
+                      />
+                    )}
                   </Typography>
                 </Stack>
               </Stack>

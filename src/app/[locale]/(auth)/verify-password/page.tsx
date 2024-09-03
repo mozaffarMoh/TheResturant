@@ -2,7 +2,7 @@
 import type { NextPage } from 'next';
 
 import { Grid, Paper, Stack } from '@mui/material';
-import { loginBgImage } from '@/constant/images';
+import { codeBgImage, keyBgImage, logoImage } from '@/constant/images';
 import styles from './page.module.css';
 import { useTranslations } from 'next-intl';
 import OtpForgetPassword from '@/sections/sign-in/OtpForgetPassword';
@@ -47,7 +47,7 @@ const SignIn: NextPage = () => {
             <Stack sx={{ mt: 4 }}>
               <div className="mb-1">
                 <img
-                  src={loginBgImage}
+                  src={logoImage}
                   alt="image"
                 />
               </div>{' '}
@@ -65,8 +65,8 @@ const SignIn: NextPage = () => {
             md={6}
             sx={{
               backgroundImage: !isNextStep
-                ? 'url("/code.jpg")'
-                : 'url("/key.jpg")',
+                ? `url(${codeBgImage})`
+                : `url(${keyBgImage})`,
               backgroundColor: 'gray',
               backgroundSize: 'cover',
               backgroundPosition: 'center',

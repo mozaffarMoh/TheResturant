@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Button, Grid, Paper, Stack } from '@mui/material';
 import Link from 'next/link';
-import { loginBgImage } from '@/constant/images';
+import { logoImage, userDetailsBgImage } from '@/constant/images';
 import styles from '../../sign-in/page.module.css';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
@@ -272,7 +272,7 @@ const UserDetailsPage: NextPage = () => {
             <Stack width={'70%'}>
               <div className="mb-1 sm-flex-row-row-center-center mt-2">
                 <img
-                  src={loginBgImage}
+                  src={logoImage}
                   alt="image"
                 />
               </div>
@@ -397,7 +397,7 @@ const UserDetailsPage: NextPage = () => {
             sm={2}
             md={6}
             sx={{
-              backgroundImage: 'url("/details.png")',
+              backgroundImage: `url(${userDetailsBgImage})`,
               backgroundColor: 'gray',
               backgroundSize: 'cover',
               backgroundPosition: 'center',

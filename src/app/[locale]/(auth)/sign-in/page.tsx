@@ -13,7 +13,7 @@ import {
 import Link from 'next/link';
 import { ClosedEyeSVG, LockSVG, MessageSVG } from '../../../../../assets/icons';
 import InputV1 from '@/components/inputs/InputV1';
-import { loginBgImage } from '@/constant/images';
+import { loginBgImage, logoImage } from '@/constant/images';
 import { buttonPrimaryColor } from '@/constant/color';
 import styles from './page.module.css';
 import { useEffect, useState } from 'react';
@@ -57,7 +57,7 @@ const SignIn: NextPage = () => {
           setDeviceIp(res.data.ip);
         })
         .catch(() => {
-           setDeviceIp('127.0.0.1');
+          setDeviceIp('127.0.0.1');
           setRetryGettingIp(!retryGettingIp);
         });
     }
@@ -151,7 +151,7 @@ const SignIn: NextPage = () => {
             >
               <div className="mb-1 mt-2">
                 <img
-                  src={loginBgImage}
+                  src={logoImage}
                   alt="image"
                 />
               </div>{' '}
@@ -264,7 +264,7 @@ const SignIn: NextPage = () => {
             sm={4}
             md={6}
             sx={{
-              backgroundImage: 'url("/rectangle-7@2x.png")',
+              backgroundImage: `url(${loginBgImage})`,
               backgroundColor: 'gray',
               backgroundSize: 'cover',
               backgroundPosition: 'center',

@@ -18,7 +18,7 @@ import {
   MessageSVG,
   PersonSVG,
 } from '../../../../../assets/icons';
-import { loginBgImage } from '@/constant/images';
+import { logoImage, registerBgImage } from '@/constant/images';
 import styles from '../sign-in/page.module.css';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
@@ -274,7 +274,7 @@ const SingUp: NextPage = () => {
             >
               <div className="mb-1 mt-2">
                 <img
-                  src={loginBgImage}
+                  src={logoImage}
                   alt="image"
                 />
               </div>{' '}
@@ -359,7 +359,7 @@ const SingUp: NextPage = () => {
             sm={3.5}
             md={6}
             sx={{
-              backgroundImage: 'url("/register-bg.png")',
+              backgroundImage: `url(${registerBgImage})`,
               backgroundColor: 'gray',
               backgroundSize: 'cover',
               backgroundPosition: 'center',

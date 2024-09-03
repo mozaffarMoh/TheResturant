@@ -352,7 +352,9 @@ const EventDetailsModal = ({
               width={'90%'}
               marginTop={3}
             >
-              <div dangerouslySetInnerHTML={{ __html: data?.description }} />
+              {data?.description && (
+                <div dangerouslySetInnerHTML={{ __html: data?.description }} />
+              )}
             </Stack>
           </Stack>
         )}

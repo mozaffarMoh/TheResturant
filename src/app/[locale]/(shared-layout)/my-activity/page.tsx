@@ -25,6 +25,7 @@ import {
 } from '@mui/icons-material';
 import { usePathname } from 'next/navigation';
 import usePost from '@/custom-hooks/usePost';
+import NoData from '@/components/NoData/NoData';
 
 const MyActivity = () => {
   const t = useTranslations();
@@ -169,38 +170,41 @@ const MyActivity = () => {
           </Table>
         </TableContainer>
 
-        <Stack
-          alignItems={'center'}
-          paddingBottom={10}
-        >
-          <Pagination
-            page={page}
-            count={total}
-            onChange={handleChange}
-            siblingCount={2} // Number of siblings to show around the current page
-            renderItem={(item) => (
-              <PaginationItem
-                {...item}
-                sx={{
-                  color: '#3F485E',
-                  '&.Mui-selected': {
-                    backgroundColor: '#3F485E',
-                    color: '#fff',
-                    '&:hover': { backgroundColor: '#3F485EDD' },
-                  },
-                }}
-                slots={{
-                  previous: isArabic
-                    ? ArrowForwardIosRounded
-                    : ArrowBackIosNewRounded,
-                  next: isArabic
-                    ? ArrowBackIosNewRounded
-                    : ArrowForwardIosRounded,
-                }}
-              />
-            )}
-          />
-        </Stack>
+        {success && data.length == 0 && <NoData />}
+        {data && data.length > 0 && (
+          <Stack
+            alignItems={'center'}
+            paddingBottom={10}
+          >
+            <Pagination
+              page={page}
+              count={total}
+              onChange={handleChange}
+              siblingCount={2} // Number of siblings to show around the current page
+              renderItem={(item) => (
+                <PaginationItem
+                  {...item}
+                  sx={{
+                    color: '#3F485E',
+                    '&.Mui-selected': {
+                      backgroundColor: '#3F485E',
+                      color: '#fff',
+                      '&:hover': { backgroundColor: '#3F485EDD' },
+                    },
+                  }}
+                  slots={{
+                    previous: isArabic
+                      ? ArrowForwardIosRounded
+                      : ArrowBackIosNewRounded,
+                    next: isArabic
+                      ? ArrowBackIosNewRounded
+                      : ArrowForwardIosRounded,
+                  }}
+                />
+              )}
+            />
+          </Stack>
+        )}
       </Stack>
     </Container>
   );

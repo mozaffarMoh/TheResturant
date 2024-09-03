@@ -152,11 +152,13 @@ const IndustryNewsModal: React.FC<IndustryNewsModalProps> = ({
               variant="body2"
               fontFamily={'Jost'}
             >
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: data[0] && data[0]?.description,
-                }}
-              />{' '}
+              {data?.[0] && (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: data[0]?.description,
+                  }}
+                />
+              )}
             </Typography>
           </DialogContent>
         </Stack>
