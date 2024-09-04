@@ -141,7 +141,7 @@ const SingUp: NextPage = () => {
     {
       name: t('auth.governorate'),
       placeholder: t('auth.governorate'),
-      slug: 'governorate',
+      slug: 'place_slug',
       type: 'select',
       fieldData: governorateArray,
       startIcon: governorateLoading ? (
@@ -165,6 +165,8 @@ const SingUp: NextPage = () => {
     resolver: zodResolver(signupSchema(signUpArray, t)),
     mode: 'onChange',
   });
+  
+
   const [data, loading, getData, success, , errorMessage] = useGet(
     endPoints.whoAreYou,
   );

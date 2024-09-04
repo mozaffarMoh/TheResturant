@@ -14,13 +14,6 @@ import LanguageIcon from '@mui/icons-material/Language';
 import { Input } from '@mui/joy';
 import JoyButton from '@mui/joy/Button';
 import { gray100, gray200 } from '@/constant/color';
-import {
-  FaceBookSVG,
-  InstagramSVG,
-  LinkedInSVG,
-  TwitterSVG,
-  WebsiteSVG,
-} from '../../../assets/icons';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';

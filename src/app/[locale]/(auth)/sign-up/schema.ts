@@ -50,7 +50,7 @@ export const signupSchema = (inputs: any, t: any) => {
                 validation = z.string().min(1, { message: t('validation.required') });
                 break;
 
-            case 'governorate':
+            case 'place_slug':
                 validation = z.string().min(1, { message: t('validation.required') });
                 break;
 

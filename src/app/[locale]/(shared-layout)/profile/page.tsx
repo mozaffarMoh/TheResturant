@@ -235,7 +235,7 @@ const Profile = () => {
         gender: userData?.gender,
         phone: phoneForSend,
         email: userData?.email,
-        place_id: userData?.place?.id, //userData?.place?.children?.[0]?.id,
+        place_id: userData?.place?.id,
       });
 
       setValue('first_name', userData?.first_name);
@@ -243,7 +243,7 @@ const Profile = () => {
       setValue('gender', userData?.gender);
       setValue('phone', phoneForRender);
       setValue('email', userData?.email);
-      setValue('place_id', userData?.place?.id); //userData?.place?.children?.[0]?.id,
+      setValue('place_id', userData?.place?.id);
     }
   }, [userData, setValue]);
 

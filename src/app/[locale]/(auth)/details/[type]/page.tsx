@@ -44,11 +44,9 @@ const UserDetailsPage: NextPage = () => {
   });
   const bodyWithoutOTP = {
     ...signupDataParsed,
-    place_slug: 'jordan',
   };
   const bodyWithOTP = {
     ...signupDataParsed,
-    place_slug: 'jordan',
     otp: OTPValue,
   };
   const bodyForFinsihSubmit = {
@@ -87,7 +85,7 @@ const UserDetailsPage: NextPage = () => {
     successForFinishSubmit,
     ,
     errorMessageForFinishSubmit,
-  ] = usePost(endPoints.formSubmit, bodyForFinsihSubmit);
+  ] = usePost(endPoints.formSubmit /* + 'qwe' */, bodyForFinsihSubmit);
 
   const [
     ,
