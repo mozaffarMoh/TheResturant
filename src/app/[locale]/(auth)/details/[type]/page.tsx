@@ -39,6 +39,7 @@ const UserDetailsPage: NextPage = () => {
   const [formSubmitId, setFormSubmitId]: any = useState('');
   const [filesFieldId, setFilesFieldId]: any = useState('');
   const [OTPValue, setOTPValue]: any = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(typeSchema(typeDetails.inputs, t)),
   });
@@ -54,10 +55,16 @@ const UserDetailsPage: NextPage = () => {
     user_id: userID,
     data: fullFormData,
   };
-  const bodyForFilesSubmit = {
-    form_submit_id: formSubmitId,
-    form_field_id: filesFieldId,
-    media: filesFormArray,
+  const bodyForFilesSubmit = () => {
+    const formData = new FormData();
+    formData.append('form_submit_id', formSubmitId);
+    formData.append('form_field_id', filesFieldId);
+    filesFormArray &&
+      filesFormArray.forEach((item: any) => {
+        formData.append('media[]', item);
+      });
+
+    return formData;
   };
 
   const [
@@ -94,7 +101,7 @@ const UserDetailsPage: NextPage = () => {
     successForFilesSubmit,
     ,
     errorMessageForFilesSubmit,
-  ] = usePost(endPoints.formSumitMedia, bodyForFilesSubmit);
+  ] = usePost(endPoints.formSumitMedia, bodyForFilesSubmit());
 
   /* Create a function to check if files input is exist in Form */
   const isFilesInputExist = () => {
@@ -179,6 +186,14 @@ const UserDetailsPage: NextPage = () => {
     }
   }, [successForFilesSubmit, successForFinishSubmit]);
 
+  useEffect(() => {
+    if (errorMessage) {
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
+    }
+  }, [errorMessage]);
+
   /* Handle changing fields values */
   const handleChangeValue = (value: any, formId: number) => {
     setFullFormData((prevArray: any) => {
@@ -201,8 +216,6 @@ const UserDetailsPage: NextPage = () => {
   const onSubmit = () => {
     handlePostForOTP();
   };
-
-  //console.log(typeDetails);
 
   return formData ? (
     <div className={styles.signInContainer}>
@@ -232,14 +245,16 @@ const UserDetailsPage: NextPage = () => {
           errorMessageForOTP ||
           errorMessageForSubmit ||
           errorMessageForFinishSubmit ||
-          errorMessageForFilesSubmit
+          errorMessageForFilesSubmit ||
+          Boolean(errorMessage)
         }
-        setOpenAlert={() => {}}
+        setOpenAlert={() => setErrorMessage('')}
         message={
           errorMessageForOTP ||
           errorMessageForSubmit ||
           errorMessageForFinishSubmit ||
-          errorMessageForFilesSubmit
+          errorMessageForFilesSubmit ||
+          errorMessage
         }
       />
 
@@ -316,6 +331,7 @@ const UserDetailsPage: NextPage = () => {
                           handleSetFilesFieldId={() =>
                             setFilesFieldId(item.form_field_id)
                           }
+                          setErrorMessage={setErrorMessage}
                         />
                       );
                     })}

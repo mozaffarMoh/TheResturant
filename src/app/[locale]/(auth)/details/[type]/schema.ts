@@ -57,11 +57,11 @@ export const typeSchema = (inputs: any, t: any) => {
           .regex(/^https:\/\/(www\.)?x\.com\/.*$/, { message: t('validation.xUrl') });
         break;
 
-        case 'x-link':
-          validation = z.string()
-            .url({ message: t('validation.validUrl') })
-            .regex(/^https:\/\/(www\.)?x\.com\/.*$/, { message: t('validation.xUrl') });
-          break;
+      case 'x-link':
+        validation = z.string()
+          .url({ message: t('validation.validUrl') })
+          .regex(/^https:\/\/(www\.)?x\.com\/.*$/, { message: t('validation.xUrl') });
+        break;
 
       case 'instagram-link':
         validation = z.string()
@@ -141,7 +141,7 @@ export const typeSchema = (inputs: any, t: any) => {
         break;
 
       default:
-        validation = z.union([z.string(), z.number()]);
+        validation = z.any();
         break;
     }
 

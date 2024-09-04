@@ -31,6 +31,7 @@ interface FormFieldProps {
   handleSetFilesFieldId?: any;
   setFilesFormArray?: any;
   startDecorator?: any;
+  setErrorMessage?: any;
 }
 
 export default function FormField({
@@ -49,6 +50,7 @@ export default function FormField({
   handleSetFilesFieldId,
   startDecorator,
   className = 'text-field-style',
+  setErrorMessage,
 }: FormFieldProps) {
   const getIndexOfType = () => {
     if (name == 'method-of-communication' || name == 'personal-intrests') {
@@ -80,5 +82,6 @@ export default function FormField({
     setFilesFormArray,
     handleSetFilesFieldId,
     startDecorator,
+    setErrorMessage,
   });
 }

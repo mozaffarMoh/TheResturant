@@ -2,7 +2,6 @@ import { Grid } from '@mui/material';
 import styles from './services-section.module.css';
 import { generalBgColor, primaryColor } from '@/constant/color';
 import Image from 'next/image';
-import { servicesSectionImage } from '@/constant/images';
 
 interface IProps {
   title: string;

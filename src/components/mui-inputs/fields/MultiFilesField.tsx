@@ -25,6 +25,7 @@ interface FileInputProps {
   handleSetFilesFieldId: any;
   onChange?: any;
   key: string;
+  setErrorMessage: any;
 }
 
 const MultiFilesField = ({
@@ -38,6 +39,7 @@ const MultiFilesField = ({
   handleSetFilesFieldId,
   onChange,
   required,
+  setErrorMessage,
 }: FileInputProps) => {
   const t = useTranslations();
   const {
@@ -58,41 +60,50 @@ const MultiFilesField = ({
     value = [];
   }
 
-  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleSetFilesFieldId();
-    const files = e.target.files;
+
+    const files: any = e.target.files;
+
     if (files) {
-      const totalFilesCount = filesFormArray.length + files.length;
+      const newFiles: any = [];
+      for (const file of files) {
+        if (file.size <= 10 * 1024 * 1024) {
+          const allowedTypes = [
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'image/jpeg',
+            'image/png',
+            'image/gif',
+            'image/webp',
+            'image/svg+xml',
+            'image/*',
+          ];
+
+          if (allowedTypes.includes(file.type)) {
+            newFiles.push(file);
+          } else {
+            setErrorMessage(t('messages.file-type-register'));
+          }
+        } else {
+          setErrorMessage(t('messages.file-max-size-register'));
+        }
+      }
+
+      const totalFilesCount = filesFormArray.length + newFiles.length;
       if (totalFilesCount <= 5) {
-        const filePromises = Array.from(files).map((file) => {
-          return new Promise<any>((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              const arrayBuffer = reader.result as ArrayBuffer;
-              const uint8Array = new Uint8Array(arrayBuffer);
-              resolve({
-                name: file.name,
-                type: file.type,
-                data: uint8Array,
-              });
-            };
-            reader.onerror = reject;
-            reader.readAsArrayBuffer(file); // Convert file to binary ArrayBuffer
-          });
+        setFilesFormArray((prevArray: File[]) => {
+          return [...prevArray, ...newFiles]; // Concatenate arrays
         });
-        const binaryFiles = await Promise.all(filePromises);
-        setFilesFormArray((prevArray: any) => {
-          const newArray = [...prevArray];
-          newArray.push(...binaryFiles);
-          field.onChange(newArray);
-          return newArray;
-        });
+      } else {
+        setErrorMessage(t('messages.file-max-number-register'));
       }
     }
 
+    // Clear the input field after selection
     e.target.value = '';
   };
-
   const handleDelete = (indexToDelete: number) => {
     const filteredArray = filesFormArray.filter(
       (_: any, i: number) => i !== indexToDelete,
