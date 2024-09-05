@@ -6,6 +6,7 @@ import {
   CardMedia,
   Grid,
   Paper,
+  useMediaQuery,
 } from '@mui/material';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { useTranslations } from 'next-intl';
@@ -29,6 +30,7 @@ const EventCard = ({
   handleModal: any;
 }) => {
   const t = useTranslations();
+  const isScreen450 = useMediaQuery('(max-width:450px)');
   let imageURL =
     media && media?.main_image?.[0]?.url
       ? domain + media?.main_image?.[0]?.url
@@ -46,15 +48,14 @@ const EventCard = ({
             xs={12}
             md={6}
           >
-            <CardMedia
-              component="img"
-              sx={{
-                width: '100%',
-                height: '100%',
+            <img
+              style={{
+                width: '95%',
+                height: isScreen450 ? '200px' : '300px',
                 minHeight: '12rem',
                 borderRadius: '1.1rem',
               }}
-              image={imageURL}
+              src={imageURL}
               alt="Live from space album cover"
             />
           </Grid>

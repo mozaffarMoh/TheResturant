@@ -477,14 +477,19 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                 {maxAttendees > 0 &&
                   minAttendees >= 0 &&
                   [...Array(Math.abs(maxAttendees - minAttendees + 1))].map(
-                    (_, index) => (
-                      <MenuItem
-                        key={index}
-                        value={minAttendees + index}
-                      >
-                        {minAttendees + index}
-                      </MenuItem>
-                    ),
+                    (_, index) => {
+                      const rangeValue = minAttendees + index;
+                      if (rangeValue > 0) {
+                        return (
+                          <MenuItem
+                            key={index}
+                            value={rangeValue}
+                          >
+                            {rangeValue}
+                          </MenuItem>
+                        );
+                      }
+                    },
                   )}
               </Select>
               {errors.attendees && (

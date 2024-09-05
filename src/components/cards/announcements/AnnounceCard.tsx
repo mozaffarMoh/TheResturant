@@ -45,7 +45,7 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
               component="img"
               sx={{
                 width: '90%',
-                height: '80%',
+                height: '300px',
                 minHeight: '12rem',
                 borderRadius: '1.1rem',
               }}
