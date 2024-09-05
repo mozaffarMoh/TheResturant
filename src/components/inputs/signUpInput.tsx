@@ -209,7 +209,7 @@ const SignUpInput = ({
             error={!!error}
             className="input-form-control"
             fullWidth
-            style={{ width: '140%' }}
+            style={{ width: '140%', left: isArabic ? '18px' : '' }}
           >
             <FormControlLabel
               control={

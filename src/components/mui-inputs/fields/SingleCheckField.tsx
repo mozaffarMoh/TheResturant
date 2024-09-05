@@ -4,6 +4,7 @@ import {
   Checkbox,
   FormControl,
   FormHelperText,
+  useMediaQuery,
 } from '@mui/material';
 import { buttonPrimaryColor } from '@/constant/color';
 import { usePathname } from 'next/navigation';
@@ -27,6 +28,7 @@ const SingleCheckboxField = ({
   value,
   onChange,
 }: CheckboxFieldProps) => {
+  const isScreen450 = useMediaQuery('(max-width:450px)');
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const {
@@ -45,10 +47,8 @@ const SingleCheckboxField = ({
     <FormControl
       key={key}
       error={!!error}
-      className="input-form-control"
-      style={{ width:'100%'}}
+      style={{ width: '100%' }}
       sx={{ display: 'flex', alignItems: 'flex-start' }}
-      
     >
       <FormControlLabel
         control={
@@ -67,15 +67,24 @@ const SingleCheckboxField = ({
               '&.Mui-checked': {
                 color: 'orange',
               },
-              marginLeft : !isArabic ? '10px' : ''
+              marginLeft: !isArabic ? '10px' : '',
             }}
           />
         }
-        label={<span style={{fontSize:'15px'}}>{label}</span>}
+        sx={{
+          '&.MuiFormControlLabel-labelPlacementEnd': {
+            margin: 0,
+          },
+        }}
+        label={
+          <span style={{ fontSize: isScreen450 ? '10px' : '15px' }}>
+            {label}
+          </span>
+        }
         labelPlacement="end"
       />
       {error && (
-        <FormHelperText sx={{ margin: isArabic ? '0px 30px' : '' }}>
+        <FormHelperText sx={{ marginRight: isArabic ? '30px' : '' }}>
           {error.message}
         </FormHelperText>
       )}
