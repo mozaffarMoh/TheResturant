@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import styles from './header.module.css';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import LanguageIcon from '@mui/icons-material/Language';
 import MenuIcon from '@mui/icons-material/Menu';
 import NormalMenuList from './normalMenuList';
@@ -28,6 +28,7 @@ import { ArrowDropDownIcon } from '@mui/x-date-pickers';
 import ConfirmationModal from '@/components/modals/ConfirmationModal';
 import useGet from '@/custom-hooks/useGet';
 import { domain, endPoints } from '@/base-api/endPoints';
+import { useProfilePictureContext } from '@/contexts/ProfilePictureUpdatedContext';
 
 const Header = () => {
   const t = useTranslations();
@@ -36,6 +37,8 @@ const Header = () => {
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const langCurrent = pathname.slice(1, 3) || 'en';
+  const { isProfilePictureUpdated, setIsProfilePictureUpdated }: any =
+    useProfilePictureContext();
 
   const menu = [
     {
@@ -103,6 +106,13 @@ const Header = () => {
     getUserData();
     setPartnersData();
   }, []);
+
+  useEffect(() => {
+    if (isProfilePictureUpdated) {
+      getUserData();
+      setIsProfilePictureUpdated(false);
+    }
+  }, [isProfilePictureUpdated]);
 
   useEffect(() => {
     if (partnersData && partnersData?.children) {
@@ -455,7 +465,7 @@ const Header = () => {
                       <Stack
                         direction="row"
                         alignItems="center"
-                        marginX={isArabic ? 1: 0}
+                        marginX={isArabic ? 1 : 0}
                       >
                         <IconButton
                           sx={{

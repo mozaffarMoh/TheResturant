@@ -7,6 +7,11 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
+import useGet from '@/custom-hooks/useGet';
+import { endPoints } from '@/base-api/endPoints';
+import { useEffect } from 'react';
+import { Skeleton, Stack, useMediaQuery } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -20,11 +25,42 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 interface TermsModalProps {
   open: boolean;
   handleClose: () => void;
+  showModal?: boolean;
 }
 const TermsConditionsModal = ({
   open = false,
   handleClose,
+  showModal,
 }: TermsModalProps) => {
+  const t = useTranslations();
+  const isScreen500 = useMediaQuery('(max-width:500px)');
+  /*   const [data, loading, getData, success] = useGet(endPoints.getTermsOfUse);
+
+  useEffect(() => {
+    showModal && !success && getData();
+  }, [showModal]);
+
+  console.log(data); */
+
+  const loading = false;
+  const data = [
+    {
+      title: '1. Clause',
+      subTitle:
+        'Cras mattis consectetur purus sit amet fermentum. Cras justo  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo  risus, porta ac consectetur ac, vestibulum at eros.',
+    },
+    {
+      title: '2. Clause',
+      subTitle:
+        'Cras mattis consectetur purus sit amet fermentum. Cras justo  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo  risus, porta ac consectetur ac, vestibulum at eros.',
+    },
+    {
+      title: '3. Clause',
+      subTitle:
+        'Cras mattis consectetur purus sit amet fermentum. Cras justo  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo  risus, porta ac consectetur ac, vestibulum at eros.',
+    },
+  ];
+
   return (
     <BootstrapDialog
       onClose={handleClose}
@@ -36,8 +72,17 @@ const TermsConditionsModal = ({
         className="sm-flex-col-col-center-center"
         id="customized-dialog-title"
       >
-        <p className="m-0">Terms of Use</p>
-        <p className="m-0 text-reg fc-light-black">Last updated on 6/12/2024</p>
+        <p className="m-0">{t('auth.terms-title')}</p>
+        {loading ? (
+          <Skeleton
+            variant="text"
+            width={isScreen500 ? 150 : 250}
+          />
+        ) : (
+          <p className="m-0 text-reg fc-light-black">
+            Last updated on 6/12/2024
+          </p>
+        )}
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -52,58 +97,38 @@ const TermsConditionsModal = ({
         <CloseIcon />
       </IconButton>
       <DialogContent dividers>
-        <Typography
-          gutterBottom
-          className="fw700"
-        >
-          1.Clause
-        </Typography>
-        <Typography gutterBottom>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </Typography>
-        <Typography
-          gutterBottom
-          className="fw700"
-        >
-          2.Clause
-        </Typography>
-        <Typography gutterBottom>
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-        </Typography>
-        <Typography
-          gutterBottom
-          className="fw700"
-        >
-          3.Clause
-        </Typography>
-        <Typography gutterBottom>
-          Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-          ullamcorper nulla non metus auctor fringilla.
-        </Typography>
-        <Typography
-          gutterBottom
-          className="fw700"
-        >
-          3.Clause
-        </Typography>
-        <Typography gutterBottom>
-          Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-          ullamcorper nulla non metus auctor fringilla.
-        </Typography>
+        {' '}
+        {loading ? (
+          <Stack alignItems={'center'}>
+            <Skeleton
+              variant="text"
+              width={isScreen500 ? 100 : 150}
+            />
+            {Array.from({ length: 6 }).map(() => {
+              return (
+                <Skeleton
+                  variant="text"
+                  width={isScreen500 ? 180 : 400}
+                />
+              );
+            })}
+          </Stack>
+        ) : (
+          data.map((item: any) => {
+            return (
+              <>
+                <Typography
+                  gutterBottom
+                  className="fw700"
+                >
+                  {item.title}
+                </Typography>
+                <Typography gutterBottom>{item.subTitle}</Typography>
+              </>
+            );
+          })
+        )}
       </DialogContent>
-      {/* <DialogActions>
-        <Button
-          autoFocus
-          onClick={handleClose}
-        >
-          Save changes
-        </Button>
-      </DialogActions> */}
     </BootstrapDialog>
   );
 };

@@ -28,7 +28,8 @@ export const endPoints = {
     changePassword: '/change-password/',
     uploadProfileImage: '/update-image/',
     getUserInformation: '/get-current-user/',
-    getPartners: "/core/dynamicLookup/partners"
+    getPartners: "/core/dynamicLookup/partners",
+    getTermsOfUse: "/ecomm/getItemsByType/workshop"
 }
 
 

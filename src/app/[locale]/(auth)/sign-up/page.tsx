@@ -165,7 +165,6 @@ const SingUp: NextPage = () => {
     resolver: zodResolver(signupSchema(signUpArray, t)),
     mode: 'onChange',
   });
-  
 
   const [data, loading, getData, success, , errorMessage] = useGet(
     endPoints.whoAreYou,
@@ -253,6 +252,7 @@ const SingUp: NextPage = () => {
       <TermsConditionsModal
         open={showModal}
         handleClose={() => setShowModal(false)}
+        showModal={showModal}
       />
       <div className="w-full ">
         <Grid

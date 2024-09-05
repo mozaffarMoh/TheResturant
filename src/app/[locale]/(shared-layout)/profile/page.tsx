@@ -16,7 +16,7 @@ import { useTranslations } from 'next-intl';
 import FormField from '@/components/mui-inputs/FormField';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { domain, endPoints } from '@/base-api/endPoints';
 import usePost from '@/custom-hooks/usePost';
 import Cookies from 'js-cookie';
@@ -25,6 +25,7 @@ import { LoadingButton } from '@mui/lab';
 import useGet from '@/custom-hooks/useGet';
 import { ProfileSchema } from './schema';
 import { usePathname } from 'next/navigation';
+import { useProfilePictureContext } from '@/contexts/ProfilePictureUpdatedContext';
 
 const Profile = () => {
   const t = useTranslations();
@@ -37,6 +38,7 @@ const Profile = () => {
   const [isClientSide, setIsClientSide] = useState(false);
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
+  const { setIsProfilePictureUpdated }: any = useProfilePictureContext();
 
   const fieldsArray = [
     {
@@ -180,6 +182,7 @@ const Profile = () => {
         expires: new Date('9999-12-31T23:59:59'),
       });
       getUserData();
+      setIsProfilePictureUpdated(true);
       setTimeout(() => {
         setSuccessMessage('');
       }, 3000);
