@@ -209,7 +209,7 @@ const SignUpInput = ({
             error={!!error}
             className="input-form-control"
             fullWidth
-            sx={{ marginRight: -2 }}
+            style={{ width: '140%' }}
           >
             <FormControlLabel
               control={
@@ -234,7 +234,7 @@ const SignUpInput = ({
                 />
               }
               label={
-                <span
+                <p
                   onClick={(e) => {
                     // Prevent checkbox click event when clicking the label
                     e.preventDefault();
@@ -243,7 +243,7 @@ const SignUpInput = ({
                   style={{ cursor: 'pointer', fontSize: '15px' }}
                 >
                   {title}
-                </span>
+                </p>
               }
               labelPlacement="end"
             />
