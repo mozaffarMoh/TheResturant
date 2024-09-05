@@ -5,6 +5,7 @@ export const typeSchema = (inputs: any, t: any) => {
 
   inputs.forEach((input: any) => {
     let validation: any;
+    console.log(input.slug);
 
     switch (input.slug) {
 
@@ -88,7 +89,8 @@ export const typeSchema = (inputs: any, t: any) => {
           }, { message: t('validation.yearsOfExpMax') });
         break;
 
-      case 'areas-of-expertise-marke':
+
+      case 'areas-of-expertise':
         validation = z.string().min(3, { message: t('validation.valueMin3Letters') })
           .regex(/^[^\d]/, { message: t('validation.valueMin3Letters') })
         break;
@@ -97,11 +99,11 @@ export const typeSchema = (inputs: any, t: any) => {
         validation = z.array(z.number()).min(1, { message: t('validation.methodOfComm') });
         break;
 
-      case 'availabilityeg-weekda':
+      case 'availability':
         validation = z.string().min(3, { message: t('validation.availabilityMin3') });
         break;
 
-      case 'mentorship-goalseg-ca':
+      case 'mentorship-goals':
         validation = z.string().min(10, { message: t('validation.mentorshipGoalsMin10') });
         break;
 

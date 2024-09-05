@@ -67,7 +67,6 @@ const SingleCheckboxField = ({
               '&.Mui-checked': {
                 color: 'orange',
               },
-              marginLeft: !isArabic ? '10px' : '',
             }}
           />
         }
@@ -77,7 +76,14 @@ const SingleCheckboxField = ({
           },
         }}
         label={
-          <span style={{ fontSize: isScreen450 ? '10px' : '15px' }}>
+          <span
+            style={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              fontSize: '15px',
+            }}
+          >
             {label}
           </span>
         }

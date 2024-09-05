@@ -1,7 +1,7 @@
 'use client';
 import type { NextPage } from 'next';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Button, Grid, Paper, Stack } from '@mui/material';
+import { Button, Grid, Paper, Stack, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
 import { logoImage, userDetailsBgImage } from '@/constant/images';
 import styles from '../../sign-in/page.module.css';
@@ -26,6 +26,7 @@ const UserDetailsPage: NextPage = () => {
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const langCurrent = Cookies.get('NEXT_LOCALE') || 'en';
+  const isScreen450 = useMediaQuery('(max-width:450px)');
   const signupData: any = Cookies.get('signUpData') || '';
   const signupDataParsed = signupData ? JSON.parse(signupData) : null;
   const formData: any = localStorage.getItem('formData');
@@ -282,7 +283,7 @@ const UserDetailsPage: NextPage = () => {
             square
             className="sm-flex-row-row-center-center"
           >
-            <Stack width={'70%'}>
+            <Stack width={isScreen450 ? '90%' : '70%'}>
               <div className="mb-1 sm-flex-row-row-center-center mt-2">
                 <img
                   src={logoImage}
