@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-import { DefautImage1 } from '@/constant/images';
+import { DefautImage1, DefautImage1Large } from '@/constant/images';
 import {
   Box,
   CircularProgress,
@@ -32,8 +32,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiPaper-root': {
     backgroundColor: primaryColor, // Set the background color to red
     color: 'white',
-    width: '700px',
-    maxWidth: '700px',
+    width: '900px',
+    maxWidth: '900px',
     borderRadius: '12px',
   },
   '& .MuiDialogContent-root': {
@@ -60,7 +60,9 @@ const EventDetailsModal = ({
 }: TermsModalProps) => {
   const t = useTranslations();
   const token = Cookies.get('token') || '';
+  const isScreen510 = useMediaQuery('(max-width:510px)');
   const isScreen600 = useMediaQuery('(max-width:600px)');
+  const isScreen900 = useMediaQuery('(max-width:900px)');
   const pathname = usePathname();
   const [itemId, setItemId] = useState('');
   const [quantity, setQuantity] = useState(0);
@@ -97,6 +99,13 @@ const EventDetailsModal = ({
     items: [{ item_id: itemId }],
   };
 
+  const shrinkValue = (val: string) => {
+    if (val && val.length > 13 && isScreen510) {
+      return val.slice(0, 10) + '...';
+    } else {
+      return val;
+    }
+  };
   const [
     ,
     loadingReserve,
@@ -109,7 +118,7 @@ const EventDetailsModal = ({
   let imageURL =
     data && data?.[0]?.media?.main_image?.[0]?.url
       ? domain + data?.[0]?.media?.main_image?.[0]?.url
-      : DefautImage1;
+      : DefautImage1Large;
 
   useEffect(() => {
     slug && getData();
@@ -147,6 +156,7 @@ const EventDetailsModal = ({
       setErrorMessageReserve(t('messages.quantity'));
     }
   };
+
   return (
     <BootstrapDialog
       onClose={handleClose}
@@ -175,10 +185,6 @@ const EventDetailsModal = ({
       <DialogContent
         style={{
           direction: 'ltr',
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          alignItems: 'center',
         }}
       >
         {loading ? (
@@ -223,11 +229,16 @@ const EventDetailsModal = ({
           <Stack
             width={'100%'}
             alignItems={'center'}
+            style={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
           >
             <Box
               className=" position-relative  "
-              width={'90%'}
-              height={isScreen600 ? 200 : 320}
+              width={isScreen510 ? '100%' : '90%'}
+              height={isScreen600 ? 200 : 360}
               marginBottom={2}
             >
               <img
@@ -240,8 +251,8 @@ const EventDetailsModal = ({
             </Box>
             <Grid
               container
-              width={'90%'}
-              height={!isScreen600 ? 250 : ''}
+              width={isScreen510 ? '100%' : '90%'}
+              height={isScreen900 ? 'auto' : 250}
               bgcolor={'white'}
               borderRadius={3}
               display={'flex'}
@@ -258,21 +269,23 @@ const EventDetailsModal = ({
                       item
                       key={i}
                       xs={12}
-                      sm={6}
+                      sm={12}
+                      md={6}
                       display={'flex'}
                       justifyContent={'flex-start'}
                       alignItems={'center'}
                       height={50}
-                      gap={2}
                       paddingX={1.5}
                       paddingY={3}
+                      gap={1}
+                      sx={{ overflow: 'hidden' }}
                     >
                       <Stack
                         direction={'row'}
                         justifyContent={'flex-start'}
                         alignItems={'center'}
                         gap={2}
-                        width={'60%'}
+                        width={'85%'}
                       >
                         <Stack
                           sx={{ width: '10px', height: '50px' }}
@@ -283,70 +296,79 @@ const EventDetailsModal = ({
 
                         <Typography
                           fontWeight={600}
-                          fontSize={13}
+                          fontSize={isScreen510 ? 11 : 13}
                           color={primaryColor}
+                          noWrap
                         >
                           {item?.itemMetaKey?.name}
                         </Typography>
                       </Stack>
                       <Stack
-                        width={'40%'}
+                        width={'60%'}
                         height={70}
                         justifyContent={'center'}
                       >
                         <Typography
-                          fontSize={13}
+                          fontSize={isScreen510 ? 11 : 13}
                           color={gray100}
+                          noWrap
                         >
-                          {item.value}
+                          {shrinkValue(item.value)}
                         </Typography>
                       </Stack>
                     </Grid>
                   );
                 })}
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                display={'flex'}
-                justifyContent={'space-between'}
-                alignItems={'center'}
-                height={50}
-                paddingX={1.5}
-                paddingY={3}
-              >
-                <Stack
-                  direction={'row'}
-                  justifyContent={'flex-start'}
+              {data && data?.[0]?.place?.name && (
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={6}
+                  display={'flex'}
+                  justifyContent={'space-between'}
                   alignItems={'center'}
+                  height={50}
+                  paddingX={1.5}
+                  paddingY={3}
                   gap={1}
-                  width={'100%'}
+                  sx={{ overflow: 'hidden' }}
                 >
-                  <Stack justifyContent={'center'}>
-                    <PlaceSVG />
+                  <Stack
+                    direction={'row'}
+                    justifyContent={'flex-start'}
+                    alignItems={'center'}
+                    gap={1}
+                    width={'85%'}
+                  >
+                    <Stack justifyContent={'center'}>
+                      <PlaceSVG />
+                    </Stack>
+                    <Typography
+                      fontWeight={600}
+                      fontSize={isScreen510 ? 11 : 13}
+                      color={primaryColor}
+                      noWrap
+                    >
+                      {t('dialog.location')}
+                    </Typography>
                   </Stack>
-                  <Typography
-                    fontWeight={600}
-                    fontSize={13}
-                    color={primaryColor}
+                  <Stack
+                    width={'60%'}
+                    height={70}
+                    justifyContent={'center'}
+                    alignItems={'flex-start'}
                   >
-                    {t('dialog.location')}
-                  </Typography>
-                </Stack>
-                <Stack
-                  width={'60%'}
-                  height={70}
-                  justifyContent={'center'}
-                  alignItems={'flex-start'}
-                >
-                  <Typography
-                    fontSize={13}
-                    color={gray100}
-                  >
-                    {data && data?.[0]?.place?.name}
-                  </Typography>
-                </Stack>
-              </Grid>
+                    <Typography
+                      fontSize={isScreen510 ? 11 : 13}
+                      color={gray100}
+                      noWrap
+                    >
+                      {shrinkValue(data?.[0]?.place?.name)}
+                    </Typography>
+                  </Stack>
+                </Grid>
+              )}
             </Grid>
             <Stack
               width={'90%'}
