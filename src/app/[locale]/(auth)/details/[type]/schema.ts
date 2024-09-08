@@ -5,7 +5,6 @@ export const typeSchema = (inputs: any, t: any) => {
 
   inputs.forEach((input: any) => {
     let validation: any;
-    console.log(input.slug);
 
     switch (input.slug) {
 

@@ -44,12 +44,14 @@ const UserDetailsPage: NextPage = () => {
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(typeSchema(typeDetails.inputs, t)),
   });
+
   const bodyWithoutOTP = {
     ...signupDataParsed,
   };
   const bodyWithOTP = {
     ...signupDataParsed,
     otp: OTPValue,
+    roles: [userType?.toLocaleLowerCase()],
   };
   const bodyForFinsihSubmit = {
     form_id: fullFormID,
@@ -116,6 +118,7 @@ const UserDetailsPage: NextPage = () => {
     }
     return result;
   };
+
   /* Check if formData comes from localStorage is exist to continue if not redirect to sign-up */
   /* if continue extract typeDetail object from children array */
   useEffect(() => {
