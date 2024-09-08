@@ -40,11 +40,8 @@ const ContactUsSectionCard = ({ title, content, media }: IProps) => {
         xs
       >
         <p className="text-med-low  ">{title}</p>
-        <Typography
-          sx={{ textAlign: isArabic ? 'right' : 'left' }}
-          className="fc-light-black-new"
-        >
-          {content && content?.[0]?.value}
+        <Typography className="fc-light-black-new">
+          <bdi>{content && content?.[0]?.value}</bdi>
         </Typography>
       </Grid>
     </Grid>

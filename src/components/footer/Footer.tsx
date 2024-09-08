@@ -90,6 +90,7 @@ const Footer = () => {
   useEffect(() => {
     if (success) {
       setSuccessMessage(t('messages.subscribe'));
+      setEmail('');
       setTimeout(() => {
         setSuccessMessage('');
       }, 2000);
@@ -131,6 +132,7 @@ const Footer = () => {
               marginTop: '2rem',
             }}
             placeholder="mail@mui.com"
+            value={email}
             onChange={(e: any) => setEmail(e.target.value)}
             type="email"
             required

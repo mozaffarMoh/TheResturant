@@ -27,7 +27,7 @@ const AboutUsSectionCard = ({ title, content, icon }: IProps) => {
         xs={9}
       >
         <p className="text-med-low ">{title}</p>
-        <p className="text-wrap sub-text-larges opacity-75  ">{content}</p>
+        <p className="text-wrap sub-text-larges opacity-75">{content}</p>
       </Grid>
     </Grid>
   );

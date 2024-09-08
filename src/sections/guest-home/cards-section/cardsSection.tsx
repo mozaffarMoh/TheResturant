@@ -79,6 +79,10 @@ const CardsSection = ({ data, loading }: any) => {
                     : DefautImage1;
 
                   if (item?.slug !== 'partners') {
+                    let subTitle =
+                      item?.value && item?.value.length > 100
+                        ? item?.value?.slice(0, 100) + ' ...'
+                        : item?.value;
                     return (
                       <Grid
                         item
@@ -97,11 +101,14 @@ const CardsSection = ({ data, loading }: any) => {
                             <div className={styles.backStyle} />
                             <CardContent className={styles.cardContentStyle}>
                               <h2 className={styles.cardTitle}>{item?.key}</h2>
-                              <p className="sub-text-larges opacity-85 fw-500 line-h-1-2 letter-spacing-2 text-white-new max-w-75">
-                                {item?.value}
+                              <p
+                                style={{ textOverflow: 'ellipsis' }}
+                                className="sub-text-larges opacity-85 fw-500 line-h-1-2 letter-spacing-2 text-white-new max-w-75"
+                              >
+                                {subTitle}
                               </p>
                               <br />
-                              <Link
+                              {/*  <Link
                                 href={`/#home`}
                                 className={styles.cardLink}
                               >
@@ -111,7 +118,7 @@ const CardsSection = ({ data, loading }: any) => {
                                     transform: isArabic ? 'rotate(180deg)' : '',
                                   }}
                                 />
-                              </Link>
+                              </Link> */}
                             </CardContent>
                           </CardActionArea>
                         </Card>

@@ -36,6 +36,7 @@ const AuthFooter = () => {
   useEffect(() => {
     if (success) {
       setSuccessMessage(t('messages.subscribe'));
+      setEmail('');
       setTimeout(() => {
         setSuccessMessage('');
       }, 2000);
@@ -76,6 +77,7 @@ const AuthFooter = () => {
             marginTop: '2rem',
           }}
           onChange={(e: any) => setEmail(e.target.value)}
+          value={email}
           placeholder="mail@mui.com"
           type="email"
           required
