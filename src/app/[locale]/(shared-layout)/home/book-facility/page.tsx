@@ -244,10 +244,10 @@ const BookFacilityPage: NextPage = () => {
                 {facilityList.map((item: any) => {
                   return (
                     <MenuItem
-                      key={item.id}
-                      value={item.slug}
+                      key={item?.id}
+                      value={item?.slug}
                     >
-                      {item.key_word}
+                      {item?.name}
                     </MenuItem>
                   );
                 })}
