@@ -262,6 +262,10 @@ const MentorsPage: NextPage = () => {
                       return comma + item?.name;
                     });
 
+                  let name =
+                    item?.user?.name && item?.user?.name.length > 17
+                      ? item?.user?.name?.slice(0, 17) + '..'
+                      : item?.user?.name;
                   return (
                     <Card
                       key={i}
@@ -291,8 +295,9 @@ const MentorsPage: NextPage = () => {
                           fontFamily={'Jost'}
                           fontWeight={600}
                           color={'#2F2D51'}
+                          sx={{ wordWrap: 'break-word' }}
                         >
-                          {item?.user?.name}
+                          {name}
                         </Typography>
                         <Typography
                           variant="body2"
