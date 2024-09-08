@@ -192,7 +192,8 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
         let booked = res.data?.data?.booked;
         if (booked && booked.length > 0) {
           const newArray: any = [];
-          booked[0].times.forEach((item: any) => {
+
+          booked[0].forEach((item: any) => {
             let from = item?.start_timeslot_time;
             let to = item?.end_timeslot_time;
             newArray.push({
@@ -401,6 +402,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
                           currentHour >= item.from && currentHour <= item.to
                         );
                       });
+
                       return (
                         !isBooked && (
                           <MenuItem
