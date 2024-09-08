@@ -79,7 +79,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
     fields: ['id', 'name', 'slug'],
   };
   let body = {
-    order_type: 'booking',
+    order_type: 'facility',
     items: [
       {
         item_id: itemId,

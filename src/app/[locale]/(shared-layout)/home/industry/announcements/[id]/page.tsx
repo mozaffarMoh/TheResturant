@@ -250,9 +250,11 @@ const JobOfferDetails: NextPage = () => {
                     variant="body1"
                     fontFamily={'Jost'}
                   >
-                    {isMetaDataExist &&
-                      data?.[0]?.itemMetaData[1] &&
-                      data?.[0]?.itemMetaData[1]?.value}
+                    <bdi>
+                      {isMetaDataExist &&
+                        data?.[0]?.itemMetaData[1] &&
+                        data?.[0]?.itemMetaData[1]?.value}
+                    </bdi>
                   </Typography>
                   <Button
                     className="general-button-primary mt-1"
