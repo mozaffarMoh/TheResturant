@@ -20,6 +20,7 @@ import { DefautImage1Large, DefautImage2, headBar } from '@/constant/images';
 import { useEffect, useState } from 'react';
 import { useParams, usePathname } from 'next/navigation';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
+import { HeroSection } from '@/sections/home';
 
 const JobOfferDetails: NextPage = () => {
   const t = useTranslations();
@@ -81,7 +82,7 @@ const JobOfferDetails: NextPage = () => {
           />
         </head>
       )}
-      {loading ? (
+      {/*       {loading ? (
         <Skeleton
           sx={{ height: '400px', bgcolor: 'grey.500' }}
           width={'100%'}
@@ -89,27 +90,26 @@ const JobOfferDetails: NextPage = () => {
           variant="rectangular"
         />
       ) : (
-        <Stack position={'relative'}>
-          <img
-            src={imageURL}
-            alt={'jobOfferImage'}
-            style={{ width: '100%', height: isScreen600 ? '250px' : '400px' }}
-          />
-          {imageURL !== DefautImage1Large && (
-            <img
-              src={headBar}
-              alt={'headBar'}
-              style={{
-                position: 'absolute',
-                bottom: '0px',
-                left: '25%',
-                width: '50%',
-                height: '10px',
-              }}
-            />
-          )}
-        </Stack>
-      )}
+    
+      )} */}
+      <HeroSection
+        bannerImage={imageURL}
+        noText
+        loading={loading}
+      />{' '}
+      <Stack position={'relative'}>
+        <img
+          src={headBar}
+          alt={'headBar'}
+          style={{
+            position: 'absolute',
+            bottom: '0px',
+            left: '25%',
+            width: '50%',
+            height: '10px',
+          }}
+        />
+      </Stack>
       <Container
         maxWidth="lg"
         className="mt-4  mb-4"
