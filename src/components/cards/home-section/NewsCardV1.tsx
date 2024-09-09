@@ -2,7 +2,7 @@ import * as React from 'react';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
-import { Paper, Typography } from '@mui/material';
+import { Paper, Stack, Typography } from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import './news-card-v1.css';
@@ -12,6 +12,7 @@ export default function NewsCardV1({ title, subTitle, category, date }: any) {
   const dateFormat = dayjs(date);
   const day = dateFormat.format('D');
   const month = dateFormat.format('MMMM');
+  const time = date?.split(' ')?.[1];
 
   return (
     <Card
@@ -46,16 +47,20 @@ export default function NewsCardV1({ title, subTitle, category, date }: any) {
       </CardOverflow>
       <CardContent className="sm-flex-col-reverse">
         <p className="text-reg-card-v1 fw600 ">{title}</p>
-        <div className="sm-flex-row-col-425  align-center-425 gap1 ">
-          <span className="text-xs opacity-80">{subTitle}</span>
-        </div>
-
-        <Typography
-          color={'#EB6B2A'}
-          fontSize={11}
+      
+        <Stack
+          direction={'row'}
+          gap={1}
         >
-          {category}
-        </Typography>
+          <ClockSVG />
+          <Typography
+            fontSize={13}
+            className=" opacity-80"
+          >
+            {' '}
+            {time}
+          </Typography>
+        </Stack>{' '}
       </CardContent>
     </Card>
   );
