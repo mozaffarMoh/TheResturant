@@ -41,7 +41,7 @@ const MentorsPage: NextPage = () => {
   const langCurrent = pathname.slice(1, 3) || 'en';
   const isScreen600 = useMediaQuery('(max-width:600px)');
   const [profession, setProfession] = useState('');
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [isClientSide, setIsClientSide] = useState(false);
 
@@ -106,12 +106,12 @@ const MentorsPage: NextPage = () => {
 
   useEffect(() => {
     if (profession) {
-      page == 0 ? setPage(1) : getMentorsItems();
+      page > 1 ? setPage(1) : getMentorsItems();
     }
   }, [profession]);
 
   useEffect(() => {
-    page > 0 && getMentorsItems();
+    getMentorsItems();
   }, [page]);
 
   useEffect(() => {

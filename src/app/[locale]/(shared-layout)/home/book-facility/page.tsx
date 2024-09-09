@@ -25,7 +25,6 @@ import { textSecondaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
 import useGet from '@/custom-hooks/useGet';
 import { endPoints } from '@/base-api/endPoints';
-import Cookies from 'js-cookie';
 import {
   ArrowBackIosNewRounded,
   ArrowForwardIosRounded,
@@ -44,7 +43,7 @@ const BookFacilityPage: NextPage = () => {
   const [category, setCategory] = useState<string>('');
   const [location, setLocation] = useState<string>('');
   const [isClientSide, setIsClientSide] = useState(false);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const filters: any = {
     'itemType.slug': 'facility',
@@ -120,12 +119,12 @@ const BookFacilityPage: NextPage = () => {
   /* Get items when location and category be ready also with every change */
   useEffect(() => {
     if (category && location) {
-      page == 0 ? setPage(1) : getFacilityItems();
+      page > 1 ? setPage(1) : getFacilityItems();
     }
   }, [category, location]);
 
   useEffect(() => {
-    page > 0 && getFacilityItems();
+    getFacilityItems();
   }, [page]);
 
   useEffect(() => {

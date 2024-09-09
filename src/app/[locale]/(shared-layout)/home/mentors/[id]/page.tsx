@@ -148,6 +148,7 @@ const MentorDetails: NextPage = () => {
                   data?.groups.map((item: any, i: number) => {
                     return (
                       <Typography
+                        key={i}
                         fontFamily={'Jost'}
                         className="sub-text-large "
                       >
@@ -170,6 +171,7 @@ const MentorDetails: NextPage = () => {
                   if (item.slug.includes('link')) {
                     return (
                       <Link
+                        key={i}
                         href={item.value}
                         target="_blank"
                         className={styles.socialIconContainer}
@@ -234,6 +236,7 @@ const MentorDetails: NextPage = () => {
                   ) {
                     return (
                       <Typography
+                        key={i}
                         variant="body1"
                         color={'#77838F'}
                       >

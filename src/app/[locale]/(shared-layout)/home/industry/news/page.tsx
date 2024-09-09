@@ -98,6 +98,10 @@ const News = () => {
   }, [page, category]);
 
   useEffect(() => {
+    setPage(1);
+  }, [category]);
+
+  useEffect(() => {
     if (success) {
       let totalNum = fullData?.meta?.total || 0;
       const paginationCount = Math.ceil(totalNum / 3);
