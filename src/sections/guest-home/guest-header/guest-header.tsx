@@ -23,6 +23,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
 import { domain } from '@/base-api/endPoints';
+import { DefautIcon } from '@/constant/images';
 
 const GuestHeader = ({ partnersData }: any) => {
   const router = useRouter();
@@ -123,9 +124,9 @@ const GuestHeader = ({ partnersData }: any) => {
               return (
                 <img
                   key={i}
-                  src={logo}
-                  width={60}
-                  height={50}
+                  src={logo ? logo : DefautIcon}
+                  width={logo ? 60 : 30}
+                  height={logo ? 50 : 25}
                 />
               );
             })}

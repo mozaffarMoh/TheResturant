@@ -24,6 +24,11 @@ export default function MentorListItem({ item, key }: any) {
       ? professions
       : professions.join('').slice(0, 25) + '...';
 
+  let name =
+    item?.user?.name && item?.user?.name.length > 15
+      ? item?.user?.name.slice(0, 15) + '...'
+      : item?.user?.name;
+
   return (
     <div
       key={key}
@@ -36,7 +41,7 @@ export default function MentorListItem({ item, key }: any) {
         src={imageURL}
         sx={{ width: 100, height: 100 }}
       />
-      <div className="text-reg-high">{item?.user?.name}</div>
+      <div className="text-reg-high">{name}</div>
       <div className="text-reg-fw500 line-h-0">{professionsList}</div>
     </div>
   );

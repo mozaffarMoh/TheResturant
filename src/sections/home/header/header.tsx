@@ -23,7 +23,7 @@ import NormalMenuList from './normalMenuList';
 import NestedMenuList from './nestedMenuList';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
-import { avatarImage } from '@/constant/images';
+import { avatarImage, DefautIcon } from '@/constant/images';
 import { ArrowDropDownIcon } from '@mui/x-date-pickers';
 import ConfirmationModal from '@/components/modals/ConfirmationModal';
 import useGet from '@/custom-hooks/useGet';
@@ -198,9 +198,9 @@ const Header = () => {
             return (
               <img
                 key={i}
-                src={logo}
-                width={60}
-                height={50}
+                src={logo ? logo : DefautIcon}
+                width={logo ? 60 : 30}
+                height={logo ? 50 : 25}
               />
             );
           })}
