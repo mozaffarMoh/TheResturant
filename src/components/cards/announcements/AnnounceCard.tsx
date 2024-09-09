@@ -87,30 +87,35 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
                 <p className="text-med-fw400 ">{item?.subTitle}</p>
               </CardContent>
               <Box className="xs-flex-row-col-375 ml-1 gap1">
-                <div>
-                  <PlaceSVG />
-                  <span
-                    style={{ marginInline: '0.4rem' }}
-                    className="text-med-fw400  opacity-80"
-                  >
-                    {' '}
-                    {item?.place && item?.place?.name}
-                  </span>{' '}
-                </div>
-                <div>
-                  <ClockSVG />{' '}
-                  <span
-                    style={{ marginInline: '0.4rem' }}
-                    className="text-med-fw400  opacity-80"
-                  >
-                    {item?.itemMetaData &&
-                      item?.itemMetaData?.map((val: any) => {
-                        if (val?.itemMetaKey?.slug == 'time') {
-                          return val?.value;
-                        }
-                      })}
-                  </span>
-                </div>
+                {item?.place && item?.place?.name && (
+                  <div>
+                    <PlaceSVG />
+                    <span
+                      style={{ marginInline: '0.4rem' }}
+                      className="text-med-fw400  opacity-80"
+                    >
+                      {' '}
+                      {item?.place && item?.place?.name}
+                    </span>{' '}
+                  </div>
+                )}
+
+                {item?.itemMetaData &&
+                  item?.itemMetaData?.map((val: any) => {
+                    if (val?.itemMetaKey?.slug == 'time') {
+                      return (
+                        <div>
+                          <ClockSVG />{' '}
+                          <span
+                            style={{ marginInline: '0.4rem' }}
+                            className="text-med-fw400  opacity-80"
+                          >
+                            {val?.value}{' '}
+                          </span>
+                        </div>
+                      );
+                    }
+                  })}
               </Box>
               <Box
                 sx={{

@@ -94,6 +94,24 @@ export default function BookFacilityCard({
             alignContent={'center'}
             marginY={2}
           >
+            {place && place?.name && (
+              <Grid
+                item
+                display={'flex'}
+                justifyContent={'start'}
+                alignContent={'center'}
+                gap={1}
+                letterSpacing={1}
+              >
+                <PlaceSVG />
+                <Typography
+                  variant="body2"
+                  color={gray300}
+                >
+                  {place && place?.name}
+                </Typography>
+              </Grid>
+            )}
             {metadata &&
               metadata.length > 0 &&
               metadata.map((item: any) => {
@@ -137,22 +155,6 @@ export default function BookFacilityCard({
                 12:32:00
               </Typography>
             </Grid> */}
-            <Grid
-              item
-              display={'flex'}
-              justifyContent={'start'}
-              alignContent={'center'}
-              gap={1}
-              letterSpacing={1}
-            >
-              <PlaceSVG />
-              <Typography
-                variant="body2"
-                color={gray300}
-              >
-                {place && place?.name}
-              </Typography>
-            </Grid>
           </Grid>
         </Grid>
       </CardContent>

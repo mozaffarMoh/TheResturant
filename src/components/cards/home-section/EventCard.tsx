@@ -73,28 +73,35 @@ const EventCard = ({
                 <p className="text-med-fw400 ">{subTitle}</p>
               </CardContent>
               <Box className="xs-flex-row-col-375 ml-1 gap1">
-                <div>
-                  <PlaceSVG />
-                  <span
-                    style={{ marginInline: '0.4rem' }}
-                    className="text-med-fw400  opacity-80"
-                  >
-                    {' '}
-                    {place && place?.name}
-                  </span>{' '}
-                </div>
-                <div>
-                  <ClockSVG />{' '}
-                  <span
-                    style={{ marginInline: '0.4rem' }}
-                    className="text-med-fw400  opacity-80"
-                  >
-                    {itemMetaData &&
-                      itemMetaData.map((item: any) => {
-                        return item?.itemMetaKey?.slug == 'time' && item.value;
-                      })}
-                  </span>
-                </div>
+                {place && place?.name && (
+                  <div>
+                    <PlaceSVG />
+                    <span
+                      style={{ marginInline: '0.4rem' }}
+                      className="text-med-fw400  opacity-80"
+                    >
+                      {' '}
+                      {place && place?.name}
+                    </span>{' '}
+                  </div>
+                )}
+
+                {itemMetaData &&
+                  itemMetaData.map((item: any) => {
+                    return (
+                      item?.itemMetaKey?.slug == 'time' && (
+                        <div>
+                          <ClockSVG />{' '}
+                          <span
+                            style={{ marginInline: '0.4rem' }}
+                            className="text-med-fw400  opacity-80"
+                          >
+                            {item.value}{' '}
+                          </span>
+                        </div>
+                      )
+                    );
+                  })}
               </Box>
               <Box
                 sx={{

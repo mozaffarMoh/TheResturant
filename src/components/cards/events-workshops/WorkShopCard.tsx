@@ -70,24 +70,40 @@ export default function WorkShopCard({
             <br />
             <span className="text-xs  p-0">{subTitleSentence}</span>
           </p>
+
           <Stack
             direction={'row'}
             gap={2}
             justifyContent={'flex-start'}
             dir="ltr"
           >
-            <div className="text-xs opacity-80">
-              <PlaceSVG />
-              {place && place?.name}
-            </div>
-            <div className="text-xs opacity-80">
-              <ClockSVG />{' '}
-              {itemMetaData &&
-                itemMetaData.length > 0 &&
-                itemMetaData.map((item: any) => {
-                  return item?.itemMetaKey?.slug == 'time' && item.value;
-                })}
-            </div>
+            {place && place?.name && (
+              <Stack
+                direction={'row'}
+                gap={1}
+                className="text-xs opacity-80"
+              >
+                <PlaceSVG />
+                {place && place?.name}
+              </Stack>
+            )}
+
+            {itemMetaData &&
+              itemMetaData.length > 0 &&
+              itemMetaData.map((item: any) => {
+                return (
+                  item?.itemMetaKey?.slug == 'time' && (
+                    <Stack
+                      direction={'row'}
+                      gap={1}
+                      className="text-xs opacity-80 "
+                    >
+                      <ClockSVG />
+                      {item.value}{' '}
+                    </Stack>
+                  )
+                );
+              })}
           </Stack>
         </Stack>
         <Button

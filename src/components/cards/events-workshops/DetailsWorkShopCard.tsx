@@ -46,12 +46,14 @@ export default function DetailsWorkShopCard({
         <CardContent>
           <p className="text-med-fw700  p-0 ">{t('dialog.details')}</p>
 
-          <div className="sm-flex-row-row-center-between">
-            <span>
-              <PlaceSVG /> {t('dialog.location')}
-            </span>
-            <p>{location}</p>
-          </div>
+          {location && (
+            <div className="sm-flex-row-row-center-between">
+              <span>
+                <PlaceSVG /> {t('dialog.location')}
+              </span>
+              <p>{location}</p>
+            </div>
+          )}
 
           {itemMetaData.map((item: any) => {
             let SvgIcon = metadataIcons(item?.itemMetaKey?.slug);
