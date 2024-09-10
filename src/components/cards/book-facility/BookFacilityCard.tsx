@@ -3,7 +3,7 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
 import './book-facility-card.css';
-import { Grid, Typography, useMediaQuery } from '@mui/material';
+import { Box, Grid, Typography, useMediaQuery } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { domain } from '@/base-api/endPoints';
@@ -11,6 +11,7 @@ import { metadataIcons } from '@/constant/metadataIcons';
 import { ClockSVG, DurationSVG, PlaceSVG } from '../../../../assets/icons';
 import { DefautImage1 } from '@/constant/images';
 import { gray100, gray300 } from '@/constant/color';
+import Image from 'next/image';
 
 export default function BookFacilityCard({
   slug,
@@ -43,19 +44,23 @@ export default function BookFacilityCard({
       }}
       onClick={() => push(`/${langCurrent}/home/book-facility/details/${slug}`)}
     >
-      <CardOverflow>
-        <img
+      <Box
+        style={{
+          width: '100%',
+          height: '300px',
+          position: 'relative',
+        }}
+      >
+        <Image
           src={imageURL}
           loading="lazy"
           alt="facility image card"
-          className="pt-1"
+          fill
           style={{
-            width: '100%',
-            height: '300px',
             objectFit: 'cover',
           }}
         />
-      </CardOverflow>
+      </Box>
       <CardContent>
         <Grid
           container

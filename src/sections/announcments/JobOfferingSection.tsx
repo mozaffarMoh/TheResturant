@@ -205,24 +205,27 @@ const JobOfferingSection = () => {
                       )
                     }
                   >
-                    <Stack position={'relative'}>
-                      <img
+                    <Stack
+                      position={'relative'}
+                      height={250}
+                    >
+                      <Image
+                        key={i}
                         src={imageURL}
                         alt={'jobOfferImage'}
+                        fill
                         style={{
-                          width: '100%',
-                          height: '250px',
                           borderRadius: '20px',
                         }}
                       />
 
-                      <img
+                      <Image
                         src={imageURLAvatar}
                         alt={'InstructorImage'}
+                        width={60}
+                        height={60}
                         style={{
                           position: 'absolute',
-                          width: '60px',
-                          height: '60px',
                           borderRadius: '50%',
                           right: `${!isArabic ? '20px' : ''}`,
                           left: `${isArabic ? '20px' : ''}`,

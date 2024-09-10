@@ -4,11 +4,12 @@ import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
 import './workshop-card.css';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
-import { Button, Stack, useMediaQuery } from '@mui/material';
+import { Box, Button, Stack, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { domain } from '@/base-api/endPoints';
 import { DefautImage1 } from '@/constant/images';
+import Image from 'next/image';
 
 export default function WorkShopCard({
   title,
@@ -49,13 +50,20 @@ export default function WorkShopCard({
       <CardOverflow
         sx={{ display: 'flex', justifyContent: 'center', padding: 2 }}
       >
-        <img
-          src={imageURL}
-          width={'100%'}
-          height={200}
-          loading="lazy"
-          alt="workshop image card"
-        />
+        <Box
+          style={{
+            width: '100%',
+            height: '200px',
+            position: 'relative',
+          }}
+        >
+          <Image
+            src={imageURL}
+            fill
+            loading="lazy"
+            alt="workshop image card"
+          />
+        </Box>
       </CardOverflow>
       <CardContent
         sx={{

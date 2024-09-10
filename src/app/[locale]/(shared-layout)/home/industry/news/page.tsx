@@ -32,6 +32,7 @@ import { usePathname } from 'next/navigation';
 import { DefautImage1 } from '@/constant/images';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 import NoData from '@/components/NoData/NoData';
+import Image from 'next/image';
 
 const News = () => {
   const t = useTranslations();
@@ -225,11 +226,20 @@ const News = () => {
                         },
                       }}
                     >
-                      <img
-                        src={imageURL}
-                        alt="NewsImage"
-                        className="news-image"
-                      />
+                      <Box
+                        sx={{
+                          position: 'relative',
+                          width: isScreen900 ? '100%' : '350px',
+                          height: 350,
+                        }}
+                      >
+                        <Image
+                          fill
+                          src={imageURL}
+                          alt="NewsImage"
+                          className="news-image"
+                        />
+                      </Box>
 
                       <Stack
                         justifyContent={'flex-start'}

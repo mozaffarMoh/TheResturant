@@ -55,100 +55,111 @@ const NewsSection = () => {
               </div>
               <Stack
                 direction={'row'}
-                justifyContent={'space-evenly'}
-                flexWrap={'wrap-reverse'}
-                marginTop={10}
-                gap={5}
+                flexWrap={'wrap'}
+                paddingBottom={13}
+                gap={2}
               >
-                {/* cards horizontal cards  section */}
-                <Stack
-                  justifyContent={'space-between'}
-                  gap={3}
-                >
-                  {loading ? (
-                    <Stack gap={2}>
-                      <CardSkeleton />
-                      <CardSkeleton />
-                    </Stack>
-                  ) : (
-                    data &&
-                    data.length > 0 &&
-                    data.map(
-                      (item: any, i: number) =>
-                        i > 1 &&
-                        i < 5 && (
-                          <NewsCardV1
-                            key={i}
-                            title={item?.title}
-                            subTitle={item?.subTitle}
-                            category={item?.category}
-                            date={item?.created_at}
-                          />
-                        ),
-                    )
-                  )}
-                </Stack>
-
-                {/* cards Vertical cards  section */}
                 <Stack
                   direction={'row'}
                   justifyContent={'space-evenly'}
-                  flexWrap={'wrap'}
-                  spacing={2}
-                  gap={3}
+                  flexWrap={'wrap-reverse'}
+                  marginTop={10}
+                  gap={5}
                 >
-                  {loading ? (
-                    <Stack
-                      direction={'row'}
-                      justifyContent={'center'}
-                      flexWrap={'wrap'}
-                      gap={2}
-                    >
-                      <CardSkeleton />
-                      <CardSkeleton />
-                    </Stack>
-                  ) : (
-                    data &&
-                    data.length > 0 &&
-                    data.map((item: any, i: number) => {
-                      if (i < 2) {
-                        return (
-                          <NewsCardV2
-                            key={i}
-                            title={item?.title}
-                            subTitle={item?.subTitle}
-                            media={item?.media}
-                            category={item?.category}
-                            dateTime={item?.created_at}
-                          />
-                        );
-                      }
-                    })
-                  )}
+                  {/* cards horizontal cards  section */}
+                  <Stack
+                    justifyContent={'space-between'}
+                    gap={3}
+                  >
+                    {loading ? (
+                      <Stack gap={2}>
+                        <CardSkeleton />
+                      </Stack>
+                    ) : (
+                      data &&
+                      data.length > 0 &&
+                      data.map(
+                        (item: any, i: number) =>
+                          i > 1 &&
+                          i < 5 && (
+                            <NewsCardV1
+                              key={i}
+                              title={item?.title}
+                              subTitle={item?.subTitle}
+                              category={item?.category}
+                              date={item?.created_at}
+                            />
+                          ),
+                      )
+                    )}
+                  </Stack>
+
+                  {/* cards Vertical cards  section */}
+                  <Stack
+                    direction={'row'}
+                    justifyContent={'space-evenly'}
+                    flexWrap={'wrap'}
+                    spacing={2}
+                    gap={3}
+                  >
+                    {loading ? (
+                      <Stack
+                        direction={'row'}
+                        justifyContent={'center'}
+                        flexWrap={'wrap'}
+                        gap={2}
+                      >
+                        <CardSkeleton />
+                        <CardSkeleton />
+                      </Stack>
+                    ) : (
+                      data &&
+                      data.length > 0 &&
+                      data.map((item: any, i: number) => {
+                        if (i < 2) {
+                          return (
+                            <NewsCardV2
+                              key={i}
+                              title={item?.title}
+                              subTitle={item?.subTitle}
+                              media={item?.media}
+                              category={item?.category}
+                              dateTime={item?.created_at}
+                            />
+                          );
+                        }
+                      })
+                    )}
+                  </Stack>
+                </Stack>
+
+                {/* View Button */}
+                <Stack
+                  justifyContent={'flex-end'}
+                  marginTop={5}
+                >
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      border: 'none',
+                      paddingInline: '2rem',
+                      color: 'white',
+                      fontSize: '20px',
+                      textDecoration: 'none',
+                      '&:hover': {
+                        border: 'none',
+                        textDecoration: 'underline',
+                      },
+                    }}
+                    onClick={() =>
+                      router.push(`/${langCurrent}/home/industry/news`)
+                    }
+                    endIcon={isArabic ? <ArrowLeft /> : <ArrowRight />}
+                  >
+                    {t('buttons.view')}
+                  </Button>
                 </Stack>
               </Stack>
-
-              <div className="mt-2 sm-flex-row-row-center-end  m-inline-end-2">
-                <Button
-                  variant="outlined"
-                  sx={{
-                    border: 'none',
-                    paddingInline: '2rem',
-                    color: 'white',
-                    textDecoration: 'none',
-                    '&:hover': {
-                      border: 'none',
-                      textDecoration: 'underline',
-                    },
-                  }}
-                  onClick={() =>
-                    router.push(`/${langCurrent}/home/industry/news`)
-                  }
-                  endIcon={isArabic ? <ArrowLeft /> : <ArrowRight />}
-                >
-                  {t('buttons.view')}
-                </Button>
-              </div>
             </div>
           </div>
         </div>

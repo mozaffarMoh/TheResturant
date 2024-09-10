@@ -3,9 +3,11 @@ import type { NextPage } from 'next';
 import Link from '@mui/material/Link';
 import GridFlex from '@mui/material/Unstable_Grid2';
 import {
+  Box,
   Breadcrumbs,
   Card,
   CardContent,
+  CardMedia,
   CircularProgress,
   Container,
   FormControl,
@@ -32,12 +34,13 @@ import {
 import { DefautImage2 } from '@/constant/images';
 import CardSkeletonVertical from '@/components/skeleton/cardSkeletonVertical';
 import NoData from '@/components/NoData/NoData';
+import Image from 'next/image';
 
 const MentorsPage: NextPage = () => {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
-  let isArabic = pathname?.startsWith('/ar');
+  let isArabic = pathname.startsWith('/ar');
   const langCurrent = pathname?.slice(1, 3) || 'en';
   const isScreen600 = useMediaQuery('(max-width:600px)');
   const [profession, setProfession] = useState('');
@@ -279,15 +282,22 @@ const MentorsPage: NextPage = () => {
                         router.push(`/${langCurrent}/home/mentors/${item.slug}`)
                       }
                     >
-                      <img
-                        src={imageURL}
-                        style={{
+                      <CardMedia
+                        sx={{
                           width: '100%',
                           height: 250,
-                          borderRadius: '10px',
+                          position: 'relative',
                         }}
-                        alt={'mentor-image'}
-                      />
+                      >
+                        <Image
+                          src={imageURL}
+                          fill
+                          style={{
+                            borderRadius: '10px',
+                          }}
+                          alt={'mentor-image'}
+                        />
+                      </CardMedia>
                       <CardContent>
                         <Typography
                           gutterBottom

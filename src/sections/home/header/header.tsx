@@ -29,6 +29,7 @@ import ConfirmationModal from '@/components/modals/ConfirmationModal';
 import useGet from '@/custom-hooks/useGet';
 import { domain, endPoints } from '@/base-api/endPoints';
 import { useProfilePictureContext } from '@/contexts/ProfilePictureUpdatedContext';
+import Image from 'next/image';
 
 const Header = () => {
   const t = useTranslations();
@@ -196,7 +197,8 @@ const Header = () => {
         >
           {partnersLogos.map((logo: string, i: number) => {
             return (
-              <img
+              <Image
+                alt="partner-log"
                 key={i}
                 src={logo ? logo : DefautIcon}
                 width={logo ? 60 : 30}

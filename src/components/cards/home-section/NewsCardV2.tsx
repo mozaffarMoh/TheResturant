@@ -5,9 +5,10 @@ import './news-card-v2.css';
 import { ClockSVG, DateSVG } from '../../../../assets/icons';
 import { domain } from '@/base-api/endPoints';
 import { DefautImage1 } from '@/constant/images';
-import { Button, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Box, Button, Stack, Typography, useMediaQuery } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import dayjs from 'dayjs';
+import Image from 'next/image';
 
 export default function NewsCardV2({
   title,
@@ -33,19 +34,28 @@ export default function NewsCardV2({
     <Card
       variant="outlined"
       sx={{
-        width: isScreen400 ? 250 : 320,
+        width: isScreen400 ? 240 : 240,
         borderRadius: '1.1rem',
         padding: 1,
       }}
       style={{ margin: '0px' }}
     >
       <Stack position={'relative'}>
-        <img
-          src={imageURL}
-          loading="lazy"
-          alt="news-card-image"
-          style={{ width: '100%', height: 250, borderRadius: '15px' }}
-        />
+        <Box
+          sx={{
+            width: '100%',
+            height: '200px',
+            position: 'relative',
+          }}
+        >
+          <Image
+            src={imageURL}
+            loading="lazy"
+            alt="news-card-image"
+            fill
+            style={{ borderRadius: '15px' }}
+          />
+        </Box>
         {category && (
           <Button
             variant="contained"

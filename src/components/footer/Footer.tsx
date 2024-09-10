@@ -187,7 +187,7 @@ const Footer = () => {
                 alignItems="center"
               >
                 <Grid
-                  md={5}
+                  md={4}
                   lg={4}
                   display="flex"
                   justifyContent="flex-start"
@@ -247,9 +247,9 @@ const Footer = () => {
                   lg={4}
                   display="flex"
                   justifyContent={{
-                    xs: 'flex-start',
-                    md: 'flex-start',
-                    lg: 'center',
+                    xs: 'center',
+                    md: 'center',
+                    lg: 'flex-end',
                   }}
                 >
                   <Item>
@@ -270,7 +270,7 @@ const Footer = () => {
                   </Item>
                 </Grid>
                 <Grid
-                  md={3}
+                  md={4}
                   lg={4}
                   className={styles.lgHeight}
                   sx={{ marginTop: '-1rem' }}
