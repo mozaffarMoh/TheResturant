@@ -31,7 +31,7 @@ import ForgetPasswordModal from '@/components/modals/ForgetPasswordModal';
 
 const SignIn: NextPage = () => {
   const pathname = usePathname();
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const t = useTranslations();
   const router = useRouter();
   const [email, setEmail] = useState('');

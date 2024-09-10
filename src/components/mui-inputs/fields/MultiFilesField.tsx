@@ -156,7 +156,7 @@ const MultiFilesField = ({
       <List>
         {filesFormArray.map((file: File, index: number) => {
           const threeDots = file?.name?.length > 10 ? '...' : '';
-          let shortFileName = file?.name.slice(0, 15) + threeDots;
+          let shortFileName = file?.name?.slice(0, 15) + threeDots;
           return (
             <ListItem
               key={index}

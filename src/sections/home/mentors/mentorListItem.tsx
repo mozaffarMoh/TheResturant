@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 export default function MentorListItem({ item, key }: any) {
   const router = useRouter();
   const pathname = usePathname();
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   let imageURL =
     item && item?.user?.media?.image?.[0]?.url
       ? domain + item?.user?.media?.image?.[0]?.url
@@ -22,11 +22,11 @@ export default function MentorListItem({ item, key }: any) {
   let professionsList =
     professions?.join('').length < 25
       ? professions
-      : professions.join('').slice(0, 25) + '...';
+      : professions.join('')?.slice(0, 25) + '...';
 
   let name =
     item?.user?.name && item?.user?.name.length > 15
-      ? item?.user?.name.slice(0, 15) + '...'
+      ? item?.user?.name?.slice(0, 15) + '...'
       : item?.user?.name;
 
   return (

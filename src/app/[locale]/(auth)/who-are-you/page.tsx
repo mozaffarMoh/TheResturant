@@ -17,7 +17,7 @@ const WhoAreYouPage: NextPage = () => {
   const formData: any = localStorage.getItem('formData');
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const t = useTranslations();
   const [type, setType] = useState('');
   const [typesArray, setTypesArray] = useState([]);

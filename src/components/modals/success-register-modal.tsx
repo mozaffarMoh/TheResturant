@@ -106,7 +106,7 @@ const SuccessRegisterModal = ({
               setOTPValue(value);
               if (value.length < 5) {
                 const allInputs: any = document.querySelectorAll('input');
-                const otpInputs = [...allInputs].slice(-5);
+                const otpInputs = [...allInputs]?.slice(-5);
 
                 if (otpInputs[value.length]) {
                   otpInputs[value.length].focus();

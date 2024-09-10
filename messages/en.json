@@ -212,7 +212,7 @@
         "password-update": "Password has been updated successfuly",
         "send-message": "Message sent successfully",
         "success-reserve-facility": "Reservation Completed Successfully",
-        "facility-exceed-hours": "You should not exceed 5 PM",
+        "facility-exceed-hours": "Working hours must not be exceeded",
         "facility-between-reserved-hours": "You have chosen reserved hours",
         "request": "Request has been sent successfully",
         "no-data": "No Data",

@@ -37,7 +37,7 @@ export const emailSchema = (t: any) => {
 
 const ForgetPasswordModal = ({ open, onClose }: TermsModalProps) => {
   const pathname = usePathname();
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const router = useRouter();
   const t = useTranslations();
   const [email, setEmail] = useState('');

@@ -17,7 +17,7 @@ const CustomAlert = ({
   position = { vertical: 'top', horizontal: 'right' },
 }: IProps) => {
   const pathname = usePathname();
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const reverseDirection = langCurrent == 'en' ? 'rtl' : 'ltr';
 
   return (

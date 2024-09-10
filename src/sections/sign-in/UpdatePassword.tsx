@@ -27,7 +27,7 @@ const UpdatePassword = () => {
   const router = useRouter();
   const t = useTranslations();
   const pathname = usePathname();
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState({ password: '', confirmPassword: '' });

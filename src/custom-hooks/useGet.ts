@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const useGet = (endPoint: string, withAuth?: boolean): any => {
     const pathname = usePathname();
-    const langCurrent = pathname.slice(1, 3) || 'en';
+    const langCurrent = pathname?.slice(1, 3) || 'en';
     const tokenCookie = Cookies.get('token') || '';
     const headers = {
         Accept: 'application/json',

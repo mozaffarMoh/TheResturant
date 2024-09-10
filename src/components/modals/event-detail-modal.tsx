@@ -101,7 +101,7 @@ const EventDetailsModal = ({
 
   const shrinkValue = (val: string) => {
     if (val && val.length > 13 && isScreen510) {
-      return val.slice(0, 10) + '...';
+      return val?.slice(0, 10) + '...';
     } else {
       return val;
     }

@@ -69,7 +69,7 @@ const AboutUsSection = ({ data, loading }: any) => {
                 />
               ) : (
                 <p className="sub-xlarge-title">
-                  {words.slice(1, words.length).join(' ')}
+                  {words?.slice(1, words.length)?.join(' ')}
                 </p>
               )}
 

@@ -37,8 +37,8 @@ const MentorsPage: NextPage = () => {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
-  let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  let isArabic = pathname?.startsWith('/ar');
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const isScreen600 = useMediaQuery('(max-width:600px)');
   const [profession, setProfession] = useState('');
   const [page, setPage] = useState(1);

@@ -211,7 +211,7 @@
         "password-update": "تم تحديث كلمة المرور بنجاح",
         "send-message": "تم إرسال الرسالة بنجاح",
         "success-reserve-facility": "تم الحجز بنجاح",
-        "facility-exceed-hours": "يجب ألا تتجاوز الساعة 5 مساءً",
+        "facility-exceed-hours": "يجب أن لا تتجاوز وقت انتهاء الدوام",
         "facility-between-reserved-hours": "لقد اخترت الساعات المحجوزة",
         "request": "تم ارسال الطلب بنجاح",
         "no-data": " لايوجد بيانات",

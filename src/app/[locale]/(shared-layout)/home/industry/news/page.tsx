@@ -37,7 +37,7 @@ const News = () => {
   const t = useTranslations();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const isScreen900 = useMediaQuery('(max-width:900px)');
   const isScreen450 = useMediaQuery('(max-width:450px)');
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
@@ -374,7 +374,7 @@ const News = () => {
                   renderValue={(selected: string) => {
                     const displayValue =
                       selected.length > 10
-                        ? `${selected.slice(0, 10)}...`
+                        ? `${selected?.slice(0, 10)}...`
                         : selected;
                     return (
                       <Typography textTransform={'capitalize'}>

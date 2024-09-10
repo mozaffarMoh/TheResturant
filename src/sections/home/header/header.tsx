@@ -36,7 +36,7 @@ const Header = () => {
   const isScreen991 = useMediaQuery('(max-width:991px)');
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const { isProfilePictureUpdated, setIsProfilePictureUpdated }: any =
     useProfilePictureContext();
 

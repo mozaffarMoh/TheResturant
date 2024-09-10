@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const usePost = (endPoint: string, body: any, authToken?: string): any => {
     const pathname = usePathname();
-    const langCurrent = pathname.slice(1, 3) || 'en';
+    const langCurrent = pathname?.slice(1, 3) || 'en';
     const headers = {
         Accept: 'application/json',
         Language: langCurrent,

@@ -49,7 +49,7 @@ const CustomMultiFiles = ({
       validFiles.length = 5; // Limit to 5 files
     }
 
-    const updatedFiles = [...validFiles].slice(0, 5);
+    const updatedFiles = [...validFiles]?.slice(0, 5);
     setFiles(updatedFiles);
 
     field.onChange(updatedFiles);

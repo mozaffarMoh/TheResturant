@@ -28,8 +28,8 @@ import NoData from '@/components/NoData/NoData';
 const JobOfferingSection = () => {
   const t = useTranslations();
   const pathname = usePathname();
-  let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  let isArabic = pathname?.startsWith('/ar');
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const isScreen450 = useMediaQuery('(max-width:450px)');
   const [sortItems, setSortItems] = useState<Number>(0);
   const router = useRouter();

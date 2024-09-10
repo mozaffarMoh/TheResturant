@@ -225,10 +225,10 @@ const Profile = () => {
 
   useEffect(() => {
     if (userData?.slug) {
-      let phoneForRender = userData?.phone.startsWith('+962')
-        ? userData?.phone.slice(4)
+      let phoneForRender = userData?.phone?.startsWith('+962')
+        ? userData?.phone?.slice(4)
         : userData?.phone;
-      let phoneForSend = !userData?.phone.startsWith('+962')
+      let phoneForSend = !userData?.phone?.startsWith('+962')
         ? '+962' + userData?.phone
         : userData?.phone;
 

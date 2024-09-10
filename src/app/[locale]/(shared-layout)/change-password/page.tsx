@@ -28,7 +28,7 @@ const ChangePassword = () => {
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const isScreen700 = useMediaQuery('(max-width:700px)');
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const [showPasswords, setShowPasswords] = useState([false, false, false]);
   const [password, setPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');

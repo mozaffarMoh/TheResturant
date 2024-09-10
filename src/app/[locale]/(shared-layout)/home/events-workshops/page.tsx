@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 const EventsWorkShopsPage: NextPage = () => {
   const t = useTranslations();
   const pathname = usePathname();
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const [isClientSide, setIsClientSide] = useState(false);
 
   useEffect(() => {

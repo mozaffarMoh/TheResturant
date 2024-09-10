@@ -96,7 +96,7 @@ const VideoSection = ({ data, loading }: any) => {
             />
           ) : (
             <Typography color={'white'}>
-              {words.slice(1, words.length).join(' ')}
+              {words?.slice(1, words.length)?.join(' ')}
             </Typography>
           )}
         </Stack>

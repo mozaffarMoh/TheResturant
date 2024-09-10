@@ -34,7 +34,7 @@ export default function WorkShopCard({
       : DefautImage1;
 
   let subTitleSentence =
-    subTitle.length > 140 ? subTitle.slice(0, 140) + '...' : subTitle;
+    subTitle.length > 140 ? subTitle?.slice(0, 140) + '...' : subTitle;
   return (
     <Card
       variant="outlined"

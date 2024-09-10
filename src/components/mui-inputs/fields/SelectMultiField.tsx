@@ -47,7 +47,7 @@ function SelectMultiField({
             variant="outlined"
             className="input-form-control-multi-check"
             error={!!fieldState.error}
-            style={{ width:'100%'}}
+            style={{ width: '100%' }}
             sx={{
               '& .MuiInputBase-root': {
                 borderRadius: '50px',
@@ -81,15 +81,15 @@ function SelectMultiField({
               sx={{ borderRadius: '50px' }}
               renderValue={(selected) =>
                 selected
-                  .slice(0, 4)
-                  .map((value: string) => {
-                    const item = fieldData.find(
+                  ?.slice(0, 4)
+                  ?.map((value: string) => {
+                    const item = fieldData?.find(
                       (option: any) => option.id === value,
                     );
 
                     return item ? item.name : value;
                   })
-                  .join(' || ')
+                  ?.join(' || ')
               }
               onChange={(e: any) => {
                 // Update the onChange handler

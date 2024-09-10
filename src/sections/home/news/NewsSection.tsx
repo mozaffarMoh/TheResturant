@@ -16,7 +16,7 @@ const NewsSection = () => {
   const router = useRouter();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
 
   const body = {
     modelName: 'Item',

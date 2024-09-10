@@ -29,7 +29,7 @@ const GuestHeader = ({ partnersData }: any) => {
   const router = useRouter();
   const pathname = usePathname();
   const isScreen991 = useMediaQuery('(max-width:991px)');
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   let isArabic = pathname.startsWith('/ar');
   const [activeValue, setActiveValue] = useState('');
   const isActive = (value: string) => value == activeValue;

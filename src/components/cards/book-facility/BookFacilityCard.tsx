@@ -21,7 +21,7 @@ export default function BookFacilityCard({
   place,
 }: any) {
   const pathname = usePathname();
-  const langCurrent = pathname.slice(1, 3) || 'en';
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const { push } = useRouter();
   const isScreen650 = useMediaQuery('(max-width:650px)');
   let imageURL =
