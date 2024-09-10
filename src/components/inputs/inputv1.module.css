@@ -13,6 +13,15 @@
   text-align: right;
 }
 
+.phoneField input {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+/* .phoneField input::placeholder {
+  text-align: right;
+} */
+
 /* Scoped svg styling inside generalInput */
 .generalInput svg {
   width: 18px;

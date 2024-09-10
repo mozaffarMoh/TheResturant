@@ -91,16 +91,11 @@ const WhoAreYouPage: NextPage = () => {
                   {typesArray.map((item: any) => {
                     return (
                       <JoyButton
-                        key={item.id}
-                        value={item.value}
-                        aria-label={item.name}
-                        className={whoAreStyles.singleButtonGroup}
-                        style={{
-                          backgroundColor:
-                            type === item.name ? 'orange' : 'transparent',
-                          color: type === item.name ? 'white' : 'black',
-                        }}
-                        disabled={type === item.name}
+                        key={item?.id}
+                        value={item?.value}
+                        aria-label={item?.name}
+                        className={`${whoAreStyles.singleButtonGroup} ${type === item?.name && whoAreStyles.activeButton}`}
+                        disabled={type === item?.name}
                       >
                         {item.name}
                       </JoyButton>

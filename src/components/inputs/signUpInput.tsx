@@ -103,6 +103,9 @@ const SignUpInput = ({
           <FormControl
             error={!!error}
             fullWidth
+            sx={{
+              direction: slug == 'phone' ? 'ltr' : '',
+            }}
           >
             <Input
               error={!!error}
@@ -116,7 +119,7 @@ const SignUpInput = ({
                 onChange(e.target.value);
               }}
               value={field.value}
-              className={`${styles.generalInput} ${isArabic && styles.passwordARdirection}`}
+              className={`${styles.generalInput} ${isArabic && styles.passwordARdirection} ${slug == 'phone' && styles.phoneField}`}
             />{' '}
             {!!error && (
               <FormHelperText sx={{ textAlign: isArabic ? 'right' : 'left' }}>
