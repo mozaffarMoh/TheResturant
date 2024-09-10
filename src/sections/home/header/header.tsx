@@ -75,7 +75,14 @@ const Header = () => {
       ? domain + userData?.media?.image?.[0]?.url
       : avatarImage;
 
-  const [partnersData, , setPartnersData] = useGet(endPoints.getPartners, true);
+  const [
+    partnersData,
+    ,
+    getPartnersData,
+    successPartnersData,
+    ,
+    errorPartnersData,
+  ] = useGet(endPoints.getPartners, true);
 
   const isActive = (path: string) => pathname == path;
   const [partnersLogos, setPartnersLogos] = useState<string[]>([]);
@@ -105,7 +112,7 @@ const Header = () => {
 
   useEffect(() => {
     getUserData();
-    setPartnersData();
+    getPartnersData();
   }, []);
 
   useEffect(() => {
@@ -116,16 +123,22 @@ const Header = () => {
   }, [isProfilePictureUpdated]);
 
   useEffect(() => {
-    if (partnersData && partnersData?.children) {
-      const imageUrls = partnersData?.children.map((item: any) => {
-        return item?.media?.image?.[0]?.url
-          ? domain + item?.media?.image?.[0]?.url
-          : '';
-      });
-
-      setPartnersLogos(imageUrls);
+    if (successPartnersData) {
+      if (partnersData && partnersData?.children) {
+        const imageUrls = partnersData?.children.map((item: any) => {
+          return item?.media?.image?.[0]?.url
+            ? String(domain + item?.media?.image?.[0]?.url)
+            : '';
+        });
+        setPartnersLogos(imageUrls);
+      }
     }
-  }, [partnersData]);
+  }, [successPartnersData, errorPartnersData]);
+  useEffect(() => {
+    if (errorPartnersData) {
+      getPartnersData();
+    }
+  }, [errorPartnersData]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -197,7 +210,7 @@ const Header = () => {
         >
           {partnersLogos.map((logo: string, i: number) => {
             return (
-              <Image
+              <img
                 alt="partner-log"
                 key={i}
                 src={logo ? logo : DefautIcon}
