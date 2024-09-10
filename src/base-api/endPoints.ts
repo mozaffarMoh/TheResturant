@@ -29,7 +29,7 @@ export const endPoints = {
     uploadProfileImage: '/update-image/',
     getUserInformation: '/get-current-user/',
     getPartners: "/core/dynamicLookup/partners",
-    getTermsOfUse: "/ecomm/getItemsByType/workshop"
+    getTermsOfUse: "/core/public-page/terms-of-use"
 }
 
 

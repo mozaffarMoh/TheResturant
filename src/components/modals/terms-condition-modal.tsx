@@ -34,32 +34,11 @@ const TermsConditionsModal = ({
 }: TermsModalProps) => {
   const t = useTranslations();
   const isScreen500 = useMediaQuery('(max-width:500px)');
-  /*   const [data, loading, getData, success] = useGet(endPoints.getTermsOfUse);
+  const [data, loading, getData, success] = useGet(endPoints.getTermsOfUse);
 
   useEffect(() => {
     showModal && !success && getData();
   }, [showModal]);
-
-  console.log(data); */
-
-  const loading = false;
-  const data = [
-    {
-      title: '1. Clause',
-      subTitle:
-        'Cras mattis consectetur purus sit amet fermentum. Cras justo  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo  risus, porta ac consectetur ac, vestibulum at eros.',
-    },
-    {
-      title: '2. Clause',
-      subTitle:
-        'Cras mattis consectetur purus sit amet fermentum. Cras justo  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo  risus, porta ac consectetur ac, vestibulum at eros.',
-    },
-    {
-      title: '3. Clause',
-      subTitle:
-        'Cras mattis consectetur purus sit amet fermentum. Cras justo  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo  risus, porta ac consectetur ac, vestibulum at eros.',
-    },
-  ];
 
   return (
     <BootstrapDialog
@@ -72,17 +51,19 @@ const TermsConditionsModal = ({
         className="sm-flex-col-col-center-center"
         id="customized-dialog-title"
       >
-        <p className="m-0">{t('auth.terms-title')}</p>
         {loading ? (
           <Skeleton
             variant="text"
-            width={isScreen500 ? 150 : 250}
+            width={isScreen500 ? 100 : 250}
           />
         ) : (
+          <p className="m-0">{data?.title && data?.title}</p>
+        )}
+        {/*   
           <p className="m-0 text-reg fc-light-black">
             Last updated on 6/12/2024
           </p>
-        )}
+        )} */}
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -114,7 +95,14 @@ const TermsConditionsModal = ({
             })}
           </Stack>
         ) : (
-          data.map((item: any) => {
+          data?.text && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: data?.text,
+              }}
+            />
+          )
+          /*   data.map((item: any) => {
             return (
               <>
                 <Typography
@@ -126,7 +114,7 @@ const TermsConditionsModal = ({
                 <Typography gutterBottom>{item.subTitle}</Typography>
               </>
             );
-          })
+          }) */
         )}
       </DialogContent>
     </BootstrapDialog>
