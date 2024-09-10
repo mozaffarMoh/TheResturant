@@ -197,10 +197,9 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
             let from = item?.start_timeslot_time;
             let to = item?.end_timeslot_time;
             newArray.push({
-              from: parseInt(from.split(':')[0], 10),
-              to: parseInt(to.split(':')[0], 10) - 1,
-            });
-          });
+              from: parseInt(from?.split(':')?.[0], 10),
+              to: parseInt(to?.split(':')?.[0], 10) - 1,
+            })        });
           setTimeBooked(newArray);
         } else {
           setTimeBooked([
@@ -278,8 +277,8 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
       let from = facility?.children[0]?.itemTimes[0]?.from_time;
       let to = facility?.children[0]?.itemTimes[0]?.to_time;
 
-      setFromTime(parseInt(from.split(':')[0], 10));
-      setToTime(parseInt(to.split(':')[0], 10));
+      setFromTime(parseInt(from?.split(':')?.[0], 10));
+      setToTime(parseInt(to?.split(':')?.[0], 10));
     }
   }, [facility]);
   useEffect(() => {

@@ -297,9 +297,9 @@ const UserDetailsPage: NextPage = () => {
                 {typeDetails?.name && (
                   <p className=" text-large-title m-1">
                     <span className="fc-secondary">
-                      {typeDetails?.name.split(' ')[0]}
+                      {typeDetails?.name?.split(' ')?.[0]}
                     </span>{' '}
-                    {typeDetails?.name.split(' ')[1]}
+                    {typeDetails?.name?.split(' ')?.[1]}
                   </p>
                 )}
               </div>

@@ -16,7 +16,7 @@ const NormalMenuList = ({ indexKey, href, title }: IProps) => {
   const [isActive, setIsActive] = useState(false);
 
   const checkActive = () => {
-    const pathPieces = href.split('/');
+    const pathPieces = href?.split('/');
     if (
       pathPieces[3] &&
       (pathPieces[3] == 'events-workshops' ||
