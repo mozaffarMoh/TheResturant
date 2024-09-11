@@ -36,7 +36,7 @@ const SignIn: NextPage = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [deviceIp, setDeviceIp] = useState('');
+  const [deviceIp, setDeviceIp] = useState('127.0.0.1');
   const [retryGettingIp, setRetryGettingIp] = useState(false);
   const [isRememberMe, setIsRememberMe] = useState(false);
   const [showForgetPassword, setShowForgetPassword] = useState(false);
@@ -50,7 +50,7 @@ const SignIn: NextPage = () => {
 
   /* get ip address */
   useEffect(() => {
-    if (!deviceIp) {
+    if (deviceIp == '127.0.0.1') {
       axios
         .get('https://api.ipify.org?format=json')
         .then((res: any) => {

@@ -37,7 +37,10 @@ function TextField({
       control={control}
       render={({ field, fieldState }) => (
         <MuiTextField
-          style={{ width: '100%' }}
+          style={{
+            width: '100%',
+            direction: name == 'phone' ? 'ltr' : 'inherit',
+          }}
           {...field}
           value={field.value || value}
           onChange={(e) => {
@@ -82,7 +85,6 @@ function TextField({
               textAlign: isArabic ? 'right' : 'left',
             },
             '& .MuiFormLabel-root': {
-              marginRight: startDecorator && isArabic ? 12 : '',
               marginLeft: startDecorator && !isArabic ? 12 : '',
               '&.MuiInputLabel-shrink': {
                 color: 'initial',
