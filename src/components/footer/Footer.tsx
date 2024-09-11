@@ -27,6 +27,8 @@ import CustomAlert from '../alerts/CustomAlert';
 import useGet from '@/custom-hooks/useGet';
 import Link from 'next/link';
 import { getSocialSVG } from '@/constant/getSocialSVG';
+import TermsConditionsModal from '../modals/terms-condition-modal';
+import FooterLinksModal from '../modals/footerLinksModal1';
 
 const Footer = () => {
   const t = useTranslations();
@@ -35,6 +37,7 @@ const Footer = () => {
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [email, setEmail] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
@@ -102,7 +105,10 @@ const Footer = () => {
       component="footer"
       className={styles.footer}
     >
-      {' '}
+      <FooterLinksModal
+        open={openModal}
+        handleClose={() => setOpenModal(false)}
+      />{' '}
       <CustomAlert
         openAlert={errorMessage}
         setOpenAlert={() => {}}
@@ -253,7 +259,7 @@ const Footer = () => {
                   }}
                 >
                   <Item>
-                    <Box aria-labelledby="category-b">
+                    <Box aria-labelledby="category-b" onClick={() => setOpenModal(true)}>
                       <p style={{ fontSize: '1.2rem', fontWeight: '600' }}>
                         {t('footer.our-company')}
                       </p>

@@ -14,8 +14,8 @@ const ContactUsSectionCard = ({ title, content, media }: IProps) => {
   let isArabic = pathname.startsWith('/ar');
 
   let imageURL =
-    media && media?.image?.[0]?.url
-      ? domain + media?.image?.[0]?.url
+    media && media?.icon?.[0]?.url
+      ? domain + media?.icon?.[0]?.url
       : DefautIcon;
 
   return (
