@@ -75,14 +75,10 @@ const Header = () => {
       ? domain + userData?.media?.image?.[0]?.url
       : avatarImage;
 
-  const [
-    partnersData,
-    ,
-    getPartnersData,
-    successPartnersData,
-    ,
-    errorPartnersData,
-  ] = useGet(endPoints.getPartners, true);
+  const [partnersData, , getPartnersData, successPartnersData] = useGet(
+    endPoints.getPartners,
+    true,
+  );
 
   const isActive = (path: string) => pathname == path;
   const [partnersLogos, setPartnersLogos] = useState<string[]>([]);
@@ -133,12 +129,7 @@ const Header = () => {
         setPartnersLogos(imageUrls);
       }
     }
-  }, [successPartnersData, errorPartnersData]);
-  useEffect(() => {
-    if (errorPartnersData) {
-      getPartnersData();
-    }
-  }, [errorPartnersData]);
+  }, [successPartnersData]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

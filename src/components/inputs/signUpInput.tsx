@@ -119,7 +119,7 @@ const SignUpInput = ({
                 onChange(e.target.value);
               }}
               value={field.value}
-              className={`${styles.generalInput} ${isArabic && styles.passwordARdirection} ${slug == 'phone' && styles.phoneField}`}
+              className={`${styles.generalInput} ${isArabic && styles.passwordARdirection} ${slug == 'phone' && isArabic && styles.phoneField}`}
             />{' '}
             {!!error && (
               <FormHelperText sx={{ textAlign: isArabic ? 'right' : 'left' }}>
