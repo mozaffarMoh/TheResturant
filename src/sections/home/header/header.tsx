@@ -206,7 +206,7 @@ const Header = () => {
                 key={i}
                 src={logo ? logo : DefautIcon}
                 width={logo ? 60 : 30}
-                height={logo ? 50 : 25}
+                height={logo ? 45 : 25}
               />
             );
           })}
