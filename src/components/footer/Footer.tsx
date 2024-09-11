@@ -9,6 +9,7 @@ import {
   MenuItem,
   Menu,
   CircularProgress,
+  Skeleton,
 } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import { Input } from '@mui/joy';
@@ -27,8 +28,6 @@ import CustomAlert from '../alerts/CustomAlert';
 import useGet from '@/custom-hooks/useGet';
 import Link from 'next/link';
 import { getSocialSVG } from '@/constant/getSocialSVG';
-import TermsConditionsModal from '../modals/terms-condition-modal';
-import FooterLinksModal from '../modals/footerLinksModal1';
 
 const Footer = () => {
   const t = useTranslations();
@@ -37,7 +36,6 @@ const Footer = () => {
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const [open, setOpen] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [email, setEmail] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
@@ -50,11 +48,15 @@ const Footer = () => {
 
   const [socialMediaData, , getSocial] = useGet(endPoints.socialMedia);
   const [contactUSData, , getContact] = useGet(endPoints.contactUsFooter);
+  const [ytjData, ytjLoading, getYtjData] = useGet(endPoints.getYTJ);
 
   useEffect(() => {
     getSocial();
     getContact();
+    getYtjData();
   }, []);
+
+  console.log(ytjData);
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: 'transparent',
@@ -105,10 +107,6 @@ const Footer = () => {
       component="footer"
       className={styles.footer}
     >
-      <FooterLinksModal
-        open={openModal}
-        handleClose={() => setOpenModal(false)}
-      />{' '}
       <CustomAlert
         openAlert={errorMessage}
         setOpenAlert={() => {}}
@@ -259,7 +257,7 @@ const Footer = () => {
                   }}
                 >
                   <Item>
-                    <Box aria-labelledby="category-b" onClick={() => setOpenModal(true)}>
+                    <Box aria-labelledby="category-b">
                       <p style={{ fontSize: '1.2rem', fontWeight: '600' }}>
                         {t('footer.our-company')}
                       </p>
@@ -307,14 +305,40 @@ const Footer = () => {
                 alignItems="center"
                 gap={0}
               >
-                <div className={styles.modeInfo}>
-                  <p className="text-white-new fw500 p-0 ">YTJ</p>
+                {ytjLoading ? (
+                  <div className={styles.modeInfo}>
+                    <Skeleton
+                      variant="text"
+                      width="100px"
+                    />
+                    <Skeleton
+                      variant="text"
+                      width="150px"
+                    />
+                       <Skeleton
+                      variant="text"
+                      width="120px"
+                    />
+                  </div>
+                ) : (
+                  <div className={styles.modeInfo}>
+                    <p className="text-white-new fw500 p-0 ">
+                      {ytjData?.value}
+                    </p>
 
-                  <p className="text-reg fc-light-white p-0">
-                    YTJInfo@modee.gov.jo <br />
-                    0776317207
-                  </p>
-                </div>
+                    <p className="text-reg fc-light-white p-0">
+                      {ytjData?.children &&
+                        ytjData?.children.map((item: any) => {
+                          return (
+                            <>
+                              {item?.value}
+                              <br />
+                            </>
+                          );
+                        })}
+                    </p>
+                  </div>
+                )}
               </Grid>
             </Grid>
             <Grid

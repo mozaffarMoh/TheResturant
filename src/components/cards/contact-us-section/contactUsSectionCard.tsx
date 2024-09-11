@@ -30,8 +30,8 @@ const ContactUsSectionCard = ({ title, content, media }: IProps) => {
       >
         <img
           src={imageURL}
-          width={40}
-          height={40}
+          width={35}
+          height={35}
           style={{ borderRadius: '10px' }}
         />
       </Grid>

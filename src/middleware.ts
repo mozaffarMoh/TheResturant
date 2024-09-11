@@ -41,7 +41,8 @@ export async function middleware(req: NextRequest) {
       url.pathname.includes('/contact-us') ||
       url.pathname.includes('/profile') ||
       url.pathname.includes('/change-password') ||
-      url.pathname.includes('/my-activity')
+      url.pathname.includes('/my-activity') ||
+      url.pathname.includes('/links')
     ) {
       url.pathname = `/${localeCookies}/guest-home`;
       return NextResponse.redirect(url);

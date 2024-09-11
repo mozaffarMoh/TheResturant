@@ -46,14 +46,17 @@
   -ms-transition: all 0.4s ease;
   -o-transition: all 0.4s ease;
   transition: all 0.4s ease;
+
   @media (max-width: 420px) {
     width: 2rem;
     height: 2rem;
   }
 }
+
 .socialIconContainer:hover {
   background-color: white;
 }
+
 .socialIconContainer:hover svg path {
   fill: #21325b !important;
 }
@@ -61,16 +64,20 @@
 .modeInfo {
   /* width: auto; */
   max-width: 9rem;
+  min-width: 140px;
+  min-height: 140px;
   /* margin-top: 2rem; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   border-radius: var(--br-3xs);
+
   background-color: var(--secondary-text-color);
   padding: 0rem 3rem 0rem 3rem;
   gap: 0px;
   z-index: 5;
+
   @media (max-width: 576px) {
     padding: 0rem 2.8rem 0rem 2.8rem;
   }

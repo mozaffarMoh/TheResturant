@@ -257,6 +257,7 @@
         "sign_in": "The Platform | Sign in",
         "sign_up": "The Platform | Sign up",
         "who_are_you": "The Platform | Who Are You",
-        "user_details": "The Platform | User Details"
+        "user_details": "The Platform | User Details",
+        "public-page": "The Platform | Public Page"
     }
 }

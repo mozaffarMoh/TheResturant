@@ -29,7 +29,9 @@ export const endPoints = {
     uploadProfileImage: '/update-image/',
     getUserInformation: '/get-current-user/',
     getPartners: "/core/dynamicLookup/partners",
-    getTermsOfUse: "/core/public-page/terms-of-use"
+    getTermsOfUse: "/core/public-page/tpf-terms-of-use",
+    getSinglePublicPage: "/core/public-page/",
+    getYTJ: '/core/dynamicLookup/tpf-ytj',
 }
 
 
