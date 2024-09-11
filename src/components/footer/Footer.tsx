@@ -35,6 +35,7 @@ const Footer = () => {
   const token = Cookies.get('token') || '';
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
+  const langCurrent = pathname?.slice(1, 3) || 'en';
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [email, setEmail] = useState<string>('');
@@ -56,7 +57,46 @@ const Footer = () => {
     getYtjData();
   }, []);
 
-  console.log(ytjData);
+  const menuArray = [
+    {
+      title: t('header.events-workshops'),
+      link: `/${langCurrent}/home/events-workshops`,
+    },
+    {
+      title: t('header.book-facility'),
+      link: `/${langCurrent}/home/book-facility`,
+    },
+    {
+      title: t('header.mentors'),
+      link: `/${langCurrent}/home/mentors`,
+    },
+    {
+      title: t('header.news'),
+      link: `/${langCurrent}/home/industry/news`,
+    },
+    {
+      title: t('header.announcements'),
+      link: `/${langCurrent}/home/industry/announcements`,
+    },
+    {
+      title: t('header.contact-us'),
+      link: `/${langCurrent}/contact-us`,
+    },
+  ];
+  const linksArray = [
+    {
+      title: t('footer.about-us'),
+      link: `/${langCurrent}/links/tpf-about-us`,
+    },
+    {
+      title: t('footer.terms-of-use'),
+      link: `/${langCurrent}/links/tpf-terms-of-use`,
+    },
+    {
+      title: t('footer.privacy-policy'),
+      link: `/${langCurrent}/links/tpf-privacy-policy`,
+    },
+  ];
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: 'transparent',
@@ -255,43 +295,54 @@ const Footer = () => {
                     md: 'center',
                     lg: 'flex-end',
                   }}
+                  sx={{ textAlign: 'start' }}
                 >
-                  <Item>
-                    <Box aria-labelledby="category-b">
-                      <p style={{ fontSize: '1.2rem', fontWeight: '600' }}>
-                        {t('footer.our-company')}
-                      </p>
-                      <p className="opacity-90">{t('footer.about-us')}</p>
-                      <p className="opacity-90">{t('footer.contact-us')}</p>
-                      <p className="opacity-90">{t('footer.community')}</p>
-                      <p className="opacity-90">{t('footer.student-perks')}</p>
-                      <p className="opacity-90">{t('footer.blog')}</p>
-                      <p className="opacity-90">
-                        {t('footer.affiliate-program')}
-                      </p>
-                      <p className="opacity-90">{t('footer.careers')}</p>
-                    </Box>
-                  </Item>
+                  <Box aria-labelledby="category-b">
+                    <p style={{ fontSize: '1.2rem', fontWeight: '600' }}>
+                      {t('footer.menu')}
+                    </p>
+                    {menuArray.map((item: any, i: number) => {
+                      return (
+                        <p
+                          key={i}
+                          className={styles.navigationLink}
+                          onClick={() => router.push(item.link)}
+                        >
+                          {item.title}
+                        </p>
+                      );
+                    })}
+                  </Box>
                 </Grid>
                 <Grid
                   md={4}
                   lg={4}
-                  className={styles.lgHeight}
-                  sx={{ marginTop: '-1rem' }}
+                  height={'20rem'}
+                  display="flex"
+                  justifyContent={{
+                    xs: 'center',
+                    md: 'center',
+                    lg: 'flex-end',
+                  }}
+                  alignItems={'flex-start'}
+                  sx={{ textAlign: 'start' }}
                 >
-                  <Item>
-                    <Box aria-labelledby="category-c">
-                      <p style={{ fontSize: '1.2rem', fontWeight: '600' }}>
-                        {t('footer.support')}
-                      </p>
-                      <p className="opacity-90">{t('footer.documentations')}</p>
-                      <p className="opacity-90">{t('footer.forums')}</p>
-                      <p className="opacity-90">
-                        {t('footer.languages-packs')}
-                      </p>
-                      <p className="opacity-90">{t('footer.release-status')}</p>
-                    </Box>
-                  </Item>
+                  <Box aria-labelledby="category-b">
+                    <p style={{ fontSize: '1.2rem', fontWeight: '600' }}>
+                      {t('footer.links')}
+                    </p>
+                    {linksArray.map((item: any, i: number) => {
+                      return (
+                        <p
+                          key={i}
+                          className={styles.navigationLink}
+                          onClick={() => router.push(item.link)}
+                        >
+                          {item.title}
+                        </p>
+                      );
+                    })}
+                  </Box>
                 </Grid>
               </Grid>
               {/* Orange box */}
@@ -315,7 +366,7 @@ const Footer = () => {
                       variant="text"
                       width="150px"
                     />
-                       <Skeleton
+                    <Skeleton
                       variant="text"
                       width="120px"
                     />
