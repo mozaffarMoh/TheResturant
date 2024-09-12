@@ -21,7 +21,7 @@ export default function NewsCardV1({ title, subTitle, category, date }: any) {
       orientation="horizontal"
       variant="outlined"
       sx={{
-        width: '230px',
+        width: '235px',
         paddingInline: '2rem',
         borderRadius: '1.1rem',
         gap: 3,
@@ -32,7 +32,7 @@ export default function NewsCardV1({ title, subTitle, category, date }: any) {
         <Paper
           sx={{
             width: '5rem',
-            height: 'auto',
+            height: '65px',
             backgroundColor: primaryColor,
             borderRadius: '1.1rem',
             display: 'flex',

@@ -43,7 +43,7 @@ export default function NewsCardV2({
     >
       <Stack
         position={'relative'}
-        height={isScreen1030 ? 250 : '70%'}
+        height={isScreen1030 ? 250 : '75%'}
       >
         <Box
           sx={{
