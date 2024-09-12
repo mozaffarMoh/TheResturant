@@ -21,7 +21,7 @@ import { typeSchema } from './schema';
 import { useTranslations } from 'next-intl';
 
 const makeValueLowerCaseAndSingle = (type: string) => {
-  let updatedValue = type.toLowerCase();
+  let updatedValue = type?.toLowerCase();
 
   if (/[sS]$/.test(updatedValue)) {
     updatedValue = updatedValue.slice(0, -1);
