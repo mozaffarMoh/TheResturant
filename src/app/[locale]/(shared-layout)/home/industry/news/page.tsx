@@ -43,6 +43,7 @@ const News = () => {
   const isScreen450 = useMediaQuery('(max-width:450px)');
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [category, setCategory] = useState('all');
+  const [renderedCategory, setRenderedCategory] = useState(t('select.all'));
   const [slug, setSlug] = useState('');
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
@@ -110,6 +111,9 @@ const News = () => {
     }
   }, [success]);
 
+  const handleChangeCategory = (e: any) => {
+    setCategory(e.target.value);
+  };
   return (
     <Grid
       container
@@ -175,7 +179,7 @@ const News = () => {
           >
             {data?.length == 0 && success && <NoData />}
             {loading
-              ? Array(2)
+              ? Array(3)
                   .fill(0)
                   .map((_, i: number) => {
                     return (
@@ -373,7 +377,7 @@ const News = () => {
                 <Select
                   labelId="dropdown-tags"
                   value={category}
-                  onChange={(e: any) => setCategory(e.target.value)}
+                  onChange={handleChangeCategory}
                   sx={{
                     borderRadius: '1.5rem',
                     height: '40px',
@@ -381,20 +385,17 @@ const News = () => {
                       padding: '8px 14px',
                     },
                   }}
-                  renderValue={(selected: string) => {
-                    const displayValue =
-                      selected.length > 10
-                        ? `${selected?.slice(0, 10)}...`
-                        : selected;
-                    return (
-                      <Typography textTransform={'capitalize'}>
-                        {displayValue}
-                      </Typography>
-                    );
-                  }}
+                  renderValue={() => (
+                    <Typography textTransform={'capitalize'}>
+                      {renderedCategory}
+                    </Typography>
+                  )}
                 >
                   {' '}
-                  <MenuItem value={'all'}>
+                  <MenuItem
+                    value={'all'}
+                    onClick={() => setRenderedCategory(t('select.all'))}
+                  >
                     <Typography color={category == 'all' ? '#EB6B2A' : ''}>
                       {t('select.all')}
                     </Typography>
@@ -402,7 +403,10 @@ const News = () => {
                   {categories &&
                     categories.map((item: any, i: number) => {
                       return (
-                        <MenuItem value={item.slug}>
+                        <MenuItem
+                          value={item?.slug}
+                          onClick={() => setRenderedCategory(item?.name)}
+                        >
                           <Typography
                             color={item.slug == category ? '#EB6B2A' : ''}
                           >

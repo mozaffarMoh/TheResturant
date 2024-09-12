@@ -128,7 +128,7 @@ const UserDetailsPage: NextPage = () => {
       let formDataParsed: any = JSON.parse(formData);
       let typeIndex: number = 0;
       formDataParsed.children.forEach((item: any, index: number) => {
-        if (item.name.includes(userType?.slice(0, -1))) {
+        if (item?.slug.includes(userType?.slice(0, -1))) {
           typeIndex = index;
         }
       });
