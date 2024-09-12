@@ -21,7 +21,7 @@ export default async function LocaleLayout({
   // Providing all messages to the client
   const messages = await getMessages();
   const isArabic = locale === 'ar';
-  metadata.title = isArabic ? 'المنصة' : 'The Platform'; 
+  metadata.title = isArabic ? 'المنصة' : 'The Platform';
 
   return (
     <html

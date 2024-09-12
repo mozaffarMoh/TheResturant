@@ -2,13 +2,12 @@
 import { Header } from '@/sections/home';
 import Footer from '@/components/footer/Footer';
 import { ProfilePictureProvider } from '@/contexts/ProfilePictureUpdatedContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useGet from '@/custom-hooks/useGet';
 import { endPoints } from '@/base-api/endPoints';
-import Loading from '@/components/Loading/Loading';
 import { usePathname, useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
-import { Skeleton, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
 
 export default function RootLayout({
@@ -24,6 +23,13 @@ export default function RootLayout({
     true,
   );
 
+  const [isSSR, setIsSSR] = useState(true);
+
+  // Check if we're running on the server
+  useEffect(() => {
+    setIsSSR(false); // Once the component is mounted, we're on the client
+  }, []);
+
   useEffect(() => {
     getUserData();
   }, []);
@@ -38,24 +44,10 @@ export default function RootLayout({
     }
   }, [success, errorMessage]);
 
-  return loading ? (
-    <Stack
-      padding={5}
-      gap={5}
-    >
-      <CustomSkeleton
-        variant="rectangular"
-        width="100%"
-        height={60}
-      />
-
-      <CustomSkeleton
-        variant="rectangular"
-        width="100%"
-        height={200}
-      />
+  if (loading || isSSR) {
+    return (
       <Stack
-        direction={'row'}
+        padding={5}
         gap={5}
       >
         <CustomSkeleton
@@ -66,24 +58,39 @@ export default function RootLayout({
         <CustomSkeleton
           variant="rectangular"
           width="100%"
-          height={60}
+          height={200}
+        />
+        <Stack
+          direction={'row'}
+          gap={5}
+        >
+          <CustomSkeleton
+            variant="rectangular"
+            width="100%"
+            height={60}
+          />
+          <CustomSkeleton
+            variant="rectangular"
+            width="100%"
+            height={60}
+          />
+        </Stack>
+        <CustomSkeleton
+          variant="rectangular"
+          width="100%"
+          height={200}
         />
       </Stack>
-      <CustomSkeleton
-        variant="rectangular"
-        width="100%"
-        height={200}
-      />
-    </Stack>
-  ) : (
-    <>
-      {userData?.is_active && (
-        <ProfilePictureProvider>
-          <Header />
-          {children}
-          <Footer />
-        </ProfilePictureProvider>
-      )}
-    </>
+    );
+  }
+  if (!userData?.is_active) {
+    return null; // or a redirect, or an empty fragment <> </>
+  }
+  return (
+    <ProfilePictureProvider>
+      <Header />
+      {children}
+      <Footer />
+    </ProfilePictureProvider>
   );
 }
