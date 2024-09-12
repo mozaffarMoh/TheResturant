@@ -1,6 +1,7 @@
 .sm-flex-col-reverse {
   display: flex;
 }
+
 @media (max-width: 900px) {
   .md-news-media {
     display: flex;
@@ -10,27 +11,32 @@
 
 }
 
-@media (max-width: 567px) {
+@media (max-width: 637px) {
+
   .news-v1-repo {
     display: flex;
     flex-direction: column;
-    width: auto;
+    width: 215px;
     justify-content: center;
     align-items: center;
   }
+
   .md-news-media-paper {
-    width: 5rem;
-    padding: 0.8rem;
+    width: 70%;
+    border-radius: 10px;
   }
 }
+
 @media (max-width: 425px) {
   .sm-flex-col-reverse {
     flex-direction: column-reverse;
   }
+
   .news-v1-repo {
     padding-inline: 1rem;
     width: 14rem;
   }
+
   .align-center-425 {
     align-self: center;
     gap: 0.1rem;

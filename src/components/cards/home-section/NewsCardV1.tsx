@@ -9,6 +9,7 @@ import './news-card-v1.css';
 import dayjs from 'dayjs';
 
 export default function NewsCardV1({ title, subTitle, category, date }: any) {
+  const isScreen637 = useMediaQuery('(max-width:637px)');
   const dateFormat = dayjs(date);
   const day = dateFormat.format('D');
   const month = dateFormat.format('MMMM');
