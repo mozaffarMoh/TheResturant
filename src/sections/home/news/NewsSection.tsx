@@ -1,5 +1,5 @@
 'use client';
-import { Button, Container, Stack } from '@mui/material';
+import { Button, Container, Stack, useMediaQuery } from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import { useTranslations } from 'next-intl';
@@ -14,6 +14,7 @@ import NewsCardV2 from '@/components/cards/home-section/NewsCardV2';
 const NewsSection = () => {
   const t = useTranslations();
   const router = useRouter();
+  const isScreen1180 = useMediaQuery('(max-width:1180px)');
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const langCurrent = pathname?.slice(1, 3) || 'en';
@@ -54,17 +55,16 @@ const NewsSection = () => {
                 {t('header.news')}
               </div>
               <Stack
-                direction={'row'}
-                flexWrap={'wrap'}
                 paddingBottom={13}
-                gap={2}
+                gap={isScreen1180 ? 5 : 0}
               >
                 <Stack
+                  width={isScreen1180 ? '100%' : '80%'}
                   direction={'row'}
                   justifyContent={'space-evenly'}
                   flexWrap={'wrap-reverse'}
                   marginTop={10}
-                  gap={5}
+                  gap={2}
                 >
                   {/* cards horizontal cards  section */}
                   <Stack
@@ -100,7 +100,7 @@ const NewsSection = () => {
                     justifyContent={'space-evenly'}
                     flexWrap={'wrap'}
                     spacing={2}
-                    gap={3}
+                    gap={2}
                   >
                     {loading ? (
                       <Stack
@@ -135,8 +135,11 @@ const NewsSection = () => {
 
                 {/* View Button */}
                 <Stack
+                  width={'100%'}
                   justifyContent={'flex-end'}
-                  marginTop={5}
+                  alignItems={'flex-end'}
+                  marginRight={isArabic && !isScreen1180 ? 5 : 0}
+                  marginLeft={!isArabic && !isScreen1180 ? 5 : 0}
                 >
                   <Button
                     variant="outlined"

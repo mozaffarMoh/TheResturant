@@ -18,6 +18,7 @@ export default function NewsCardV2({
   dateTime,
 }: any) {
   const isScreen400 = useMediaQuery('(max-width:400px)');
+  const isScreen1030 = useMediaQuery('(max-width:1030px)');
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   let imageURL =
@@ -34,17 +35,20 @@ export default function NewsCardV2({
     <Card
       variant="outlined"
       sx={{
-        width: isScreen400 ? 240 : 240,
+        width: isScreen400 ? 240 : 260,
         borderRadius: '1.1rem',
         padding: 1,
       }}
       style={{ margin: '0px' }}
     >
-      <Stack position={'relative'}>
+      <Stack
+        position={'relative'}
+        height={isScreen1030 ? 250 : '70%'}
+      >
         <Box
           sx={{
             width: '100%',
-            height: '200px',
+            height: '100%',
             position: 'relative',
           }}
         >

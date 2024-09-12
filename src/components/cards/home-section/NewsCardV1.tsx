@@ -2,7 +2,7 @@ import * as React from 'react';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
-import { Paper, Stack, Typography } from '@mui/material';
+import { Paper, Stack, Typography, useMediaQuery } from '@mui/material';
 import { primaryColor } from '@/constant/color';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import './news-card-v1.css';
@@ -14,12 +14,14 @@ export default function NewsCardV1({ title, subTitle, category, date }: any) {
   const month = dateFormat.format('MMMM');
   const time = date?.split(' ')?.[1];
 
+  const titleEllipse =
+    title && title?.length > 35 ? title?.slice(0, 35) + '...' : title;
   return (
     <Card
       orientation="horizontal"
       variant="outlined"
       sx={{
-        width: '300px',
+        width: '230px',
         paddingInline: '2rem',
         borderRadius: '1.1rem',
         gap: 3,
@@ -46,8 +48,7 @@ export default function NewsCardV1({ title, subTitle, category, date }: any) {
         </Paper>
       </CardOverflow>
       <CardContent className="sm-flex-col-reverse">
-        <p className="text-reg-card-v1 fw600 ">{title}</p>
-      
+        <p className="text-reg-card-v1 fw600 ">{titleEllipse} </p>
         <Stack
           direction={'row'}
           gap={1}
