@@ -20,6 +20,15 @@ import { endPoints } from '@/base-api/endPoints';
 import { typeSchema } from './schema';
 import { useTranslations } from 'next-intl';
 
+const makeValueLowerCaseAndSingle = (type: string) => {
+  let updatedValue = type.toLowerCase();
+
+  if (/[sS]$/.test(updatedValue)) {
+    updatedValue = updatedValue.slice(0, -1);
+  }
+  return updatedValue;
+};
+
 const UserDetailsPage: NextPage = () => {
   const router = useRouter();
   const t = useTranslations();
@@ -51,7 +60,7 @@ const UserDetailsPage: NextPage = () => {
   const bodyWithOTP = {
     ...signupDataParsed,
     otp: OTPValue,
-    roles: [userType?.toLocaleLowerCase()],
+    roles: [makeValueLowerCaseAndSingle(userType as string)],
   };
   const bodyForFinsihSubmit = {
     form_id: fullFormID,

@@ -31,8 +31,6 @@ const WhoAreYouPage: NextPage = () => {
     }
   }, [formData]);
 
-  console.log(type);
-  
   const handleChooseType = () => {
     router.push(`/${langCurrent}/details/${type}`);
     Cookies.set('userType', type);
