@@ -93,9 +93,9 @@ const WhoAreYouPage: NextPage = () => {
                       <JoyButton
                         key={item?.id}
                         value={item?.value}
-                        aria-label={item?.name}
-                        className={`${whoAreStyles.singleButtonGroup} ${type === item?.name && whoAreStyles.activeButton}`}
-                        disabled={type === item?.name}
+                        aria-label={item?.value}
+                        className={`${whoAreStyles.singleButtonGroup} ${type === item?.value && whoAreStyles.activeButton}`}
+                        disabled={type === item?.value}
                       >
                         {item.name}
                       </JoyButton>

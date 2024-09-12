@@ -95,7 +95,7 @@ const UserDetailsPage: NextPage = () => {
     successForFinishSubmit,
     ,
     errorMessageForFinishSubmit,
-  ] = usePost(endPoints.formSubmit  /* + 'qwe'  */, bodyForFinsihSubmit);
+  ] = usePost(endPoints.formSubmit /* + 'qwe'  */, bodyForFinsihSubmit);
 
   const [
     ,
