@@ -4,7 +4,7 @@ import CardContent from '@mui/joy/CardContent';
 import './news-card-v2.css';
 import { ClockSVG, DateSVG } from '../../../../assets/icons';
 import { domain } from '@/base-api/endPoints';
-import { DefautImage1 } from '@/constant/images';
+import { DefautImage1Tall } from '@/constant/images';
 import { Box, Button, Stack, Typography, useMediaQuery } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import dayjs from 'dayjs';
@@ -24,7 +24,7 @@ export default function NewsCardV2({
   let imageURL =
     media && media?.main_image?.[0]?.url
       ? domain + media?.main_image?.[0]?.url
-      : DefautImage1;
+      : DefautImage1Tall;
 
   const date = dateTime
     ? dayjs(dateTime?.split(' ')?.[0]).format('MMMM DD, YYYY')

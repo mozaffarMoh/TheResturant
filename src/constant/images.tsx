@@ -14,6 +14,7 @@ export const keyBgImage = '/key.jpg';
 /* Default images */
 export const DefautImage1 = '/DefautImage1.png';
 export const DefautImage1Large = '/DefautImage1Large.png';
+export const DefautImage1Tall = '/DefautImage1Tall.png';
 export const DefautImage2 = '/DefautImage2.webp';
 export const DefautIcon = '/DefautIcon.png';
 export const avatarImage = '/avatar.png';
