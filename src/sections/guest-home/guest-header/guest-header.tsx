@@ -22,10 +22,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
-import { domain } from '@/base-api/endPoints';
+import { domain, endPoints } from '@/base-api/endPoints';
 import { DefautIcon } from '@/constant/images';
+import useGet from '@/custom-hooks/useGet';
 
-const GuestHeader = ({ partnersData }: any) => {
+const GuestHeader = () => {
   const router = useRouter();
   const pathname = usePathname();
   const isScreen991 = useMediaQuery('(max-width:991px)');
@@ -38,7 +39,9 @@ const GuestHeader = ({ partnersData }: any) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [partnersLogos, setPartnersLogos]: any = useState([]);
-
+  const [partnersData, , getPartnersData, successPartnersData] = useGet(
+    endPoints.getPartners,
+  );
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen(true);
@@ -98,16 +101,21 @@ const GuestHeader = ({ partnersData }: any) => {
   }, [isScreen991]);
 
   useEffect(() => {
-    if (partnersData && partnersData?.children) {
-      const imageUrls = partnersData?.children.map((item: any) => {
-        return item?.media?.image?.[0]?.url
-          ? domain + item?.media?.image?.[0]?.url
-          : '';
-      });
+    getPartnersData();
+  }, []);
 
-      setPartnersLogos(imageUrls);
+  useEffect(() => {
+    if (successPartnersData) {
+      if (partnersData && partnersData?.children) {
+        const imageUrls = partnersData?.children.map((item: any) => {
+          return item?.media?.image?.[0]?.url
+            ? String(domain + item?.media?.image?.[0]?.url)
+            : '';
+        });
+        setPartnersLogos(imageUrls);
+      }
     }
-  }, [partnersData]);
+  }, [successPartnersData]);
 
   return (
     <div className={styles.headerGuestContainer}>
@@ -126,7 +134,7 @@ const GuestHeader = ({ partnersData }: any) => {
                   key={i}
                   src={logo ? logo : DefautIcon}
                   width={logo ? 60 : 30}
-                  height={logo ? 50 : 25}
+                  height={logo ? 45 : 25}
                 />
               );
             })}
