@@ -40,6 +40,7 @@ const News = () => {
   let isArabic = pathname.startsWith('/ar');
   const langCurrent = pathname?.slice(1, 3) || 'en';
   const isScreen900 = useMediaQuery('(max-width:900px)');
+  const isScreen600 = useMediaQuery('(max-width:600px)');
   const isScreen450 = useMediaQuery('(max-width:450px)');
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [category, setCategory] = useState('all');
@@ -204,11 +205,11 @@ const News = () => {
                         <Stack
                           width={!isScreen450 ? '50%' : '100%'}
                           key={i}
-                          alignItems={'flex-start'}
+                          alignItems={isScreen600 ? 'center' : 'flex-start'}
                         >
                           <CustomSkeleton width="150px" />
-                          <CustomSkeleton width="250px" />
                           <CustomSkeleton width="300px" />
+                          <CustomSkeleton width="200px" />
                         </Stack>
                       </Stack>
                     );
