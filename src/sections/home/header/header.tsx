@@ -201,8 +201,8 @@ const Header = () => {
         >
           {partnersLogos.map((logo: string, i: number) => {
             return (
-              <img
-                alt="partner-log"
+              <Image
+                alt="partner-logo"
                 key={i}
                 src={logo ? logo : DefautIcon}
                 width={logo ? 60 : 30}
