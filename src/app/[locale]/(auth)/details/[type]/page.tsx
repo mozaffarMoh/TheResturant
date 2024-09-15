@@ -19,6 +19,7 @@ import usePost from '@/custom-hooks/usePost';
 import { endPoints } from '@/base-api/endPoints';
 import { typeSchema } from './schema';
 import { useTranslations } from 'next-intl';
+import ReviewAccountModal from '@/components/modals/ReviewAccountModal';
 
 const makeValueLowerCaseAndSingle = (type: string) => {
   let updatedValue = type?.toLowerCase();
@@ -40,6 +41,7 @@ const UserDetailsPage: NextPage = () => {
   const signupDataParsed = signupData ? JSON.parse(signupData) : null;
   const formData: any = localStorage.getItem('formData');
   const [showOTPModal, setShowOTPModal] = useState<boolean>(false);
+  const [showReviewAccount, setShowReviewAccount] = useState<boolean>(false);
   const userType = Cookies.get('userType');
   const [typeDetails, setTypeDetails]: any = useState({ inputs: [] });
   const [fullFormData, setFullFormData]: any = useState([]);
@@ -178,24 +180,25 @@ const UserDetailsPage: NextPage = () => {
     formSubmitId && handlePostForFilesSubmit();
   }, [formSubmitId]);
 
-  useEffect(() => {
-    const finishProcess = async () => {
-      await Cookies.set('token', dataForSubmit.token.token, {
-        expires: new Date('9999-12-31T23:59:59'),
-      });
-      await setTimeout(() => {
-        router.push(`/${langCurrent}/home`);
-        localStorage.removeItem('formData');
-        Cookies.remove('signUpData');
-        Cookies.remove('userType');
-      }, 2000);
-    };
+  /* Finish process */
+  const finishProcess = async () => {
+   /*  await Cookies.set('token', dataForSubmit.token.token, {
+      expires: new Date('9999-12-31T23:59:59'),
+    }); */
+    await setTimeout(() => {
+      router.push(`/${langCurrent}/home`);
+      localStorage.removeItem('formData');
+      Cookies.remove('signUpData');
+      Cookies.remove('userType');
+    }, 2000);
+  };
 
+  useEffect(() => {
     if (
       successForFilesSubmit ||
       (successForFinishSubmit && !isFilesInputExist())
     ) {
-      finishProcess();
+      setShowReviewAccount(true);
     }
   }, [successForFilesSubmit, successForFinishSubmit]);
 
@@ -252,6 +255,10 @@ const UserDetailsPage: NextPage = () => {
         handlePostForSubmit={handlePostForSubmit}
         handlePostForFinishSubmit={handlePostForFinishSubmit}
       />
+      <ReviewAccountModal
+        open={showReviewAccount}
+        handleGoToHome={finishProcess}
+      />
       {/* This alert when some fields are error from the server */}
       <CustomAlert
         openAlert={
@@ -271,14 +278,14 @@ const UserDetailsPage: NextPage = () => {
         }
       />
 
-      <CustomAlert
+      {/*       <CustomAlert
         openAlert={
           isFilesInputExist() ? successForFilesSubmit : successForFinishSubmit
         }
         setOpenAlert={() => {}}
         type="success"
         message={t('messages.success-create-user')}
-      />
+      /> */}
       <div className="w-full ">
         <Grid
           container

@@ -196,7 +196,9 @@
         "select-date": "Select Date",
         "start-time": "Start Time",
         "number-of-hours": "Hours",
-        "number-of-attendees": "Number Of Attendees"
+        "number-of-attendees": "Number Of Attendees",
+        "go-to-home": "Go Home",
+        "review-account": "Account created successfully! We're reviewing your details. You'll receive a confirmation email soon"
     },
     "select": {
         "category": "Category",
