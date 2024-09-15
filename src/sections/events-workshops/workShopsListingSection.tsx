@@ -1,4 +1,4 @@
-import { Container, Stack } from '@mui/material';
+import { Container, Stack, useMediaQuery } from '@mui/material';
 import GridFlex from '@mui/material/Unstable_Grid2';
 import WorkShopCard from '@/components/cards/events-workshops/WorkShopCard';
 import { useTranslations } from 'next-intl';
@@ -13,6 +13,7 @@ const WorkShopsListingSection = () => {
   const t = useTranslations();
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const isScreen1209 = useMediaQuery('(max-width:1209px)');
   const [filteredData, setFilteredData]: any = useState([]);
 
   const body = {
@@ -77,7 +78,7 @@ const WorkShopsListingSection = () => {
         <p className="general-title primary-color"> {t('header.workshops')}</p>
         <Stack
           direction={'row'}
-          justifyContent={'space-evenly'}
+          justifyContent={isScreen1209 ? 'center' : 'flex-start'}
           alignContent={'center'}
           flexWrap={'wrap'}
           paddingY={5}

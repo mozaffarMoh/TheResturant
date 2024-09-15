@@ -168,7 +168,7 @@ const MentorDetails: NextPage = () => {
                 data?.data &&
                 data?.data.length > 0 &&
                 data?.data.map((item: any, i: number) => {
-                  if (item.slug.includes('link')) {
+                  if (item?.slug?.includes('link') && item?.value) {
                     return (
                       <Link
                         key={i}

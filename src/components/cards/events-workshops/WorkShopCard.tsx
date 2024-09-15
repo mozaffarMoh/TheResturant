@@ -40,7 +40,7 @@ export default function WorkShopCard({
     <Card
       variant="outlined"
       sx={{
-        width: isScreen400 ? 250 : 300,
+        width: isScreen400 ? 250 : 330,
         minHeight: 400,
         paddingTop: '1rem',
         borderRadius: '1.1rem',

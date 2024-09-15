@@ -31,6 +31,7 @@ const JobOfferingSection = () => {
   let isArabic = pathname?.startsWith('/ar');
   const langCurrent = pathname?.slice(1, 3) || 'en';
   const isScreen450 = useMediaQuery('(max-width:450px)');
+  const isScreen1209 = useMediaQuery('(max-width:1209px)');
   const [sortItems, setSortItems] = useState<Number>(0);
   const router = useRouter();
   const [page, setPage] = useState(1);
@@ -174,10 +175,10 @@ const JobOfferingSection = () => {
       ) : (
         <Stack alignItems={'center'}>
           <Stack
-            margin={0}
             direction={'row'}
             flexWrap={'wrap'}
-            justifyContent={'center'}
+            width={'100%'}
+            justifyContent={isScreen1209 ? 'center' : 'flex-start'}
           >
             {filteredData.length > 0 &&
               filteredData.map((item: any, i: any) => {

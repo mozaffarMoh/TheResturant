@@ -42,6 +42,7 @@ const MentorsPage: NextPage = () => {
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const langCurrent = pathname?.slice(1, 3) || 'en';
+  const isScreen1209 = useMediaQuery('(max-width:1209px)');
   const isScreen600 = useMediaQuery('(max-width:600px)');
   const [profession, setProfession] = useState('');
   const [page, setPage] = useState(1);
@@ -171,7 +172,7 @@ const MentorsPage: NextPage = () => {
         </GridFlex>
       </Container>
 
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Stack spacing={5}>
           <Stack
             alignItems={isScreen600 ? 'center' : 'flex-end'}
@@ -246,10 +247,10 @@ const MentorsPage: NextPage = () => {
             </Stack>
           ) : (
             <Stack
-              margin={0}
               direction={'row'}
               flexWrap={'wrap'}
-              justifyContent={'center'}
+              justifyContent={isScreen1209 ? 'center' : 'flex-start'}
+              gap={2}
             >
               {mentorsItems?.length == 0 && successMentorsItems && <NoData />}
               {mentorsItems &&
@@ -274,7 +275,6 @@ const MentorsPage: NextPage = () => {
                       key={i}
                       sx={{
                         padding: '10px',
-                        margin: '10px',
                         cursor: 'pointer',
                         width: '250px',
                       }}
