@@ -149,7 +149,11 @@ const SignIn: NextPage = () => {
               className="main-box"
               sx={{ mt: 4 }}
             >
-              <div className="mb-1 mt-2">
+              <div
+                className="mb-1 mt-2"
+                onClick={() => router.push(`/${langCurrent}/guest-home`)}
+                style={{ cursor: 'pointer' }}
+              >
                 <img
                   src={logoImage}
                   alt="image"

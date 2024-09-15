@@ -29,6 +29,7 @@ const JobOfferDetails: NextPage = () => {
   const [isClientSide, setIsClientSide] = useState(false);
   const params = useParams();
   const pathname = usePathname();
+  let isArabic = pathname.startsWith('/ar');
   const body = {
     modelName: 'Item',
     filters: {
@@ -71,6 +72,29 @@ const JobOfferDetails: NextPage = () => {
     setIsClientSide(true);
   }, []);
 
+  console.log(data);
+
+  const getLanguageValue = (data: any) => {
+    if (!isMetaDataExist) return '';
+
+    const isArabic = pathname.startsWith('/ar');
+    const key = isArabic ? 'ar' : 'en';
+
+    const matchingItem = data?.[0]?.itemMetaData.find((item: any) =>
+      item?.itemMetaKey?.slug?.endsWith(key),
+    );
+    const defaultItem = data?.[0]?.itemMetaData.find((item: any) =>
+      item?.itemMetaKey?.slug?.endsWith('en'),
+    );
+
+    if (!matchingItem?.value) {
+      return defaultItem?.value;
+    }
+
+    return matchingItem?.value || ''; // Return empty string if no match found
+  };
+
+  const langValue = getLanguageValue(data);
   return (
     <>
       {isClientSide && (
@@ -243,18 +267,13 @@ const JobOfferDetails: NextPage = () => {
                     className=" primary-color"
                     fontFamily={'Montserrat'}
                   >
-                    {isMetaDataExist &&
-                      data[0]?.itemMetaData?.[1]?.itemMetaKey?.name}
+                    {t('dialog.how-to-apply')}
                   </Typography>
                   <Typography
                     variant="body1"
                     fontFamily={'Jost'}
                   >
-                    <bdi>
-                      {isMetaDataExist &&
-                        data?.[0]?.itemMetaData[1] &&
-                        data?.[0]?.itemMetaData[1]?.value}
-                    </bdi>
+                    <bdi>{isMetaDataExist && langValue}</bdi>
                   </Typography>
                   <Button
                     className="general-button-primary mt-1"

@@ -274,7 +274,11 @@ const SingUp: NextPage = () => {
               className="main-box"
               sx={{ mt: 4 }}
             >
-              <div className="mb-1 mt-2">
+              <div
+                className="mb-1 mt-2"
+                style={{ cursor: 'pointer' }}
+                onClick={() => router.push(`/${langCurrent}/guest-home`)}
+              >
                 <img
                   src={logoImage}
                   alt="image"

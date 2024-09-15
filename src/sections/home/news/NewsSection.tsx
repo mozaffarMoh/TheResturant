@@ -35,6 +35,11 @@ const NewsSection = () => {
     getData();
   }, []);
 
+/*   useEffect(() => {
+    data.push(data[0])
+    data.push(data[0])
+  }, [data]); */
+
   return (
     <section
       style={{
@@ -59,28 +64,26 @@ const NewsSection = () => {
                 gap={isScreen1180 ? 5 : 0}
               >
                 <Stack
-                  width={isScreen1180 ? '100%' : '80%'}
+                  width={isScreen1180 ? '100%' : '100%'}
                   direction={'row'}
-                  justifyContent={'space-evenly'}
+                  justifyContent={'flex-start'}
                   flexWrap={'wrap-reverse'}
                   marginTop={10}
                   gap={2}
                 >
                   {/* cards horizontal cards  section */}
-                  <Stack
-                    justifyContent={'center'}
-                    gap={3}
-                  >
+                  <Stack gap={3}>
                     {loading ? (
                       <Stack gap={2}>
                         <CardSkeleton />
                       </Stack>
                     ) : (
                       data &&
-                      data.length > 0 &&
+                      data.length > 3 &&
                       data.map(
                         (item: any, i: number) =>
-                          i < 3 && (
+                          i > 1 &&
+                          i < 5 && (
                             <NewsCardV1
                               key={i}
                               title={item?.title}
@@ -115,7 +118,8 @@ const NewsSection = () => {
                       data &&
                       data.length > 0 &&
                       data.map((item: any, i: number) => {
-                        if (i > 2 && i < 5) {
+                        const maxValue = data.length == 3 ? 3 : 2;
+                        if (i < maxValue) {
                           return (
                             <NewsCardV2
                               key={i}
