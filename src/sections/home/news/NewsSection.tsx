@@ -68,7 +68,7 @@ const NewsSection = () => {
                 >
                   {/* cards horizontal cards  section */}
                   <Stack
-                    justifyContent={'space-between'}
+                    justifyContent={'center'}
                     gap={3}
                   >
                     {loading ? (
@@ -80,8 +80,7 @@ const NewsSection = () => {
                       data.length > 0 &&
                       data.map(
                         (item: any, i: number) =>
-                          i > 1 &&
-                          i < 5 && (
+                          i < 3 && (
                             <NewsCardV1
                               key={i}
                               title={item?.title}
@@ -116,7 +115,7 @@ const NewsSection = () => {
                       data &&
                       data.length > 0 &&
                       data.map((item: any, i: number) => {
-                        if (i < 2) {
+                        if (i > 2 && i < 5) {
                           return (
                             <NewsCardV2
                               key={i}

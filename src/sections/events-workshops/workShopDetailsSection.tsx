@@ -86,7 +86,7 @@ const WorkShopDetailsSection = ({ detailsData }: any) => {
           lg={4}
           container
           justifyContent="center"
-          alignItems="center"
+          alignItems="flex-start"
         >
           <DetailsWorkShopCard
             location={detailsData?.place && detailsData?.place?.name}

@@ -52,7 +52,8 @@ const FacilityDetailsSection = ({ facility }: { facility: any }) => {
             lg={4}
             container
             justifyContent="center"
-            alignItems="center"
+            alignItems="flex-start"
+            marginTop={2}
           >
             <DetailsCard
               facility={facility}
