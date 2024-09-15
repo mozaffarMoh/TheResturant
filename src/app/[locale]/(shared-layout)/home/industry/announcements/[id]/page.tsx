@@ -25,7 +25,6 @@ import { HeroSection } from '@/sections/home';
 const JobOfferDetails: NextPage = () => {
   const t = useTranslations();
   const isScreen1024 = useMediaQuery('(max-width:1024px)');
-  const isScreen600 = useMediaQuery('(max-width:600px)');
   const [isClientSide, setIsClientSide] = useState(false);
   const params = useParams();
   const pathname = usePathname();
@@ -72,29 +71,31 @@ const JobOfferDetails: NextPage = () => {
     setIsClientSide(true);
   }, []);
 
-  console.log(data);
-
-  const getLanguageValue = (data: any) => {
+  const getLanguageValue = () => {
     if (!isMetaDataExist) return '';
-
-    const isArabic = pathname.startsWith('/ar');
     const key = isArabic ? 'ar' : 'en';
 
-    const matchingItem = data?.[0]?.itemMetaData.find((item: any) =>
-      item?.itemMetaKey?.slug?.endsWith(key),
-    );
-    const defaultItem = data?.[0]?.itemMetaData.find((item: any) =>
-      item?.itemMetaKey?.slug?.endsWith('en'),
-    );
+    const defaultItem =
+      isMetaDataExist &&
+      data?.[0]?.itemMetaData.find((item: any) =>
+        item?.itemMetaKey?.slug?.endsWith('en'),
+      );
+
+    const matchingItem =
+      isMetaDataExist &&
+      data?.[0]?.itemMetaData.find((item: any) =>
+        item?.itemMetaKey?.slug?.endsWith(key),
+      );
 
     if (!matchingItem?.value) {
       return defaultItem?.value;
     }
 
-    return matchingItem?.value || ''; // Return empty string if no match found
+    return matchingItem?.value || '';
   };
 
-  const langValue = getLanguageValue(data);
+  const langValue = getLanguageValue();
+
   return (
     <>
       {isClientSide && (
@@ -179,6 +180,7 @@ const JobOfferDetails: NextPage = () => {
           <Grid
             container
             sx={{ flexDirection: isScreen1024 ? 'column' : '' }}
+            gap={isScreen1024 ? 5 : 0}
             alignItems={'flex-start'}
           >
             <Grid
@@ -210,9 +212,11 @@ const JobOfferDetails: NextPage = () => {
                     className=" primary-color"
                     fontFamily={'Jost'}
                     marginX={2}
+                    sx={{ textWrap: 'nowrap' }}
                   >
-                    {isMetaDataExist &&
-                      data[0]?.itemMetaData[0]?.itemMetaKey?.name}
+                    <bdi>
+                      {isMetaDataExist && data?.[0]?.itemMetaData[0]?.value}
+                    </bdi>
                   </Typography>
                 </Stack>
                 <Stack
@@ -248,7 +252,7 @@ const JobOfferDetails: NextPage = () => {
               md={12}
               lg={3}
               container
-              justifyContent="center"
+              justifyContent="flex-start"
               alignItems="center"
             >
               <Card
@@ -272,6 +276,7 @@ const JobOfferDetails: NextPage = () => {
                   <Typography
                     variant="body1"
                     fontFamily={'Jost'}
+                    sx={{ wordBreak: 'break-word' }}
                   >
                     <bdi>{isMetaDataExist && langValue}</bdi>
                   </Typography>

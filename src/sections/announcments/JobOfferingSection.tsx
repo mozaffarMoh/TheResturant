@@ -239,9 +239,10 @@ const JobOfferingSection = () => {
                         variant="body2"
                         color="text.secondary"
                       >
-                        {item.itemMetaData.length > 0 &&
-                          item?.itemMetaData[0]?.itemMetaKey &&
-                          item?.itemMetaData[0]?.itemMetaKey?.name}
+                        <bdi>
+                          {item.itemMetaData.length > 0 &&
+                            item?.itemMetaData?.[0]?.value}
+                        </bdi>
                       </Typography>
                       <Typography
                         gutterBottom

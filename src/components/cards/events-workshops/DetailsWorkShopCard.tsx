@@ -7,6 +7,7 @@ import { Box, Button, CircularProgress, Stack } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { metadataIcons } from '@/constant/metadataIcons';
 import { LoadingButton } from '@mui/lab';
+import { metadataKeys } from '@/constant/metadataKeys';
 
 export default function DetailsWorkShopCard({
   location,
@@ -71,7 +72,9 @@ export default function DetailsWorkShopCard({
                     direction={'row'}
                     gap={1}
                   >
-                    {SvgIcon && <SvgIcon />} {item?.itemMetaKey?.name}
+                    {SvgIcon && <SvgIcon />}
+
+                    {metadataKeys(item?.itemMetaKey?.slug, t)}
                   </Stack>
                   <p>{item.value}</p>
                 </div>

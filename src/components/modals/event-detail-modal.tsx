@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-import { DefautImage1, DefautImage1Large } from '@/constant/images';
+import { DefautImage1Large } from '@/constant/images';
 import {
   Box,
   CircularProgress,
@@ -19,7 +19,6 @@ import { gray100, primaryColor, secondaryColor } from '@/constant/color';
 import { PlaceSVG } from '../../../assets/icons';
 import { useTranslations } from 'next-intl';
 import { domain, endPoints } from '@/base-api/endPoints';
-import useGet from '@/custom-hooks/useGet';
 import { useEffect, useState } from 'react';
 import { metadataIcons } from '@/constant/metadataIcons';
 import { usePathname } from 'next/navigation';
@@ -27,6 +26,7 @@ import CustomSkeleton from '../skeleton/CustomSkeleton';
 import usePost from '@/custom-hooks/usePost';
 import Cookies from 'js-cookie';
 import { LoadingButton } from '@mui/lab';
+import { metadataKeys } from '@/constant/metadataKeys';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiPaper-root': {
@@ -300,7 +300,7 @@ const EventDetailsModal = ({
                           color={primaryColor}
                           noWrap
                         >
-                          {item?.itemMetaKey?.name}
+                          {metadataKeys(item?.itemMetaKey?.slug, t)}
                         </Typography>
                       </Stack>
                       <Stack

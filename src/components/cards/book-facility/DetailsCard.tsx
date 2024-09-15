@@ -5,10 +5,11 @@ import './detail-card.css';
 import { Button } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { metadataIcons } from '@/constant/metadataIcons';
+import { metadataKeys } from '@/constant/metadataKeys';
 
 export default function DetailsCard({ facility, onClick }: any) {
   const t = useTranslations();
-  
+
   return (
     <Card
       variant="outlined"
@@ -35,7 +36,7 @@ export default function DetailsCard({ facility, onClick }: any) {
                         {' '}
                         {SvgIcon && <SvgIcon />}
                       </span>
-                      {item.itemMetaKey?.name}
+                      {metadataKeys(item?.itemMetaKey?.slug, t)}
                     </span>
                     <p>{item.value}</p>
                   </div>
@@ -55,7 +56,7 @@ export default function DetailsCard({ facility, onClick }: any) {
           className="general-button-primary mt-1"
           onClick={onClick}
         >
-         {t('buttons.book-now')}
+          {t('buttons.book-now')}
         </Button>
       </CardContent>
     </Card>
