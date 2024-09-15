@@ -2,6 +2,7 @@ import { domain } from '@/base-api/endPoints';
 import { DefautImage2 } from '@/constant/images';
 import { Avatar } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
+import './mentor-section.css'
 
 export default function MentorListItem({ item, key }: any) {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function MentorListItem({ item, key }: any) {
   return (
     <div
       key={key}
-      className="sm-flex-col-col-center-center mb-2 "
+      className="slick-item mb-2 "
       onClick={() => router.push(`/${langCurrent}/home/mentors/${item.slug}`)}
       style={{ cursor: 'pointer' }}
     >

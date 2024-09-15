@@ -35,11 +35,6 @@ const NewsSection = () => {
     getData();
   }, []);
 
-/*   useEffect(() => {
-    data.push(data[0])
-    data.push(data[0])
-  }, [data]); */
-
   return (
     <section
       style={{
@@ -97,9 +92,9 @@ const NewsSection = () => {
                   </Stack>
 
                   {/* cards Vertical cards  section */}
-                  <Stack
+                  <Stack 
                     direction={'row'}
-                    justifyContent={'space-evenly'}
+                    justifyContent={'center'}
                     flexWrap={'wrap'}
                     spacing={2}
                     gap={2}

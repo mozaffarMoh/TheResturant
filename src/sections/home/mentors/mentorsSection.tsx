@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 import usePost from '@/custom-hooks/usePost';
 import { endPoints } from '@/base-api/endPoints';
 import { useEffect } from 'react';
-import CustomSkeleton from '@/components/skeleton/CustomSkeleton';
+import './mentor-section.css';
 
 const MentorsSection = () => {
   const t = useTranslations();
@@ -97,7 +97,10 @@ const MentorsSection = () => {
       <div className="sm-flex-col-col-center-center">
         <p className="general-title primary-color ">{t('header.mentors')}</p>
         <div className=" w-full mb-4 ">
-          <Slider {...settings}>
+          <Slider
+            className="slick-track"
+            {...settings}
+          >
             {mentorsItems &&
               mentorsItems?.length > 0 &&
               mentorsItems.map((item: any, i: number) => (

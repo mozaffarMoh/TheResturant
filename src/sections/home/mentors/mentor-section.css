@@ -1,0 +1,21 @@
+.slick-track {
+    display: flex !important;
+    justify-content: flex-start !important;
+
+}
+
+.slick-slide {
+    display: flex !important;
+    justify-content: flex-start !important;
+}
+
+
+.slick-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 10px;
+
+    width: 200px;
+}
