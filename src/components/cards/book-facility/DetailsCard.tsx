@@ -2,7 +2,7 @@ import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Divider from '@mui/joy/Divider';
 import './detail-card.css';
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { metadataIcons } from '@/constant/metadataIcons';
 import { metadataKeys } from '@/constant/metadataKeys';
@@ -25,19 +25,20 @@ export default function DetailsCard({ facility, onClick }: any) {
 
         {facility?.itemMetaData &&
           facility.itemMetaData.map((item: any) => {
-            let SvgIcon = metadataIcons(item.slug);
+            let SvgIcon = metadataIcons(item?.itemMetaKey?.slug);
 
             return (
               item.slug !== 'capacity-range' && (
                 <div key={item.id}>
                   <div className="sm-flex-row-row-center-between">
-                    <span>
-                      <span style={{ margin: '0px 4px' }}>
-                        {' '}
-                        {SvgIcon && <SvgIcon />}
-                      </span>
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      gap={1}
+                    >
+                      {SvgIcon && <SvgIcon />}
                       {metadataKeys(item?.itemMetaKey?.slug, t)}
-                    </span>
+                    </Stack>
                     <p>{item.value}</p>
                   </div>
                   <Divider

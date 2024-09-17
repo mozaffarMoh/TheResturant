@@ -44,8 +44,6 @@ const PublicHomePage: NextPage = () => {
     }
   }, [data]);
 
-  let videoURL = videoData?.media?.video?.[0]?.url;
-
   return (
     <>
       {isClientSide && (
@@ -66,7 +64,7 @@ const PublicHomePage: NextPage = () => {
         data={cardsData}
         loading={loading}
       />
-      {videoURL && (
+      {videoData?.value && (
         <VideoSection
           data={videoData}
           loading={loading}
