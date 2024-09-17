@@ -23,8 +23,6 @@ const VideoSection = ({ data, loading }: any) => {
 
   const words = (data?.value && data?.value?.split(' ')) || [];
 
-  console.log(data);
-
   return (
     <Container className="mt-4 max-w-md-65">
       <Stack
