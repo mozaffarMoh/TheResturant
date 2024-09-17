@@ -6,6 +6,7 @@ import {
   CardMedia,
   Grid,
   Paper,
+  Stack,
   useMediaQuery,
 } from '@mui/material';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
@@ -74,7 +75,10 @@ const EventCard = ({
               </CardContent>
               <Box className="xs-flex-row-col-375 ml-1 gap1">
                 {place && place?.name && (
-                  <div>
+                  <Stack
+                    direction={'row'}
+                    alignItems={'center'}
+                  >
                     <PlaceSVG />
                     <span
                       style={{ marginInline: '0.4rem' }}
@@ -83,14 +87,17 @@ const EventCard = ({
                       {' '}
                       {place && place?.name}
                     </span>{' '}
-                  </div>
+                  </Stack>
                 )}
 
                 {itemMetaData &&
                   itemMetaData.map((item: any) => {
                     return (
                       item?.itemMetaKey?.slug == 'time' && (
-                        <div>
+                        <Stack
+                          direction={'row'}
+                          alignItems={'center'}
+                        >
                           <ClockSVG />{' '}
                           <span
                             style={{ marginInline: '0.4rem' }}
@@ -98,7 +105,7 @@ const EventCard = ({
                           >
                             {item.value}{' '}
                           </span>
-                        </div>
+                        </Stack>
                       )
                     );
                   })}

@@ -25,6 +25,7 @@ import Cookies from 'js-cookie';
 import { domain, endPoints } from '@/base-api/endPoints';
 import { DefautIcon } from '@/constant/images';
 import useGet from '@/custom-hooks/useGet';
+import Image from 'next/image';
 
 const GuestHeader = () => {
   const router = useRouter();
@@ -130,7 +131,8 @@ const GuestHeader = () => {
           >
             {partnersLogos.map((logo: string, i: number) => {
               return (
-                <img
+                <Image
+                  alt="partner-logo"
                   key={i}
                   src={logo ? logo : DefautIcon}
                   width={logo ? 60 : 30}

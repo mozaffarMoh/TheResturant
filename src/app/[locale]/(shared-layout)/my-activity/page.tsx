@@ -78,7 +78,6 @@ const MyActivity = () => {
       let totalNum = fullData?.meta?.total || 0;
       const paginationCount = Math.ceil(totalNum / 15);
       setTotal(paginationCount);
-      //page == 0 && setPage(1);
     }
   }, [success]);
 
@@ -114,19 +113,22 @@ const MyActivity = () => {
 
         <TableContainer>
           <Table>
-            <TableHead>
-              <TableRow>
-                {labels.map((label: string, i: number) => (
-                  <TableCell
-                    key={i}
-                    align="center"
-                    sx={{ backgroundColor: primaryColor, color: 'white' }}
-                  >
-                    {label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
+            {success && data.length !== 0 && (
+              <TableHead>
+                <TableRow>
+                  {labels.map((label: string, i: number) => (
+                    <TableCell
+                      key={i}
+                      align="center"
+                      sx={{ backgroundColor: primaryColor, color: 'white' }}
+                    >
+                      {label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+            )}
+
             <TableBody>
               {loading && !success
                 ? // Render Skeletons when loading

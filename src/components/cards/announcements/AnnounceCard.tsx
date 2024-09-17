@@ -6,6 +6,7 @@ import {
   CardMedia,
   Grid,
   Paper,
+  Stack,
 } from '@mui/material';
 import { ClockSVG, PlaceSVG } from '../../../../assets/icons';
 import { useTranslations } from 'next-intl';
@@ -88,7 +89,10 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
               </CardContent>
               <Box className="xs-flex-row-col-375 ml-1 gap1">
                 {item?.place && item?.place?.name && (
-                  <div>
+                  <Stack
+                    direction={'row'}
+                    alignItems={'center'}
+                  >
                     <PlaceSVG />
                     <span
                       style={{ marginInline: '0.4rem' }}
@@ -97,14 +101,17 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
                       {' '}
                       {item?.place && item?.place?.name}
                     </span>{' '}
-                  </div>
+                  </Stack>
                 )}
 
                 {item?.itemMetaData &&
                   item?.itemMetaData?.map((val: any) => {
                     if (val?.itemMetaKey?.slug == 'time') {
                       return (
-                        <div>
+                        <Stack
+                          direction={'row'}
+                          alignItems={'center'}
+                        >
                           <ClockSVG />{' '}
                           <span
                             style={{ marginInline: '0.4rem' }}
@@ -112,7 +119,7 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
                           >
                             {val?.value}{' '}
                           </span>
-                        </div>
+                        </Stack>
                       );
                     }
                   })}

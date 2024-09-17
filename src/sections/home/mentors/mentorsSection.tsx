@@ -39,8 +39,8 @@ const MentorsSection = () => {
   );
 
   const settings = {
-    dots: true,
-    infinite: false,
+    dots: mentorsItems.length > 5,
+    infinite: mentorsItems.length > 5,
     speed: 500,
     slidesToShow: Math.min(5, mentorsItems.length || 0),
     slidesToScroll: Math.min(4, mentorsItems.length || 0),
@@ -52,8 +52,10 @@ const MentorsSection = () => {
         settings: {
           slidesToShow: Math.min(4, mentorsItems.length || 0),
           slidesToScroll: Math.min(3, mentorsItems.length || 0),
-          infinite: mentorsItems.length > 4, // Loop if more than 4 items
-          dots: true,
+          infinite: mentorsItems.length > 4,
+          dots: mentorsItems.length > 4, // Show dots if more than 4 items
+
+          arrows: false,
         },
       },
       {
@@ -62,6 +64,9 @@ const MentorsSection = () => {
           slidesToShow: Math.min(3, mentorsItems.length || 0),
           slidesToScroll: Math.min(3, mentorsItems.length || 0),
           initialSlide: 1,
+          dots: mentorsItems.length > 3,
+
+          arrows: false,
         },
       },
       {
@@ -70,16 +75,16 @@ const MentorsSection = () => {
           slidesToShow: Math.min(2, mentorsItems.length || 0),
           slidesToScroll: Math.min(2, mentorsItems.length || 0),
           arrows: false,
-          dots: true,
+          dots: mentorsItems.length > 2,
         },
       },
       {
-        breakpoint: 375,
+        breakpoint: 400,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
-          dots: true,
+          dots: mentorsItems.length > 1,
         },
       },
     ],

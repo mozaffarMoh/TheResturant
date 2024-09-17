@@ -1,13 +1,13 @@
-.slick-track {
+/* .slick-track {
     display: flex !important;
-    justify-content: flex-start !important;
+    justify-content: space-evenly !important;
 
 }
 
 .slick-slide {
     display: flex !important;
-    justify-content: flex-start !important;
-}
+    justify-content: space-evenly !important;
+} */
 
 
 .slick-item {
@@ -16,6 +16,4 @@
     align-items: center;
     flex-direction: column;
     margin-left: 10px;
-
-    width: 200px;
 }

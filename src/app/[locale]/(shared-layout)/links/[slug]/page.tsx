@@ -61,7 +61,7 @@ const LinksPage: NextPage = () => {
         )}
       </Stack>
       <Stack
-        alignItems={'center'}
+        alignItems={'flex-start'}
         marginTop={5}
       >
         {' '}

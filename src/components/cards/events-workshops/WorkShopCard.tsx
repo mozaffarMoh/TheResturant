@@ -83,11 +83,12 @@ export default function WorkShopCard({
             direction={'row'}
             gap={2}
             justifyContent={'flex-start'}
-            dir="ltr"
+            
           >
             {place && place?.name && (
               <Stack
                 direction={'row'}
+                alignItems={'center'}
                 gap={1}
                 className="text-xs opacity-80"
               >
@@ -96,6 +97,7 @@ export default function WorkShopCard({
               </Stack>
             )}
 
+        
             {itemMetaData &&
               itemMetaData.length > 0 &&
               itemMetaData.map((item: any) => {
@@ -103,6 +105,7 @@ export default function WorkShopCard({
                   item?.itemMetaKey?.slug == 'time' && (
                     <Stack
                       direction={'row'}
+                      alignItems={'center'}
                       gap={1}
                       className="text-xs opacity-80 "
                     >

@@ -49,9 +49,13 @@ export default function DetailsWorkShopCard({
 
           {location && (
             <div className="sm-flex-row-row-center-between">
-              <span>
+              <Stack
+                direction={'row'}
+                alignItems={'center'}
+                gap={1}
+              >
                 <PlaceSVG /> {t('dialog.location')}
-              </span>
+              </Stack>
               <p>{location}</p>
             </div>
           )}
