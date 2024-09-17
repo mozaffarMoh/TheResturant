@@ -92,27 +92,30 @@ const JobOfferingSection = () => {
   const sortHandleChange = (event: React.ChangeEvent<{ value: Number }>) => {
     setSortItems(event.target.value as Number);
   };
-  return (
-    <Container
-      maxWidth="lg"
-      sx={{ padding: '100px 0px' }}
-    >
-      <Stack
-        direction={'row'}
-        justifyContent={'space-between'}
-        marginBottom={5}
-        padding={2}
-      >
-        <Typography
-          fontFamily={'Nobile'}
-          color={primaryColor}
-          fontSize={25}
-          fontWeight={600}
-        >
-          {t('header.jobOffer')}
-        </Typography>
 
-        {/*   <Stack
+  if (filteredData.length > 0) {
+    return (
+      <Container
+        maxWidth="lg"
+        sx={{ padding: '100px 0px' }}
+      >
+        <Stack
+          direction={'row'}
+          justifyContent={'space-between'}
+          marginBottom={5}
+          padding={2}
+        >
+          <Typography
+            fontFamily={'Nobile'}
+            color={primaryColor}
+            fontSize={25}
+            fontWeight={600}
+          >
+            {t('header.jobOffer')}
+          </Typography>
+
+          {/* 
+          <Stack
           flexDirection={'row'}
           alignItems={'center'}
         >
@@ -160,19 +163,8 @@ const JobOfferingSection = () => {
             </Select>
           </FormControl>
         </Stack> */}
-      </Stack>
-      {loading && filteredData.length == 0 ? (
-        <Stack
-          direction={'row'}
-          justifyContent={'space-evenly'}
-          flexWrap={'wrap'}
-        >
-          {' '}
-          <CardSkeletonVertical />
-          <CardSkeletonVertical />
-          <CardSkeletonVertical />
         </Stack>
-      ) : (
+
         <Stack alignItems={'center'}>
           <Stack
             direction={'row'}
@@ -253,7 +245,7 @@ const JobOfferingSection = () => {
                       >
                         {item?.title}
                       </Typography>
-             {/*          <Typography
+                      {/*          <Typography
                         variant="body2"
                         color="text.secondary"
                       >
@@ -283,9 +275,24 @@ const JobOfferingSection = () => {
             </LoadingButton>
           )}
         </Stack>
-      )}
-    </Container>
-  );
+      </Container>
+    );
+  }
+
+  if (loading && filteredData.length == 0) {
+    return (
+      <Stack
+        direction={'row'}
+        justifyContent={'space-evenly'}
+        flexWrap={'wrap'}
+      >
+        {' '}
+        <CardSkeletonVertical />
+        <CardSkeletonVertical />
+        <CardSkeletonVertical />
+      </Stack>
+    );
+  }
 };
 
 export default JobOfferingSection;

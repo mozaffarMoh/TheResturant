@@ -47,7 +47,10 @@ const AnnounceSection = () => {
     page: 1,
   };
 
-  const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
+  const [data, loading, getData, success] = usePost(
+    endPoints.DynamicFilter,
+    body,
+  );
 
   const handleShowDetails = (slugValue: string) => {
     setShowModal((prv) => !prv);
@@ -74,62 +77,64 @@ const AnnounceSection = () => {
         slug={slug}
         setSlug={setSlug}
       />
-      <div className="sm-flex-col-col-center-center">
-        <Typography
-          fontFamily={'Nobile'}
-          color={primaryColor}
-          fontSize={25}
-          marginBottom={5}
-          fontWeight={600}
-          className=" primary-color align-self-start"
-        >
-          {t('header.announcement')}
-        </Typography>
+      {data.length > 0 && (
+        <div className="sm-flex-col-col-center-center">
+          <Typography
+            fontFamily={'Nobile'}
+            color={primaryColor}
+            fontSize={25}
+            marginBottom={5}
+            fontWeight={600}
+            className=" primary-color align-self-start"
+          >
+            {t('header.announcement')}
+          </Typography>
 
-        <Box className=" w-full mb-4">
-          {loading ? (
-            <Stack
-              gap={2}
-              paddingTop={10}
-              direction={'row'}
-              flexWrap={'wrap'}
-              justifyContent={'space-evenly'}
-              width={'100%'}
-            >
-              {' '}
-              <Stack>
-                <CustomSkeleton
-                  variant="rectangle"
-                  width="280px"
-                  height="200px"
-                  borderRadius="20px"
-                />{' '}
-              </Stack>
-              <Stack justifyContent={'center'}>
-                <CustomSkeleton width="130px" />
-                <CustomSkeleton width="230px" />
-                <CustomSkeleton width="280px" />
-                <CustomSkeleton
-                  width="150px"
-                  height="60px"
-                />
-              </Stack>
-            </Stack>
-          ) : (
-            <CarouselElement>
-              {data &&
-                data.length > 0 &&
-                data.map((item: any, i: number) => (
-                  <AnnounceCard
-                    key={i}
-                    item={item}
-                    handleShowDetails={handleShowDetails}
+          <Box className=" w-full mb-4">
+            {loading ? (
+              <Stack
+                gap={2}
+                paddingTop={10}
+                direction={'row'}
+                flexWrap={'wrap'}
+                justifyContent={'space-evenly'}
+                width={'100%'}
+              >
+                {' '}
+                <Stack>
+                  <CustomSkeleton
+                    variant="rectangle"
+                    width="280px"
+                    height="200px"
+                    borderRadius="20px"
+                  />{' '}
+                </Stack>
+                <Stack justifyContent={'center'}>
+                  <CustomSkeleton width="130px" />
+                  <CustomSkeleton width="230px" />
+                  <CustomSkeleton width="280px" />
+                  <CustomSkeleton
+                    width="150px"
+                    height="60px"
                   />
-                ))}
-            </CarouselElement>
-          )}
-        </Box>
-      </div>
+                </Stack>
+              </Stack>
+            ) : (
+              <CarouselElement>
+                {data &&
+                  data.length > 0 &&
+                  data.map((item: any, i: number) => (
+                    <AnnounceCard
+                      key={i}
+                      item={item}
+                      handleShowDetails={handleShowDetails}
+                    />
+                  ))}
+              </CarouselElement>
+            )}
+          </Box>
+        </div>
+      )}
     </Container>
   );
 };

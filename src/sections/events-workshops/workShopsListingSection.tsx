@@ -49,7 +49,13 @@ const WorkShopsListingSection = () => {
   }, []);
 
   useEffect(() => {
+    page > 1 && getData();
+  }, [page]);
+
+  useEffect(() => {
     if (success) {
+      let totalNum = fullData?.meta?.total || 0;
+      setTotal(totalNum);
       setFilteredData((prevArray: any) => {
         const newArray = [...prevArray];
         newArray.push(...data);
@@ -58,67 +64,63 @@ const WorkShopsListingSection = () => {
     }
   }, [success]);
 
-  useEffect(() => {
-    page > 1 && getData();
-  }, [page]);
-
-  useEffect(() => {
-    if (success) {
-      let totalNum = fullData?.meta?.total || 0;
-      setTotal(totalNum);
-    }
-  }, [success]);
-
   return (
     <Container
       maxWidth="lg"
       className="mt-3"
     >
-      <div id="workshops">
-        <p className="general-title primary-color"> {t('header.workshops')}</p>
+      {loading && filteredData.length == 0 && (
         <Stack
-          direction={'row'}
-          justifyContent={isScreen1209 ? 'center' : 'flex-start'}
-          alignContent={'center'}
-          flexWrap={'wrap'}
-          paddingY={5}
           gap={2}
+          direction={'row'}
+          flexWrap={'wrap'}
+          justifyContent={'center'}
         >
-          {loading && filteredData.length == 0 ? (
-            <Stack
-              gap={2}
-              direction={'row'}
-              flexWrap={'wrap'}
-              justifyContent={'center'}
-            >
-              <CardSkeleton />
-              <CardSkeleton />
-            </Stack>
-          ) : (
-            filteredData &&
-            filteredData.map((item: any, i: number) => {
-              return (
-                <GridFlex
-                  key={i}
-                  md={4}
-                  lg={4}
-                >
-                  <WorkShopCard
-                    title={item?.title}
-                    subTitle={item?.subTitle}
-                    media={item?.media}
-                    slug={item?.slug}
-                    itemMetaData={item?.itemMetaData}
-                    place={item?.place}
-                  />
-                </GridFlex>
-              );
-            })
-          )}
-          {filteredData?.length == 0 && success && <NoData />}
+          <CardSkeleton />
+          <CardSkeleton />
         </Stack>
-      </div>
-      {filteredData.length < total && (
+      )}
+
+      {filteredData.length > 0 && (
+        <div id="workshops">
+          <p className="general-title primary-color">
+            {' '}
+            {t('header.workshops')}
+          </p>
+          <Stack
+            direction={'row'}
+            justifyContent={isScreen1209 ? 'center' : 'flex-start'}
+            alignContent={'center'}
+            flexWrap={'wrap'}
+            paddingY={5}
+            gap={2}
+          >
+            {filteredData &&
+              filteredData.map((item: any, i: number) => {
+                return (
+                  <GridFlex
+                    key={i}
+                    md={4}
+                    lg={4}
+                  >
+                    <WorkShopCard
+                      title={item?.title}
+                      subTitle={item?.subTitle}
+                      media={item?.media}
+                      slug={item?.slug}
+                      itemMetaData={item?.itemMetaData}
+                      place={item?.place}
+                    />
+                  </GridFlex>
+                );
+              })}
+
+            {filteredData?.length == 0 && success && <NoData />}
+          </Stack>
+        </div>
+      )}
+
+      {filteredData.length > 0 && filteredData.length < total && (
         <Stack alignItems={'center'}>
           <LoadingButton
             onClick={() => setPage((prev) => prev + 1)}

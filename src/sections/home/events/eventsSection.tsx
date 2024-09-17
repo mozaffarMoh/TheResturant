@@ -41,7 +41,10 @@ const EventsSection = ({ title }: IProps) => {
     limit: 10,
     page: 1,
   };
-  const [data, loading, getData] = usePost(endPoints.DynamicFilter, body);
+  const [data, loading, getData, success] = usePost(
+    endPoints.DynamicFilter,
+    body,
+  );
 
   useEffect(() => {
     getData();
@@ -86,38 +89,41 @@ const EventsSection = ({ title }: IProps) => {
         setSuccessMessageReserve={setSuccessMessageReserve}
         setErrorMessageReserve={setErrorMessageReserve}
       />
-      <div className="sm-flex-col-col-center-center">
-        <p className="general-title primary-color align-self-start">{title}</p>
-
-        {loading ? (
-          <Stack
-            gap={2}
-            paddingBottom={10}
-            direction={'row'}
-            flexWrap={'wrap'}
-            justifyContent={'space-evenly'}
-            width={'100%'}
-          >
-            {' '}
-            <Stack>
-              <CustomSkeleton
-                variant="rectangle"
-                width="280px"
-                height="200px"
-                borderRadius="20px"
-              />{' '}
-            </Stack>
-            <Stack justifyContent={'center'}>
-              <CustomSkeleton width="150px" />
-              <CustomSkeleton width="250px" />
-              <CustomSkeleton width="280px" />
-              <CustomSkeleton
-                width="150px"
-                height="60px"
-              />
-            </Stack>
+      {loading && (
+        <Stack
+          gap={2}
+          paddingBottom={10}
+          direction={'row'}
+          flexWrap={'wrap'}
+          justifyContent={'space-evenly'}
+          width={'100%'}
+        >
+          {' '}
+          <Stack>
+            <CustomSkeleton
+              variant="rectangle"
+              width="280px"
+              height="200px"
+              borderRadius="20px"
+            />{' '}
           </Stack>
-        ) : (
+          <Stack justifyContent={'center'}>
+            <CustomSkeleton width="150px" />
+            <CustomSkeleton width="250px" />
+            <CustomSkeleton width="280px" />
+            <CustomSkeleton
+              width="150px"
+              height="60px"
+            />
+          </Stack>
+        </Stack>
+      )}
+      {data.length > 0 && success && (
+        <div className="sm-flex-col-col-center-center">
+          <p className="general-title primary-color align-self-start">
+            {title}
+          </p>
+
           <div className=" w-full mb-4">
             <CarouselElement>
               {data &&
@@ -130,8 +136,8 @@ const EventsSection = ({ title }: IProps) => {
                 ))}
             </CarouselElement>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </Container>
   );
 };
