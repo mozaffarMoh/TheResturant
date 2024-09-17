@@ -76,7 +76,7 @@ export default function WorkShopCard({
           <p className="text-med-fw700  p-0 ">
             {title}
             <br />
-            <span className="text-xs  p-0">{subTitleSentence}</span>
+        {/*     <span className="text-xs  p-0">{subTitleSentence}</span> */}
           </p>
 
           <Stack

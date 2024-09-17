@@ -253,12 +253,12 @@ const JobOfferingSection = () => {
                       >
                         {item?.title}
                       </Typography>
-                      <Typography
+             {/*          <Typography
                         variant="body2"
                         color="text.secondary"
                       >
                         {item?.subTitle}
-                      </Typography>
+                      </Typography> */}
                     </CardContent>
                   </Card>
                 );
