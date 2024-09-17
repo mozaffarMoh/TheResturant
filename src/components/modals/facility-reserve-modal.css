@@ -1,4 +1,4 @@
-.facility-reserve-modal{
+.facility-reserve-modal {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -10,9 +10,17 @@
     align-items: center;
     z-index: 1000;
 }
-.reserve{
+
+.reserve {
     background-color: var(--primary-color);
 }
-.reserve:hover{
+
+.reserve:hover {
     background-color: var(--secondary-color);
+}
+
+@media (max-width:375px) {
+    .facility-form {
+        width: 330px;
+    }
 }

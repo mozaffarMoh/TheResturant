@@ -336,6 +336,7 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
         {t('dialog.book-facility')}
       </DialogTitle>
       <DialogContent
+        className="facility-form"
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -360,20 +361,21 @@ const FacilityReserveModal: React.FC<ReservationModalProps> = ({
               width="100%"
             >
               <Typography variant="body1">{t('dialog.select-date')}</Typography>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <StaticDateTimePicker
-                  displayStaticWrapperAs="desktop"
-                  disablePast
-                  value={date}
-                  onChange={handleDateChange}
-                  maxDate={maxDate}
-                  views={['year', 'month', 'day']} // Shows only date views
-                  minDate={dayjs().add(1, 'day')} // Minimum date is tomorrow
-                  disableHighlightToday
-                  shouldDisableDate={disableFridaysAndSaturdays}
-                  sx={{ direction: 'ltr' }}
-                />
-              </LocalizationProvider>
+              <Box sx={{ direction: 'ltr' }}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <StaticDateTimePicker
+                    displayStaticWrapperAs="desktop"
+                    disablePast
+                    value={date}
+                    onChange={handleDateChange}
+                    maxDate={maxDate}
+                    views={['year', 'month', 'day']} // Shows only date views
+                    minDate={dayjs().add(1, 'day')} // Minimum date is tomorrow
+                    disableHighlightToday
+                    shouldDisableDate={disableFridaysAndSaturdays}
+                  />
+                </LocalizationProvider>
+              </Box>
             </Box>
 
             <Box
