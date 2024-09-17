@@ -60,79 +60,71 @@ const EventCard = ({
               alt="Live from space album cover"
             />
           </Grid>
+
           {/* title,subtitle,buttons section */}
           <Grid
             item
             xs={12}
             md={6}
           >
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <CardContent sx={{ flex: '1 0 auto' }}>
-                <p className="general-title-v2  primary-color  fw600">
-                  {title}
-                </p>
-                <p className="text-med-fw400 ">{subTitle}</p>
-              </CardContent>
-              <Box className="xs-flex-row-col-375 ml-1 gap1">
-                {place && place?.name && (
-                  <Stack
-                    direction={'row'}
-                    alignItems={'center'}
-                  >
-                    <PlaceSVG />
-                    <span
-                      style={{ marginInline: '0.4rem' }}
-                      className="text-med-fw400  opacity-80"
-                    >
-                      {' '}
-                      {place && place?.name}
-                    </span>{' '}
-                  </Stack>
-                )}
-
-                {itemMetaData &&
-                  itemMetaData.map((item: any) => {
-                    return (
-                      item?.itemMetaKey?.slug == 'time' && (
-                        <Stack
-                          direction={'row'}
-                          alignItems={'center'}
-                        >
-                          <ClockSVG />{' '}
-                          <span
-                            style={{ marginInline: '0.4rem' }}
-                            className="text-med-fw400  opacity-80"
-                          >
-                            {item.value}{' '}
-                          </span>
-                        </Stack>
-                      )
-                    );
-                  })}
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  pl: 2,
-                  pb: 1,
-                  mt: 1,
-                }}
-              >
-                <Button
-                  variant="outlined"
-                  style={{
-                    borderRadius: '50px',
-                    paddingInline: '2rem',
-                    color: primaryColor,
-                    borderColor: primaryColor,
-                  }}
-                  onClick={handleModal}
+            <Stack>
+              <p className="general-title-v2  primary-color  fw600">{title}</p>
+              <p className="text-med-fw400 ">{subTitle}</p>
+            </Stack>
+            <Stack
+              direction={'row'}
+              gap={1}
+            >
+              {place && place?.name && (
+                <Stack
+                  direction={'row'}
+                  alignItems={'center'}
                 >
-                  {t('buttons.view')}
-                </Button>
-              </Box>
-            </Box>
+                  <PlaceSVG />
+                  <span
+                    style={{ marginInline: '0.4rem' }}
+                    className="text-med-fw400  opacity-80"
+                  >
+                    {' '}
+                    {place && place?.name}
+                  </span>{' '}
+                </Stack>
+              )}
+
+              {itemMetaData &&
+                itemMetaData.map((item: any) => {
+                  return (
+                    item?.itemMetaKey?.slug == 'time' && (
+                      <Stack
+                        direction={'row'}
+                        alignItems={'center'}
+                      >
+                        <ClockSVG />{' '}
+                        <span
+                          style={{ marginInline: '0.4rem' }}
+                          className="text-med-fw400  opacity-80"
+                        >
+                          {item.value}{' '}
+                        </span>
+                      </Stack>
+                    )
+                  );
+                })}
+            </Stack>
+
+            <Button
+              variant="outlined"
+              style={{
+                borderRadius: '50px',
+                paddingInline: '2rem',
+                marginTop: 10,
+                color: primaryColor,
+                borderColor: primaryColor,
+              }}
+              onClick={handleModal}
+            >
+              {t('buttons.view')}
+            </Button>
           </Grid>
         </Grid>
       </Card>
