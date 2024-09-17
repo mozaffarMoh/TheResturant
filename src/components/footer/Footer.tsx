@@ -10,6 +10,7 @@ import {
   Menu,
   CircularProgress,
   Skeleton,
+  Stack,
 } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import { Input } from '@mui/joy';
@@ -28,6 +29,7 @@ import CustomAlert from '../alerts/CustomAlert';
 import useGet from '@/custom-hooks/useGet';
 import Link from 'next/link';
 import { getSocialSVG } from '@/constant/getSocialSVG';
+import Image from 'next/image';
 
 const Footer = () => {
   const t = useTranslations();
@@ -234,16 +236,33 @@ const Footer = () => {
                   md={4}
                   lg={4}
                   display="flex"
-                  justifyContent="flex-start"
                   sx={{ marginTop: '-1rem' }}
                 >
-                  <Item>
-                    <img
-                      src="/logo_white.svg"
-                      alt="logo"
-                      width={140}
-                    />
-                    <Box aria-labelledby="category-a">
+                  <Item
+                    sx={{
+                      alignItems: 'center',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <Stack
+                      width={'100%'}
+                      paddingRight={isArabic ? '50px' : ''}
+                      paddingLeft={!isArabic ? '50px' : ''}
+                    >
+                      <Image
+                        src="/logo_white.svg"
+                        alt="logo"
+                        width={140}
+                        height={80}
+                      />
+                    </Stack>
+                    <Stack
+                      aria-labelledby="category-a"
+                      lineHeight={0.5}
+                      alignItems={'flex-start'}
+                      marginTop={2}
+                    >
                       {contactUSData?.children &&
                         contactUSData?.children.map((item: any) => {
                           return (
@@ -255,35 +274,32 @@ const Footer = () => {
                             </p>
                           );
                         })}
+                    </Stack>
 
-                      {/* Social Media Icons */}
-
-                      <div className="sm-flex-row-row-center-center gap05  w-full">
-                        {socialMediaData?.children &&
-                          socialMediaData?.children.map((item: any) => {
-                            const SvgIcon = getSocialSVG(item?.slug);
-                            return (
-                              <Link
-                                key={item?.id}
-                                href={item?.value}
-                                target="_blank"
-                                className={styles.socialIconContainer}
+                    {/* Social Media Icons */}
+                    <div className="sm-flex-row-row-center-center gap05  w-full">
+                      {socialMediaData?.children &&
+                        socialMediaData?.children.map((item: any) => {
+                          const SvgIcon = getSocialSVG(item?.slug);
+                          return (
+                            <Link
+                              key={item?.id}
+                              href={item?.value}
+                              target="_blank"
+                              className={styles.socialIconContainer}
+                            >
+                              <div
+                                style={{
+                                  margin:
+                                    item?.slug == 'x' ? '5px 0px 0px 4px' : '',
+                                }}
                               >
-                                <div
-                                  style={{
-                                    margin:
-                                      item?.slug == 'x'
-                                        ? '5px 0px 0px 4px'
-                                        : '',
-                                  }}
-                                >
-                                  {SvgIcon && <SvgIcon />}
-                                </div>
-                              </Link>
-                            );
-                          })}
-                      </div>
-                    </Box>
+                                {SvgIcon && <SvgIcon />}
+                              </div>
+                            </Link>
+                          );
+                        })}
+                    </div>
                   </Item>
                 </Grid>
                 <Grid

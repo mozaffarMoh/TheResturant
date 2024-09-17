@@ -57,10 +57,7 @@
   -o-transition: all 0.4s ease;
   transition: all 0.4s ease;
 
-  @media (max-width: 420px) {
-    width: 2rem;
-    height: 2rem;
-  }
+
 }
 
 .socialIconContainer:hover {
