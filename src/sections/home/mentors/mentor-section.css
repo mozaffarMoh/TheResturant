@@ -16,4 +16,5 @@
     align-items: center;
     flex-direction: column;
     margin-left: 10px;
+    cursor: pointer;
 }

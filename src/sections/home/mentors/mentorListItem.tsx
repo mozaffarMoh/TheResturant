@@ -1,8 +1,8 @@
 import { domain } from '@/base-api/endPoints';
 import { DefautImage2 } from '@/constant/images';
-import { Avatar } from '@mui/material';
+import { Avatar, Stack } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
-import './mentor-section.css'
+import './mentor-section.css';
 
 export default function MentorListItem({ item, key }: any) {
   const router = useRouter();
@@ -35,15 +35,20 @@ export default function MentorListItem({ item, key }: any) {
       key={key}
       className="slick-item mb-2 "
       onClick={() => router.push(`/${langCurrent}/home/mentors/${item.slug}`)}
-      style={{ cursor: 'pointer' }}
     >
       <Avatar
         alt={'Avatar'}
         src={imageURL}
         sx={{ width: 100, height: 100 }}
       />
-      <div className="text-reg-high">{name}</div>
-      <div className="text-reg-fw500 line-h-0">{professionsList}</div>
+      <Stack
+        gap={1}
+        marginTop={1}
+        alignItems={'center'}
+      >
+        <div className="text-reg-high ">{name}</div>
+        <div className="text-reg-fw500 line-h-0">{professionsList}</div>
+      </Stack>
     </div>
   );
 }

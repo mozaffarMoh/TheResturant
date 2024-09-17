@@ -401,7 +401,14 @@ const Footer = () => {
               sx={{ fontSize: '12px' }}
             >
               <Grid sx={{ order: { xs: 2, sm: 1 } }}>
-                <Item className="opacity-70">{t('footer.copyRights')}</Item>
+                <Item
+                  className="opacity-70"
+                  style={{ direction: 'ltr' }}
+                >
+                  {isArabic && <bdi> 2024© </bdi>}
+                  {t('footer.copyRights')}
+                  {!isArabic && <bdi> ©2024</bdi>}
+                </Item>
               </Grid>
               <Grid
                 container
