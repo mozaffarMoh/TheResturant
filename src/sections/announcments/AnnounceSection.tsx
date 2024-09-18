@@ -25,7 +25,7 @@ const AnnounceSection = () => {
     filters: {
       'itemType.slug': 'announcement',
     },
-    fields: ['slug', 'title', 'subTitle', 'media'],
+    fields: ['slug', 'title', 'subTitle', 'media', 'description'],
     relations: {
       place: {
         fields: ['name', 'slug'],

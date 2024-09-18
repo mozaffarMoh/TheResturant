@@ -9,8 +9,8 @@ export default function CarouselElement({
 }) {
   return (
     <Carousel
-      fullHeightHover={false} // We want the nav buttons wrapper to only be as big as the button element is
-      navButtonsProps={{
+      sx={{overflowY:'auto'}}
+     navButtonsProps={{
         // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
         style: {
           backgroundColor: 'cornflowerblue',

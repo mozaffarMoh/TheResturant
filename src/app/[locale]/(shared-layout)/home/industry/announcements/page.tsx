@@ -74,7 +74,7 @@ const Announcments = () => {
           </Breadcrumbs>
         </GridFlex>
       </Container>
-      <AnnounceSection />
+      {isClientSide && <AnnounceSection />}
       <JobOfferingSection />
     </Grid>
   );

@@ -22,6 +22,20 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
       ? domain + item?.media?.main_image?.[0]?.url
       : DefautImage1;
 
+  const stripHTML = (html: string) => {
+    if (html) {
+      const div = document.createElement('div');
+      div.innerHTML = html;
+      return div.textContent || div.innerText || '';
+    } else {
+      return '';
+    }
+  };
+
+  const plainText = stripHTML(item?.description);
+  const truncatedText =
+    plainText.length > 200 ? plainText.substring(0, 200) + '...' : plainText;
+
   return (
     <Paper
       className="event-card-paper"
@@ -62,32 +76,31 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
             xs={12}
             md={6}
           >
-            <Stack>
-              <p className="general-title-v2  primary-color  fw600">
-                {item?.title}
-                {item?.category && (
-                  <Button
-                    variant="contained"
-                    sx={{
-                      borderRadius: '50px',
-                      marginX: 2,
-                      fontSize: '11px',
-                      height: '23px',
+            <p className="general-title-v2  primary-color  fw600">
+              {item?.title}
+              {item?.category && (
+                <Button
+                  variant="contained"
+                  sx={{
+                    borderRadius: '50px',
+                    marginX: 2,
+                    fontSize: '11px',
+                    height: '23px',
+                    background: '#EB6B2A',
+                    boxShadow: 'none',
+                    '&:hover': {
                       background: '#EB6B2A',
+                      cursor: 'default',
                       boxShadow: 'none',
-                      '&:hover': {
-                        background: '#EB6B2A',
-                        cursor: 'default',
-                        boxShadow: 'none',
-                      },
-                    }}
-                  >
-                    {item?.category}
-                  </Button>
-                )}
-              </p>
-              <p className="text-med-fw400 ">{item?.subTitle}</p>
-            </Stack>
+                    },
+                  }}
+                >
+                  {item?.category}
+                </Button>
+              )}
+            </p>
+            <p className="text-med-fw400 ">{truncatedText}</p>
+
             <Stack
               direction={'row'}
               gap={1}
@@ -109,7 +122,7 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
               )}
 
               {item?.itemMetaData &&
-                item?.itemMetaData?.map((val: any) => {
+                item?.itemMetaData?.map((val: any, i: number) => {
                   if (
                     val?.itemMetaKey?.slug == 'time' ||
                     val?.itemMetaKey?.slug == 'date'
@@ -117,6 +130,7 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
                     let SvgIcon = metadataIcons(val?.itemMetaKey?.slug);
                     return (
                       <Stack
+                        key={i}
                         direction={'row'}
                         alignItems={'center'}
                       >
@@ -139,6 +153,7 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
                 borderRadius: '50px',
                 paddingInline: '2rem',
                 marginTop: 10,
+                marginBottom: 1,
                 color: primaryColor,
                 borderColor: primaryColor,
               }}

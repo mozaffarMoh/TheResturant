@@ -395,12 +395,12 @@ const Footer = () => {
 
                     <p className="text-reg fc-light-white p-0">
                       {ytjData?.children &&
-                        ytjData?.children.map((item: any) => {
+                        ytjData?.children.map((item: any,i:number) => {
                           return (
-                            <>
+                            <div key={i}>
                               {item?.value}
                               <br />
-                            </>
+                            </div>
                           );
                         })}
                     </p>

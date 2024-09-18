@@ -72,6 +72,7 @@ const AnnounceModal = ({
     setSlug('');
     handleClose();
   };
+
   return (
     <Dialog
       onClose={handleClose}
@@ -135,32 +136,27 @@ const AnnounceModal = ({
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              <Typography
+              {/*   <Typography
                 variant="body2"
                 fontFamily={'Jost'}
               >
                 {data[0] && data[0]?.subTitle}
                 <br />{' '}
-          {/*       {data[0] &&
+                    {data[0] &&
                   data[0]?.itemMetaData &&
                   data[0]?.itemMetaData.length > 0 &&
                   data[0]?.itemMetaData?.map((val: any) => {
                     if (val?.itemMetaKey?.slug == 'date') {
                       return val?.value;
                     }
-                  })} */}
-                <br />
-                <span style={{ color: '#EB6B2A' }}>
-                  {' '}
-                  {data[0] && data[0]?.category}
-                </span>
-              </Typography>
+                  })} 
+              </Typography> */}
+              {data?.[0]?.description && (
+                <div
+                  dangerouslySetInnerHTML={{ __html: data?.[0]?.description }}
+                />
+              )}
             </DialogContentText>
-            {data?.[0]?.description && (
-              <div
-                dangerouslySetInnerHTML={{ __html: data?.[0]?.description }}
-              />
-            )}
           </DialogContent>
         </Stack>
       )}
