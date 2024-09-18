@@ -381,7 +381,7 @@ const News = () => {
                   onChange={handleChangeCategory}
                   sx={{
                     borderRadius: '1.5rem',
-                    height: '40px',
+                    height: isScreen600 ? '30px' : '40px',
                     '& .MuiSelect-select': {
                       padding: '8px 14px',
                     },
