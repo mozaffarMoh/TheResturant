@@ -25,6 +25,7 @@ import { useTranslations } from 'next-intl';
 import Cookies from 'js-cookie';
 import { avatarImage, DefautIcon } from '@/constant/images';
 import { ArrowDropDownIcon } from '@mui/x-date-pickers';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ConfirmationModal from '@/components/modals/ConfirmationModal';
 import useGet from '@/custom-hooks/useGet';
 import { domain, endPoints } from '@/base-api/endPoints';
@@ -157,7 +158,7 @@ const Header = () => {
     handleClose();
   };
 
-  const handleClick2 = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
     setOpen2(true);
   };
@@ -433,10 +434,56 @@ const Header = () => {
                             })}
                         </MenuList>
                       </div>
+
+                      {/* My account */}
+
+                      <Stack
+                        onClick={handleClick2}
+                        paddingX={4.2}
+                        marginBottom={3.5}
+                        marginTop={0.5}
+                        direction={'row'}
+                      >
+                        <Typography color={'black'}>
+                          {t('header.my-account')}
+                        </Typography>
+                        <KeyboardArrowDownIcon />
+                      </Stack>
+                      <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl2}
+                        open={open2}
+                        onClose={handleClose2}
+                      >
+                        <MenuItem
+                          onClick={() => router.push(`/${langCurrent}/profile`)}
+                        >
+                          {t('header.my-account')}
+                        </MenuItem>{' '}
+                        <MenuItem
+                          onClick={() =>
+                            router.push(`/${langCurrent}/my-activity`)
+                          }
+                        >
+                          {t('header.my-activity')}
+                        </MenuItem>{' '}
+                        <MenuItem
+                          onClick={() =>
+                            router.push(`/${langCurrent}/change-password`)
+                          }
+                        >
+                          {t('header.change-password')}
+                        </MenuItem>
+                        <MenuItem onClick={handleShowConfirmation}>
+                          {t('header.logout')}
+                        </MenuItem>
+                      </Menu>
+
+                      {/* Language button */}
                       <Stack
                         className={styles.langButton}
                         alignItems={'flex-start'}
-                        paddingX={2}
+                        paddingX={3}
                         paddingBottom={3}
                       >
                         <Button
@@ -464,62 +511,6 @@ const Header = () => {
                           </MenuItem>
                           <MenuItem onClick={() => changeLanguage('en')}>
                             {t('lang.en')}
-                          </MenuItem>
-                        </Menu>
-                      </Stack>
-
-                      <Stack
-                        direction="row"
-                        alignItems="center"
-                        marginX={isArabic ? 1 : 0}
-                      >
-                        <IconButton
-                          sx={{
-                            width: '90%',
-                            justifyContent: 'flex-start',
-                            '&:hover': { borderRadius: '0px' },
-                            marginLeft: 1,
-                          }}
-                          onClick={handleClick2}
-                        >
-                          <img
-                            width={40}
-                            height={40}
-                            style={{ borderRadius: '50%' }}
-                            src={imageURLUser}
-                            alt="avatar"
-                          />
-                          <ArrowDropDownIcon />
-                        </IconButton>
-                        <Menu
-                          id="basic-menu"
-                          anchorEl={anchorEl2}
-                          open={open2}
-                          onClose={handleClose2}
-                        >
-                          <MenuItem
-                            onClick={() =>
-                              router.push(`/${langCurrent}/profile`)
-                            }
-                          >
-                            {t('header.my-account')}
-                          </MenuItem>{' '}
-                          <MenuItem
-                            onClick={() =>
-                              router.push(`/${langCurrent}/my-activity`)
-                            }
-                          >
-                            {t('header.my-activity')}
-                          </MenuItem>{' '}
-                          <MenuItem
-                            onClick={() =>
-                              router.push(`/${langCurrent}/change-password`)
-                            }
-                          >
-                            {t('header.change-password')}
-                          </MenuItem>
-                          <MenuItem onClick={handleShowConfirmation}>
-                            {t('header.logout')}
                           </MenuItem>
                         </Menu>
                       </Stack>

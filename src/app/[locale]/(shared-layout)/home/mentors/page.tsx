@@ -175,7 +175,7 @@ const MentorsPage: NextPage = () => {
       <Container maxWidth="lg">
         <Stack spacing={5}>
           <Stack
-            alignItems={isScreen600 ? 'center' : 'flex-end'}
+            alignItems={isScreen1209 ? 'center' : 'flex-end'}
             width={'94%'}
           >
             <Stack
