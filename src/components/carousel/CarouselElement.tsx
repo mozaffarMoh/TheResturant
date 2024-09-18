@@ -30,6 +30,7 @@ export default function CarouselElement({
           top: 'unset',
         },
       }}
+      indicators={children?.length > 1}
     >
       {children}
     </Carousel>

@@ -13,6 +13,7 @@ import { useTranslations } from 'next-intl';
 import { DefautImage1 } from '@/constant/images';
 import { domain } from '@/base-api/endPoints';
 import { primaryColor } from '@/constant/color';
+import { metadataIcons } from '@/constant/metadataIcons';
 
 const AnnounceCard = ({ item, handleShowDetails }: any) => {
   const t = useTranslations();
@@ -109,13 +110,17 @@ const AnnounceCard = ({ item, handleShowDetails }: any) => {
 
               {item?.itemMetaData &&
                 item?.itemMetaData?.map((val: any) => {
-                  if (val?.itemMetaKey?.slug == 'time') {
+                  if (
+                    val?.itemMetaKey?.slug == 'time' ||
+                    val?.itemMetaKey?.slug == 'date'
+                  ) {
+                    let SvgIcon = metadataIcons(val?.itemMetaKey?.slug);
                     return (
                       <Stack
                         direction={'row'}
                         alignItems={'center'}
                       >
-                        <ClockSVG />{' '}
+                        {SvgIcon && <SvgIcon />}
                         <bdi
                           style={{ marginInline: '0.4rem' }}
                           className="text-med-fw400  opacity-80"

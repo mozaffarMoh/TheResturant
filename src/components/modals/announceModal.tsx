@@ -141,14 +141,14 @@ const AnnounceModal = ({
               >
                 {data[0] && data[0]?.subTitle}
                 <br />{' '}
-                {data[0] &&
+          {/*       {data[0] &&
                   data[0]?.itemMetaData &&
                   data[0]?.itemMetaData.length > 0 &&
                   data[0]?.itemMetaData?.map((val: any) => {
                     if (val?.itemMetaKey?.slug == 'date') {
                       return val?.value;
                     }
-                  })}
+                  })} */}
                 <br />
                 <span style={{ color: '#EB6B2A' }}>
                   {' '}
@@ -156,6 +156,11 @@ const AnnounceModal = ({
                 </span>
               </Typography>
             </DialogContentText>
+            {data?.[0]?.description && (
+              <div
+                dangerouslySetInnerHTML={{ __html: data?.[0]?.description }}
+              />
+            )}
           </DialogContent>
         </Stack>
       )}
