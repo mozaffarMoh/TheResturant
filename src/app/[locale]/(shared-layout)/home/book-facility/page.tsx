@@ -38,7 +38,9 @@ const BookFacilityPage: NextPage = () => {
   const t = useTranslations();
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
+  const isScreen500 = useMediaQuery('(max-width:500px)');
   const isScreen565 = useMediaQuery('(max-width:565px)');
+  const isScreen1200 = useMediaQuery('(max-width:1200px)');
   const langCurrent = pathname?.slice(1, 3) || 'en';
   const [category, setCategory] = useState<string>('');
   const [location, setLocation] = useState<string>('');
@@ -82,14 +84,14 @@ const BookFacilityPage: NextPage = () => {
     filters,
   };
 
-  const [
+  let [
     facilityList,
     loadingFacilityList,
     getFacilityList,
     successFacilityList,
   ] = useGet(endPoints.getFacilityList);
 
-  const [citiesList, loadingCitiesList, getCitiesList, successCitiesList] =
+  let [citiesList, loadingCitiesList, getCitiesList, successCitiesList] =
     useGet(endPoints.getCitiesList + 'jordan');
 
   const [
@@ -137,6 +139,10 @@ const BookFacilityPage: NextPage = () => {
 
   const handleChange = (e: any, value: number) => {
     setPage(value);
+  };
+
+  const widthByLanguage = () => {
+    return isArabic && !isScreen500 ? '65px' : '80px';
   };
 
   return (
@@ -189,7 +195,7 @@ const BookFacilityPage: NextPage = () => {
       <Container maxWidth="lg">
         <Grid
           container
-          justifyContent="end"
+          justifyContent={isScreen1200 ? 'center' : 'end'}
           alignItems="center"
           className="mt-2"
           gap={{
@@ -201,7 +207,7 @@ const BookFacilityPage: NextPage = () => {
             direction={'row'}
             justifyContent={'flex-start'}
             alignItems={'center'}
-            width={isScreen565 ? '100%' : 'auto'}
+            width={isScreen565 ? 'auto' : 'auto'}
           >
             <InputLabel
               id="dropdown-category"
@@ -209,7 +215,7 @@ const BookFacilityPage: NextPage = () => {
                 whiteSpace: 'nowrap',
                 overflow: 'visible',
                 textOverflow: 'clip',
-                width: loadingFacilityList ? ' 120px' : '80px',
+                width: loadingFacilityList ? '120px' : widthByLanguage(),
               }}
             >
               {t('select.category')} :&nbsp;&nbsp;
@@ -232,7 +238,7 @@ const BookFacilityPage: NextPage = () => {
                 onChange={(e: any) => setCategory(e.target.value)}
                 sx={{
                   borderRadius: '1.5rem',
-                  height: '40px',
+                  height: isScreen565 ? '30px' : '40px',
                   '& .MuiSelect-select': {
                     padding: '8px 14px',
                   },
@@ -258,7 +264,7 @@ const BookFacilityPage: NextPage = () => {
             direction={'row'}
             justifyContent={'flex-start'}
             alignItems={'center'}
-            width={isScreen565 ? '100%' : 'auto'}
+            width={isScreen565 ? 'auto' : 'auto'}
           >
             <InputLabel
               id="dropdown-location"
@@ -288,7 +294,7 @@ const BookFacilityPage: NextPage = () => {
                 onChange={(e: any) => setLocation(e.target.value)}
                 sx={{
                   borderRadius: '1.5rem',
-                  height: '40px',
+                  height: isScreen565 ? '30px' : '40px',
                   '& .MuiSelect-select': {
                     padding: '8px 14px',
                   },
