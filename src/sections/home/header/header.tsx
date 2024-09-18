@@ -35,7 +35,7 @@ import Image from 'next/image';
 const Header = () => {
   const t = useTranslations();
   const router = useRouter();
-  const isScreen991 = useMediaQuery('(max-width:991px)');
+  const isScreen1100 = useMediaQuery('(max-width:1100px)');
   const pathname = usePathname();
   let isArabic = pathname.startsWith('/ar');
   const langCurrent = pathname?.slice(1, 3) || 'en';
@@ -179,8 +179,8 @@ const Header = () => {
   };
 
   useEffect(() => {
-    !isScreen991 && setMenuOpen(false);
-  }, [isScreen991]);
+    !isScreen1100 && setMenuOpen(false);
+  }, [isScreen1100]);
 
   const handleShowConfirmation = () => {
     setOpenLogoutModal(true);

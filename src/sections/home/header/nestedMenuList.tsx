@@ -48,7 +48,7 @@ const NestedMenuList = ({
     <>
       <Button
         onClick={handleClick}
-        className={`${styles.menuListItem} ${isActive && styles.active}  ${!isScreen991 ? styles.menuListMargin : ''}`}
+        className={`${styles.menuListItem} ${isActive && styles.active} `}
         style={{
           fontSize: '16px',
           margin: isScreen1100 ? '0px 18px' : '3px 5px 0px 5px',
