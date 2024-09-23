@@ -13,7 +13,6 @@ import {
   UIScreens,
 } from '@/sections';
 
-
 const HomePage: NextPage = () => {
   return (
     <>
@@ -26,8 +25,8 @@ const HomePage: NextPage = () => {
       <UIScreens />
       <Download />
       <Testimonials />
-     {/*  <FAQs />
-      <Footer /> */}
+      <FAQs />
+      <Footer />
     </>
   );
 };

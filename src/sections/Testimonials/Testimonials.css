@@ -1,0 +1,45 @@
+.Testimonials {
+
+  background-image: url('/images/FAQsBG.png');
+  background-size: cover;
+  height: 580px;
+
+  .testimonial-card {
+    /* Customize card styles here */
+    width: 300px;
+    height: 300px;
+  }
+
+  .slick-dots li button:before {
+    margin-top: 10px;
+    font-size: 8px;
+    color: white;
+  }
+
+
+  .slick-dots li.slick-active button:before {
+    margin-top: 10px;
+    font-size: 8px;
+    color: #FF8704;
+    ;
+    /* Ensure the active dot is also white */
+    opacity: 1;
+  }
+
+}
+
+
+@media (max-width: 768px) {
+  .Testimonials {
+    height: 300px;
+  }
+
+  .testimonial-card {
+    width: 100%;
+    /* Set width to 100% for single card on small screens */
+    float: none;
+    /* Remove float for single card layout */
+  }
+
+
+}
