@@ -20,14 +20,16 @@ const useStyles = makeStyles({
   },
   toggleButton: {
     border: 'none',
-    height: 33,
+    height: 28,
+
     '&.Mui-selected': {
       backgroundColor: '#FF8704 !important', // Orange color for selected language
       color: '#fff',
-      borderRadius: '20px', // Circular button
+      borderRadius: '20px',
     },
     '&:not(.Mui-selected)': {
       color: '#FF8704', // Orange for non-selected
+      borderRadius:'20px'
     },
   },
 });

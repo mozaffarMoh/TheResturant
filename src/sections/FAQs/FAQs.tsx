@@ -22,7 +22,14 @@ const faqsData = [
     question: 'Is there a free trial?',
     answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
-  // Add more FAQ items here
+  {
+    question: "What is 'App'?",
+    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  },
+  {
+    question: 'Is there a free trial?',
+    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  },
 ];
 
 const FAQsSection = () => {
@@ -40,14 +47,14 @@ const FAQsSection = () => {
         gap={3}
       >
         <Typography
-          variant={isScreen500 ? "h5" : "h4"}
+          variant={isScreen500 ? 'h5' : 'h4'}
           fontWeight={700}
           width={300}
-          textAlign={"center"}
+          textAlign={'center'}
         >
           Frequently Asked Questions
         </Typography>
-        <Stack width={"100%"}>
+        <Stack width={'100%'}>
           {faqsData.map((faq, index) => (
             <Accordion
               defaultExpanded={false}

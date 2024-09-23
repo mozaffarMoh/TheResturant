@@ -1,13 +1,18 @@
-.Testimonials {
+.testimonials {
 
-  background-image: url('/images/FAQsBG.png');
-  background-size: cover;
-  height: 580px;
+
+  .testimonials-container {
+    background-image: url('/images/FAQsBG.png');
+    background-size: cover;
+    height: 100%;
+  }
 
   .testimonial-card {
     /* Customize card styles here */
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    background-color: white;
+    height: 200px;
+    padding: 20px;
   }
 
   .slick-dots li button:before {
@@ -30,16 +35,28 @@
 
 
 @media (max-width: 768px) {
-  .Testimonials {
-    height: 300px;
+  .testimonials {
+
+    .testimonials-container {
+
+      background-image: url('/images/FAQsBG.png');
+      background-size: cover;
+      height: 800px;
+
+    }
   }
 
   .testimonial-card {
     width: 100%;
-    /* Set width to 100% for single card on small screens */
-    float: none;
-    /* Remove float for single card layout */
   }
 
+
+}
+
+
+@media (max-width: 420px) {
+  .testimonial-card {
+    width: 250px !important;
+  }
 
 }

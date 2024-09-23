@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Slider from 'react-slick';
 import {
   Box,
@@ -7,6 +7,10 @@ import {
   useMediaQuery,
   Container,
   Stack,
+  Card,
+  CardContent,
+  Grid,
+  Pagination,
 } from '@mui/material';
 import './Testimonials.css';
 import { tree1Image, tree2Image } from '@/constant/images';
@@ -52,22 +56,20 @@ const Testimonials = () => {
     dots: true,
     infinite: false,
     speed: 500,
-    centerMode: true, // Enable center mode
-    centerPadding: '0', // Center without padding
-    slidesToShow: 4, // Show 3 slides
+    slidesToShow: 4, // Show 2 slides per row (4 total per slide)
     slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 1024, // Adjust breakpoint for large screens
         settings: {
-          slidesToShow: 3, // Show 4 slides on large screens
+          slidesToShow: 2, // Show 2 slides per row on large screens (4 total per slide)
           slidesToScroll: 1, // Scroll by 1 slide
         },
       },
       {
         breakpoint: 600, // Adjust breakpoint for small screens
         settings: {
-          slidesToShow: 2, // Show 2 slides on small screens
+          slidesToShow: 1, // Show 1 slide on small screens (2 total per slide)
         },
       },
       {
@@ -84,8 +86,20 @@ const Testimonials = () => {
     <Box
       position={'relative'}
       paddingY={10}
-      className="Testimonials"
+      className="testimonials"
     >
+      <Stack
+        alignItems={'center'}
+        textAlign={"center"}
+        marginBottom={5}
+      >
+        <Typography
+          variant={'h4'}
+          fontWeight={700}
+        >
+          What our customers say
+        </Typography>
+      </Stack>
       <Box
         position={'absolute'}
         top={isScreen900 ? -120 : -350}
@@ -98,19 +112,28 @@ const Testimonials = () => {
           height={isScreen900 ? 150 : 400}
         />
       </Box>
-      <Container>
-        <Slider {...settings}>
-          {testimonialsData.map((testimonial, index) => (
+      <Container className="testimonials-container">
+        <Stack
+          direction={'row'}
+          gap={2}
+          flexWrap={'wrap'}
+          alignItems={'center'}
+          justifyContent={'center'}
+        >
+          {testimonialsData.slice(0, 4).map((testimonial, index) => (
             <TestimonialCard
               key={index}
               testimonial={testimonial}
             />
           ))}
-        </Slider>
+        </Stack>
+        {/*      <Stack alignItems={"center"} marginTop={4}>
+          <Pagination />
+        </Stack> */}
       </Container>
       <Box
         position={'absolute'}
-        bottom={isScreen900 ? -120 : -250}
+        bottom={isScreen900 ? -230 : -250}
         left={0}
       >
         <Image
@@ -126,24 +149,34 @@ const Testimonials = () => {
 
 const TestimonialCard = ({ testimonial }: any) => {
   return (
-    <Box className="testimonial-card">
-      <Rating
-        name="read-only"
-        value={testimonial.rating}
-        readOnly
-        max={4}
-      />
-      <Stack gap={1}>
-        <Typography
-          variant="body2"
-          fontSize={14}
-          color={'black'}
-        >
-          {testimonial.text}
-        </Typography>
-        <Typography variant="caption">{testimonial.date}</Typography>
-      </Stack>
-    </Box>
+    <Grid
+      item
+      xs={12}
+      sm={6}
+      paddingX={2}
+      marginTop={4}
+    >
+      <Card className="testimonial-card">
+        <CardContent>
+          <Rating
+            name="read-only"
+            value={testimonial.rating}
+            readOnly
+            max={4}
+          />
+          <Stack gap={1}>
+            <Typography
+              variant="body2"
+              fontSize={14}
+              color={'black'}
+            >
+              {testimonial.text}
+            </Typography>
+            <Typography variant="caption">{testimonial.date}</Typography>
+          </Stack>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 };
 
