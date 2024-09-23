@@ -1,0 +1,13 @@
+.statistics-section {
+    position: relative;
+    bottom: 70px;
+}
+
+@media (max-width:900px) {
+    .statistics-section {
+
+        position: static;
+        margin-top: 50px;
+
+    }
+}

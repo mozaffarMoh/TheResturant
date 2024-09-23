@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import './globals.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 export const metadata: Metadata = {
-  title: 'The Platform',
-  description: 'Welcome To The Platform Website',
+  title: 'Hostin',
+  description: 'Welcome To The Hostin Website',
   icons: {
     icon: '/favicon.svg',
   },
@@ -21,7 +23,7 @@ export default async function LocaleLayout({
   // Providing all messages to the client
   const messages = await getMessages();
   const isArabic = locale === 'ar';
-  metadata.title = isArabic ? 'المنصة' : 'The Platform';
+  metadata.title = isArabic ? 'هوستن' : 'Hostin';
 
   return (
     <html

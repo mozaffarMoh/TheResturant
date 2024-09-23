@@ -19,8 +19,6 @@ export const config = {
 
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
-  const localeCookies = req.cookies.get("NEXT_LOCALE")?.value || 'en'
-
   // Bypass middleware for static files and assets
   if (
     url.pathname.startsWith('/_next') ||
@@ -32,33 +30,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const isAuthenticated = Boolean(req.cookies.get('token'));
 
-  if (!isAuthenticated) {
-    if (
-      url.pathname == `/${localeCookies}` ||
-      url.pathname.includes('/home') ||
-      url.pathname.includes('/contact-us') ||
-      url.pathname.includes('/profile') ||
-      url.pathname.includes('/change-password') ||
-      url.pathname.includes('/my-activity') ||
-      url.pathname.includes('/links')
-    ) {
-      url.pathname = `/${localeCookies}/guest-home`;
-      return NextResponse.redirect(url);
-    }
-  } else {
-    if (
-      url.pathname == `/${localeCookies}` ||
-      url.pathname.includes('/who-are-you') ||
-      url.pathname.includes('/sign-in') ||
-      url.pathname.includes('/sign-up') ||
-      url.pathname.includes('/guest-home')
-    ) {
-      url.pathname = `/${localeCookies}/home`;
-      return NextResponse.redirect(url);
-    }
-  }
 
   const response = nextIntlMiddleware(req);
   return response;

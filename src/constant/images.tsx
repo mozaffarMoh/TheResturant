@@ -1,20 +1,28 @@
-/* small images */
-export const logoImage = '/logo.svg';
-export const successCheckMark = '/green-check.png';
-export const headBar = '/head.png';
+/* vairous images */
+export const logoImage = '/images/logo.png';
+export const logoLargeImage = '/images/hero/logoLarge.png';
+export const phonesImage = '/images/hero/phones.png';
+export const uiScreen1 = '/images/ui-screens/image1.png';
+export const uiScreen2 = '/images/ui-screens/image2.png';
+export const uiScreen3 = '/images/ui-screens/image3.png';
+export const uiScreen4 = '/images/ui-screens/image4.png';
+export const uiScreen5 = '/images/ui-screens/image5.png';
+export const downloadYourAppImage = '/images/download/downloadYourApp.png';
+export const scanImage = '/images/download/scan.png';
+export const QRCodeImage = '/images/download/QR-Code.png';
+export const googlePlayButtonDownload = '/images/download/googlePlayButton.png';
+export const appleStoreButtonDownload = '/images/download/appleStoreButton.png';
+export const tree1Image = '/images/tree1.png';
+export const tree2Image = '/images/tree2.png';
 
 /* Backgrounds */
-export const loginBgImage = '/login.jpg';
-export const registerBgImage = '/register-bg.jpg';
-export const whoAreYouBgImage = '/whoAreYou.jpg';
-export const userDetailsBgImage = '/userDetails.jpg';
-export const codeBgImage = '/code.jpg';
-export const keyBgImage = '/key.jpg';
+export const googlePlayButton = '/images/hero/googlePlayButton.png';
+export const appleStoreButton = '/images/hero/appleStoreButton.png';
+export const featuresBG1 = '/images/features/features-bg-1.png';
+export const featuresBG2 = '/images/features/features-bg-2.png';
+export const featuresBG3 = '/images/features/features-bg-3.png';
+export const featuresBG4 = '/images/features/features-bg-4.png';
+export const circleCoverLeft = '/images/ui-screens/circleCoverLeft.png';
+export const circleCoverRight = '/images/ui-screens/circleCoverRight.png';
 
-/* Default images */
-export const DefautImage1 = '/DefautImage1.png';
-export const DefautImage1Large = '/DefautImage1Large.png';
-export const DefautImage1Tall = '/DefautImage1Tall.png';
-export const DefautImage2 = '/DefautImage2.webp';
-export const DefautIcon = '/DefautIcon.png';
-export const avatarImage = '/avatar.png';
+/* Icons */
