@@ -6,7 +6,7 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { HandClickSVG, MapSVG, MessageDotsSVG } from '../../../assets/icons';
+import { CashSVG, HandClickSVG, MapSVG, MessageDotsSVG } from '../../../assets/icons';
 import {
   featuresBG1,
   featuresBG2,
@@ -100,7 +100,7 @@ const Features = () => {
           title={t('subTitles.interactiveMap')}
         />
         <FeatureCard
-          icon={<HandClickSVG />}
+          icon={<CashSVG />}
           backgroundImage={featuresBG2}
           title={t('subTitles.flexibleAndSecurePayment')}
         />
