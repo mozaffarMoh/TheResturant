@@ -15,6 +15,7 @@ import {
 import './Testimonials.css';
 import { tree1Image, tree2Image } from '@/constant/images';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 const testimonialsData = [
   {
@@ -50,6 +51,7 @@ const testimonialsData = [
 ];
 
 const Testimonials = () => {
+  const t = useTranslations();
   const isScreen900 = useMediaQuery('(max-width:900px)');
 
   const settings = {
@@ -99,7 +101,7 @@ const Testimonials = () => {
           variant={'h4'}
           fontWeight={700}
         >
-          What our customers say
+           {t('titles.whatOurCustomersSay')}
         </Typography>
       </Stack>
       <Box

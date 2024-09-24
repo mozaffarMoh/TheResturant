@@ -1,8 +1,4 @@
 {
-    "lang": {
-        "en": "الإنجليزية",
-        "ar": "العربية"
-    },
     "header": {
         "features": "الميزات",
         "download": "تحميل",
@@ -10,23 +6,26 @@
         "faq": "FAQ",
         "contact-us": "تواصل معنا"
     },
-    "footer": {
-        "subscribe": "اشترك",
-        "copyRights": "المنصة. جميع الحقوق محفوظة "
+    "titles": {
+        "downloadTheApp": "حمل التطبيق",
+        "whatOurCustomersSay": "آراء العملاء",
+        "frequentlyAskedQuestions": "الأسئلة الشائعة"
+    },
+    "subTitles": {
+        "topPartners": "أفضل الشركاء",
+        "monthlyVisitors": "الزوار الشهرية",
+        "differentLocations": "المواقع المختلفة",
+        "happyCustomers": "العملاء السعداء",
+        "interactiveMap": "الخريطة التفاعلية",
+        "multiLanguageSupport": "دعم متعدد اللغات",
+        "userReviews": "مراجعات المستخدمين",
+        "flexibleAndSecurePayment": "دفع مرن وآمن"
     },
     "buttons": {
-        "view": "عرض",
-        "apply-now": "قدم الآن",
-        "book-now": "احجز الآن",
-        "buy": "شراء",
-        "request": "طلب",
-        "load-more": "تحميل المزيد",
-        "confirm": "تأكيد",
-        "submit": "إرسال",
-        "reset-password": "تغيير كلمة السر",
-        "verify": "تحقق",
-        "reserve": "حجز",
-        "upload-files": "تحميل ملفات",
-        "cancel": "الغاء"
+        "viewAllFAQs": "عرض جميع الأسئلة الشائعة"
+    },
+    "footer": {
+        "subscribe": "اشترك",
+        "copyrights": " جميع الحقوق محفوظة | هوستن © 2023"
     }
 }

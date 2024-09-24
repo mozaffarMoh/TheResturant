@@ -9,9 +9,11 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import './Statistics.css';
+import { useTranslations } from 'next-intl';
 
 const Statistics = () => {
   const theme = useTheme();
+  const t = useTranslations();
 
   return (
     <Container className={'statistics-section'}>
@@ -23,19 +25,19 @@ const Statistics = () => {
         }}
       >
         <StatItem
-          label="Happy Customers"
+          label=  {t('subTitles.happyCustomers')}
           value="15K"
         />
         <StatItem
-          label="Different Locations"
+          label={t('subTitles.differentLocations')}
           value="500+"
         />
         <StatItem
-          label="Monthly Visitors"
+          label={t('subTitles.monthlyVisitors')}
           value="150K"
         />
         <StatItem
-          label="Top Partners"
+          label={t('subTitles.topPartners')}
           value="100+"
         />
       </Stack>

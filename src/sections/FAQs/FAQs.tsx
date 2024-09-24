@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { secondaryColor } from '@/constant/color';
+import { useTranslations } from 'next-intl';
 
 const faqsData = [
   {
@@ -33,6 +34,7 @@ const faqsData = [
 ];
 
 const FAQsSection = () => {
+  const t = useTranslations();
   const [expanded, setExpanded] = useState(false);
   const isScreen500 = useMediaQuery('(max-width:500px)');
   const handleChange = (panel: any) => (event: any, isExpanded: boolean) => {
@@ -55,7 +57,7 @@ const FAQsSection = () => {
           width={300}
           textAlign={'center'}
         >
-          Frequently Asked Questions
+         {t('titles.frequentlyAskedQuestions')}
         </Typography>
         <Stack width={'100%'}>
           {faqsData.map((faq, index) => (
@@ -86,7 +88,7 @@ const FAQsSection = () => {
             '&:hover': { background: secondaryColor },
           }}
         >
-          View all FAQs
+          {t('buttons.viewAllFAQs')}
         </Button>
       </Stack>
     </Container>

@@ -14,6 +14,7 @@ import {
   featuresBG4,
 } from '@/constant/images';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 const FeatureCard = ({ icon, title, description, backgroundImage }: any) => {
   const isScreen450 = useMediaQuery('(max-width:450px)');
@@ -59,6 +60,7 @@ const FeatureCard = ({ icon, title, description, backgroundImage }: any) => {
 };
 
 const Features = () => {
+  const t = useTranslations();
   return (
     <Container
       id="features"
@@ -73,7 +75,7 @@ const Features = () => {
           fontWeight={600}
           marginBottom={10}
         >
-          Features
+          {t('header.features')}
         </Typography>
       </Stack>
       <Stack
@@ -85,22 +87,22 @@ const Features = () => {
         <FeatureCard
           icon={<HandClickSVG />}
           backgroundImage={featuresBG1}
-          title="User Reviews"
+          title={t('subTitles.userReviews')}
         />
         <FeatureCard
           icon={<MessageDotsSVG />}
           backgroundImage={featuresBG2}
-          title="Multi-Language Support"
+          title={t('subTitles.multiLanguageSupport')}
         />
         <FeatureCard
           icon={<MapSVG />}
           backgroundImage={featuresBG1}
-          title="Interactive Map"
+          title={t('subTitles.interactiveMap')}
         />
         <FeatureCard
           icon={<HandClickSVG />}
           backgroundImage={featuresBG2}
-          title="Flexible And Secure Payment"
+          title={t('subTitles.flexibleAndSecurePayment')}
         />
       </Stack>
     </Container>

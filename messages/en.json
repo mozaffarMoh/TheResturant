@@ -1,51 +1,31 @@
 {
-    "lang": {
-        "en": "English",
-        "ar": "Arabic"
-    },
     "header": {
         "features": "Features",
-        "download":"Download",
-        "ui-screens":"UI screens",
-        "faq":"FAQ",
-        "contact-us":"Contact us"
+        "download": "Download",
+        "ui-screens": "UI screens",
+        "faq": "FAQ",
+        "contact-us": "Contact us"
     },
-    "footer": {
-        "title": "Subscribe Our Newsletter",
-        "subtitle": "Enter your email to receive all the latest news in our newsletter",
-        "our-company": "Our Company",
-        "subscribe": "Subscribe",
-        "menu": "Menu",
-        "links": "Links",
-        "about-us": "About Us",
-        "terms-of-use": "Terms Of Use",
-        "privacy-policy": "Privacy And Policy",
-        "contact-us": "Contact Us",
-        "community": "Community",
-        "student-perks": "Student Perks",
-        "blog": "Blog",
-        "affiliate-program": "Affiliate Program",
-        "careers": "Careers",
-        "support": "Support",
-        "documentations": "Documentations",
-        "forums": "Forums",
-        "languages-packs": "Languages Packs",
-        "release-status": "Release Status",
-        "copyRights": "ThePlatform. All Copyright Reserved"
+    "titles": {
+        "downloadTheApp": "Download The App",
+        "whatOurCustomersSay": "What our customers say",
+        "frequentlyAskedQuestions": "Frequently Asked Questions"
+    },
+    "subTitles": {
+        "topPartners": "Top Partners",
+        "monthlyVisitors": "Monthly Visitors",
+        "differentLocations": "Different Locations",
+        "happyCustomers": "Happy Customers",
+        "interactiveMap": "Interactive Map",
+        "multiLanguageSupport": "Multi-Language Support",
+        "userReviews": "User Reviews",
+        "flexibleAndSecurePayment": "Flexible And Secure Payment"
     },
     "buttons": {
-        "view": "View",
-        "apply-now": "Apply Now",
-        "book-now": "Book Now",
-        "buy": "Buy",
-        "request": "Request",
-        "load-more": "LOAD MORE",
-        "confirm": "Confirm",
-        "submit": "Submit",
-        "reset-password": "Reset Password",
-        "verify": "Verify",
-        "reserve": "Reserve",
-        "upload-files": "Upload Files",
-        "cancel": "Cancel"
+        "viewAllFAQs": "View All FAQs"
+    },
+    "footer": {
+        "subscribe": "Subscribe",
+        "copyrights": "Copyright © 2023 Hostin | All Rights Reserved"
     }
 }

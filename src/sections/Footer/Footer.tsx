@@ -109,7 +109,7 @@ const Footer = () => {
       </Stack>
       <hr style={{ width: '70%',margin:'10px' }} />
       <Typography variant="caption">
-        Copyright © 2023 Hostin | All Rights Reserved
+      {t('footer.copyrights')}
       </Typography>
     </Stack>
   );

@@ -9,8 +9,10 @@ import {
   QRCodeImage,
   scanImage,
 } from '@/constant/images';
+import { useTranslations } from 'next-intl';
 
 const Download = () => {
+  const t = useTranslations();
   const isScreen650 = useMediaQuery('(max-width:650px)');
   return (
     <Stack
@@ -22,7 +24,7 @@ const Download = () => {
         variant="h4"
         fontWeight={600}
       >
-        Download The App
+        {t('titles.downloadTheApp')}
       </Typography>
       <Stack
         direction={'row'}
