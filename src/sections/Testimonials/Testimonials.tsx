@@ -87,6 +87,7 @@ const Testimonials = () => {
       position={'relative'}
       paddingY={10}
       className="testimonials"
+      id="contact-us"
     >
       <Stack
         alignItems={'center'}

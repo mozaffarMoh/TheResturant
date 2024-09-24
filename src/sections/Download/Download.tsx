@@ -16,6 +16,7 @@ const Download = () => {
     <Stack
       textAlign={'center'}
       paddingY={20}
+      id="download"
     >
       <Typography
         variant="h4"

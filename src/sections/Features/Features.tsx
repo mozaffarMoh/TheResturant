@@ -60,7 +60,19 @@ const FeatureCard = ({ icon, title, description, backgroundImage }: any) => {
 
 const Features = () => {
   return (
-    <Container>
+    <Container id="features">
+      <Stack
+        textAlign={'center'}
+        marginTop={10}
+      >
+        <Typography
+          variant="h3"
+          fontWeight={600}
+          marginBottom={10}
+        >
+          Features
+        </Typography>
+      </Stack>
       <Stack
         direction={'row'}
         flexWrap={'wrap'}

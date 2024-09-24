@@ -103,17 +103,20 @@ const UIScreens = () => {
     ],
   };
   return (
-    <Box position={'relative'}>
+    <Box
+      position={'relative'}
+      id="ui-screens"
+    >
       <Box
         position={'absolute'}
-        top={isScreen900 ? -120 :-350}
+        top={isScreen900 ? -120 : -350}
         right={0}
       >
         <Image
           src={tree1Image}
           alt="tree-1"
           width={isScreen900 ? 100 : 250}
-          height={isScreen900 ? 150 :400}
+          height={isScreen900 ? 150 : 400}
         />
       </Box>
       <Stack

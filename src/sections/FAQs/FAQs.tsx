@@ -40,7 +40,7 @@ const FAQsSection = () => {
   };
 
   return (
-    <Container>
+    <Container id="faq">
       <Stack
         alignItems={'center'}
         marginTop={25}
