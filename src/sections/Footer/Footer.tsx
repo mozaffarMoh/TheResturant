@@ -52,10 +52,7 @@ const Footer = () => {
         src={logoLargeImage}
         alt="logo"
       />
-      <form
-        className={'subscribeForm'}
-        dir="ltr"
-      >
+      <form className={'subscribeForm'}>
         <Input
           sx={{
             '--Input-decoratorChildHeight': '3.5rem',
@@ -107,10 +104,8 @@ const Footer = () => {
           );
         })}
       </Stack>
-      <hr style={{ width: '70%',margin:'10px' }} />
-      <Typography variant="caption">
-      {t('footer.copyrights')}
-      </Typography>
+      <hr style={{ width: '70%', margin: '10px' }} />
+      <Typography variant="caption">{t('footer.copyrights')}</Typography>
     </Stack>
   );
 };

@@ -28,7 +28,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      dir={isArabic ? 'rtl' : 'ltr'}
+     // dir={isArabic ? 'rtl' : 'ltr'}
       className={isArabic ? 'arabicFont' : 'englishFont'}
     >
       <body>

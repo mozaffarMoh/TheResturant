@@ -10,6 +10,7 @@ import {
   scanImage,
 } from '@/constant/images';
 import { useTranslations } from 'next-intl';
+import './Download.css'
 
 const Download = () => {
   const t = useTranslations();
@@ -31,6 +32,7 @@ const Download = () => {
         marginTop={10}
         justifyContent={'center'}
         gap={3}
+        className="download-qr-code"
       >
         {!isScreen650 && (
           <Image

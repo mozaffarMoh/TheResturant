@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Slider from 'react-slick';
 import {
   Box,
@@ -31,12 +31,18 @@ const UIScreens = () => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const pathname = usePathname();
   const isArabic = pathname.startsWith('/ar');
+  const isScreen720 = useMediaQuery('(max-width:720px)');
   const isScreen900 = useMediaQuery('(max-width:900px)');
-  const centerIndex = Math.floor(images.length / 2);
-  const [activeIndex, setActiveIndex] = React.useState(centerIndex);
+  const [activeIndex, setActiveIndex] = React.useState(2);
+
+  useEffect(() => {
+    setTimeout(() => {
+      isScreen720 && setActiveIndex(1);
+    }, 1000);
+  }, [isScreen720]);
 
   const handleUpdateIndex = (newIndex: any) => {
-    const centerIndex = newIndex + 1;
+    const centerIndex = !isScreen720 ? newIndex + 1 : newIndex;
     const updatedValue = centerIndex == images.length ? 0 : centerIndex;
     setActiveIndex(updatedValue);
   };
@@ -85,13 +91,14 @@ const UIScreens = () => {
   };
 
   const settings = {
+    className: 'slider-container',
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
     centerMode: true, // Enable center mode
-    centerPadding: '0', // Center without padding
+    centerPadding: '0px', // Center without padding
     nextArrow: <CustomNextArrow />, // Use your custom arrow component
     prevArrow: <CustomPrevArrow />, // Use your custom arrow component
     initialSlide: 1,
@@ -159,6 +166,7 @@ const UIScreens = () => {
       <Stack
         paddingY={10}
         className="ui-screens"
+        alignItems={"center"}
       >
         <Container>
           <Slider {...settings}>

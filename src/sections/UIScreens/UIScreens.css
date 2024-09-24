@@ -1,17 +1,13 @@
 /* Center slide larger */
 
 
-
-
 .ui-screens {
     background: linear-gradient(180deg, #F8FCFD 0%, #8CCCDD 100%);
 
-    /*    * {
-        direction: ltr !important; 
-        text-align: left !important;
-      } 
-      */
 
+    * {
+        direction: ltr !important;
+    }
 
     /* Smaller size for non-center slides */
     .slide {
@@ -28,10 +24,9 @@
 
     /* Larger size and full opacity for center slide */
     .active-slider {
-        transform: scale(.8) !important;
+        transform: scale(.9) !important;
         opacity: 1 !important;
         transition: transform 0.3s ease;
-
 
         img {
             opacity: 1 !important;
@@ -42,6 +37,8 @@
     .slick-arrow.slick-prev::before {
         display: none !important;
     }
+
+    
 
     /* Custom arrow positioning */
     .slick-prev,

@@ -17,73 +17,31 @@ import { tree1Image, tree2Image } from '@/constant/images';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
-const testimonialsData = [
-  {
-    rating: 3,
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ultricies molestie imperdiet.',
-    date: 'Feb 25, 2024',
-  },
-  {
-    rating: 4,
-    text: 'Cras rutrum vestibulum dolor, eu feugiat elit finibus a. Pellentesque vitae lacinia.',
-    date: 'December 12, 2023',
-  },
-  {
-    rating: 3,
-    text: 'Donec sed odio dui. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
-    date: 'August 10, 2024',
-  },
-  {
-    rating: 4,
-    text: 'Fusce dapibus, tellus cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.',
-    date: 'May 15, 2024',
-  },
-  {
-    rating: 3,
-    text: 'Curabitur aliquet quam id dui posuere blandit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;',
-    date: 'March 02, 2024',
-  },
-  {
-    rating: 2,
-    text: 'Proin eget tortor risus. Donec sollicitudin mi sit amet erat. Vivamus in arcu cursus.',
-    date: 'January 01, 2024',
-  },
-];
-
 const Testimonials = () => {
   const t = useTranslations();
   const isScreen900 = useMediaQuery('(max-width:900px)');
-
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4, // Show 2 slides per row (4 total per slide)
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024, // Adjust breakpoint for large screens
-        settings: {
-          slidesToShow: 2, // Show 2 slides per row on large screens (4 total per slide)
-          slidesToScroll: 1, // Scroll by 1 slide
-        },
-      },
-      {
-        breakpoint: 600, // Adjust breakpoint for small screens
-        settings: {
-          slidesToShow: 1, // Show 1 slide on small screens (2 total per slide)
-        },
-      },
-      {
-        breakpoint: 480, // Adjust breakpoint for very small screens
-        settings: {
-          slidesToShow: 1, // Show 1 slide on very small screens
-          slidesToScroll: 1, // Scroll by 1 slide
-        },
-      },
-    ],
-  };
-
+  const testimonialsData = [
+    {
+      rating: 3,
+      text: t('testimonial.text1'),
+      date: 'Feb 25, 2024',
+    },
+    {
+      rating: 4,
+      text: t('testimonial.text2'),
+      date: 'December 12, 2023',
+    },
+    {
+      rating: 4,
+      text: t('testimonial.text3'),
+      date: 'August 10, 2024',
+    },
+    {
+      rating: 3,
+      text: t('testimonial.text4'),
+      date: 'May 15, 2024',
+    },
+  ];
   return (
     <Box
       position={'relative'}
@@ -94,14 +52,14 @@ const Testimonials = () => {
     >
       <Stack
         alignItems={'center'}
-        textAlign={"center"}
+        textAlign={'center'}
         marginBottom={5}
       >
         <Typography
           variant={'h4'}
           fontWeight={700}
         >
-           {t('titles.whatOurCustomersSay')}
+          {t('titles.whatOurCustomersSay')}
         </Typography>
       </Stack>
       <Box

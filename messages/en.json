@@ -22,6 +22,40 @@
         "userReviews": "User Reviews",
         "flexibleAndSecurePayment": "Flexible And Secure Payment"
     },
+    "categories": {
+        "label1": "Category",
+        "desc1": "Our app offers a variety of categories to cater to your needs. You can choose from charming chalets for a cozy getaway, beautiful farms for a unique countryside experience, and more options to suit every preference",
+        "title1-1": "Category Section",
+        "subTitle1-1": "Detailed categorization for organized content and navigation.",
+        "title1-2": "Included Themes",
+        "subTitle1-2": "Comprehensive themes designed to enhance user experience.",
+        "title1-3": "Streamlined Booking Process",
+        "subTitle1-3": "Efficient booking system for quick and easy reservations. ",
+        "label2": "My Properties",
+        "desc2": "The 'My Properties' section enables property owners to efficiently manage their listings, monitor reservations, update availability, and access financial details, all within a single platform.",
+        "title2-1": "Access financial records",
+        "subTitle2-1": "to maintain accurate and transparent accounting practices.  ",
+        "title2-2": "Communicate with guests",
+        "subTitle2-2": "to enhance their experience and satisfaction levels.  ",
+        "title2-3": "Monitor reservations ",
+        "subTitle2-3": "to ensure efficiency and optimal guest service delivery."
+    },
+    "testimonial": {
+        "text1": "Booking our weekend getaway was a breeze! The app's user-friendly interface made it easy to find the perfect chalet, and we loved the variety of options available.",
+        "text2": "I’ve tried several booking apps, but this one stands out. The detailed listings and clear photos helped us choose the ideal farm stay.",
+        "text3": "What an amazing experience! The app not only helped us find a cozy chalet but also provided great local recommendations.",
+        "text4": "I was impressed by how quickly I could compare different properties and book our stay. The customer service was excellent."
+    },
+    "faq": {
+        "question1": "How do I book a chalet or farm?",
+        "answer1": "Select your desired property, choose your dates, and complete the checkout process. A confirmation SMS will follow.",
+        "question2": "What payment methods do you accept? ",
+        "answer2": "We accept major credit cards, PayPal, and cashe . Payment details will be provided during checkout.",
+        "question3": "Are pets allowed?",
+        "answer3": "Many properties are pet-friendly. Please check individual listings for specific policies.",
+        "question4": "What amenities are included?",
+        "answer4": "Amenities vary by property but typically include fully equipped kitchens, Wi-Fi, and outdoor spaces. Refer to the listing for details."
+    },
     "buttons": {
         "viewAllFAQs": "View All FAQs"
     },

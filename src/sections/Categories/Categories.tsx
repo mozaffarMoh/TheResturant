@@ -11,55 +11,49 @@ import {
 } from '@mui/material';
 import Image from 'next/image';
 import { useTheme } from '@mui/material/styles';
-import { circleCoverRight, uiScreen1 } from '@/constant/images';
+import { circleCoverRight, uiScreen4, uiScreen5 } from '@/constant/images';
 import { secondaryColor } from '@/constant/color';
 import { BlankSVG, BookSVG, BrushSVG } from '../../../assets/icons';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 const Categories = ({ order }: any) => {
+  const t = useTranslations();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const options = [
     [
       {
-        title: 'Category Section',
-        description:
-          'Helps users find chalets and resorts by specific themes or preferences.',
+        title: t('categories.title1-1'),
+        description: t('categories.subTitle1-1'),
         icon: <BrushSVG />,
       },
       {
-        title: 'Themes Include',
-        description:
-          'Helps users find chalets and resorts by specific themes or preferences.',
-
+        title: t('categories.title1-2'),
+        description: t('categories.subTitle1-2'),
         icon: <BookSVG />,
       },
       {
-        title: 'Efficient Booking',
-        description:
-          'Helps users find chalets and resorts by specific themes or preferences.',
+        title: t('categories.title1-3'),
+        description: t('categories.subTitle1-3'),
         icon: <BlankSVG />,
       },
     ],
     [
       {
-        title: 'Access Financials',
-        description:
-          'Review transaction history, earnings, and manage financial details related to bookings.',
+        title: t('categories.title2-1'),
+        description: t('categories.subTitle2-1'),
         icon: <BrushSVG />,
       },
       {
-        title: 'Communicate with Guests',
-        description:
-          'Helps users find chalets and resorts by specific themes or preferences.',
-
+        title: t('categories.title2-2'),
+        description: t('categories.subTitle2-2'),
         icon: <BookSVG />,
       },
       {
-        title: 'Monitor Reservations',
-        description:
-          'Helps users find chalets and resorts by specific themes or preferences.',
+        title: t('categories.title2-3'),
+        description: t('categories.subTitle2-3'),
         icon: <BlankSVG />,
       },
     ],
@@ -134,9 +128,9 @@ const Categories = ({ order }: any) => {
               }}
             >
               <Image
-                src={uiScreen1}
+                src={order == 0 ? uiScreen5 : uiScreen4}
                 alt="Phone"
-                width={isSmallScreen ? 170 : 300}
+                width={isSmallScreen ? 170 : 280}
                 height={isSmallScreen ? 300 : 500}
                 objectFit="contain"
               />
@@ -168,16 +162,14 @@ const Categories = ({ order }: any) => {
               fontWeight="bold"
               textAlign={isSmallScreen ? 'center' : 'left'}
             >
-              Category
+              {order == 0 ? t('categories.label1') : t('categories.label2')}
             </Typography>
             <Typography
               variant="body1"
-              textAlign={isSmallScreen ? 'center' : 'left'}
+              textAlign={isSmallScreen ? 'center' : 'start'}
               sx={{ maxWidth: '400px' }}
             >
-              The My Properties section allows property owners to manage their
-              listings, track reservations, update availability, and view
-              financial details—all in one place.
+              {order == 0 ? t('categories.desc1') : t('categories.desc2')}
             </Typography>
 
             <Stack
@@ -209,7 +201,7 @@ const Categories = ({ order }: any) => {
                     <Stack
                       direction={'row'}
                       gap={1}
-                      height={isActive ? 50 : 'auto'}
+                      height={'auto'}
                     >
                       <Stack>{item.icon}</Stack>
                       <Stack>
@@ -219,11 +211,10 @@ const Categories = ({ order }: any) => {
                         >
                           {item.title}
                         </Typography>
-                        {isActive && (
-                          <Typography variant="caption">
-                            {item.description}
-                          </Typography>
-                        )}
+
+                        <Typography variant="caption">
+                          {item.description}
+                        </Typography>
                       </Stack>
                     </Stack>
                   </Paper>

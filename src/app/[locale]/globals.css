@@ -54,6 +54,7 @@ body{
 .arabicFont {
   * {
     font-family: 'Bahij TheSansArabic' !important;
+    direction: rtl;
   }
 }
 

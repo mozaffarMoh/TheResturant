@@ -14,25 +14,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { secondaryColor } from '@/constant/color';
 import { useTranslations } from 'next-intl';
 
-const faqsData = [
-  {
-    question: "What is 'App'?",
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    question: 'Is there a free trial?',
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    question: "What is 'App'?",
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    question: 'Is there a free trial?',
-    answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-];
-
 const FAQsSection = () => {
   const t = useTranslations();
   const [expanded, setExpanded] = useState(false);
@@ -41,6 +22,24 @@ const FAQsSection = () => {
     setExpanded(isExpanded ? panel : false);
   };
 
+  const faqsData = [
+    {
+      question: t('faq.question1'),
+      answer: t('faq.answer1'),
+    },
+    {
+      question: t('faq.question2'),
+      answer: t('faq.answer2'),
+    },
+    {
+      question: t('faq.question3'),
+      answer: t('faq.answer3'),
+    },
+    {
+      question: t('faq.question4'),
+      answer: t('faq.answer4'),
+    },
+  ];
   return (
     <Container
       id="faq"
@@ -57,7 +56,7 @@ const FAQsSection = () => {
           width={300}
           textAlign={'center'}
         >
-         {t('titles.frequentlyAskedQuestions')}
+          {t('titles.frequentlyAskedQuestions')}
         </Typography>
         <Stack width={'100%'}>
           {faqsData.map((faq, index) => (

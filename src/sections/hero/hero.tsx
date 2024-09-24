@@ -1,16 +1,13 @@
 'use client';
 import {
   appleIcon,
-  appleStoreButton,
   googleIcon,
-  googlePlayButton,
   logoLargeImage,
   phonesImage,
 } from '@/constant/images';
 import styles from './hero.module.css';
 import {
   Box,
-  Button,
   Container,
   Grid,
   Stack,
@@ -18,13 +15,10 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 import { blackButton } from '@/constant/color';
-import { CashSVG } from '../../../assets/icons';
 import { useTranslations } from 'next-intl';
 
 const HeroSection = () => {
-  const pathname = usePathname();
   const t = useTranslations()
   const isScreen450 = useMediaQuery('(max-width:450px)');
   const isScreen900 = useMediaQuery('(max-width:900px)');
