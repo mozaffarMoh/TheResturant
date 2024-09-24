@@ -50,7 +50,7 @@ const StatItem = ({ label, value }: { label: string; value: string }) => {
   const valueNum = value.slice(0, value.length - 1);
   const valueSign = value.slice(-1);
   return (
-    <Box textAlign="center">
+    <Box textAlign="center" >
       <Typography
         variant={isScreen450 ? 'h6' : 'h4'}
         color={primaryColor}

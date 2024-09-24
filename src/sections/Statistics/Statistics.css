@@ -1,6 +1,10 @@
 .statistics-section {
     position: relative;
     bottom: 70px;
+
+    * {
+        direction: ltr !important;
+    }
 }
 
 @media (max-width:900px) {
