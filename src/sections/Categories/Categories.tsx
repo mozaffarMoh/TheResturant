@@ -52,14 +52,14 @@ const Categories = ({ order }: any) => {
       {
         title: 'Communicate with Guests',
         description:
-          'Review transaction history, earnings, and manage financial details related to bookings.',
+          'Helps users find chalets and resorts by specific themes or preferences.',
 
         icon: <BookSVG />,
       },
       {
         title: 'Monitor Reservations',
         description:
-          'Review transaction history, earnings, and manage financial details related to bookings.',
+          'Helps users find chalets and resorts by specific themes or preferences.',
         icon: <BlankSVG />,
       },
     ],
@@ -206,19 +206,25 @@ const Categories = ({ order }: any) => {
                       transition: 'background-color 0.3s, border 0.3s',
                     }}
                   >
-                    <Stack height={isActive ? 50 : 'auto'}>{item.icon}</Stack>
-                    <Stack height={isActive ? 50 : 'auto'}>
-                      <Typography
-                        variant="body2"
-                        fontWeight="bold"
-                      >
-                        {item.title}
-                      </Typography>
-                      {isActive && (
-                        <Typography variant="caption">
-                          {item.description}
+                    <Stack
+                      direction={'row'}
+                      gap={1}
+                      height={isActive ? 50 : 'auto'}
+                    >
+                      <Stack>{item.icon}</Stack>
+                      <Stack>
+                        <Typography
+                          variant="body2"
+                          fontWeight="bold"
+                        >
+                          {item.title}
                         </Typography>
-                      )}
+                        {isActive && (
+                          <Typography variant="caption">
+                            {item.description}
+                          </Typography>
+                        )}
+                      </Stack>
                     </Stack>
                   </Paper>
                 );
