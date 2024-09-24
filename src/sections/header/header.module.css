@@ -1,5 +1,5 @@
 .header {
-  position: fixed;
+  position: absolute;
   background-color: transparent;
   z-index: 10;
   padding: 20px 0px;
