@@ -21,25 +21,48 @@ const Categories = ({ order }: any) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const options = [
-    {
-      title: 'Category Section',
-      description:
-        'Helps users find chalets and resorts by specific themes or preferences.',
-      icon: <BrushSVG />,
-    },
-    {
-      title: 'Themes Include',
-      description:
-        'Helps users find chalets and resorts by specific themes or preferences.',
+    [
+      {
+        title: 'Category Section',
+        description:
+          'Helps users find chalets and resorts by specific themes or preferences.',
+        icon: <BrushSVG />,
+      },
+      {
+        title: 'Themes Include',
+        description:
+          'Helps users find chalets and resorts by specific themes or preferences.',
 
-      icon: <BookSVG />,
-    },
-    {
-      title: 'Efficient Booking',
-      description:
-        'Helps users find chalets and resorts by specific themes or preferences.',
-      icon: <BlankSVG />,
-    },
+        icon: <BookSVG />,
+      },
+      {
+        title: 'Efficient Booking',
+        description:
+          'Helps users find chalets and resorts by specific themes or preferences.',
+        icon: <BlankSVG />,
+      },
+    ],
+    [
+      {
+        title: 'Access Financials',
+        description:
+          'Review transaction history, earnings, and manage financial details related to bookings.',
+        icon: <BrushSVG />,
+      },
+      {
+        title: 'Communicate with Guests',
+        description:
+          'Review transaction history, earnings, and manage financial details related to bookings.',
+
+        icon: <BookSVG />,
+      },
+      {
+        title: 'Monitor Reservations',
+        description:
+          'Review transaction history, earnings, and manage financial details related to bookings.',
+        icon: <BlankSVG />,
+      },
+    ],
   ];
 
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -162,7 +185,7 @@ const Categories = ({ order }: any) => {
               direction="column"
               alignItems={isSmallScreen ? 'center' : 'flex-start'}
             >
-              {options.map((item, index) => {
+              {options[order].map((item, index) => {
                 const isActive = activeIndex === index;
                 return (
                   <Paper

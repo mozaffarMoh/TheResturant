@@ -49,9 +49,7 @@ module.exports = {
       version: 'detect',
     },
     'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      },
+  
     },
   },
 };
