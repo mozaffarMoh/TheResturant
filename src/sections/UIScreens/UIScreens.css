@@ -13,7 +13,10 @@
     .slide {
         opacity: 0.7;
         transition: opacity 0.3s ease, transform 0.3s ease;
-        transform: scale(0.7);
+        transform: scale(.9, .8);
+        position: relative;
+
+        right: 10px;
 
         img {
             border-radius: 20px;
@@ -24,7 +27,7 @@
 
     /* Larger size and full opacity for center slide */
     .active-slider {
-        transform: scale(.9) !important;
+        transform: scale(1) !important;
         opacity: 1 !important;
         transition: transform 0.3s ease;
 
@@ -38,7 +41,7 @@
         display: none !important;
     }
 
-    
+
 
     /* Custom arrow positioning */
     .slick-prev,
@@ -80,9 +83,16 @@
         opacity: 1;
     }
 
-    @media (max-width:500px) {
-        .slider-image {
-            margin: auto;
+    @media (max-width:550px) {
+
+
+        .slide {
+
+            right: 0px;
+   
+            img {
+                margin: auto;
+            }
         }
 
 

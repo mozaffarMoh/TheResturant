@@ -106,25 +106,25 @@ const UIScreens = () => {
     afterChange: handleAfterChange,
     responsive: [
       {
-        breakpoint: 1100, // For tablet screens
+        breakpoint: 1150, // For tablet screens
         settings: {
           slidesToShow: 4,
         },
       },
       {
-        breakpoint: 900, // For tablet screens
+        breakpoint: 950, // For tablet screens
         settings: {
           slidesToShow: 3,
         },
       },
       {
-        breakpoint: 720, // For mobile screens
+        breakpoint: 770, // For mobile screens
         settings: {
           slidesToShow: 2,
         },
       },
       {
-        breakpoint: 500, // For mobile screens
+        breakpoint: 550, // For mobile screens
         settings: {
           slidesToShow: 1,
           centerMode: true, // Enable centering mode
