@@ -12,7 +12,9 @@
     height: 100%;
 }
 
-
+.storeButton{
+    direction: ltr !important;
+}
 
 @media (max-width:900px) {
     .hero {

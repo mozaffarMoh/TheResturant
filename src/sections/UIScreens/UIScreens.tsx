@@ -97,10 +97,10 @@ const UIScreens = () => {
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
-    centerMode: true, // Enable center mode
-    centerPadding: '0px', // Center without padding
-    nextArrow: <CustomNextArrow />, // Use your custom arrow component
-    prevArrow: <CustomPrevArrow />, // Use your custom arrow component
+    centerMode: true, 
+    centerPadding: '0px', 
+    nextArrow: <CustomNextArrow />, 
+    prevArrow: <CustomPrevArrow />, 
     initialSlide: 1,
     beforeChange: handleBeforeChange,
     afterChange: handleAfterChange,

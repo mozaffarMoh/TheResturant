@@ -19,7 +19,7 @@ import { blackButton } from '@/constant/color';
 import { useTranslations } from 'next-intl';
 
 const HeroSection = () => {
-  const t = useTranslations()
+  const t = useTranslations();
   const isScreen450 = useMediaQuery('(max-width:450px)');
   const isScreen900 = useMediaQuery('(max-width:900px)');
   return (
@@ -57,7 +57,7 @@ const HeroSection = () => {
                   fontSize={16}
                   color={'white'}
                 >
-                 {t('subTitles.hero')}
+                  {t('subTitles.hero')}
                 </Typography>
               </Box>
               <Stack
@@ -75,6 +75,7 @@ const HeroSection = () => {
                   color={'white'}
                   bgcolor={blackButton}
                   gap={1}
+                  className={styles.storeButton}
                   sx={{ cursor: 'pointer' }}
                 >
                   <Image
@@ -83,7 +84,7 @@ const HeroSection = () => {
                     width={24}
                     height={26}
                   />
-                  <Stack textAlign={"start"}>
+                  <Stack textAlign={'left'} >
                     <Typography fontSize={9}>GET IT ON</Typography>
                     <Typography
                       lineHeight={1}
@@ -97,6 +98,7 @@ const HeroSection = () => {
                   direction="row"
                   alignItems="center"
                   justifyContent="center"
+                  className={styles.storeButton}
                   padding={isScreen450 ? 1 : 3}
                   borderRadius={9}
                   color={'white'}
