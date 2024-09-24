@@ -11,26 +11,7 @@
         "contact-us": "تواصل معنا"
     },
     "footer": {
-        "title": "إشترك في النشرة الإخبارية",
-        "subtitle": "أدخل بريدك الإلكتروني ليصلك كل جديد في نشرتنا الإخبارية",
         "subscribe": "اشترك",
-        "our-company": "شركتنا",
-        "menu": "القائمة",
-        "links": "الروابط",
-        "about-us": "من نحن",
-        "terms-of-use": "شروط الاستخدام",
-        "privacy-policy": "الخصوصية والسياسة",
-        "contact-us": "تواصل معنا",
-        "community": "المجتمع",
-        "student-perks": "مزايا الطلاب",
-        "blog": "المدونة",
-        "affiliate-program": " برنامج الشركاء",
-        "careers": "الوظائف",
-        "support": "الدعم",
-        "documentations": "التوثيقات",
-        "forums": "المنتديات",
-        "languages-packs": "حزم اللغات",
-        "release-status": "حالة الإصدار",
         "copyRights": "المنصة. جميع الحقوق محفوظة "
     },
     "buttons": {

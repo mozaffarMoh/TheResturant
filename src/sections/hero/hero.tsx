@@ -1,6 +1,8 @@
 'use client';
 import {
+  appleIcon,
   appleStoreButton,
+  googleIcon,
   googlePlayButton,
   logoLargeImage,
   phonesImage,
@@ -18,6 +20,7 @@ import {
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { blackButton } from '@/constant/color';
+import { CashSVG } from '../../../assets/icons';
 
 const HeroSection = () => {
   const pathname = usePathname();
@@ -65,39 +68,64 @@ const HeroSection = () => {
               </Box>
               <Stack
                 height={50}
-                direction={'row'}
+                direction={isScreen450 ? 'column' : 'row'}
                 gap={1}
               >
-                <Button
-                  sx={{
-                    background: blackButton,
-                    padding: 3,
-                    borderRadius: 10,
-                    cursor: 'pointer',
-                  }}
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="center"
+                  padding={isScreen450 ? 1 : 3}
+                  paddingX={3}
+                  borderRadius={10}
+                  color={'white'}
+                  bgcolor={blackButton}
+                  gap={1}
+                  sx={{ cursor: 'pointer' }}
                 >
                   <Image
-                    src={googlePlayButton}
-                    width={isScreen450 ? 80 : 120}
-                    height={isScreen450 ? 20 : 30}
-                    alt="google-play-button"
+                    src={googleIcon} // Replace with your image path
+                    alt="google play Store"
+                    width={24}
+                    height={26}
                   />
-                </Button>
-                <Button
-                  sx={{
-                    background: blackButton,
-                    padding: 3,
-                    borderRadius: 10,
-                    cursor: 'pointer',
-                  }}
+                  <Stack textAlign={"start"}>
+                    <Typography fontSize={9}>GET IT ON</Typography>
+                    <Typography
+                      lineHeight={1}
+                      fontSize={15}
+                    >
+                      Google Play
+                    </Typography>
+                  </Stack>
+                </Stack>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="center"
+                  padding={isScreen450 ? 1 : 3}
+                  borderRadius={9}
+                  color={'white'}
+                  bgcolor={blackButton}
+                  gap={1}
+                  sx={{ cursor: 'pointer' }}
                 >
                   <Image
-                    src={appleStoreButton}
-                    width={isScreen450 ? 80 : 120}
-                    height={isScreen450 ? 20 : 30}
-                    alt="apple-store"
+                    src={appleIcon} // Replace with your image path
+                    alt="Apple App Store"
+                    width={24}
+                    height={26}
                   />
-                </Button>
+                  <Stack>
+                    <Typography fontSize={10}>Download on the</Typography>
+                    <Typography
+                      lineHeight={1}
+                      fontSize={15}
+                    >
+                      App Store
+                    </Typography>
+                  </Stack>
+                </Stack>
               </Stack>
             </Stack>
           </Grid>

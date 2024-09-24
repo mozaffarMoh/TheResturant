@@ -35,3 +35,7 @@ export const LinkedInIcon = '/images/icons/LinkedIn.png';
 export const TwitterIcon = '/images/icons/Twitter.png';
 export const rightArrow = '/images/icons/rightArrow.png';
 export const leftArrow = '/images/icons/leftArrow.png';
+export const appleIcon = '/images/icons/apple.png';
+export const googleIcon = '/images/icons/google.png';
+
+
