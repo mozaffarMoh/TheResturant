@@ -88,6 +88,7 @@ const Testimonials = () => {
       paddingY={10}
       className="testimonials"
       id="contact-us"
+      style={{ scrollMarginTop: '120px' }}
     >
       <Stack
         alignItems={'center'}

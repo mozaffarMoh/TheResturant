@@ -11,6 +11,8 @@ import Image from 'next/image';
 import { useTheme } from '@mui/material/styles';
 import './UIScreens.css';
 import {
+  leftArrow,
+  rightArrow,
   tree1Image,
   uiScreen1,
   uiScreen2,
@@ -18,20 +20,30 @@ import {
   uiScreen4,
   uiScreen5,
 } from '@/constant/images';
-import { ArrowCircleLeftSVG, ArrowCircleRightSVG } from '../../../assets/icons';
+import { usePathname } from 'next/navigation';
 
 const images = [uiScreen1, uiScreen2, uiScreen3, uiScreen4, uiScreen5];
 
 const UIScreens = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const isScreen500 = useMediaQuery('(max-width:500px)');
+  const pathname = usePathname();
+  const isArabic = pathname.startsWith('/ar');
   const isScreen900 = useMediaQuery('(max-width:900px)');
   const centerIndex = Math.floor(images.length / 2);
   const [activeIndex, setActiveIndex] = React.useState(centerIndex);
 
-  const handleAfterChange = (current: any) => {
-    setActiveIndex(current + 1);
+  const handleUpdateIndex = (newIndex: any) => {
+    const centerIndex = newIndex + 1;
+    const updatedValue = centerIndex == images.length ? 0 : centerIndex;
+    setActiveIndex(updatedValue);
+  };
+  const handleAfterChange = (newIndex: any) => {
+    handleUpdateIndex(newIndex);
+  };
+
+  const handleBeforeChange = (oldIndex: any, newIndex: any) => {
+    handleUpdateIndex(newIndex);
   };
 
   const CustomNextArrow = (props: any) => {
@@ -39,10 +51,15 @@ const UIScreens = () => {
     return (
       <div
         className={className}
-        style={{ ...style, display: 'block', right: '20%', zIndex: 1 }}
+        style={{ right: '20%', zIndex: 1 }}
         onClick={onClick}
       >
-        <ArrowCircleRightSVG />
+        <Image
+          src={rightArrow}
+          alt="right-arrow"
+          width={60}
+          height={60}
+        />
       </div>
     );
   };
@@ -52,10 +69,15 @@ const UIScreens = () => {
     return (
       <div
         className={className}
-        style={{ ...style, display: 'block', left: '20%', zIndex: 1 }}
+        style={{ left: '20%', zIndex: 1 }}
         onClick={onClick}
       >
-        <ArrowCircleLeftSVG />
+        <Image
+          src={leftArrow}
+          alt="left-arrow"
+          width={60}
+          height={60}
+        />
       </div>
     );
   };
@@ -64,14 +86,14 @@ const UIScreens = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 5, // Show 3 slides
+    slidesToShow: 5,
     slidesToScroll: 1,
     centerMode: true, // Enable center mode
     centerPadding: '0', // Center without padding
     nextArrow: <CustomNextArrow />, // Use your custom arrow component
     prevArrow: <CustomPrevArrow />, // Use your custom arrow component
-    initialSlide: 3,
-    beforeChange: (oldIndex: any, newIndex: any) => setActiveIndex(newIndex),
+    initialSlide: 1,
+    beforeChange: handleBeforeChange,
     afterChange: handleAfterChange,
     responsive: [
       {
@@ -102,10 +124,12 @@ const UIScreens = () => {
       },
     ],
   };
+
   return (
     <Box
       position={'relative'}
       id="ui-screens"
+      style={{ scrollMarginTop: '120px' }}
     >
       <Box
         position={'absolute'}
@@ -131,25 +155,27 @@ const UIScreens = () => {
         </Typography>
       </Stack>
       <Stack
-        className="ui-screens"
         paddingY={10}
+        className="ui-screens"
       >
         <Container>
           <Slider {...settings}>
             {images.map((image, index) => {
+              const isActive = index === activeIndex;
+
               return (
                 <Box
                   key={index}
                   marginTop={10}
                   sx={{ textAlign: 'center' }}
-                  className={`slide ${index === activeIndex ? 'center-slide' : ''}`} // Apply custom class to center slide
+                  className={`slide ${isActive ? 'active-slider' : ''}`} // Apply custom class to center slide
                 >
                   <Image
                     src={image}
                     alt={`slide-${index}`}
                     width={isSmallScreen ? 250 : 250} // Dynamic sizing
                     height={isSmallScreen ? 500 : 500}
-                    className={`slider-image ${index === activeIndex ? 'active-image' : ''}`} // Conditional class for active image
+                    className={`slider-image ${isActive ? 'active-image' : ''}`}
                   />
                 </Box>
               );

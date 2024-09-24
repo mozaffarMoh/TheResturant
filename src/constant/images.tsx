@@ -33,3 +33,5 @@ export const FacebookIcon = '/images/icons/Facebook.png';
 export const InstagramIcon = '/images/icons/Instagram.png';
 export const LinkedInIcon = '/images/icons/LinkedIn.png';
 export const TwitterIcon = '/images/icons/Twitter.png';
+export const rightArrow = '/images/icons/rightArrow.png';
+export const leftArrow = '/images/icons/leftArrow.png';

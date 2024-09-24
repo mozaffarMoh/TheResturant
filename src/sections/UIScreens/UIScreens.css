@@ -1,35 +1,41 @@
 /* Center slide larger */
-* {
-    direction: ltr !important;
-}
+
+
+
 
 .ui-screens {
     background: linear-gradient(180deg, #F8FCFD 0%, #8CCCDD 100%);
 
+    /*    * {
+        direction: ltr !important; 
+        text-align: left !important;
+      } 
+      */
 
-    .slick-center {
-        transform: scale(1.25);
-        /* Make center slide larger */
-        transition: transform 0.3s ease;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 
     /* Smaller size for non-center slides */
-    .slick-slide {
+    .slide {
         opacity: 0.7;
-        /* Lower opacity for non-active slides */
         transition: opacity 0.3s ease, transform 0.3s ease;
-        transform: scale(0.8);
-        /* Scale down non-center slides */
+        transform: scale(0.7);
+
+        img {
+            border-radius: 20px;
+        }
     }
 
+
+
     /* Larger size and full opacity for center slide */
-    .slick-center.slick-slide {
-        opacity: 1;
-        transform: scale(1);
-        /* Ensure the center slide is scaled correctly */
+    .active-slider {
+        transform: scale(.8) !important;
+        opacity: 1 !important;
+        transition: transform 0.3s ease;
+
+
+        img {
+            opacity: 1 !important;
+        }
     }
 
     .slick-arrow.slick-next::before,
@@ -74,22 +80,8 @@
         margin-top: 10px;
         font-size: 16px;
         color: white;
-        /* Ensure the active dot is also white */
         opacity: 1;
     }
-
-    /* Image container styling */
-    .slide {
-        text-align: center;
-    }
-
-    .slider-image {
-        border-radius: 20px;
-    }
-
-    /* Active image styling */
-
-
 
     @media (max-width:500px) {
         .slider-image {

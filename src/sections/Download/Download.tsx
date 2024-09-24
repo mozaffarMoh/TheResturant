@@ -55,7 +55,7 @@ const Download = () => {
       </Stack>
       <Stack
         height={50}
-        direction={isScreen650 ? 'column':'row'}
+        direction={isScreen650 ? 'column' : 'row'}
         justifyContent={'center'}
         alignItems={'center'}
         marginTop={5}

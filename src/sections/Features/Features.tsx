@@ -60,7 +60,10 @@ const FeatureCard = ({ icon, title, description, backgroundImage }: any) => {
 
 const Features = () => {
   return (
-    <Container id="features">
+    <Container
+      id="features"
+      style={{ scrollMarginTop: '120px' }}
+    >
       <Stack
         textAlign={'center'}
         marginTop={10}

@@ -40,7 +40,10 @@ const FAQsSection = () => {
   };
 
   return (
-    <Container id="faq">
+    <Container
+      id="faq"
+      style={{ scrollMarginTop: '120px' }}
+    >
       <Stack
         alignItems={'center'}
         marginTop={25}
