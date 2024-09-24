@@ -29,7 +29,9 @@ const useStyles = makeStyles({
     },
     '&:not(.Mui-selected)': {
       color: '#FF8704', // Orange for non-selected
-      borderRadius:'20px'
+      borderRadius:'20px',
+      padding:'15px',
+      
     },
   },
 });

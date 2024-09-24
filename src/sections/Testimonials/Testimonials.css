@@ -4,7 +4,7 @@
   .testimonials-container {
     background-image: url('/images/FAQsBG.png');
     background-size: cover;
-    height: 100%;
+    height: 600px;
   }
 
   .testimonial-card {
@@ -34,15 +34,10 @@
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 930px) {
   .testimonials {
-
     .testimonials-container {
-
-      background-image: url('/images/FAQsBG.png');
-      background-size: cover;
       height: 800px;
-
     }
   }
 

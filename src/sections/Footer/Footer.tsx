@@ -40,7 +40,7 @@ const Footer = () => {
         background: `url(${footerBG})`,
         backgroundSize: 'cover',
       }}
-      height={600}
+      height={700}
       color={'white'}
       alignItems={'center'}
       justifyContent={'flex-end'}

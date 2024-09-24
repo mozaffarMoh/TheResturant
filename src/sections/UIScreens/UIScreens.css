@@ -1,8 +1,10 @@
 /* Center slide larger */
+* {
+    direction: ltr !important;
+}
 
 .ui-screens {
     background: linear-gradient(180deg, #F8FCFD 0%, #8CCCDD 100%);
-
 
 
     .slick-center {
