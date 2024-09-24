@@ -21,12 +21,13 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { blackButton } from '@/constant/color';
 import { CashSVG } from '../../../assets/icons';
+import { useTranslations } from 'next-intl';
 
 const HeroSection = () => {
   const pathname = usePathname();
+  const t = useTranslations()
   const isScreen450 = useMediaQuery('(max-width:450px)');
   const isScreen900 = useMediaQuery('(max-width:900px)');
-  let isArabic = pathname.startsWith('/ar');
   return (
     <div
       className={styles.hero}
@@ -62,8 +63,7 @@ const HeroSection = () => {
                   fontSize={16}
                   color={'white'}
                 >
-                  The best app for booking chalets and resorts effortlessly,
-                  with customized options and a seamless booking experience
+                 {t('subTitles.hero')}
                 </Typography>
               </Box>
               <Stack

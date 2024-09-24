@@ -21,10 +21,12 @@ import {
   uiScreen5,
 } from '@/constant/images';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const images = [uiScreen1, uiScreen2, uiScreen3, uiScreen4, uiScreen5];
 
 const UIScreens = () => {
+  const t = useTranslations();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const pathname = usePathname();
@@ -151,7 +153,7 @@ const UIScreens = () => {
           variant="h3"
           fontWeight={600}
         >
-          UI screens
+          {t('header.ui-screens')}
         </Typography>
       </Stack>
       <Stack

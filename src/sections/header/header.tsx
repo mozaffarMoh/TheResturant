@@ -81,17 +81,18 @@ const Header = () => {
   }, [isScreen991]);
 
   return (
-    <Container maxWidth="lg">
-      <Grid
-        container
-        className={styles.header}
-      >
+    <Container
+      maxWidth="lg"
+      className={`${styles.header} ${isArabic ? styles.toLeft : styles.toRight}`}
+    >
+      <Grid container>
         <Grid
           item
           xs={3}
           sm={6}
           md={3}
           paddingTop={1}
+          className={isArabic ? styles.moveToRight : styles.moveToLeft}
         >
           <Image
             width={110}

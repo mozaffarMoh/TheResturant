@@ -1,4 +1,3 @@
-
 /* Extra Bold */
 @font-face {
   font-family: 'Bahij TheSansArabic';
@@ -46,6 +45,10 @@
   margin: 0px;
   box-sizing: border-box;
   scroll-behavior: smooth;
+}
+
+body{
+  overflow-x: hidden !important;
 }
 
 .arabicFont {

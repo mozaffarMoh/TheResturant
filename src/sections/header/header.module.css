@@ -2,7 +2,24 @@
   position: absolute;
   background-color: transparent;
   z-index: 10;
+  top: 0px;
   padding: 20px 0px;
+}
+
+.toLeft {
+  left: 0px;
+}
+
+.toRight {
+  right: 0px;
+}
+
+.moveToRight {
+  margin-right:20px !important;
+}
+
+.moveToLeft {
+  margin-left: 20px !important;
 }
 
 .headerDivContainer {
