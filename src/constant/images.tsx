@@ -24,7 +24,7 @@ export const featuresBG3 = '/images/features/features-bg-3.png';
 export const featuresBG4 = '/images/features/features-bg-4.png';
 export const circleCoverLeft = '/images/ui-screens/circleCoverLeft.png';
 export const circleCoverRight = '/images/ui-screens/circleCoverRight.png';
-export const FAQsBG = '/images/FAQsBG.jpg';
+export const FAQsBG = '/images/FAQsBG.png';
 export const footerBG = '/images/footerBG.jpg';
 
 /* Icons */
