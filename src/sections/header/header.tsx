@@ -63,10 +63,10 @@ const Header = () => {
       title: t('header.faq'),
       link: '#faq',
     },
-    {
+/*     {
       title: t('header.contact-us'),
       link: '#contact-us',
-    },
+    }, */
   ];
 
   const handleNavigation = (path: string, value: string) => {

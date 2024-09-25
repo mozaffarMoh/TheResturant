@@ -12,8 +12,8 @@ export const scanImage = '/images/download/scan.png';
 export const QRCodeImage = '/images/download/QR-Code.png';
 export const googlePlayButtonDownload = '/images/download/googlePlayButton.png';
 export const appleStoreButtonDownload = '/images/download/appleStoreButton.png';
-export const tree1Image = '/images/tree1.png';
-export const tree2Image = '/images/tree2.png';
+export const tree1Image = '/images/tree1.jpg';
+export const tree2Image = '/images/tree2.jpg';
 
 /* Backgrounds */
 export const googlePlayButton = '/images/hero/googlePlayButton.png';
@@ -24,8 +24,8 @@ export const featuresBG3 = '/images/features/features-bg-3.png';
 export const featuresBG4 = '/images/features/features-bg-4.png';
 export const circleCoverLeft = '/images/ui-screens/circleCoverLeft.png';
 export const circleCoverRight = '/images/ui-screens/circleCoverRight.png';
-export const FAQsBG = '/images/FAQsBG.png';
-export const footerBG = '/images/footerBG.png';
+export const FAQsBG = '/images/FAQsBG.jpg';
+export const footerBG = '/images/footerBG.jpg';
 
 /* Icons */
 export const YouTubeIcon = '/images/icons/YouTube.png';
