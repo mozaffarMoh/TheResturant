@@ -29,10 +29,8 @@ const UIScreens = () => {
   const t = useTranslations();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const pathname = usePathname();
-  const isArabic = pathname.startsWith('/ar');
   const isScreen720 = useMediaQuery('(max-width:720px)');
-  const isScreen900 = useMediaQuery('(max-width:900px)');
+  const isScreen1110 = useMediaQuery('(max-width:1110px)');
   const [activeIndex, setActiveIndex] = React.useState(2);
 
   useEffect(() => {
@@ -142,14 +140,14 @@ const UIScreens = () => {
     >
       <Box
         position={'absolute'}
-        top={isScreen900 ? -120 : -350}
+        top={isScreen1110 ? -120 : -350}
         right={0}
       >
         <Image
           src={tree1Image}
           alt="tree-1"
-          width={isScreen900 ? 100 : 250}
-          height={isScreen900 ? 150 : 400}
+          width={isScreen1110 ? 100 : 250}
+          height={isScreen1110 ? 150 : 400}
         />
       </Box>
       <Stack

@@ -12,8 +12,8 @@ export const scanImage = '/images/download/scan.png';
 export const QRCodeImage = '/images/download/QR-Code.png';
 export const googlePlayButtonDownload = '/images/download/googlePlayButton.png';
 export const appleStoreButtonDownload = '/images/download/appleStoreButton.png';
-export const tree1Image = '/images/tree1.jpg';
-export const tree2Image = '/images/tree2.jpg';
+export const tree1Image = '/images/tree1.png';
+export const tree2Image = '/images/tree2.png';
 
 /* Backgrounds */
 export const googlePlayButton = '/images/hero/googlePlayButton.png';
