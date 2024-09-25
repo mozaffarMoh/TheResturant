@@ -39,10 +39,10 @@
     .testimonials-container {
       height: 800px;
     }
-  }
 
-  .testimonial-card {
-    width: 100%;
+    .testimonial-card {
+      width: 100%;
+    }
   }
 
 
@@ -50,8 +50,15 @@
 
 
 @media (max-width: 420px) {
-  .testimonial-card {
-    width: 250px !important;
+  .testimonials {
+    .testimonials-container {
+      height: 1100px;
+    }
+
+    .testimonial-card {
+      width: 250px;
+      height: 100%;
+    }
   }
 
 }
