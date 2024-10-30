@@ -23,12 +23,12 @@ const useStyles = makeStyles({
     height: 28,
 
     '&.Mui-selected': {
-      backgroundColor: '#FF8704 !important', // Orange color for selected language
+      backgroundColor: '#ECB740 !important', // Orange color for selected language
       color: '#fff',
       borderRadius: '20px',
     },
     '&:not(.Mui-selected)': {
-      color: '#FF8704', // Orange for non-selected
+      color: '#ECB740',
       borderRadius:'20px',
       padding:'15px',
       

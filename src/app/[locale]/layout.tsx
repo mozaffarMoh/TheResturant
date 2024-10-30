@@ -6,8 +6,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 export const metadata: Metadata = {
-  title: 'Hostin',
-  description: 'Welcome To The Hostin Website',
+  title: 'The ExpertTeam & Partner',
+  description: 'Welcome To The The ExpertTeam & Partner Website',
   icons: {
     icon: '/favicon.svg',
   },
@@ -23,12 +23,14 @@ export default async function LocaleLayout({
   // Providing all messages to the client
   const messages = await getMessages();
   const isArabic = locale === 'ar';
-  metadata.title = isArabic ? 'هوستن' : 'Hostin';
+  metadata.title = isArabic
+    ? 'فريق الخبراء وشريكهم'
+    : 'The ExpertTeam & Partner';
 
   return (
     <html
       lang={locale}
-     // dir={isArabic ? 'rtl' : 'ltr'}
+      dir={isArabic ? 'rtl' : 'ltr'}
       className={isArabic ? 'arabicFont' : 'englishFont'}
     >
       <body>
