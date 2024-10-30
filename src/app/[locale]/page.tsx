@@ -1,18 +1,14 @@
 'use client';
+import { Bill, MenuList } from '@/components';
+import { Stack } from '@mui/material';
 import type { NextPage } from 'next';
-import {
-  Footer,
-  Header,
-  HeroSection,
-} from '@/sections';
 
 const HomePage: NextPage = () => {
   return (
-    <>
-      <Header />
-      <HeroSection />
-      <Footer />
-    </>
+    <Stack direction={"row"} flexWrap={"wrap"}>
+      <MenuList />
+      <Bill />
+    </Stack>
   );
 };
 

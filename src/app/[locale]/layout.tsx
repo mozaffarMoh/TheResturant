@@ -6,10 +6,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 export const metadata: Metadata = {
-  title: 'The ExpertTeam & Partner',
-  description: 'Welcome To The The ExpertTeam & Partner Website',
+  title: 'TheResturant',
+  description: 'Welcome To The The TheResturant website',
   icons: {
-    icon: '/favicon.svg',
+    icon: '/favicon.ico',
   },
 };
 
@@ -23,9 +23,7 @@ export default async function LocaleLayout({
   // Providing all messages to the client
   const messages = await getMessages();
   const isArabic = locale === 'ar';
-  metadata.title = isArabic
-    ? 'فريق الخبراء وشريكهم'
-    : 'The ExpertTeam & Partner';
+  metadata.title = isArabic ? 'المطعم' : 'TheResturant';
 
   return (
     <html
